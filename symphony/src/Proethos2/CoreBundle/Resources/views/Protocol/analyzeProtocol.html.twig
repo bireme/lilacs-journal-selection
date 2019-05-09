@@ -1,0 +1,160 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{% trans %}Analyze Protocol{% endtrans %}{% endblock %}
+
+{% block content %}
+    
+    <div class="container-fluid main-content see-submission">
+
+        <div class="row">
+            <div class='col-md-12'>
+                <h1 class="page-header">{% trans %}Analyze Protocol{% endtrans %}</h1>
+            </div>
+        </div>
+        
+        {% include 'Proethos2CoreBundle:Protocol:meta.html.twig' %}
+
+        <!-- action -->
+        <form method="POST" id='form-action'>
+            <input type="hidden" id="input-is-reject" name="is-reject" value="true">
+            <input type="hidden" id="input-send-to" name="send-to" value="">
+            
+            <div class='block action'>
+                <a name='action'></a>
+                <div class='row'>
+                    <div class="col-md-12">
+                        <h2 class='sub-header'>{% trans %}Actions{% endtrans %}:</h2>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class='radio'>
+                                <label for="input-reject-submission">
+                                    <input type='radio' id='input-reject-submission' name='action' value='accept' /> {% trans %}Reject Submission{% endtrans %}
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 127} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                </label> 
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id='group-reject-submission'>
+                            <label for="">{% trans %}Return reason{% endtrans %}:</label> 
+                            <a href="{{ path("crud_admin_help_show", {help_id: 128} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <textarea class="form-control" id="textarea-reject-reason" name='reject-reason'></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class='radio'>
+                                <label for="input-accept-submission">
+                                    <input type='radio' id='input-accept-submission' name='action' value='accept' /> {% trans %}Accept Submission{% endtrans %}
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 129} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                </label> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='submission-button-controls col-md-12'>
+                    <button type="submit" class='btn btn-danger' id='button-reject-submission'>{% trans %}Send back to investigator{% endtrans %}</button>
+                    <button class='btn btn-primary' id='button-send-to-committee'>{% trans %}Send to committee to decide{% endtrans %}</button>
+                    <button class='btn btn-primary' id='button-send-to-ethical-revision'>{% trans %}Send to ethical revision{% endtrans %}</button>
+                    {% if protocol.monitoringAction %}
+                        <span data-toggle='tooltip' data-placement='top' title="{% trans %}This monitoring action will not be reviewed by the committee{% endtrans %}">
+                            <button type='button' class='btn btn-success' data-toggle='modal' data-target='#modal-confirm' id='button-accept-as-notification'>{% trans %}Accept as Notification{% endtrans %}</button>
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+        </form>
+        
+    </div>
+
+    <!-- Modal confirm -->
+    <div class="modal fade" id="modal-confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{% trans %}Confirm?{% endtrans %}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>{% trans %}Are you sure that you want to end this protocol evaluation?{% endtrans %}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                        <button type="button" class="btn btn-success" id='notification-submit'>{% trans %}Confirm{% endtrans %}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(function(){
+            
+            $("[id^=button-]").hide();
+            $("[id^=group-]").hide();
+
+            $("#form-action input[name='action']").change(function(){
+                var id = $(this).attr('id');
+                if(id.search("reject") >= 0) {
+                    reject();
+                } else {
+                    accept();
+                }
+            });
+
+            $("body").on("click", "#button-send-to-committee", function(e){
+                $("#input-send-to").val('comittee');
+                $("#input-is-reject").val('false');
+                $("#form-action").submit();
+            });
+            
+            $("body").on("click", "#button-send-to-ethical-revision", function(e){
+                $("#input-send-to").val('ethical-revision');
+                $("#input-is-reject").val('false');
+                $("#form-action").submit();
+            });
+
+            {% if protocol.monitoringAction %}
+                $("body").on("click", "#notification-submit", function(e){
+                    $("#input-send-to").val('notification-only');
+                    $("#input-is-reject").val('false');
+                    $("#form-action").submit();
+                });
+            {% endif %}
+        });
+
+        function reject() {
+            $("#group-reject-submission").show();
+            $("#button-reject-submission").show();
+
+            $("#textarea-reject-reason").prop('required', true);
+
+            $("#button-send-to-committee").hide();
+            $("#button-send-to-ethical-revision").hide();
+            $("#button-accept-as-notification").hide();
+        }
+
+        function accept() {
+            $("#group-reject-submission").hide();
+            $("#button-reject-submission").hide();
+            
+            $("#textarea-reject-reason").prop('required', false);
+
+            $("#button-send-to-committee").show();
+            $("#button-send-to-ethical-revision").show();
+
+            {% if protocol.monitoringAction %}
+                $("#button-accept-as-notification").show();
+            {% endif %}
+        }
+    </script>
+{% endblock %}

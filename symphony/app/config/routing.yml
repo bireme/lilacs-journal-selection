@@ -1,0 +1,6 @@
+proethos2_core:
+    resource: "@Proethos2CoreBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+

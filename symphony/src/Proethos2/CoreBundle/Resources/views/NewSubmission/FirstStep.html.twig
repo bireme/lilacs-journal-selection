@@ -1,0 +1,108 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{% trans %}New submission{% endtrans %}{% endblock %}
+
+{% block content %}
+    <div class="container-fluid main-content">
+        <div class="row">
+            <div class='col-md-12'>
+                <h1 class="page-header">{% trans %}New submission{% endtrans %}</h1>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col-md-12'>
+                <ul class="nav nav-tabs" id='new-submission-tab'>
+                    <li role="presentation" class='active'>
+                        <a href="{{ path("submission_new_first_step") }}" title="{% trans %}First Information{% endtrans %}">
+                            {% trans %}First Information{% endtrans %}
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="javascript:void(0)" title="{% trans %}About Project{% endtrans %}">{% trans %}About Project{% endtrans %}</a>
+                    </li>
+                    <li role="presentation"><a href="javascript:void(0)">{% trans %}Clinical study{% endtrans %}</a></li>
+                    <li role="presentation"><a href="javascript:void(0)">{% trans %}Additional Information{% endtrans %}</a></li>
+                    <li role="presentation"><a href="javascript:void(0)">{% trans %}Bibliography{% endtrans %}</a></li>
+                    <li role="presentation"><a href="javascript:void(0)">{% trans %}Attached Files{% endtrans %}</a></li>
+                    <li role="presentation"><a href="javascript:void(0)">{% trans %}Revision{% endtrans %}</a></li
+                </ul>
+            </div>
+        </div>
+
+        <div class='new-submission-tab-content'>
+            <div class='row submission-meta'> </div>
+
+            <div class='row'>
+                <div class='col-md-12'>
+                    <form id="first_step" class='form' method='POST' action='{{ path("submission_new_first_step") }}'>
+                        <fieldset>
+                            <legend>{% trans %}Language{% endtrans %}</legend>
+                            <div class="form-group required">
+                                <label for="select-language">{% trans %}Submission Language{% endtrans %}:</label>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 198} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <select class='form-control select2' id='select-language' name='language'>
+                                    <option value="">-</option>
+                                    <option value="pt_BR" {% if app.request.locale == 'pt_BR' %}selected{% endif %}>Português</option>
+                                    <option value="es_ES" {% if app.request.locale == 'es_ES' %}selected{% endif %}>Español</option>
+                                    <option value="en" {% if app.request.locale == 'en' %}selected{% endif %}>English</option>
+                                    <option value="fr_FR" {% if app.request.locale == 'fr_FR' %}selected{% endif %}>Français</option>
+                                </select>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>{% trans %}Clinical Trial{% endtrans %}</legend>
+                            <div class="form-group required">
+                                <label for="">{% trans %}Clinical Trial{% endtrans %}?</label>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 13} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <div class="radio">
+                                    <label><input type="radio" name="is_clinical_trial" id="radio_clinical_trial_yes" value="yes" required> {% trans %}Yes{% endtrans %}</label>
+                                    <label><input type="radio" name="is_clinical_trial" id="radio_clinical_trial_no" value="no" required checked> {% trans %}No{% endtrans %}</label>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>{% trans %}Consultation{% endtrans %}</legend>
+                            <div class="form-group required">
+                                <label for="">{% trans %}Consultation{% endtrans %}?</label>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 199} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <div class="radio">
+                                    <label><input type="radio" name="is_consultation" id="radio_consultation_yes" value="yes" required> {% trans %}Yes{% endtrans %}</label>
+                                    <label><input type="radio" name="is_consultation" id="radio_consultation_no" value="no" required checked> {% trans %}No{% endtrans %}</label>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>{% trans %}Project Title{% endtrans %}</legend>
+
+                            <div class="form-group required">
+                                <label for="input_scientific_title">{% trans %}Scientific Title{% endtrans %}:</label>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <input type="text" class="form-control" name='scientific_title' id='input_scientific_title' required>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="input_public_title">{% trans %}Public title{% endtrans %}:</label>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 15} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <input type="text" class="form-control" name='public_title' id='input_public_title' required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="input_title_acronym">{% trans %}Title Acronym{% endtrans %}:</label>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 16} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <input type="text" class="form-control" name='title_acronym' id='input_title_acronym'>
+                            </div>
+                        </fieldset>
+
+                        <div class='submission-button-controls'>
+                            <button type='submit' class='btn btn-primary'>{% trans %}Save and next{% endtrans %}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+security:
+    encoders:
+        Proethos2\ModelBundle\Entity\User:
+            algorithm: bcrypt
+
+    providers:
+        our_db_provider:
+            entity:
+                class: Proethos2ModelBundle:User
+                property: username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+            security: false
+
+        login_firewall:
+            pattern:   ^/login$
+            anonymous: ~
+
+        public_firewall:
+            pattern:   ^/public/
+            anonymous: ~
+
+        locale_firewall:
+            pattern:   ^/locale/
+            anonymous: ~
+
+        default:
+            provider: our_db_provider
+            pattern:    ^/
+            http_basic: ~
+            form_login:
+                login_path: /login
+                check_path: /login_check
+            logout:
+                path:   /logout
+                target: /

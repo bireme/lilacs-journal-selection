@@ -1,0 +1,49 @@
+<form class='form' method="POST" id='form-new-help' action="{{ path('crud_admin_help_update', {help_id: help.id} ) }}">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{% trans %}Update Help{% endtrans %}</h4>
+    </div>
+    <div class="modal-body">
+        
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class="form-group">
+                    <label for="textarea-help-message-en">{% trans %}English message{% endtrans %}:</label> 
+                    <textarea rows="3" class='form-control' id="textarea-help-message-en" name="help-message-en" required>{% if translations.en is defined %}{{ translations.en.message }}{% endif %}</textarea>
+                </div>
+            </div>
+        </div>                        
+
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class="form-group">
+                    <label for="textarea-help-message-es_ES">{% trans %}Spanish message{% endtrans %}:</label> 
+                    <textarea rows="3" class='form-control' id="textarea-help-message-es_ES" name="help-message-es_ES">{% if translations.es_ES is defined %}{{ translations.es_ES.message }}{% endif %}</textarea>
+                </div>
+            </div>
+        </div>                        
+
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class="form-group">
+                    <label for="textarea-help-message-pt_BR">{% trans %}Portuguese message{% endtrans %}:</label> 
+                    <textarea rows="3" class='form-control' id="textarea-help-message-pt_BR" name="help-message-pt_BR">{% if translations.pt_BR is defined %}{{ translations.pt_BR.message }}{% endif %}</textarea>
+                </div>
+            </div>
+        </div>                        
+
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class="form-group">
+                    <label for="textarea-help-message-fr_FR">{% trans %}French message{% endtrans %}:</label> 
+                    <textarea rows="3" class='form-control' id="textarea-help-message-fr_FR" name="help-message-fr_FR">{% if translations.fr_FR is defined %}{{ translations.fr_FR.message }}{% endif %}</textarea>
+                </div>
+            </div>
+        </div>                        
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+        <button type="submit" class="btn btn-primary">{% trans %}Save{% endtrans %}</button>
+    </div>
+</form>
