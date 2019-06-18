@@ -36,6 +36,7 @@ use Proethos2\ModelBundle\Entity\SubmissionUpload;
 use Proethos2\ModelBundle\Entity\Protocol;
 use Proethos2\ModelBundle\Entity\ProtocolHistory;
 use Proethos2\ModelBundle\Entity\SubmissionClinicalTrial;
+use Proethos2\ModelBundle\Entity\Issue;
 
 class NewSubmissionController extends Controller
 {
@@ -50,7 +51,59 @@ class NewSubmissionController extends Controller
         $translator = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
 
+        // getting publication type list
+        $publication_type_repository = $em->getRepository('Proethos2ModelBundle:PublicationType');
+        $publication_type = $publication_type_repository->findAll();
+        $output['publication_type'] = $publication_type;
+
+        // getting language list
+        $language_repository = $em->getRepository('Proethos2ModelBundle:Language');
+        $language = $language_repository->findAll();
+        $output['language'] = $language;
+
+        // getting thematic area list
+        $thematic_area_repository = $em->getRepository('Proethos2ModelBundle:ThematicArea');
+        $thematic_area = $thematic_area_repository->findAll();
+        $output['thematic_area'] = $thematic_area;
+
+        // getting specialty list
+        $specialty_repository = $em->getRepository('Proethos2ModelBundle:Specialty');
+        $specialty = $specialty_repository->findAll();
+        $output['specialty'] = $specialty;
+
+        // getting frequency list
+        $frequency = array(
+            "FC"  => "Fluxo Contínuo",
+            "S"   => "Semestral",
+            "QUA" => "Quadrimestral",
+            "T"   => "Trimestral",
+            "B"   => "Bimestral",
+            "M"   => "Mensal",
+            "QUI" => "Quinzenal"  
+        );
+
+        $output['frequency'] = $frequency;
+
+        // getting support list
+        $support = array(
+            "I"  => "Impresso",
+            "E"  => "Eletrônico",
+            "IE" => "Impresso e Eletrônico"
+        );
+
+        $output['support'] = $support;
+
+        // getting fulltext list
+        $fulltext = array(
+            "T" => "Portal próprio",
+            "B" => "Repositório institucional",
+            "M" => "Não provemos acesso ao texto completo. No entanto, vamos ingressar na iniciativa LILACS-Express para disponibilizá-los"
+        );
+
+        $output['fulltext'] = $fulltext;
+
         $user = $this->get('security.token_storage')->getToken()->getUser();
+
 
         // checking if was a post request
         if($this->getRequest()->isMethod('POST')) {
@@ -58,12 +111,37 @@ class NewSubmissionController extends Controller
             // getting post data
             $post_data = $request->request->all();
 
-            // checking required files
-            foreach(array('scientific_title', 'public_title', 'is_clinical_trial', 'is_consultation', 'language') as $field) {
+            $output['post_data'] = $post_data;
+
+            // required fields
+            $required_fields = array(
+                'title',
+                'frequency',
+                'standards',
+                'creation_year',
+                'support',
+                'fulltext',
+                'mission',
+                'publication_type',
+                'language',
+                'thematic_area',
+                'specialty',
+                'funded_by_cnpq',
+                'funders'
+            );
+
+            // checking required fields
+            foreach($required_fields as $field) {
                 if(!isset($post_data[$field]) or empty($post_data[$field])) {
                     $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
-                    return array();
+                    return $output;
                 }
+            }
+
+            // checking required fields
+            if(empty($post_data['issn']) and empty($post_data['issn_online'])) {
+                $session->getFlashBag()->add('error', $translator->trans("Please enter the ISSN or ISSN Online field.", array("%field%" => $field)));
+                return $output;
             }
 
             $protocol = new Protocol();
@@ -73,16 +151,72 @@ class NewSubmissionController extends Controller
             $em->flush();
 
             $submission = new Submission();
-            $submission->setIsClinicalTrial(($post_data['is_clinical_trial'] == 'yes') ? true : false);
-            $submission->setIsConsultation(($post_data['is_consultation'] == 'yes') ? true : false);
-            $submission->setPublicTitle($post_data['public_title']);
-            $submission->setScientificTitle($post_data['scientific_title']);
-            $submission->setTitleAcronym($post_data['title_acronym']);
-            $submission->setLanguage($post_data['language']);
+            $submission->setTitle($post_data['title']);
+            $submission->setShortTitle($post_data['short_title']);
+            $submission->setAcronymTitle($post_data['acronym_title']);
+            $submission->setPreviousTitle($post_data['previous_title']);
+            $submission->setAdditionalTitle($post_data['additional_title']);
+            $submission->setIssn($post_data['issn']);
+            $submission->setIssnOnline($post_data['issn_online']);
+            $submission->setFrequency($post_data['frequency']);
+            $submission->setStandards($post_data['standards']);
+            $submission->setBibliographicSubtitle($post_data['bibliographic_subtitle']);
+            $submission->setCreationYear($post_data['creation_year']);
+            $submission->setLifetime($post_data['lifetime']);
+            $submission->setSupport($post_data['support']);
+            $submission->setFullText($post_data['fulltext']);
+            $submission->setWebsite($post_data['website']);
+            $submission->setWebsiteInfo($post_data['website_info']);
+            $submission->setSocialNetworksInfo($post_data['social_networks_info']);
+            $submission->setMission($post_data['mission']);
+            $submission->setQualis($post_data['qualis']);
+            $submission->setFundedByCnpq(($post_data['funded_by_cnpq'] == 'yes') ? true : false);
+            $submission->setFunders($post_data['funders']);
+            $submission->setIndexedIn($post_data['indexed_in']);
+            $submission->setDb($post_data['databases']);
             $submission->setProtocol($protocol);
             $submission->setNumber(1);
 
             $submission->setOwner($user);
+
+            // thematic area
+            $selected_thematic_area = $thematic_area_repository->find($post_data['thematic_area']);
+            $submission->setThematicArea($selected_thematic_area);
+
+            // specialty
+            $selected_specialty = $specialty_repository->find($post_data['specialty']);
+            $submission->setSpecialty($selected_specialty);
+
+            // removing all publication types to re-add
+            if ($submission->getPublicationType()) {
+                foreach($submission->getPublicationType() as $publication_type) {
+                    $submission->removePublicationType($publication_type);
+                }
+            }
+
+            // re-add publication types
+            if(isset($post_data['publication_type'])) {
+                foreach($post_data['publication_type'] as $publication_type) {
+                    $publication_type = $publication_type_repository->find($publication_type);
+                    $submission->addPublicationType($publication_type);
+                }
+            }
+
+            // removing all languages to re-add
+            if ($submission->getLanguage()) {
+                foreach($submission->getLanguage() as $language) {
+                    $submission->removeLanguage($language);
+                }
+            }
+
+            // re-add languages
+            if(isset($post_data['language'])) {
+                foreach($post_data['language'] as $language) {
+                    $language = $language_repository->find($language);
+                    $submission->addLanguage($language);
+                }
+            }
+
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($submission);
@@ -96,7 +230,7 @@ class NewSubmissionController extends Controller
             return $this->redirectToRoute('submission_new_second_step', array('submission_id' => $submission->getId()), 301);
         }
 
-        return array();
+        return $output;
     }
 
     /**
@@ -111,6 +245,47 @@ class NewSubmissionController extends Controller
         $translator = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
 
+        // getting thematic area list
+        $thematic_area_repository = $em->getRepository('Proethos2ModelBundle:ThematicArea');
+        $thematic_area = $thematic_area_repository->findAll();
+        $output['thematic_area'] = $thematic_area;
+
+        // getting specialty list
+        $specialty_repository = $em->getRepository('Proethos2ModelBundle:Specialty');
+        $specialty = $specialty_repository->findAll();
+        $output['specialty'] = $specialty;
+
+        // getting frequency list
+        $frequency = array(
+            "FC"  => "Fluxo Contínuo",
+            "S"   => "Semestral",
+            "QUA" => "Quadrimestral",
+            "T"   => "Trimestral",
+            "B"   => "Bimestral",
+            "M"   => "Mensal",
+            "QUI" => "Quinzenal"  
+        );
+
+        $output['frequency'] = $frequency;
+
+        // getting support list
+        $support = array(
+            "I"  => "Impresso",
+            "E"  => "Eletrônico",
+            "IE" => "Impresso e Eletrônico"
+        );
+
+        $output['support'] = $support;
+
+        // getting fulltext list
+        $fulltext = array(
+            "T" => "Portal próprio",
+            "B" => "Repositório institucional",
+            "M" => "Não provemos acesso ao texto completo. No entanto, vamos ingressar na iniciativa LILACS-Express para disponibilizá-los"
+        );
+
+        $output['fulltext'] = $fulltext;
+
         $submission_repository = $em->getRepository('Proethos2ModelBundle:Submission');
         $user_repository = $em->getRepository('Proethos2ModelBundle:User');
 
@@ -119,6 +294,16 @@ class NewSubmissionController extends Controller
         // getting the current submission
         $submission = $submission_repository->find($submission_id);
         $output['submission'] = $submission;
+
+        // getting publication type list
+        $publication_type_repository = $em->getRepository('Proethos2ModelBundle:PublicationType');
+        $publication_type = $publication_type_repository->findAll();
+        $output['publication_type'] = $publication_type;
+
+        // getting language list
+        $language_repository = $em->getRepository('Proethos2ModelBundle:Language');
+        $language = $language_repository->findAll();
+        $output['language'] = $language;
 
         if (!$submission or !$submission->getCanBeEdited() or ($submission->getCanBeEdited() and !in_array('administrator', $user->getRolesSlug()))) {
             throw $this->createNotFoundException($translator->trans('No submission found'));
@@ -133,25 +318,103 @@ class NewSubmissionController extends Controller
             // getting post data
             $post_data = $request->request->all();
 
-            // checking required files
-            foreach(array('scientific_title', 'public_title', 'is_clinical_trial', 'is_consultation', 'language') as $field) {
+            // required fields
+            $required_fields = array(
+                'title',
+                'frequency',
+                'standards',
+                'creation_year',
+                'support',
+                'fulltext',
+                'mission',
+                'publication_type',
+                'language',
+                'thematic_area',
+                'specialty',
+                'funded_by_cnpq',
+                'funders'
+            );
+
+            // checking required fields
+            foreach($required_fields as $field) {
                 if(!isset($post_data[$field]) or empty($post_data[$field])) {
                     $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
                     return $output;
                 }
             }
 
-            $submission->setIsClinicalTrial(($post_data['is_clinical_trial'] == 'yes') ? true : false);
-            $submission->setIsConsultation(($post_data['is_consultation'] == 'yes') ? true : false);
-            $submission->setPublicTitle($post_data['public_title']);
-            $submission->setScientificTitle($post_data['scientific_title']);
-            $submission->setTitleAcronym($post_data['title_acronym']);
-            $submission->setLanguage($post_data['language']);
+            // checking required fields
+            if(empty($post_data['issn']) and empty($post_data['issn_online'])) {
+                $session->getFlashBag()->add('error', $translator->trans("Please enter the ISSN or ISSN Online field.", array("%field%" => $field)));
+                return $output;
+            }
+
+            $submission->setTitle($post_data['title']);
+            $submission->setShortTitle($post_data['short_title']);
+            $submission->setAcronymTitle($post_data['acronym_title']);
+            $submission->setPreviousTitle($post_data['previous_title']);
+            $submission->setAdditionalTitle($post_data['additional_title']);
+            $submission->setIssn($post_data['issn']);
+            $submission->setIssnOnline($post_data['issn_online']);
+            $submission->setFrequency($post_data['frequency']);
+            $submission->setStandards($post_data['standards']);
+            $submission->setBibliographicSubtitle($post_data['bibliographic_subtitle']);
+            $submission->setCreationYear($post_data['creation_year']);
+            $submission->setLifetime($post_data['lifetime']);
+            $submission->setSupport($post_data['support']);
+            $submission->setFullText($post_data['fulltext']);
+            $submission->setWebsite($post_data['website']);
+            $submission->setWebsiteInfo($post_data['website_info']);
+            $submission->setSocialNetworksInfo($post_data['social_networks_info']);
+            $submission->setMission($post_data['mission']);
+            $submission->setQualis($post_data['qualis']);
+            $submission->setFundedByCnpq(($post_data['funded_by_cnpq'] == 'yes') ? true : false);
+            $submission->setFunders($post_data['funders']);
+            $submission->setIndexedIn($post_data['indexed_in']);
+            $submission->setDb($post_data['databases']);
+
+            // thematic area
+            $selected_thematic_area = $thematic_area_repository->find($post_data['thematic_area']);
+            $submission->setThematicArea($selected_thematic_area);
+
+            // specialty
+            $selected_specialty = $specialty_repository->find($post_data['specialty']);
+            $submission->setSpecialty($selected_specialty);
+
+            // removing all publication types to re-add
+            if ($submission->getPublicationType()) {
+                foreach($submission->getPublicationType() as $publication_type) {
+                    $submission->removePublicationType($publication_type);
+                }
+            }
+
+            // re-add publication types
+            if(isset($post_data['publication_type'])) {
+                foreach($post_data['publication_type'] as $publication_type) {
+                    $publication_type = $publication_type_repository->find($publication_type);
+                    $submission->addPublicationType($publication_type);
+                }
+            }
+
+            // removing all languages to re-add
+            if ($submission->getLanguage()) {
+                foreach($submission->getLanguage() as $language) {
+                    $submission->removeLanguage($language);
+                }
+            }
+
+            // re-add languages
+            if(isset($post_data['language'])) {
+                foreach($post_data['language'] as $language) {
+                    $language = $language_repository->find($language);
+                    $submission->addLanguage($language);
+                }
+            }
 
             $em->persist($submission);
             $em->flush();
 
-            $session->getFlashBag()->add('success', $translator->trans("First step saved with sucess."));
+            $session->getFlashBag()->add('success', $translator->trans("First step saved with success."));
             return $this->redirectToRoute('submission_new_second_step', array('submission_id' => $submission->getId()), 301);
         }
 
@@ -192,7 +455,7 @@ class NewSubmissionController extends Controller
             // getting post data
             $post_data = $request->request->all();
 
-            // checking required files
+            // checking required fields
             foreach(array('scientific_title', 'public_title', 'language') as $field) {
                 if(!isset($post_data[$field]) or empty($post_data[$field])) {
                     $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
@@ -232,7 +495,7 @@ class NewSubmissionController extends Controller
             $em->persist($submission);
             $em->flush();
 
-            $session->getFlashBag()->add('success', $translator->trans("First step saved with sucess."));
+            $session->getFlashBag()->add('success', $translator->trans("First step saved with success."));
             return $this->redirectToRoute('submission_new_second_step', array('submission_id' => $new_submission->getId()), 301);
         }
 
@@ -283,6 +546,7 @@ class NewSubmissionController extends Controller
                 }
             }
         }
+        
         if (!$allow_to_edit_submission) {
             throw $this->createNotFoundException($translator->trans('No submission found'));
         }
@@ -296,12 +560,12 @@ class NewSubmissionController extends Controller
             // getting post data
             $post_data = $request->request->all();
 
-            // removing all team to readd
+            // removing all team to re-add
             foreach($submission->getTeam() as $team_user) {
                 $submission->removeTeam($team_user);
             }
 
-            // readd
+            // re-add
             if(isset($post_data['team_user'])) {
                 foreach($post_data['team_user'] as $team_user) {
                     $team_user = $user_repository->find($team_user);
@@ -333,8 +597,8 @@ class NewSubmissionController extends Controller
                 return $this->redirectToRoute('submission_new_second_step', array('submission_id' => $submission->getId()), 301);
             }
 
-            // checking required files
-            $required_fields = array('abstract', 'keywords', 'introduction', 'justify', 'goals');
+            // checking required fields
+            $required_fields = array('editor_name', 'editor_email', 'phone', 'address', 'cep', 'institution', 'state', 'city');
             foreach($required_fields as $field) {
                 if(!isset($post_data[$field]) or empty($post_data[$field])) {
                     $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
@@ -343,18 +607,22 @@ class NewSubmissionController extends Controller
             }
 
             // adding fields to model
-            $submission->setAbstract($post_data['abstract']);
-            $submission->setKeywords($post_data['keywords']);
-            $submission->setIntroduction($post_data['introduction']);
-            $submission->setJustification($post_data['justify']);
-            $submission->setGoals($post_data['goals']);
+            $submission->setEditorName($post_data['editor_name']);
+            $submission->setEditorEmail($post_data['editor_email']);
+            $submission->setEditorAlternateEmail($post_data['editor_alternate_email']);
+            $submission->setPhone($post_data['phone']);
+            $submission->setAddress($post_data['address']);
+            $submission->setCep($post_data['cep']);
+            $submission->setInstitution($post_data['institution']);
+            $submission->setEditorState($post_data['state']);
+            $submission->setEditorCity($post_data['city']);
+            $submission->setPostgraduateGrade($post_data['postgraduate_grade']);
 
             $em->persist($submission);
             $em->flush();
 
-            $route = ( $submission->getIsConsultation() ) ? 'submission_new_sixth_step' : 'submission_new_third_step';
-            $session->getFlashBag()->add('success', $translator->trans("Second step saved with sucess."));
-            return $this->redirectToRoute($route, array('submission_id' => $submission->getId()), 301);
+            $session->getFlashBag()->add('success', $translator->trans("Second step saved with success."));
+            return $this->redirectToRoute('submission_new_third_step', array('submission_id' => $submission->getId()), 301);
         }
 
         return $output;
@@ -375,9 +643,6 @@ class NewSubmissionController extends Controller
         $submission_repository = $em->getRepository('Proethos2ModelBundle:Submission');
         $user_repository = $em->getRepository('Proethos2ModelBundle:User');
         $submission_country_repository = $em->getRepository('Proethos2ModelBundle:SubmissionCountry');
-        $gender_repository = $em->getRepository('Proethos2ModelBundle:Gender');
-        $recruitment_status_repository = $em->getRepository('Proethos2ModelBundle:RecruitmentStatus');
-        $country_repository = $em->getRepository('Proethos2ModelBundle:Country');
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
@@ -385,14 +650,13 @@ class NewSubmissionController extends Controller
         $submission = $submission_repository->find($submission_id);
         $output['submission'] = $submission;
 
-        // getting gender list
-        $genders = $gender_repository->findByStatus(true);
-        $output['genders'] = $genders;
+        // getting specialty list
+        $specialty_repository = $em->getRepository('Proethos2ModelBundle:Specialty');
+        $specialty = $specialty_repository->findAll();
+        $output['specialty'] = $specialty;
 
-        // getting recruitment_statuses list
-        $recruitment_statuses = $recruitment_status_repository->findByStatus(true);
-        $output['recruitment_statuses'] = $recruitment_statuses;
-
+        // getting countries list
+        $country_repository = $em->getRepository('Proethos2ModelBundle:Country');
         $countries = $country_repository->findBy(array(), array('name' => 'asc'));
         $output['countries'] = $countries;
 
@@ -428,24 +692,7 @@ class NewSubmissionController extends Controller
 
             // getting post data
             $post_data = $request->request->all();
-
-            // checking required files
-            $required_fields = array('study-design', 'inclusion-criteria', 'exclusion-criteria', 'interventions', 'primary-outcome');
-            if(!$submission->getIsTranslation()) {
-                $required_fields[] = 'gender';
-                $required_fields[] = 'sample-size';
-                $required_fields[] = 'minimum-age';
-                // $required_fields[] = 'maximum-age';
-                $required_fields[] = 'recruitment-init-date';
-                // $required_fields[] = 'recruitment-status';
-            }
-            foreach($required_fields as $field) {
-                if(!isset($post_data[$field]) or empty($post_data[$field])) {
-                    $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
-                    return $output;
-                }
-            }
-
+/*
             if(!$submission->getIsTranslation()) {
                 $recruitment_init_date = new \DateTime($post_data['recruitment-init-date']);
                 if(new \DateTime('NOW') > $recruitment_init_date) {
@@ -453,82 +700,22 @@ class NewSubmissionController extends Controller
                     return $output;
                 }
             }
-
+*/
             // adding fields to model
-            $submission->setStudyDesign($post_data['study-design']);
-            $submission->setHealthCondition($post_data['health-condition']);
-            $submission->setInclusionCriteria($post_data['inclusion-criteria']);
-            $submission->setExclusionCriteria($post_data['exclusion-criteria']);
+            $submission->setPublisherName($post_data['publisher_name']);
+            $submission->setPublisherContactName($post_data['publisher_contact_name']);
+            $submission->setPublisherEmail($post_data['publisher_email']);
+            $submission->setPublisherState($post_data['state']);
+            $submission->setPublisherCity($post_data['city']);
 
-            if(!$submission->getIsTranslation()) {
-                $submission->setSampleSize($post_data['sample-size']);
-                $submission->setMinimumAge($post_data['minimum-age']);
-                $submission->setMaximumAge($post_data['maximum-age']);
-                $submission->setRecruitmentInitDate(new \DateTime($post_data['recruitment-init-date']));
+            // country
+            $selected_country = $country_repository->find($post_data['country']);
+            $submission->setCountry($selected_country);
 
-                // gender
-                $selected_gender = $gender_repository->find($post_data['gender']);
-                $submission->setGender($selected_gender);
-
-                // recruitment status
-                $selected_recruitment_status = $recruitment_status_repository->find($post_data['recruitment-status']);
-                $submission->setRecruitmentStatus($selected_recruitment_status);
-
-                // removing all team to readd
-                foreach($submission->getCountry() as $country) {
-                    $submission->removeCountry($country);
-                    $em->remove($country);
-                    $em->flush();
-                }
-            }
-
-            if(isset($post_data['country'])) {
-                foreach($post_data['country'] as $key => $country) {
-
-                    $country_obj = $country_repository->find($country['country_id']);
-
-                    // check if exists
-                    $submission_country = $submission_country_repository->findOneBy(array(
-                        'submission' => $submission,
-                        'country' => $country_obj,
-                    ));
-
-                    // var_dump($post_data);die;
-
-                    // if not exists, create the new submission_country
-                    if(!$submission_country) {
-                        $submission_country = new SubmissionCountry();
-                        $submission_country->setSubmission($submission);
-                        $submission_country->setCountry($country_obj);
-                        $submission_country->setParticipants($country['participants']);
-
-                    } else {
-                        $submission_country->setParticipants($country['participants']);
-                    }
-
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($submission_country);
-                    $em->flush();
-
-                    // add in submission
-                    $submission->addCountry($submission_country);
-                }
-            }
-
-            $submission->setInterventions($post_data['interventions']);
-
-            $submission->setPrimaryOutcome($post_data['primary-outcome']);
-            $submission->setSecondaryOutcome($post_data['secondary-outcome']);
-
-            $submission->setGeneralProcedures($post_data['general-procedures']);
-            $submission->setAnalysisPlan($post_data['analysis-plan']);
-            $submission->setEthicalConsiderations($post_data['ethical-considerations']);
-
-            $em = $this->getDoctrine()->getManager();
             $em->persist($submission);
             $em->flush();
 
-            $session->getFlashBag()->add('success', $translator->trans("Third step saved with sucess."));
+            $session->getFlashBag()->add('success', $translator->trans("Third step saved with success."));
             return $this->redirectToRoute('submission_new_fourth_step', array('submission_id' => $submission->getId()), 301);
         }
 
@@ -547,30 +734,14 @@ class NewSubmissionController extends Controller
         $translator = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
 
-        $submission_repository = $em->getRepository('Proethos2ModelBundle:Submission');
-        $submission_cost_repository = $em->getRepository('Proethos2ModelBundle:SubmissionCost');
-        $submission_task_repository = $em->getRepository('Proethos2ModelBundle:SubmissionTask');
-        $user_repository = $em->getRepository('Proethos2ModelBundle:User');
-        $submission_clinical_trial_repository = $em->getRepository('Proethos2ModelBundle:SubmissionClinicalTrial');
-        $clinical_trial_name_repository = $em->getRepository('Proethos2ModelBundle:ClinicalTrialName');
-
-        $configuration_repository = $em->getRepository('Proethos2ModelBundle:Configuration');
-        $country_locale = $configuration_repository->findBy(array('key' => 'country.locale'));
-        $country_code   = explode('|', $country_locale[0]->getValue())[0];
-        $currency_code  = explode('|', $country_locale[0]->getValue())[1];
-        $locale = CountryLocale::getLocaleByCountryCode($country_code);
-        $locale = explode(',', $locale)[0];
-        $symbol = Intl::getCurrencyBundle()->getCurrencySymbol($currency_code, $locale);
-        $output['symbol'] = $symbol;
-
         $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $submission_repository = $em->getRepository('Proethos2ModelBundle:Submission');
+        $issue_repository = $em->getRepository('Proethos2ModelBundle:Issue');
 
         // getting the current submission
         $submission = $submission_repository->find($submission_id);
         $output['submission'] = $submission;
-
-        $clinical_trial_names = $clinical_trial_name_repository->findByStatus(true);
-        $output['clinical_trial_names'] = $clinical_trial_names;
 
         if (!$submission or $submission->getCanBeEdited() == false) {
             if(!$submission or ($submission->getProtocol()->getIsMigrated() and !in_array('administrator', $user->getRolesSlug()))) {
@@ -605,8 +776,51 @@ class NewSubmissionController extends Controller
             // getting post data
             $post_data = $request->request->all();
 
-            // checking required files
-            $required_fields = array('funding-source', 'primary-sponsor');
+            if(isset($post_data['issue']) and !empty($post_data['issue'])) {
+
+                // checking required issues
+                $total_issues = count($submission->getIssue());
+                if( $total_issues == 3 ) {
+                    $session->getFlashBag()->add('error', $translator->trans("Please submit 3 issues."));
+                    return $output;
+                }
+
+                $issue = new Issue();
+                $issue->setSubmission($submission);
+                $issue->setUser($user);
+                $issue->setSubmissionNumber($submission->getNumber());
+                $issue->setVolume($post_data['issue_volume']);
+                $issue->setNumber($post_data['issue_number']);
+                $issue->setYear($post_data['issue_year']);
+                $issue->setFulltext($post_data['issue_fulltext']);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($issue);
+                $em->flush();
+
+                $submission->addIssue($issue);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($submission);
+                $em->flush();
+
+                $session->getFlashBag()->add('success', $translator->trans("Issue added with success."));
+                return $this->redirectToRoute('submission_new_fourth_step', array('submission_id' => $submission->getId()), 301);
+
+            }
+
+            if(isset($post_data['delete-issue-id']) and !empty($post_data['delete-issue-id'])) {
+                $issue = $issue_repository->find($post_data['delete-issue-id']);
+                
+                if($issue) {
+                    $em->remove($issue);
+                    $em->flush();
+                    $session->getFlashBag()->add('success', $translator->trans("Issue removed with success."));
+                    return $this->redirectToRoute('submission_new_fourth_step', array('submission_id' => $submission->getId()), 301);
+                }
+            }
+
+            // checking required fields
+            $required_fields = array('requestor_name', 'requestor_email');
             foreach($required_fields as $field) {
                 if(!isset($post_data[$field]) or empty($post_data[$field])) {
                     $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
@@ -614,128 +828,22 @@ class NewSubmissionController extends Controller
                 }
             }
 
-            // removing all clinical_trial to rewrite
-            foreach($submission->getClinicalTrial() as $trial) {
-                $submission->removeClinicalTrial($trial);
-                $em->remove($trial);
-                $em->flush();
+            // checking required issues
+            $total_issues = count($submission->getIssue());
+            if( $total_issues < 3 ) {
+                $session->getFlashBag()->add('error', $translator->trans("Please submit 3 issues."));
+                return $output;
             }
 
+            // adding fields to model
+            $submission->setRequestorName($post_data['requestor_name']);
+            $submission->setRequestorEmail($post_data['requestor_email']);
 
-            if(isset($post_data['clinical-trial'])) {
-
-                $submission->setClinicalTrialSecondary($post_data['clinical-trial-second']);
-
-                foreach($post_data['clinical-trial'] as $key => $trial_data) {
-
-                    $trial_name = $clinical_trial_name_repository->find($trial_data['name-id']);
-                    $date = NULL;
-                    if (!empty($trial_data['date'])) {
-                        $date = new \DateTime($trial_data['date']);
-                    }
-
-                    // check if exists
-                    $trial = $submission_clinical_trial_repository->findOneBy(array(
-                        'submission' => $submission,
-                        'name' => $trial_name,
-                        'date' => $date,
-                        'number' => $trial_data['number'],
-                    ));
-
-                    if(!$trial) {
-                        $trial = new SubmissionClinicalTrial();
-                        $trial->setSubmission($submission);
-                        $trial->setName($trial_name);
-                        $trial->setNumber($trial_data['number']);
-                        $trial->setDate($date);
-                    }
-
-                    $em->persist($trial);
-                    $em->flush();
-
-                    // add in submission
-                    $submission->addClinicalTrial($trial);
-                }
-            }
-
-            // removing all team to readd
-            foreach($submission->getBudget() as $budget) {
-                $submission->removeBudget($budget);
-                $em->remove($budget);
-                $em->flush();
-            }
-
-            if(isset($post_data['budget'])) {
-                foreach($post_data['budget'] as $key => $cost) {
-
-                    // check if exists
-                    $submission_cost = $submission_cost_repository->findOneBy(array(
-                        'submission' => $submission,
-                        'description' => $cost['description'],
-                        'quantity' => $cost['quantity'],
-                        'unit_cost' => $cost['unit_cost'],
-                    ));
-
-                    // if not exists, create the new submission_cost
-                    if(!$submission_cost) {
-                        $submission_cost = new SubmissionCost();
-                        $submission_cost->setSubmission($submission);
-                        $submission_cost->setDescription($cost['description']);
-                        $submission_cost->setQuantity($cost['quantity']);
-                        $submission_cost->setUnitCost($cost['unit_cost']);
-                    }
-
-                    $em->persist($submission_cost);
-                    $em->flush();
-
-                    // add in submission
-                    $submission->addBudget($submission_cost);
-                }
-            }
-
-            $submission->setFundingSource($post_data['funding-source']);
-            $submission->setPrimarySponsor($post_data['primary-sponsor']);
-            $submission->setSecondarySponsor($post_data['secondary-sponsor']);
-
-            // removing all schedule to readd
-            foreach($submission->getSchedule() as $schedule) {
-                $submission->removeSchedule($schedule);
-                $em->remove($schedule);
-                $em->flush();
-            }
-
-            if(isset($post_data['schedule'])) {
-                foreach($post_data['schedule'] as $key => $task) {
-
-                    // check if exists
-                    $submission_task = $submission_task_repository->findOneBy(array(
-                        'submission' => $submission,
-                        'description' => $task['description'],
-                        'init' => new \DateTime($task['init']),
-                        'end' => new \DateTime($task['end']),
-                    ));
-
-                    // if not exists, create the new submission_task
-                    if(!$submission_task) {
-                        $submission_task = new SubmissionTask();
-                        $submission_task->setSubmission($submission);
-                        $submission_task->setDescription($task['description']);
-                        $submission_task->setInit(new \DateTime($task['init']));
-                        $submission_task->setEnd(new \DateTime($task['end']));
-                    }
-
-                    $em->persist($submission_task);
-                    $em->flush();
-
-                    // add in submission
-                    $submission->addSchedule($submission_task);
-                }
-            }
-
+            $em = $this->getDoctrine()->getManager();
             $em->persist($submission);
             $em->flush();
 
-            $session->getFlashBag()->add('success', $translator->trans("Fourth step saved with sucess."));
+            $session->getFlashBag()->add('success', $translator->trans("Fourth step saved with success."));
             return $this->redirectToRoute('submission_new_fifth_step', array('submission_id' => $submission->getId()), 301);
         }
 
@@ -747,94 +855,6 @@ class NewSubmissionController extends Controller
      * @Template()
      */
     public function FifthStepAction($submission_id)
-    {
-        $output = array();
-        $request = $this->getRequest();
-        $session = $request->getSession();
-        $translator = $this->get('translator');
-        $em = $this->getDoctrine()->getManager();
-
-        $submission_repository = $em->getRepository('Proethos2ModelBundle:Submission');
-        $user_repository = $em->getRepository('Proethos2ModelBundle:User');
-        $submission_country_repository = $em->getRepository('Proethos2ModelBundle:SubmissionCountry');
-
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-
-        // getting the current submission
-        $submission = $submission_repository->find($submission_id);
-        $output['submission'] = $submission;
-
-        if (!$submission or $submission->getCanBeEdited() == false) {
-            if(!$submission or ($submission->getProtocol()->getIsMigrated() and !in_array('administrator', $user->getRolesSlug()))) {
-                throw $this->createNotFoundException($translator->trans('No submission found'));
-            }
-        }
-
-        $allow_to_edit_submission = true;
-        // if current user is not owner, check the team
-        if ($user != $submission->getOwner()) {
-            $allow_to_edit_submission = false;
-
-            if(in_array('administrator', $user->getRolesSlug())) {
-                $allow_to_edit_submission = true;
-
-            } else {
-                foreach($submission->getTeam() as $team_member) {
-                    // if current user = some team member, than it allows to edit
-                    if ($user == $team_member) {
-                        $allow_to_edit_submission = true;
-                    }
-                }
-            }
-        }
-        if (!$allow_to_edit_submission) {
-            throw $this->createNotFoundException($translator->trans('No submission found'));
-        }
-
-        // checking if was a post request
-        if($this->getRequest()->isMethod('POST')) {
-
-            // getting post data
-            $post_data = $request->request->all();
-
-            // print '<pre>';
-            // var_dump($post_data);die;
-
-            // checking required files
-            $required_fields = array('bibliography', 'sscientific-contact');
-            if(!$submission->getIsTranslation()) {
-                $required_fields[] = 'prior-ethical-approval';
-            }
-            foreach($required_fields as $field) {
-                if(!isset($post_data[$field]) or empty($post_data[$field])) {
-                    $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
-                    return $output;
-                }
-            }
-
-            $submission->setBibliography($post_data['bibliography']);
-            $submission->setSscientificContact($post_data['sscientific-contact']);
-
-            if(!$submission->getIsTranslation()) {
-                $submission->setPriorEthicalApproval(($post_data['prior-ethical-approval'] == 'Y') ? true : false);
-            }
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($submission);
-            $em->flush();
-
-            $session->getFlashBag()->add('success', $translator->trans("Fifth step saved with sucess."));
-            return $this->redirectToRoute('submission_new_sixth_step', array('submission_id' => $submission->getId()), 301);
-        }
-
-        return $output;
-    }
-
-    /**
-     * @Route("/submission/new/{submission_id}/sixth", name="submission_new_sixth_step")
-     * @Template()
-     */
-    public function SixtyStepAction($submission_id)
     {
         $output = array();
         $request = $this->getRequest();
@@ -888,15 +908,15 @@ class NewSubmissionController extends Controller
             // getting post data
             $post_data = $request->request->all();
 
-            $file = $request->files->get('new-atachment-file');
+            $file = $request->files->get('new-attachment-file');
             if(!empty($file)) {
 
-                if(!isset($post_data['new-atachment-type']) or empty($post_data['new-atachment-type'])) {
-                    $session->getFlashBag()->add('error', $translator->trans("Field 'new-atachment-type' is required."));
+                if(!isset($post_data['new-attachment-type']) or empty($post_data['new-attachment-type'])) {
+                    $session->getFlashBag()->add('error', $translator->trans("Field 'new-attachment-type' is required."));
                     return $output;
                 }
 
-                $upload_type = $upload_type_repository->find($post_data['new-atachment-type']);
+                $upload_type = $upload_type_repository->find($post_data['new-attachment-type']);
                 if (!$upload_type) {
                     throw $this->createNotFoundException($translator->trans('No upload type found'));
                     return $output;
@@ -918,8 +938,8 @@ class NewSubmissionController extends Controller
                 $em->persist($submission);
                 $em->flush();
 
-                $session->getFlashBag()->add('success', $translator->trans("File uploaded with sucess."));
-                return $this->redirectToRoute('submission_new_sixth_step', array('submission_id' => $submission->getId()), 301);
+                $session->getFlashBag()->add('success', $translator->trans("File uploaded with success."));
+                return $this->redirectToRoute('submission_new_fifth_step', array('submission_id' => $submission->getId()), 301);
 
             }
 
@@ -930,22 +950,41 @@ class NewSubmissionController extends Controller
 
                     $em->remove($submission_upload);
                     $em->flush();
-                    $session->getFlashBag()->add('success', $translator->trans("File removed with sucess."));
-                    return $this->redirectToRoute('submission_new_sixth_step', array('submission_id' => $submission->getId()), 301);
+                    $session->getFlashBag()->add('success', $translator->trans("File removed with success."));
+                    return $this->redirectToRoute('submission_new_fifth_step', array('submission_id' => $submission->getId()), 301);
                 }
             }
 
-            return $this->redirectToRoute('submission_new_seventh_step', array('submission_id' => $submission->getId()), 301);
+            // checking required peer review attachment
+            $upload_type = $upload_type_repository->findBy(array('slug' => 'peer-review'));
+            $upload_type_id = $upload_type[0]->getId();
+            $peer_review = $submission_upload_repository->findBy(array('submission' => $submission->getId(), 'upload_type' => $upload_type_id));
+            if( !$peer_review or count($peer_review) != 1 ) {
+                $session->getFlashBag()->add('error', $translator->trans("Please submit 1 peer review and 1 submission data attachments."));
+                return $output;
+            }
+
+            // checking required submission data attachment
+            $upload_type = $upload_type_repository->findBy(array('slug' => 'submission-data'));
+            $upload_type_id = $upload_type[0]->getId();
+            $submission_data = $submission_upload_repository->findBy(array('submission' => $submission->getId(), 'upload_type' => $upload_type_id));
+            if( !$submission_data or count($submission_data) != 1 ) {
+                $session->getFlashBag()->add('error', $translator->trans("Please submit 1 peer review and 1 submission data attachments."));
+                return $output;
+            }
+
+            $session->getFlashBag()->add('success', $translator->trans("Fifth step saved with success."));
+            return $this->redirectToRoute('submission_new_sixth_step', array('submission_id' => $submission->getId()), 301);
         }
 
         return $output;
     }
 
     /**
-     * @Route("/submission/new/{submission_id}/seventh", name="submission_new_seventh_step")
+     * @Route("/submission/new/{submission_id}/sixth", name="submission_new_sixth_step")
      * @Template()
      */
-    public function SeventhStepAction($submission_id)
+    public function SixtyStepAction($submission_id)
     {
         $output = array();
         $request = $this->getRequest();
@@ -959,27 +998,16 @@ class NewSubmissionController extends Controller
         $submission_repository = $em->getRepository('Proethos2ModelBundle:Submission');
         $upload_type_repository = $em->getRepository('Proethos2ModelBundle:UploadType');
         $user_repository = $em->getRepository('Proethos2ModelBundle:User');
+        $submission_upload_repository = $em->getRepository('Proethos2ModelBundle:SubmissionUpload');
 
         // getting the current submission
         $submission = $submission_repository->find($submission_id);
         $output['submission'] = $submission;
 
-        $mail_translator = $this->get('translator');
-        $mail_translator->setLocale($submission->getLanguage());
-
         $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         $help_repository = $em->getRepository('Proethos2ModelBundle:Help');
         // $help = $help_repository->findBy(array("id" => {id}, "type" => "mail"));
         // $translations = $trans_repository->findTranslations($help[0]);
-
-        $configuration_repository = $em->getRepository('Proethos2ModelBundle:Configuration');
-        $country_locale = $configuration_repository->findBy(array('key' => 'country.locale'));
-        $country_code   = explode('|', $country_locale[0]->getValue())[0];
-        $currency_code  = explode('|', $country_locale[0]->getValue())[1];
-        $locale = CountryLocale::getLocaleByCountryCode($country_code);
-        $locale = explode(',', $locale)[0];
-        $symbol = Intl::getCurrencyBundle()->getCurrencySymbol($currency_code, $locale);
-        $output['symbol'] = $symbol;
 
         if (!$submission or $submission->getCanBeEdited() == false) {
             if(!$submission or ($submission->getProtocol()->getIsMigrated() and !in_array('administrator', $user->getRolesSlug()))) {
@@ -1011,165 +1039,220 @@ class NewSubmissionController extends Controller
         $revisions = array();
         $final_status = true;
 
-        $text = $translator->trans("%total% member(s)", array("%total%" => $submission->getTotalTeam()));
+        $text = $translator->trans('Title');
         $item = array('text' => $text, 'status' => true);
-        $revisions[] = $item;
-
-        // $text = $translator->trans('Files Submited') . " (" . count($submission->getAttachments()) . " " . $translator->trans('files(s)') . ")";
-        // $item = array('text' => $text, 'status' => true);
-        // if(count($submission->getAttachments()) == 0) {
-        //     $item = array('text' => $text, 'status' => false);
-        //     $final_status = false;
-        // }
-        // $revisions[] = $item;
-
-        $text = $translator->trans('Abstract');
-        $item = array('text' => $text, 'status' => true);
-        if(empty($submission->getAbstract())) {
+        if(empty($submission->getTitle())) {
             $item = array('text' => $text, 'status' => false);
             $final_status = false;
         }
         $revisions[] = $item;
 
-        $text = $translator->trans('Keywords');
+        $text = $translator->trans('Frequency');
         $item = array('text' => $text, 'status' => true);
-        if(empty($submission->getKeywords())) {
+        if(empty($submission->getFrequency())) {
             $item = array('text' => $text, 'status' => false);
             $final_status = false;
         }
         $revisions[] = $item;
 
-        $text = $translator->trans('Introduction');
+        $text = $translator->trans('Standards');
         $item = array('text' => $text, 'status' => true);
-        if(empty($submission->getIntroduction())) {
+        if(empty($submission->getStandards())) {
             $item = array('text' => $text, 'status' => false);
             $final_status = false;
         }
         $revisions[] = $item;
 
-        $text = $translator->trans('Justification');
+        $text = $translator->trans('Creation Year');
         $item = array('text' => $text, 'status' => true);
-        if(empty($submission->getJustification())) {
+        if(empty($submission->getCreationYear())) {
             $item = array('text' => $text, 'status' => false);
             $final_status = false;
         }
         $revisions[] = $item;
 
-        $text = $translator->trans('Goals');
+        $text = $translator->trans('Support');
         $item = array('text' => $text, 'status' => true);
-        if(empty($submission->getGoals())) {
+        if(empty($submission->getSupport())) {
             $item = array('text' => $text, 'status' => false);
             $final_status = false;
         }
         $revisions[] = $item;
 
-        if ( ! $submission->getIsConsultation() ) {
-
-            $text = $translator->trans('Study Design');
-            $item = array('text' => $text, 'status' => true);
-            if(empty($submission->getStudyDesign())) {
-                $item = array('text' => $text, 'status' => false);
-                $final_status = false;
-            }
-            $revisions[] = $item;
-
-            $text = $translator->trans('Gender');
-            $item = array('text' => $text, 'status' => true);
-            if(empty($submission->getGender())) {
-                $item = array('text' => $text, 'status' => false);
-                $final_status = false;
-            }
-            $revisions[] = $item;
-
-            $text = $translator->trans('Minimum Age');
-            $item = array('text' => $text, 'status' => true);
-            if(empty($submission->getMinimumAge())) {
-                $item = array('text' => $text, 'status' => false);
-                $final_status = false;
-            }
-            $revisions[] = $item;
-
-            $text = $translator->trans('Maximum Age');
-            $item = array('text' => $text, 'status' => true);
-            if(empty($submission->getMaximumAge())) {
-                $item = array('text' => $text, 'status' => false);
-                $final_status = false;
-            }
-            $revisions[] = $item;
-
-            $text = $translator->trans('Inclusion Criteria');
-            $item = array('text' => $text, 'status' => true);
-            if(empty($submission->getInclusionCriteria())) {
-                $item = array('text' => $text, 'status' => false);
-                $final_status = false;
-            }
-            $revisions[] = $item;
-
-            $text = $translator->trans('Exclusion Criteria');
-            $item = array('text' => $text, 'status' => true);
-            if(empty($submission->getExclusionCriteria())) {
-                $item = array('text' => $text, 'status' => false);
-                $final_status = false;
-            }
-            $revisions[] = $item;
-
-            $text = $translator->trans('Inicial recruitment estimated date');
-            $item = array('text' => $text, 'status' => true);
-            if(empty($submission->getRecruitmentInitDate())) {
-                $item = array('text' => $text, 'status' => false);
-                $final_status = false;
-            }
-            $revisions[] = $item;
-
-            $text = $translator->trans('Interventions');
-            $item = array('text' => $text, 'status' => true);
-            if(empty($submission->getInterventions())) {
-                $item = array('text' => $text, 'status' => false);
-                $final_status = false;
-            }
-            $revisions[] = $item;
-
-            $text = $translator->trans('Primary Outcome');
-            $item = array('text' => $text, 'status' => true);
-            if(empty($submission->getPrimaryOutcome())) {
-                $item = array('text' => $text, 'status' => false);
-                $final_status = false;
-            }
-            $revisions[] = $item;
-
-            $text = $translator->trans('Funding Source');
-            $item = array('text' => $text, 'status' => true);
-            if(empty($submission->getFundingSource())) {
-                $item = array('text' => $text, 'status' => false);
-                $final_status = false;
-            }
-            $revisions[] = $item;
-
-            $text = $translator->trans('Primary Sponsor');
-            $item = array('text' => $text, 'status' => true);
-            if(empty($submission->getPrimarySponsor())) {
-                $item = array('text' => $text, 'status' => false);
-                $final_status = false;
-            }
-            $revisions[] = $item;
-
-            $text = $translator->trans('Bibliography');
-            $item = array('text' => $text, 'status' => true);
-            if(empty($submission->getBibliography())) {
-                $item = array('text' => $text, 'status' => false);
-                $final_status = false;
-            }
-            $revisions[] = $item;
-
-            $text = $translator->trans('Scientific Contact');
-            $item = array('text' => $text, 'status' => true);
-            if(empty($submission->getSscientificContact())) {
-                $item = array('text' => $text, 'status' => false);
-                $final_status = false;
-            }
-            $revisions[] = $item;
-            
+        $text = $translator->trans('Full Text');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getFullText())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
         }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Mission');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getMission())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Publication Type');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getPublicationType())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Language');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getLanguage())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Thematic Area');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getThematicArea())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Specialty');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getSpecialty())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Funded by CNPq');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getFundedByCnpq())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Funders');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getFunders())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Editor Name');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getEditorName())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Editor Email');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getEditorEmail())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Phone');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getPhone())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Address');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getAddress())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('CEP');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getCep())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Institution');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getInstitution())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('State');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getEditorState())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('City');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getEditorCity())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Requestor Name');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getRequestorName())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Requestor Contact Emails');
+        $item = array('text' => $text, 'status' => true);
+        if(empty($submission->getRequestorEmail())) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Issues');
+        $item = array('text' => $text, 'status' => true);
+        $total_issues = count($submission->getIssue());
+        if($total_issues < 3) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Peer Review');
+        $item = array('text' => $text, 'status' => true);
+        $upload_type = $upload_type_repository->findBy(array('slug' => 'peer-review'));
+        $upload_type_id = $upload_type[0]->getId();
+        $peer_review = $submission_upload_repository->findBy(array('submission' => $submission->getId(), 'upload_type' => $upload_type_id));
+        if( !$peer_review or count($peer_review) != 1 ) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
+
+        $text = $translator->trans('Submission Data');
+        $item = array('text' => $text, 'status' => true);
+        $upload_type = $upload_type_repository->findBy(array('slug' => 'submission-data'));
+        $upload_type_id = $upload_type[0]->getId();
+        $submission_data = $submission_upload_repository->findBy(array('submission' => $submission->getId(), 'upload_type' => $upload_type_id));
+        if( !$submission_data or count($submission_data) != 1 ) {
+            $item = array('text' => $text, 'status' => false);
+            $final_status = false;
+        }
+        $revisions[] = $item;
 
         $output['revisions'] = $revisions;
         $output['final_status'] = $final_status;
@@ -1182,7 +1265,7 @@ class NewSubmissionController extends Controller
 
             if($final_status) {
 
-                if($post_data['accept-terms'] == 'on') {
+                if($post_data['accept-fulltext-upload'] == 'on' and $post_data['confirm-auto-eval'] == 'on') {
 
                     // gerando um novo pdf da submission original
                     try {
@@ -1247,10 +1330,10 @@ class NewSubmissionController extends Controller
                             $pdf->getInternalGenerator()->setOption('margin-right', '20px');
 
                             // adding pdf to tmp file
-                            $filepath = "/tmp/" . date("Y-m-d-H\hi\ms\s") . "-submission-". $translation->getLanguage() .".pdf";
+                            $filepath = "/tmp/" . date("Y-m-d-H\hi\ms\s") . "-submission.pdf";
                             file_put_contents($filepath, $pdf->getOutputFromHtml($html));
 
-                            $upload_type = $upload_type_repository->findOneBy(array("slug" => "protocol"));
+                            $upload_type = $upload_type_repository->findOneBy(array("slug" => "journal"));
 
                             // send tmp file to upload class and save
                             $pdfFile = new SubmissionUpload();
@@ -1276,7 +1359,7 @@ class NewSubmissionController extends Controller
                         $em->persist($submission);
                         $em->flush();
 
-                        $session->getFlashBag()->add('success', $translator->trans("Protocol submitted with sucess!"));
+                        $session->getFlashBag()->add('success', $translator->trans("Journal submitted with success!"));
                         return $this->redirectToRoute('protocol_show_protocol', array('protocol_id' => $submission->getProtocol()->getId()), 301);
                     }
 
@@ -1295,7 +1378,7 @@ class NewSubmissionController extends Controller
                     $protocol_history = new ProtocolHistory();
                     $protocol_history->setProtocol($protocol);
 
-                    $protocol_history->setMessage($translator->trans("Submission of protocol."));
+                    $protocol_history->setMessage($translator->trans("Submission of journal."));
                     $em->persist($protocol_history);
                     $em->flush();
 
@@ -1303,10 +1386,11 @@ class NewSubmissionController extends Controller
                         // sending email
                         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
                         $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
-
+                        
+                        $_locale = $request->getSession()->get('_locale');
                         $help = $help_repository->find(201);
                         $translations = $trans_repository->findTranslations($help);
-                        $text = $translations[$submission->getLanguage()];
+                        $text = $translations[$_locale];
                         $body = $text['message'];
                         $body = str_replace("%protocol_url%", $url, $body);
                         $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
@@ -1322,7 +1406,7 @@ class NewSubmissionController extends Controller
 
                         foreach($recipients as $recipient) {
                             $message = \Swift_Message::newInstance()
-                            ->setSubject("[proethos2] " . $mail_translator->trans("A new monitoring action has been submitted."))
+                            ->setSubject("[LILACS] " . $translator->trans("A new monitoring action has been submitted."))
                             ->setFrom($util->getConfiguration('committee.email'))
                             ->setTo($recipient->getEmail())
                             ->setBody(
@@ -1339,10 +1423,11 @@ class NewSubmissionController extends Controller
                         // sending email
                         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
                         $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
-
+                        
+                        $_locale = $request->getSession()->get('_locale');
                         $help = $help_repository->find(202);
                         $translations = $trans_repository->findTranslations($help);
-                        $text = $translations[$submission->getLanguage()];
+                        $text = $translations[$_locale];
                         $body = $text['message'];
                         $body = str_replace("%protocol_url%", $url, $body);
                         $body = str_replace("\r\n", "<br />", $body);
@@ -1351,7 +1436,7 @@ class NewSubmissionController extends Controller
                         $recipients = array($protocol->getMainSubmission()->getOwner());
                         foreach($recipients as $recipient) {
                             $message = \Swift_Message::newInstance()
-                            ->setSubject("[proethos2] " . $mail_translator->trans("Your protocol was sent to review."))
+                            ->setSubject("[LILACS] " . $translator->trans("Your journal was sent to review."))
                             ->setFrom($util->getConfiguration('committee.email'))
                             ->setTo($recipient->getEmail())
                             ->setBody(
@@ -1363,13 +1448,13 @@ class NewSubmissionController extends Controller
                             $send = $this->get('mailer')->send($message);
                         }
 
-                        $session->getFlashBag()->add('success', $translator->trans("Protocol submitted with sucess!"));
+                        $session->getFlashBag()->add('success', $translator->trans("Journal submitted with success!"));
                     }
 
                     return $this->redirectToRoute('protocol_show_protocol', array('protocol_id' => $protocol->getId()), 301);
 
                 } else {
-                    $session->getFlashBag()->add('error', $translator->trans("You must accept the terms and conditions."));
+                    $session->getFlashBag()->add('error', $translator->trans("You must accept the conditions for sending submission."));
                 }
             } else {
                 $session->getFlashBag()->add('error', $translator->trans('You have pending reviews.'));
@@ -1391,21 +1476,43 @@ class NewSubmissionController extends Controller
         $translator = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
 
-        $configuration_repository = $em->getRepository('Proethos2ModelBundle:Configuration');
-        $country_locale = $configuration_repository->findBy(array('key' => 'country.locale'));
-        $country_code   = explode('|', $country_locale[0]->getValue())[0];
-        $currency_code  = explode('|', $country_locale[0]->getValue())[1];
-        $locale = CountryLocale::getLocaleByCountryCode($country_code);
-        $locale = explode(',', $locale)[0];
-        $symbol = Intl::getCurrencyBundle()->getCurrencySymbol($currency_code, $locale);
-        $output['symbol'] = $symbol;
-
         $submission_repository = $em->getRepository('Proethos2ModelBundle:Submission');
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
         // getting the current submission
         $submission = $submission_repository->find($submission_id);
         $output['submission'] = $submission;
+
+        // getting frequency list
+        $frequency = array(
+            "FC"  => "Fluxo Contínuo",
+            "S"   => "Semestral",
+            "QUA" => "Quadrimestral",
+            "T"   => "Trimestral",
+            "B"   => "Bimestral",
+            "M"   => "Mensal",
+            "QUI" => "Quinzenal"  
+        );
+
+        $output['frequency'] = $frequency;
+
+        // getting support list
+        $support = array(
+            "I"  => "Impresso",
+            "E"  => "Eletrônico",
+            "IE" => "Impresso e Eletrônico"
+        );
+
+        $output['support'] = $support;
+
+        // getting fulltext list
+        $fulltext = array(
+            "T" => "Portal próprio",
+            "B" => "Repositório institucional",
+            "M" => "Não provemos acesso ao texto completo. No entanto, vamos ingressar na iniciativa LILACS-Express para disponibilizá-los"
+        );
+
+        $output['fulltext'] = $fulltext;
 
         if (!$submission or ($submission->getCanBeEdited() and !in_array('administrator', $user->getRolesSlug()))) {
             throw $this->createNotFoundException($translator->trans('No submission found'));

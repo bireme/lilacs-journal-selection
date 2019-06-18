@@ -17,170 +17,58 @@
 
                 <input type='hidden' name='submission_id' value='{{ submission.id }}'>
 
-                {% if submission.isClinicalTrial %}
-                    <div class='block'>
-                        <div class='row'>
-                            <div class="col-md-12">
-                                <h2 class='sub-header'>{% trans %}Clinical Trial{% endtrans %}</h2>
-                            </div>
-                        </div>
+                <div class='block'>
+                    <div class='row'>
+                        <div class="col-md-12">
+                            <fieldset>
+                                <legend>{% trans %}Evaluation Process Information{% endtrans %}</legend>
+                                <div class="form-group required">
+                                    <label for="input-requestor-name">{% trans %}Requestor Name{% endtrans %}:</label>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 2} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <input type="text" class="form-control" placeholder="" id='input-requestor-name' name='requestor_name' value='{{ submission.requestorName }}' required>
+                                </div>
 
-                        <div class='row'>
-                            <div class="col-md-12">
-                                <table class='table table-hover table-condensed' id="table-clinical-trial">
+                                <div class="form-group required">
+                                    <label for="input-requestor-email">{% trans %}Requestor Contact Emails{% endtrans %}:</label>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 2} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <input type="email" class="form-control" placeholder="" id='input-requestor-email' name='requestor_email' value='{{ submission.requestorEmail }}' required>
+                                </div>
+                            </fieldset>
 
+                            <fieldset>
+                                <legend>{% trans %}Issues{% endtrans %}</legend>
+                                <table class='table table-hover table-condensed' id='table-issue'>
                                     <thead>
                                         <tr>
-                                            <th width="50%">{% trans %}Registry Name{% endtrans %}</th>
-                                            <th>{% trans %}Registry Number{% endtrans %}</th>
-                                            <th>{% trans %}Date{% endtrans %}</th>
+                                            <th>{% trans %}Volume{% endtrans %}</th>
+                                            <th>{% trans %}Number{% endtrans %}</th>
+                                            <th>{% trans %}Year{% endtrans %}</th>
                                             <th>{% trans %}Actions{% endtrans %}</th>
                                         </tr>
                                     </thead>
-
                                     <tbody>
-                                        {% for trial in submission.clinicalTrial %}
+                                        {% for issue in submission.issue %}
                                             <tr>
-                                                <input type='hidden' name='clinical-trial[{{ loop.index0 }}][name-id]' value='{{ trial.name.id }}'>
-                                                <input type='hidden' name='clinical-trial[{{ loop.index0 }}][number]' value='{{ trial.number }}'>
-                                                <input type='hidden' name='clinical-trial[{{ loop.index0 }}][date]' value='{% if trial.date %}{{ trial.date|date("Y-m-d") }}{% endif %}'>
-
-                                                <td>{{ trial.name }}</td>
-                                                <td>{{ trial.number }}</td>
-                                                <td>{% if trial.date %}{{ trial.date|date("d/m/Y") }}{% else %}-{% endif %}</td>
-                                                <td><a href='#' class='btn btn-default btn-xs button-remove-clinical-trial'><i class='glyphicon glyphicon-trash'></i></a></td>
+                                                <td>{{ issue.volume }}</td>
+                                                <td>{{ issue.number }}</td>
+                                                <td>{{ issue.year }}</td>
+                                                <td>
+                                                    {% if issue.fulltext %}
+                                                        <a href='{{ issue.fulltext }}' target="_blank" class='btn btn-default btn-xs' target="_blank" title="Link to full text">
+                                                            <i class='glyphicon glyphicon-eye-open'></i>
+                                                        </a>
+                                                    {% endif%}
+                                                    <a href='#' class='btn btn-default btn-xs button-delete-issue' data-id='{{ issue.id }}' data-toggle="modal" data-target="#modal-delete-issue" title="Remove issue">
+                                                        <i class='glyphicon glyphicon-trash'></i>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
                                 </table>
-                                <a href='#' class='btn btn-default' data-toggle="modal" data-target="#modal-new-clinical-trial">{% trans %}New Clinical Trial Registry{% endtrans %}</a>
-                            </div>
-                        </div>
+                            </fieldset>
 
-                        <div class='row'>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="textarea-clinical-trial-second">{% trans %}Secondary Registry{% endtrans %}:</label>
-                                    <a href="{{ path("crud_admin_help_show", {help_id: 35} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                                    <textarea rows="4" class="form-control" id='textarea-clinical-trial-second' name='clinical-trial-second'>{{ submission.clinicalTrialSecondary }}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-
-                <div class='block'>
-                    <div class='row'>
-                        <div class="col-md-12">
-                            <h2 class='sub-header'>{% trans %}Bugdet{% endtrans %}</h2>
-                        </div>
-                    </div>
-
-                    <div class='row'>
-                        <div class="col-md-12">
-                            <table class='table table-hover table-condensed' id="table-cost">
-
-                                <thead>
-                                    <tr>
-                                        <th width="50%">{% trans %}Cost description{% endtrans %}</th>
-                                        <th>{% trans %}Unit cost{% endtrans %}</th>
-                                        <th>{% trans %}Quantity{% endtrans %}</th>
-                                        <th>{% trans %}Total{% endtrans %}</th>
-                                        <th>{% trans %}Actions{% endtrans %}</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody id='tbody-budget'>
-                                    {% for cost in submission.budget %}
-                                        <tr class='cost'>
-                                            <input type='hidden' name='budget[{{ loop.index0 }}][description]' value='{{ cost.description }}'>
-                                            <input type='hidden' name='budget[{{ loop.index0 }}][quantity]' value='{{ cost.quantity }}'>
-                                            <input type='hidden' name='budget[{{ loop.index0 }}][unit_cost]' value='{{ cost.unitCost }}'>
-
-                                            <td>{{ cost.description }}</td>
-                                            <td><label class='label label-default'>{{ symbol }} <span class='unit-cost'>{{ cost.unitCost }}</span></label></td>
-                                            <td><label class='label label-default'>{{ cost.quantity }}</label></td>
-                                            <td><label class='label label-primary'>{{ symbol }} <span class='total-cost'>{{ cost.quantity * cost.unitCost }}</span></label></td>
-                                            <td><a href='#' class='btn btn-default btn-xs button-remove-cost'><i class='glyphicon glyphicon-trash'></i></a></td>
-                                        </tr>
-                                    {% endfor %}
-                                    <tr>
-                                        <th colspan="3">{% trans %}Total cost{% endtrans %}</th>
-                                        <th colspan="2">{{ symbol }} <span id='span-total-budget'></span></th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href='#' class='btn btn-default' data-toggle="modal" data-target="#modal-new-expend">{% trans %}New cost{% endtrans %}</a>
-                        </div>
-                    </div>
-
-                    <div class='row'>
-                        <div class="col-md-12">
-                            <div class="form-group required">
-                                <label for="textarea-funding-source">{% trans %}Funding source{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 36} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                                <textarea rows="4" class="form-control" id='textarea-funding-source' name='funding-source' required>{{ submission.fundingSource }}</textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class='row'>
-                        <div class="col-md-12">
-                            <div class="form-group required">
-                                <label for="textarea-primary-sponsor">{% trans %}Primary Sponsor{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 37} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                                <textarea rows="4" class="form-control" id='textarea-primary-sponsor' name='primary-sponsor' required>{{ submission.primarySponsor }}</textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class='row'>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="textarea-secondary-sponsor">{% trans %}Secondary Sponsor{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 38} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                                <textarea rows="4" class="form-control" id='textarea-secondary-sponsor' name='secondary-sponsor'>{{ submission.secondarySponsor }}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class='block'>
-                    <div class='row'>
-                        <div class="col-md-12">
-                            <h2 class='sub-header'>{% trans %}Schedule{% endtrans %}:</h2>
-                        </div>
-                    </div>
-
-                    <div class='row'>
-                        <div class="col-md-12">
-                            <table class='table table-hover table-condensed' id="table-task">
-
-                                <thead>
-                                    <tr>
-                                        <th width="50%">{% trans %}Activity{% endtrans %}</th>
-                                        <th>{% trans %}Start{% endtrans %}</th>
-                                        <th>{% trans %}End{% endtrans %}</th>
-                                        <th>{% trans %}Actions{% endtrans %}</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    {% for task in submission.schedule %}
-                                        <tr>
-                                            <input type='hidden' name='schedule[{{ loop.index0 }}][description]' value='{{ task.description }}'>
-                                            <input type='hidden' name='schedule[{{ loop.index0 }}][init]' value='{{ task.init|date("Y-m-d") }}'>
-                                            <input type='hidden' name='schedule[{{ loop.index0 }}][end]' value='{{ task.end|date("Y-m-d") }}'>
-
-                                            <td>{{ task.description }}</td>
-                                            <td>{{ task.init|date("d/m/Y") }}</td>
-                                            <td>{{ task.end|date("d/m/Y") }}</td>
-                                            <td><a href='#' class='btn btn-default btn-xs'><i class='glyphicon glyphicon-trash'></i></a></td>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                            <a href='#' class='btn btn-default' data-toggle="modal" data-target="#modal-new-task">{% trans %}New task{% endtrans %}</a>
+                            <a href='#' class='btn btn-default' data-toggle="modal" data-target="#modal-new-issue" {% if submission.issue|length == 3 %}disabled{% endif %}>{% trans %}New Issue{% endtrans %}</a>
                         </div>
                     </div>
                 </div>
@@ -192,123 +80,75 @@
         </div>
     </div>
 
-    <!-- Modal Nova Despesa -->
-    <div class="modal fade" id="modal-new-expend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!-- Modal Novo Fascículo -->
+    <div class="modal fade" id="modal-new-issue" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-            <form class='form' id='form-cost'>
+            <form method="POST" id='form-new-issue' action="{{ path("submission_new_fourth_step", {submission_id: submission.id}) }}">
+                
+                <input type='hidden' name='issue' value='{{ submission.id }}'>
+                
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{% trans %}New Cost{% endtrans %}</h4>
+                        <h4 class="modal-title" id="myModalLabel">{% trans %}New Issue{% endtrans %}</h4>
                     </div>
+
                     <div class="modal-body">
+                        <div class="form-group required">
+                            <label for="input-issue-volume">{% trans %}Volume{% endtrans %}:</label>
+                            <a href="{{ path("crud_admin_help_show", {help_id: 2} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <input type="text" class="form-control" placeholder="" id='input-issue-volume' name='issue_volume' required>
+                        </div>
 
-                        <div class="form-group">
-                            <label for="input-cost-description">{% trans %}Description{% endtrans %}:</label>
-                            <a href="{{ path("crud_admin_help_show", {help_id: 39} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <input type='text' class='form-control' id='input-cost-description' name='cost-description' required>
+                        <div class="form-group required">
+                            <label for="input-issue-number">{% trans %}Number{% endtrans %}:</label>
+                            <a href="{{ path("crud_admin_help_show", {help_id: 2} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <input type="text" class="form-control" placeholder="" id='input-issue-number' name='issue_number' required>
+                        </div>
+
+                        <div class="form-group required">
+                            <label for="input-issue-year">{% trans %}Year{% endtrans %}:</label>
+                            <a href="{{ path("crud_admin_help_show", {help_id: 20} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <input type="text" class="form-control" placeholder="" id='input-issue-year' name='issue_year' maxlength="4" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="input-cost-quantity">{% trans %}Quantity{% endtrans %}:</label>
-                            <a href="{{ path("crud_admin_help_show", {help_id: 40} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <input type='number' class='form-control' min="1" id='input-cost-quantity' name='cost-quantity' required>
+                            <label for="input-issue-fulltext">{% trans %}Full Text{% endtrans %}:</label> 
+                            <a href="{{ path("crud_admin_help_show", {help_id: 12} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <input type="text" class="form-control" placeholder="" id='input-issue-fulltext' name='issue_fulltext'>
                         </div>
-
-                        <div class="form-group">
-                            <label for="input-cost-unit-cost">{% trans %}Unit cost{% endtrans %}:</label>
-                            <a href="{{ path("crud_admin_help_show", {help_id: 41} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <input type="text" class='form-control mask-money' required="required" id='input-cost-unit-cost' name="cost-unit-cost" />
-                        </div>
-
 
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
-                        <button type="submit" id="submit-cost-form" class="btn btn-primary" data-dismiss="modal">{% trans %}Save{% endtrans %}</button>
+                        <button type="submit" class="btn btn-primary">{% trans %}Send{% endtrans %}</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Modal Nova Tarefa -->
-    <div class="modal fade" id="modal-new-task" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!-- Modal Confirmar Exclusão -->
+    <div class="modal fade" id="modal-delete-issue" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-            <form class='form' id='form-task'>
+            <form method="POST" id='form-delete-issue' action="{{ path("submission_new_fourth_step", {submission_id: submission.id}) }}">
+                <input type="hidden" name="delete-issue-id" id='hidden-delete-issue' value="" />
+
                 <div class="modal-content">
+
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{% trans %}New task{% endtrans %}</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="input-task-description">{% trans %}Description{% endtrans %}:</label>
-                            <a href="{{ path("crud_admin_help_show", {help_id: 42} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <input type='text' class='form-control' id='input-task-description' name='task-description' required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="input-task-init">{% trans %}Start{% endtrans %}:</label>
-                            <a href="{{ path("crud_admin_help_show", {help_id: 43} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <input type="text" class='form-control datepicker' required="required" maxlength="10" id="input-task-init" name="task-init" pattern="[0-9]{2}\/[0-9]{2}\/[0-9]{4}$" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="input-task-end">{% trans %}End{% endtrans %}:</label>
-                            <a href="{{ path("crud_admin_help_show", {help_id: 44} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <input type="text" class='form-control datepicker' required="required" maxlength="10" id="input-task-end" name="task-end" pattern="[0-9]{2}\/[0-9]{2}\/[0-9]{4}$" />
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
-                        <button type="submit" class="btn btn-primary" id="submit-task-form" data-dismiss="modal">{% trans %}Save{% endtrans %}</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal Novo Ensaio CLínico -->
-    <div class="modal fade" id="modal-new-clinical-trial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <form class='form' id='form-clinical-trial'>
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{% trans %}New Clinical Trial Registry{% endtrans %}</h4>
+                        <h4 class="modal-title" id="myModalLabel">{% trans %}Delete Issue{% endtrans %}</h4>
                     </div>
 
                     <div class="modal-body">
-
-                        <div class="form-group">
-                            <label for="input-clinical-trial-name">{% trans %}Name{% endtrans %}:</label>
-                            <a href="{{ path("crud_admin_help_show", {help_id: 45} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <select class='form-control' id='input-clinical-trial-name' name='clinical-trial-name' required>
-                                <option value="">-</option>
-                                {% for name in clinical_trial_names %}
-                                    <option value="{{ name.id }}">{{ name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="input-clinical-trial-number">{% trans %}Number{% endtrans %}:</label>
-                            <a href="{{ path("crud_admin_help_show", {help_id: 46} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <input type="number" class='form-control' id='input-clinical-trial-number' name='clinical-trial-number' min="0" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="input-clinical-trial-date">{% trans %}Date{% endtrans %}:</label>
-                            <a href="{{ path("crud_admin_help_show", {help_id: 47} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <input type="text" class='form-control datepicker' id='input-clinical-trial-date' name='clinical-trial-date'>
-                        </div>
-
-
+                        <p>{% trans %}Do you confirm the exclusion of this issue?{% endtrans %}</p>
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
-                        <button type="submit" class="btn btn-primary" id="submit-clinical-trial-form" data-dismiss="modal">{% trans %}Save{% endtrans %}</button>
+                        <button type="submit" class="btn btn-danger">{% trans %}Confirm{% endtrans %}</button>
                     </div>
                 </div>
             </form>
@@ -319,154 +159,15 @@
 
 {% block script %}
     <script>
-
-        // scripts to manage cost modal
         $(function(){
-
-            $total_budget = {{ submission.budget|length }};
-
-            // modal cost submit action
-            $("#submit-cost-form").click(function(e){
-                e.preventDefault();
-
-                var $description = $("#input-cost-description").val();
-                var $quantity = $("#input-cost-quantity").val();
-                var $unit_cost = $("#input-cost-unit-cost").val();
-
-                if(!$description || !$quantity || !$unit_cost) {
-                    return
-                }
-
-                var $total = parseFloat(parseInt($quantity) * parseFloat($unit_cost));
-
-                string =  "<tr class='cost'>"
-                string +=    "<input type='hidden' name='budget["+ $total_budget +"][description]' value='"+ $description +"'>"
-                string +=    "<input type='hidden' name='budget["+ $total_budget +"][quantity]' value='"+ $quantity +"'>"
-                string +=    "<input type='hidden' name='budget["+ $total_budget +"][unit_cost]' value='"+ $unit_cost +"'>"
-
-                string +=    "<td>"+ $description +"</td> "
-                string +=    "<td><label class='label label-default'>{{ symbol }} "+ $unit_cost +"</label></td> "
-                string +=    "<td><label class='label label-default'>"+ $quantity +"</label></td> "
-                string +=    "<td><label class='label label-primary'>{{ symbol }} <span class='total-cost'>"+ $total +"</span></label></td> "
-                string +=    "<td><a href='#' class='btn btn-default btn-xs button-remove-cost'><i class='glyphicon glyphicon-trash'></i></a></td> "
-                string += "</tr>"
-
-                $("#table-cost tbody").prepend(string);
-                $total_budget += 1;
-                recalculate_total_costs();
-            });
-
-            // button trash action
-            $("#table-cost").on("click", ".button-remove-cost", function(e){
-                e.preventDefault();
-
-                parent = $(this).parents('tr');
-                parent.remove();
-                recalculate_total_costs();
+            $("#table-issue").on("click", ".button-delete-issue", function(e){
+                var id = $(this).data('id');
+                $("#hidden-delete-issue").val(id);
             });
         });
 
-        // scripts to manage task modal
-        $(function(){
-
-            var $total_task = {{ submission.schedule|length }};
-
-            // modal task submit action
-            $("#submit-task-form").click(function(e){
-                e.preventDefault();
-
-                var $description = $("#input-task-description").val();
-                var $init = $("#input-task-init").val();
-                var $end = $("#input-task-end").val();
-
-                if(!$description || !$init || !$end) {
-                    return
-                }
-
-                string =  "<tr>"
-                string +=    "<input type='hidden' name='schedule["+ $total_task +"][description]' value='"+ $description +"'>"
-                string +=    "<input type='hidden' name='schedule["+ $total_task +"][init]' value='"+ $init +"'>"
-                string +=    "<input type='hidden' name='schedule["+ $total_task +"][end]' value='"+ $end +"'>"
-
-                string +=    "<td>"+ $description +"</td> "
-                string +=    "<td>"+ $init +"</td> "
-                string +=    "<td>"+ $end +"</td> "
-                string +=    "<td><a href='#' class='btn btn-default btn-xs button-remove-task'><i class='glyphicon glyphicon-trash'></i></a></td> "
-                string += "</tr>"
-
-                $("#table-task tbody").append(string);
-                $total_task += 1;
-            });
-
-            // button trash action
-            $("#table-task").on("click", ".button-remove-task", function(e){
-                e.preventDefault();
-
-                parent = $(this).parents('tr');
-                parent.remove();
-            });
-        });
-
-        // scripts to manage clinical trial modal
-        $(function(){
-
-            var $total_clinical_trial = {{ submission.clinicalTrial|length }};
-
-            // modal clinical-trial submit action
-            $("#submit-clinical-trial-form").click(function(e){
-                e.preventDefault();
-
-                var $name_id = $("#input-clinical-trial-name").val();
-                var $name = $("#input-clinical-trial-name option:selected").text();
-                var $number = $("#input-clinical-trial-number").val();
-                var $date = $("#input-clinical-trial-date").val();
-
-                if(!$name_id || !$number) {
-                    return
-                }
-
-                string =  "<tr>"
-                string +=    "<input type='hidden' name='clinical-trial["+ $total_clinical_trial +"][name-id]' value='"+ $name_id +"'>"
-                string +=    "<input type='hidden' name='clinical-trial["+ $total_clinical_trial +"][number]' value='"+ $number +"'>"
-                string +=    "<input type='hidden' name='clinical-trial["+ $total_clinical_trial +"][date]' value='"+ $date +"'>"
-
-                string +=    "<td>"+ $name +"</td> "
-                string +=    "<td>"+ $number +"</td> "
-                string +=    "<td>"+ $date +"</td> "
-                string +=    "<td><a href='#' class='btn btn-default btn-xs button-remove-clinical-trial'><i class='glyphicon glyphicon-trash'></i></a></td> "
-                string += "</tr>"
-
-                $("#table-clinical-trial tbody").append(string);
-                $total_clinical_trial += 1;
-            });
-
-            // button trash action
-            $("#table-clinical-trial").on("click", ".button-remove-clinical-trial", function(e){
-                e.preventDefault();
-
-                parent = $(this).parents('tr');
-                parent.remove();
-            });
-
-        });
-
-        $(function(){
-            recalculate_total_costs();
-        });
-
-        // sum of costs
-        function recalculate_total_costs() {
-            var $total_cost = 0.0;
-            $.each($("#tbody-budget tr.cost"), function(index, tr){
-                console.log(tr);
-                var current_cost = parseFloat($(tr).find('.total-cost').text());
-                if (current_cost) {
-                    $total_cost = $total_cost + current_cost;
-                    console.log(current_cost);
-                }
-            });
-            $("#span-total-budget").text($total_cost);
-        }
-
+        $('#modal-delete-issue').on('hidden.bs.modal', function () {
+            $("#hidden-delete-issue").val("");
+        })
     </script>
 {% endblock %}

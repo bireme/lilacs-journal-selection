@@ -48,13 +48,6 @@ class Submission extends Base
     private $protocol;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="language", type="string", nullable=true, length=255)
-     */
-    private $language;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(name="is_translation", type="boolean")
@@ -79,6 +72,14 @@ class Submission extends Base
     private $owner;
 
     /**
+     * @var Team
+     *
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="users")
+     * @ORM\JoinTable(name="submission_user")
+     */
+    private $team;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Submission", mappedBy="original_submission", cascade={"remove"})
@@ -94,281 +95,329 @@ class Submission extends Base
     /**
      * @var string
      *
-     * @ORM\Column(name="public_title", type="string", length=510)
+     * @ORM\Column(name="title", type="string", length=510)
      * @Assert\NotBlank
      */
-    private $publicTitle;
+    private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="scientific_title", type="string", length=510)
-     * @Assert\NotBlank
+     * @ORM\Column(name="short_title", type="string", length=510)
      */
-    private $scientificTitle;
+    private $shortTitle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="title_acronym", type="string", length=255)
+     * @ORM\Column(name="acronym_title", type="string", length=255)
      */
-    private $titleAcronym;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="is_clinical_trial", type="boolean")
-     * @Assert\NotBlank
-     */
-    private $is_clinical_trial;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="is_consultation", type="boolean")
-     * @Assert\NotBlank
-     */
-    private $is_consultation;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="is_sent", type="boolean")
-     * @Assert\NotBlank
-     */
-    private $is_sent = false;
-
-    /**
-     * @var Team
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="users")
-     * @ORM\JoinTable(name="submission_user")
-     */
-    private $team;
-
-    /**
-     * @var text
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $abstract;
+    private $acronymTitle;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(name="previous_title", type="string", length=510)
      */
-    private $keywords;
+    private $previousTitle;
 
     /**
-     * @var text
+     * @var string
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(name="additional_title", type="string", length=510)
      */
-    private $introduction;
+    private $additionalTitle;
 
     /**
-     * @var text
+     * @var string
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(name="issn", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
      */
-    private $justification;
+    private $issn;
 
     /**
-     * @var text
+     * @var string
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(name="issn_online", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
      */
-    private $goals;
+    private $issnOnline;
 
     /**
-     * @var text
+     * @var string
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(name="frequency", type="string", length=255)
+     * @Assert\NotBlank
      */
-    private $study_design;
+    private $frequency;
 
     /**
-     * @var text
+     * @var string
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(name="standards", type="string", length=510)
+     * @Assert\NotBlank
      */
-    private $health_condition;
+    private $standards;
 
     /**
-     * @var Gender
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Gender")
-     * @ORM\JoinColumn(name="gender_id", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\Column(name="bibliographic_subtitle", type="string", length=510)
      */
-    private $gender;
-    /**
-     * @var integer
-     *
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $sample_size;
+    private $bibliographicSubtitle;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(name="creation_year", type="integer")
+     * @Assert\NotBlank
      */
-    private $minimum_age;
+    private $creationYear;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(name="lifetime", type="string", length=255)
      */
-    private $maximum_age;
+    private $lifetime;
 
     /**
-     * @var text
+     * @var string
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(name="support", type="string", length=255)
+     * @Assert\NotBlank
      */
-    private $inclusion_criteria;
+    private $support;
 
     /**
-     * @var RecruitmentStatus
-     *
-     * @ORM\ManyToOne(targetEntity="RecruitmentStatus")
-     * @ORM\JoinColumn(name="recruitment_status_id", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\Column(name="full_text", type="string", length=255)
+     * @Assert\NotBlank
      */
-    private $recruitment_status;
+    private $full_text;
 
     /**
-     * @var SubmissionCountry
-     * @ORM\OneToMany(targetEntity="SubmissionCountry", mappedBy="submission", cascade={"persist"})
-     * @ORM\JoinTable(name="submission_country")
+     * @var string
+     *
+     * @ORM\Column(name="website", type="string")
+     */
+    private $website;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="website_info", type="string")
+     */
+    private $websiteInfo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="social_networks_info", type="string")
+     */
+    private $socialNetworksInfo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mission", type="string")
+     * @Assert\NotBlank
+     */
+    private $mission;
+
+    /**
+     * @var PublicationType
+     *
+     * @ORM\ManyToMany(targetEntity="PublicationType", inversedBy="submissions")
+     * @ORM\JoinTable(name="submission_publication_type")
+     * @Assert\NotBlank
+     */
+    private $publication_type;
+
+    /**
+     * @var Language
+     *
+     * @ORM\ManyToMany(targetEntity="Language", inversedBy="submissions")
+     * @ORM\JoinTable(name="submission_language")
+     * @Assert\NotBlank
+     */
+    private $language;
+
+    /**
+     * @var ThematicArea
+     *
+     * @ORM\ManyToOne(targetEntity="ThematicArea")
+     * @ORM\JoinColumn(name="thematic_area_id", referencedColumnName="id", onDelete="SET NULL")
+     * @Assert\NotBlank
+     */
+    private $thematicArea;
+
+    /**
+     * @var Specialty
+     *
+     * @ORM\ManyToOne(targetEntity="Specialty")
+     * @ORM\JoinColumn(name="specialty_id", referencedColumnName="id", onDelete="SET NULL")
+     * @Assert\NotBlank
+     */
+    private $specialty;
+
+    /**
+     * @ORM\Column(name="qualis", type="string", length=255)
+     */
+    private $qualis;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="funded_by_cnpq", type="boolean")
+     * @Assert\NotBlank
+     */
+    private $funded_by_cnpq;
+
+    /**
+     * @ORM\Column(name="funders", type="string", length=510)
+     * @Assert\NotBlank
+     */
+    private $funders;
+
+    /**
+     * @ORM\Column(name="indexed_in", type="string", length=510)
+     */
+    private $indexed_in;
+
+    /**
+     * @ORM\Column(name="db", type="string", length=510)
+     */
+    private $db;
+
+
+    /******************** Institution Info  ********************/
+
+    /**
+     * @ORM\Column(name="editor_name", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     */
+    private $editorName;
+
+    /**
+     * @ORM\Column(name="editor_email", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     */
+    private $editorEmail;
+
+    /**
+     * @ORM\Column(name="editor_alternate_email", type="string", length=255, nullable=true)
+     */
+    private $editorAlternateEmail;
+
+    /**
+     * @ORM\Column(name="phone", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(name="address", type="string", length=510, nullable=true)
+     * @Assert\NotBlank
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(name="cep", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     */
+    private $cep;
+
+    /**
+     * @ORM\Column(name="institution", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     */
+    private $institution;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="editor_state", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     */
+    private $editorState;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="editor_city", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     */
+    private $editorCity;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="postgraduate_grade", type="string", length=255, nullable=true)
+     */
+    private $postgraduateGrade;
+
+
+    /******************** Publisher Info  ********************/
+
+    /**
+     * @ORM\Column(name="publisher_name", type="string", length=255, nullable=true)
+     */
+    private $publisherName;
+
+    /**
+     * @ORM\Column(name="publisher_contact_name", type="string", length=255, nullable=true)
+     */
+    private $publisherContactName;
+
+    /**
+     * @ORM\Column(name="publisher_email", type="string", length=255, nullable=true)
+     */
+    private $publisherEmail;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="publisher_state", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     */
+    private $publisherState;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="publisher_city", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     */
+    private $publisherCity;
+
+    /**
+     * @var Country
+     *
+     * @ORM\ManyToOne(targetEntity="Country")
+     * @ORM\JoinColumn(name="country_id", referencedColumnName="id", onDelete="SET NULL")
+     * @Assert\NotBlank
      */
     private $country;
 
+    /******************** Evaluation Process Info  ********************/
+
     /**
-     * @var text
+     * @ORM\Column(name="requestor_name", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     */
+    private $requestorName;
+
+    /**
+     * @ORM\Column(name="requestor_email", type="string", length=255, nullable=true)
+     * @Assert\NotBlank
+     */
+    private $requestorEmail;
+
+    /**
+     * @var Issue
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\OneToMany(targetEntity="Issue", mappedBy="submission", cascade={"persist"})
+     * @ORM\JoinTable(name="submission_issue")
+     * @Assert\NotBlank
      */
-    private $exclusion_criteria;
-
-    /**
-     * @var date
-     *
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $recruitment_init_date;
-
-    /**
-     * @var text
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $interventions;
-
-    /**
-     * @var text
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $primary_outcome;
-
-    /**
-     * @var text
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $secondary_outcome;
-
-    /**
-     * @var text
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $general_procedures;
-
-    /**
-     * @var text
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $analysis_plan;
-
-    /**
-     * @var text
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $ethical_considerations;
-
-    /**
-     * @var SubmissionCost
-     * @ORM\OneToMany(targetEntity="SubmissionCost", mappedBy="submission", cascade={"persist"})
-     * @ORM\JoinTable(name="submission_cost")
-     */
-    private $budget;
-
-    /**
-     * @var SubmissionClinicalTrial
-     * @ORM\OneToMany(targetEntity="SubmissionClinicalTrial", mappedBy="submission", cascade={"persist"})
-     * @ORM\JoinTable(name="submission_clinical_trial")
-     */
-    private $clinical_trial;
-
-    /**
-     * @var text
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $clinical_trial_secondary;
-
-    /**
-     * @var text
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $funding_source;
-
-    /**
-     * @var text
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $primary_sponsor;
-
-    /**
-     * @var text
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $secondary_sponsor;
-
-    /**
-     * @var SubmissionTask
-     * @ORM\OneToMany(targetEntity="SubmissionTask", mappedBy="submission", cascade={"persist"})
-     * @ORM\JoinTable(name="submission_task")
-     */
-    private $schedule;
-
-    /**
-     * @var text
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $bibliography;
-
-    /**
-     * @var text
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sscientific_contact;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $prior_ethical_approval;
+    private $issue;
 
     /**
      * @var SubmissionUpload
@@ -377,18 +426,17 @@ class Submission extends Base
      */
     private $attachments;
 
+
     public function __construct() {
 
-        $this->country = new ArrayCollection();
-        $this->budget = new ArrayCollection();
-        $this->clinical_trial = new ArrayCollection();
-        $this->schedule = new ArrayCollection();
+        $this->publication_type = new ArrayCollection();
+        $this->languages = new ArrayCollection();
+        $this->issue = new ArrayCollection();
         $this->attachments = new ArrayCollection();
 
         // call Grandpa's constructor
         parent::__construct();
     }
-
 
     public function __clone() {
 
@@ -396,7 +444,7 @@ class Submission extends Base
         $this->setUpdated(new \Datetime());
         $this->setIsSended(false);
 
-        foreach(array('country', 'budget', 'clinical_trial', 'schedule', 'attachments') as $attribute) {
+        foreach(array('publication_type', 'languages', 'issue', 'attachments') as $attribute) {
 
             $mClone = new ArrayCollection();
             foreach ($this->$attribute as $item) {
@@ -420,37 +468,13 @@ class Submission extends Base
     }
 
     /**
-     * Set publicTitle
-     *
-     * @param string $publicTitle
-     *
-     * @return Submission
-     */
-    public function setPublicTitle($publicTitle)
-    {
-        $this->publicTitle = $publicTitle;
-
-        return $this;
-    }
-
-    /**
-     * Get publicTitle
-     *
-     * @return string
-     */
-    public function getPublicTitle()
-    {
-        return $this->publicTitle;
-    }
-
-    /**
      * Set protocol
      *
      * @param \Proethos2\ModelBundle\Entity\Protocol $protocol
      *
      * @return Submission
      */
-    public function setProtocol(\Proethos2\ModelBundle\Entity\Protocol $protocol)
+    public function setProtocol(\Proethos2\ModelBundle\Entity\Protocol $protocol = null)
     {
         $this->protocol = $protocol;
 
@@ -468,109 +492,13 @@ class Submission extends Base
     }
 
     /**
-     * Set scientificTitle
-     *
-     * @param string $scientificTitle
-     *
-     * @return Submission
-     */
-    public function setScientificTitle($scientificTitle)
-    {
-        $this->scientificTitle = $scientificTitle;
-
-        return $this;
-    }
-
-    /**
-     * Get scientificTitle
-     *
-     * @return string
-     */
-    public function getScientificTitle()
-    {
-        return $this->scientificTitle;
-    }
-
-    /**
-     * Set titleAcronym
-     *
-     * @param string $titleAcronym
-     *
-     * @return Submission
-     */
-    public function setTitleAcronym($titleAcronym)
-    {
-        $this->titleAcronym = $titleAcronym;
-
-        return $this;
-    }
-
-    /**
-     * Get titleAcronym
-     *
-     * @return string
-     */
-    public function getTitleAcronym()
-    {
-        return $this->titleAcronym;
-    }
-
-    /**
-     * Set isClinicalTrial
-     *
-     * @param string $isClinicalTrial
-     *
-     * @return Submission
-     */
-    public function setIsClinicalTrial($isClinicalTrial)
-    {
-        $this->is_clinical_trial = $isClinicalTrial;
-
-        return $this;
-    }
-
-    /**
-     * Get isClinicalTrial
-     *
-     * @return string
-     */
-    public function getIsClinicalTrial()
-    {
-        return $this->is_clinical_trial;
-    }
-
-    /**
-     * Set isConsultation
-     *
-     * @param string $isConsultation
-     *
-     * @return Submission
-     */
-    public function setIsConsultation($isConsultation)
-    {
-        $this->is_consultation = $isConsultation;
-
-        return $this;
-    }
-
-    /**
-     * Get isConsultation
-     *
-     * @return string
-     */
-    public function getIsConsultation()
-    {
-        return $this->is_consultation;
-    }
-
-    /**
      * Set owner
      *
      * @param \Proethos2\ModelBundle\Entity\User $owner
      *
      * @return Submission
      */
-    public function setOwner(\Proethos2\ModelBundle\Entity\User $owner)
+    public function setOwner(\Proethos2\ModelBundle\Entity\User $owner = null)
     {
         $this->owner = $owner;
 
@@ -645,848 +573,6 @@ class Submission extends Base
     }
 
     /**
-     * Set abstract
-     *
-     * @param string $abstract
-     *
-     * @return Submission
-     */
-    public function setAbstract($abstract)
-    {
-        $this->abstract = $abstract;
-
-        return $this;
-    }
-
-    /**
-     * Get abstract
-     *
-     * @return string
-     */
-    public function getAbstract()
-    {
-        return $this->abstract;
-    }
-
-    /**
-     * Set keywords
-     *
-     * @param string $keywords
-     *
-     * @return Submission
-     */
-    public function setKeywords($keywords)
-    {
-        $this->keywords = $keywords;
-
-        return $this;
-    }
-
-    /**
-     * Get keywords
-     *
-     * @return string
-     */
-    public function getKeywords()
-    {
-        return $this->keywords;
-    }
-
-    /**
-     * Set introduction
-     *
-     * @param string $introduction
-     *
-     * @return Submission
-     */
-    public function setIntroduction($introduction)
-    {
-        $this->introduction = $introduction;
-
-        return $this;
-    }
-
-    /**
-     * Get introduction
-     *
-     * @return string
-     */
-    public function getIntroduction()
-    {
-        return $this->introduction;
-    }
-
-    /**
-     * Set justification
-     *
-     * @param string $justification
-     *
-     * @return Submission
-     */
-    public function setJustification($justification)
-    {
-        $this->justification = $justification;
-
-        return $this;
-    }
-
-    /**
-     * Get justification
-     *
-     * @return string
-     */
-    public function getJustification()
-    {
-        return $this->justification;
-    }
-
-    /**
-     * Set goals
-     *
-     * @param string $goals
-     *
-     * @return Submission
-     */
-    public function setGoals($goals)
-    {
-        $this->goals = $goals;
-
-        return $this;
-    }
-
-    /**
-     * Get goals
-     *
-     * @return string
-     */
-    public function getGoals()
-    {
-        return $this->goals;
-    }
-
-    /**
-     * Set studyDesign
-     *
-     * @param string $studyDesign
-     *
-     * @return Submission
-     */
-    public function setStudyDesign($studyDesign)
-    {
-        $this->study_design = $studyDesign;
-
-        return $this;
-    }
-
-    /**
-     * Get studyDesign
-     *
-     * @return string
-     */
-    public function getStudyDesign()
-    {
-        return $this->study_design;
-    }
-
-    /**
-     * Set healthCondition
-     *
-     * @param string $healthCondition
-     *
-     * @return Submission
-     */
-    public function setHealthCondition($healthCondition)
-    {
-        $this->health_condition = $healthCondition;
-
-        return $this;
-    }
-
-    /**
-     * Get healthCondition
-     *
-     * @return string
-     */
-    public function getHealthCondition()
-    {
-        return $this->health_condition;
-    }
-
-    /**
-     * Set sampleSize
-     *
-     * @param integer $sampleSize
-     *
-     * @return Submission
-     */
-    public function setSampleSize($sampleSize)
-    {
-        $this->sample_size = $sampleSize;
-
-        return $this;
-    }
-
-    /**
-     * Get sampleSize
-     *
-     * @return integer
-     */
-    public function getSampleSize()
-    {
-        return $this->sample_size;
-    }
-
-    /**
-     * Set minimumAge
-     *
-     * @param integer $minimumAge
-     *
-     * @return Submission
-     */
-    public function setMinimumAge($minimumAge)
-    {
-        $this->minimum_age = $minimumAge;
-
-        return $this;
-    }
-
-    /**
-     * Get minimumAge
-     *
-     * @return integer
-     */
-    public function getMinimumAge()
-    {
-        return $this->minimum_age;
-    }
-
-    /**
-     * Set maximumAge
-     *
-     * @param integer $maximumAge
-     *
-     * @return Submission
-     */
-    public function setMaximumAge($maximumAge)
-    {
-        $this->maximum_age = $maximumAge;
-
-        return $this;
-    }
-
-    /**
-     * Get maximumAge
-     *
-     * @return integer
-     */
-    public function getMaximumAge()
-    {
-        return $this->maximum_age;
-    }
-
-    /**
-     * Set inclusionCriteria
-     *
-     * @param string $inclusionCriteria
-     *
-     * @return Submission
-     */
-    public function setInclusionCriteria($inclusionCriteria)
-    {
-        $this->inclusion_criteria = $inclusionCriteria;
-
-        return $this;
-    }
-
-    /**
-     * Get inclusionCriteria
-     *
-     * @return string
-     */
-    public function getInclusionCriteria()
-    {
-        return $this->inclusion_criteria;
-    }
-
-    /**
-     * Set exclusionCriteria
-     *
-     * @param string $exclusionCriteria
-     *
-     * @return Submission
-     */
-    public function setExclusionCriteria($exclusionCriteria)
-    {
-        $this->exclusion_criteria = $exclusionCriteria;
-
-        return $this;
-    }
-
-    /**
-     * Get exclusionCriteria
-     *
-     * @return string
-     */
-    public function getExclusionCriteria()
-    {
-        return $this->exclusion_criteria;
-    }
-
-    /**
-     * Set recruitmentInitDate
-     *
-     * @param \DateTime $recruitmentInitDate
-     *
-     * @return Submission
-     */
-    public function setRecruitmentInitDate($recruitmentInitDate)
-    {
-        $this->recruitment_init_date = $recruitmentInitDate;
-
-        return $this;
-    }
-
-    /**
-     * Get recruitmentInitDate
-     *
-     * @return \DateTime
-     */
-    public function getRecruitmentInitDate()
-    {
-        return $this->recruitment_init_date;
-    }
-
-    /**
-     * Set interventions
-     *
-     * @param string $interventions
-     *
-     * @return Submission
-     */
-    public function setInterventions($interventions)
-    {
-        $this->interventions = $interventions;
-
-        return $this;
-    }
-
-    /**
-     * Get interventions
-     *
-     * @return string
-     */
-    public function getInterventions()
-    {
-        return $this->interventions;
-    }
-
-    /**
-     * Set primaryOutcome
-     *
-     * @param string $primaryOutcome
-     *
-     * @return Submission
-     */
-    public function setPrimaryOutcome($primaryOutcome)
-    {
-        $this->primary_outcome = $primaryOutcome;
-
-        return $this;
-    }
-
-    /**
-     * Get primaryOutcome
-     *
-     * @return string
-     */
-    public function getPrimaryOutcome()
-    {
-        return $this->primary_outcome;
-    }
-
-    /**
-     * Set secondaryOutcome
-     *
-     * @param string $secondaryOutcome
-     *
-     * @return Submission
-     */
-    public function setSecondaryOutcome($secondaryOutcome)
-    {
-        $this->secondary_outcome = $secondaryOutcome;
-
-        return $this;
-    }
-
-    /**
-     * Get secondaryOutcome
-     *
-     * @return string
-     */
-    public function getSecondaryOutcome()
-    {
-        return $this->secondary_outcome;
-    }
-
-    /**
-     * Set generalProcedures
-     *
-     * @param string $generalProcedures
-     *
-     * @return Submission
-     */
-    public function setGeneralProcedures($generalProcedures)
-    {
-        $this->general_procedures = $generalProcedures;
-
-        return $this;
-    }
-
-    /**
-     * Get generalProcedures
-     *
-     * @return string
-     */
-    public function getGeneralProcedures()
-    {
-        return $this->general_procedures;
-    }
-
-    /**
-     * Set analysisPlan
-     *
-     * @param string $analysisPlan
-     *
-     * @return Submission
-     */
-    public function setAnalysisPlan($analysisPlan)
-    {
-        $this->analysis_plan = $analysisPlan;
-
-        return $this;
-    }
-
-    /**
-     * Get analysisPlan
-     *
-     * @return string
-     */
-    public function getAnalysisPlan()
-    {
-        return $this->analysis_plan;
-    }
-
-    /**
-     * Set ethicalConsiderations
-     *
-     * @param string $ethicalConsiderations
-     *
-     * @return Submission
-     */
-    public function setEthicalConsiderations($ethicalConsiderations)
-    {
-        $this->ethical_considerations = $ethicalConsiderations;
-
-        return $this;
-    }
-
-    /**
-     * Get ethicalConsiderations
-     *
-     * @return string
-     */
-    public function getEthicalConsiderations()
-    {
-        return $this->ethical_considerations;
-    }
-
-    /**
-     * Add country
-     *
-     * @param \Proethos2\ModelBundle\Entity\SubmissionCountry $country
-     *
-     * @return Submission
-     */
-    public function addCountry(\Proethos2\ModelBundle\Entity\SubmissionCountry $country)
-    {
-        $this->country[] = $country;
-
-        return $this;
-    }
-
-    /**
-     * Remove country
-     *
-     * @param \Proethos2\ModelBundle\Entity\SubmissionCountry $country
-     */
-    public function removeCountry(\Proethos2\ModelBundle\Entity\SubmissionCountry $country)
-    {
-        $this->country->removeElement($country);
-    }
-
-    /**
-     * Get country
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * Set fundingSource
-     *
-     * @param string $fundingSource
-     *
-     * @return Submission
-     */
-    public function setFundingSource($fundingSource)
-    {
-        $this->funding_source = $fundingSource;
-
-        return $this;
-    }
-
-    /**
-     * Get fundingSource
-     *
-     * @return string
-     */
-    public function getFundingSource()
-    {
-        return $this->funding_source;
-    }
-
-    /**
-     * Set primarySponsor
-     *
-     * @param string $primarySponsor
-     *
-     * @return Submission
-     */
-    public function setPrimarySponsor($primarySponsor)
-    {
-        $this->primary_sponsor = $primarySponsor;
-
-        return $this;
-    }
-
-    /**
-     * Get primarySponsor
-     *
-     * @return string
-     */
-    public function getPrimarySponsor()
-    {
-        return $this->primary_sponsor;
-    }
-
-    /**
-     * Set secondarySponsor
-     *
-     * @param string $secondarySponsor
-     *
-     * @return Submission
-     */
-    public function setSecondarySponsor($secondarySponsor)
-    {
-        $this->secondary_sponsor = $secondarySponsor;
-
-        return $this;
-    }
-
-    /**
-     * Get secondarySponsor
-     *
-     * @return string
-     */
-    public function getSecondarySponsor()
-    {
-        return $this->secondary_sponsor;
-    }
-
-    /**
-     * Add budget
-     *
-     * @param \Proethos2\ModelBundle\Entity\SubmissionCost $budget
-     *
-     * @return Submission
-     */
-    public function addBudget(\Proethos2\ModelBundle\Entity\SubmissionCost $budget)
-    {
-        $this->budget[] = $budget;
-
-        return $this;
-    }
-
-    /**
-     * Remove budget
-     *
-     * @param \Proethos2\ModelBundle\Entity\SubmissionCost $budget
-     */
-    public function removeBudget(\Proethos2\ModelBundle\Entity\SubmissionCost $budget)
-    {
-        $this->budget->removeElement($budget);
-    }
-
-    /**
-     * Get budget
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getBudget()
-    {
-        return $this->budget;
-    }
-
-    /**
-     * Add schedule
-     *
-     * @param \Proethos2\ModelBundle\Entity\SubmissionTask $schedule
-     *
-     * @return Submission
-     */
-    public function addSchedule(\Proethos2\ModelBundle\Entity\SubmissionTask $schedule)
-    {
-        $this->schedule[] = $schedule;
-
-        return $this;
-    }
-
-    /**
-     * Remove schedule
-     *
-     * @param \Proethos2\ModelBundle\Entity\SubmissionTask $schedule
-     */
-    public function removeSchedule(\Proethos2\ModelBundle\Entity\SubmissionTask $schedule)
-    {
-        $this->schedule->removeElement($schedule);
-    }
-
-    /**
-     * Get schedule
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSchedule()
-    {
-        return $this->schedule;
-    }
-
-    /**
-     * Set bibliography
-     *
-     * @param string $bibliography
-     *
-     * @return Submission
-     */
-    public function setBibliography($bibliography)
-    {
-        $this->bibliography = $bibliography;
-
-        return $this;
-    }
-
-    /**
-     * Get bibliography
-     *
-     * @return string
-     */
-    public function getBibliography()
-    {
-        return $this->bibliography;
-    }
-
-    /**
-     * Set sscientificContact
-     *
-     * @param string $sscientificContact
-     *
-     * @return Submission
-     */
-    public function setSscientificContact($sscientificContact)
-    {
-        $this->sscientific_contact = $sscientificContact;
-
-        return $this;
-    }
-
-    /**
-     * Get sscientificContact
-     *
-     * @return string
-     */
-    public function getSscientificContact()
-    {
-        return $this->sscientific_contact;
-    }
-
-    /**
-     * Set priorEthicalApproval
-     *
-     * @param boolean $priorEthicalApproval
-     *
-     * @return Submission
-     */
-    public function setPriorEthicalApproval($priorEthicalApproval)
-    {
-        $this->prior_ethical_approval = $priorEthicalApproval;
-
-        return $this;
-    }
-
-    /**
-     * Get priorEthicalApproval
-     *
-     * @return boolean
-     */
-    public function getPriorEthicalApproval()
-    {
-        return $this->prior_ethical_approval;
-    }
-
-    /**
-     * Add attachment
-     *
-     * @param \Proethos2\ModelBundle\Entity\SubmissionUpload $attachment
-     *
-     * @return Submission
-     */
-    public function addAttachment(\Proethos2\ModelBundle\Entity\SubmissionUpload $attachment)
-    {
-        $this->attachments[] = $attachment;
-
-        return $this;
-    }
-
-    /**
-     * Remove attachment
-     *
-     * @param \Proethos2\ModelBundle\Entity\SubmissionUpload $attachment
-     */
-    public function removeAttachment(\Proethos2\ModelBundle\Entity\SubmissionUpload $attachment)
-    {
-        $this->attachments->removeElement($attachment);
-    }
-
-    /**
-     * Get attachments
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAttachments()
-    {
-        return $this->attachments;
-    }
-
-    /**
-     * Set gender
-     *
-     * @param \Proethos2\ModelBundle\Entity\Gender $gender
-     *
-     * @return Submission
-     */
-    public function setGender(\Proethos2\ModelBundle\Entity\Gender $gender = null)
-    {
-        $this->gender = $gender;
-
-        return $this;
-    }
-
-    /**
-     * Get gender
-     *
-     * @return \Proethos2\ModelBundle\Entity\Gender
-     */
-    public function getGender()
-    {
-        return $this->gender;
-    }
-
-    /**
-     * Set recruitmentStatus
-     *
-     * @param \Proethos2\ModelBundle\Entity\RecruitmentStatus $recruitmentStatus
-     *
-     * @return Submission
-     */
-    public function setRecruitmentStatus(\Proethos2\ModelBundle\Entity\RecruitmentStatus $recruitmentStatus = null)
-    {
-        $this->recruitment_status = $recruitmentStatus;
-
-        return $this;
-    }
-
-    /**
-     * Get recruitmentStatus
-     *
-     * @return \Proethos2\ModelBundle\Entity\RecruitmentStatus
-     */
-    public function getRecruitmentStatus()
-    {
-        return $this->recruitment_status;
-    }
-
-    /**
-     * Add clinicalTrial
-     *
-     * @param \Proethos2\ModelBundle\Entity\SubmissionClinicalTrial $clinicalTrial
-     *
-     * @return Submission
-     */
-    public function addClinicalTrial(\Proethos2\ModelBundle\Entity\SubmissionClinicalTrial $clinicalTrial)
-    {
-        $this->clinical_trial[] = $clinicalTrial;
-
-        return $this;
-    }
-
-    /**
-     * Remove clinicalTrial
-     *
-     * @param \Proethos2\ModelBundle\Entity\SubmissionClinicalTrial $clinicalTrial
-     */
-    public function removeClinicalTrial(\Proethos2\ModelBundle\Entity\SubmissionClinicalTrial $clinicalTrial)
-    {
-        $this->clinical_trial->removeElement($clinicalTrial);
-    }
-
-    /**
-     * Get clinicalTrial
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getClinicalTrial()
-    {
-        return $this->clinical_trial;
-    }
-
-    /**
-     * Set clinicalTrialSecondary
-     *
-     * @param string $clinicalTrialSecondary
-     *
-     * @return Submission
-     */
-    public function setClinicalTrialSecondary($clinicalTrialSecondary)
-    {
-        $this->clinical_trial_secondary = $clinicalTrialSecondary;
-
-        return $this;
-    }
-
-    /**
-     * Get clinicalTrialSecondary
-     *
-     * @return string
-     */
-    public function getClinicalTrialSecondary()
-    {
-        return $this->clinical_trial_secondary;
-    }
-
-    /**
      * Set isSended
      *
      * @param boolean $isSended
@@ -1532,30 +618,6 @@ class Submission extends Base
     public function getNumber()
     {
         return $this->number;
-    }
-
-    /**
-     * Set language
-     *
-     * @param string $language
-     *
-     * @return Submission
-     */
-    public function setLanguage($language)
-    {
-        $this->language = $language;
-
-        return $this;
-    }
-
-    /**
-     * Get language
-     *
-     * @return string
-     */
-    public function getLanguage()
-    {
-        return $this->language;
     }
 
     /**
@@ -1681,7 +743,7 @@ class Submission extends Base
      */
     public function getCanBeEdited()
     {
-        if(in_array($this->getProtocol()->getStatus(), array('D', 'R', 'C'))) {
+        if(in_array($this->getProtocol()->getStatus(), array('D'))) {
             return true;
         } else {
             if($this->getProtocol()->getIsMigrated()) {
@@ -1713,5 +775,1173 @@ class Submission extends Base
     public function removeTranslation(\Proethos2\ModelBundle\Entity\Submission $translation)
     {
         $this->translations->removeElement($translation);
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Submission
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set shortTitle
+     *
+     * @param string $shortTitle
+     *
+     * @return Submission
+     */
+    public function setShortTitle($shortTitle)
+    {
+        $this->shortTitle = $shortTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get shortTitle
+     *
+     * @return string
+     */
+    public function getShortTitle()
+    {
+        return $this->shortTitle;
+    }
+
+    /**
+     * Set acronymTitle
+     *
+     * @param string $acronymTitle
+     *
+     * @return Submission
+     */
+    public function setAcronymTitle($acronymTitle)
+    {
+        $this->acronymTitle = $acronymTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get acronymTitle
+     *
+     * @return string
+     */
+    public function getAcronymTitle()
+    {
+        return $this->acronymTitle;
+    }
+
+    /**
+     * Set previousTitle
+     *
+     * @param string $previousTitle
+     *
+     * @return Submission
+     */
+    public function setPreviousTitle($previousTitle)
+    {
+        $this->previousTitle = $previousTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get previousTitle
+     *
+     * @return string
+     */
+    public function getPreviousTitle()
+    {
+        return $this->previousTitle;
+    }
+
+    /**
+     * Set additionalTitle
+     *
+     * @param string $additionalTitle
+     *
+     * @return Submission
+     */
+    public function setAdditionalTitle($additionalTitle)
+    {
+        $this->additionalTitle = $additionalTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get additionalTitle
+     *
+     * @return string
+     */
+    public function getAdditionalTitle()
+    {
+        return $this->additionalTitle;
+    }
+
+    /**
+     * Set frequency
+     *
+     * @param string $frequency
+     *
+     * @return Submission
+     */
+    public function setFrequency($frequency)
+    {
+        $this->frequency = $frequency;
+
+        return $this;
+    }
+
+    /**
+     * Get frequency
+     *
+     * @return string
+     */
+    public function getFrequency()
+    {
+        return $this->frequency;
+    }
+
+    /**
+     * Set standards
+     *
+     * @param string $standards
+     *
+     * @return Submission
+     */
+    public function setStandards($standards)
+    {
+        $this->standards = $standards;
+
+        return $this;
+    }
+
+    /**
+     * Get standards
+     *
+     * @return string
+     */
+    public function getStandards()
+    {
+        return $this->standards;
+    }
+
+    /**
+     * Set bibliographicSubtitle
+     *
+     * @param string $bibliographicSubtitle
+     *
+     * @return Submission
+     */
+    public function setBibliographicSubtitle($bibliographicSubtitle)
+    {
+        $this->bibliographicSubtitle = $bibliographicSubtitle;
+
+        return $this;
+    }
+
+    /**
+     * Get bibliographicSubtitle
+     *
+     * @return string
+     */
+    public function getBibliographicSubtitle()
+    {
+        return $this->bibliographicSubtitle;
+    }
+
+    /**
+     * Set creationYear
+     *
+     * @param integer $creationYear
+     *
+     * @return Submission
+     */
+    public function setCreationYear($creationYear)
+    {
+        $this->creationYear = $creationYear;
+
+        return $this;
+    }
+
+    /**
+     * Get creationYear
+     *
+     * @return integer
+     */
+    public function getCreationYear()
+    {
+        return $this->creationYear;
+    }
+
+    /**
+     * Set lifetime
+     *
+     * @param string $lifetime
+     *
+     * @return Submission
+     */
+    public function setLifetime($lifetime)
+    {
+        $this->lifetime = $lifetime;
+
+        return $this;
+    }
+
+    /**
+     * Get lifetime
+     *
+     * @return string
+     */
+    public function getLifetime()
+    {
+        return $this->lifetime;
+    }
+
+    /**
+     * Set support
+     *
+     * @param string $support
+     *
+     * @return Submission
+     */
+    public function setSupport($support)
+    {
+        $this->support = $support;
+
+        return $this;
+    }
+
+    /**
+     * Get support
+     *
+     * @return string
+     */
+    public function getSupport()
+    {
+        return $this->support;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     *
+     * @return Submission
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * Set websiteInfo
+     *
+     * @param string $websiteInfo
+     *
+     * @return Submission
+     */
+    public function setWebsiteInfo($websiteInfo)
+    {
+        $this->websiteInfo = $websiteInfo;
+
+        return $this;
+    }
+
+    /**
+     * Get websiteInfo
+     *
+     * @return string
+     */
+    public function getWebsiteInfo()
+    {
+        return $this->websiteInfo;
+    }
+
+    /**
+     * Set socialNetworksInfo
+     *
+     * @param string $socialNetworksInfo
+     *
+     * @return Submission
+     */
+    public function setSocialNetworksInfo($socialNetworksInfo)
+    {
+        $this->socialNetworksInfo = $socialNetworksInfo;
+
+        return $this;
+    }
+
+    /**
+     * Get socialNetworksInfo
+     *
+     * @return string
+     */
+    public function getSocialNetworksInfo()
+    {
+        return $this->socialNetworksInfo;
+    }
+
+    /**
+     * Set mission
+     *
+     * @param string $mission
+     *
+     * @return Submission
+     */
+    public function setMission($mission)
+    {
+        $this->mission = $mission;
+
+        return $this;
+    }
+
+    /**
+     * Get mission
+     *
+     * @return string
+     */
+    public function getMission()
+    {
+        return $this->mission;
+    }
+
+    /**
+     * Set qualis
+     *
+     * @param string $qualis
+     *
+     * @return Submission
+     */
+    public function setQualis($qualis)
+    {
+        $this->qualis = $qualis;
+
+        return $this;
+    }
+
+    /**
+     * Get qualis
+     *
+     * @return string
+     */
+    public function getQualis()
+    {
+        return $this->qualis;
+    }
+
+    /**
+     * Set funders
+     *
+     * @param string $funders
+     *
+     * @return Submission
+     */
+    public function setFunders($funders)
+    {
+        $this->funders = $funders;
+
+        return $this;
+    }
+
+    /**
+     * Get funders
+     *
+     * @return string
+     */
+    public function getFunders()
+    {
+        return $this->funders;
+    }
+
+    /**
+     * Set indexedIn
+     *
+     * @param string $indexedIn
+     *
+     * @return Submission
+     */
+    public function setIndexedIn($indexedIn)
+    {
+        $this->indexed_in = $indexedIn;
+
+        return $this;
+    }
+
+    /**
+     * Get indexedIn
+     *
+     * @return string
+     */
+    public function getIndexedIn()
+    {
+        return $this->indexed_in;
+    }
+
+    /**
+     * Set editorName
+     *
+     * @param string $editorName
+     *
+     * @return Submission
+     */
+    public function setEditorName($editorName)
+    {
+        $this->editorName = $editorName;
+
+        return $this;
+    }
+
+    /**
+     * Get editorName
+     *
+     * @return string
+     */
+    public function getEditorName()
+    {
+        return $this->editorName;
+    }
+
+    /**
+     * Set editorEmail
+     *
+     * @param string $editorEmail
+     *
+     * @return Submission
+     */
+    public function setEditorEmail($editorEmail)
+    {
+        $this->editorEmail = $editorEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get editorEmail
+     *
+     * @return string
+     */
+    public function getEditorEmail()
+    {
+        return $this->editorEmail;
+    }
+
+    /**
+     * Set editorAlternateEmail
+     *
+     * @param string $editorAlternateEmail
+     *
+     * @return Submission
+     */
+    public function setEditorAlternateEmail($editorAlternateEmail)
+    {
+        $this->editorAlternateEmail = $editorAlternateEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get editorAlternateEmail
+     *
+     * @return string
+     */
+    public function getEditorAlternateEmail()
+    {
+        return $this->editorAlternateEmail;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     *
+     * @return Submission
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     *
+     * @return Submission
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set cep
+     *
+     * @param string $cep
+     *
+     * @return Submission
+     */
+    public function setCep($cep)
+    {
+        $this->cep = $cep;
+
+        return $this;
+    }
+
+    /**
+     * Get cep
+     *
+     * @return string
+     */
+    public function getCep()
+    {
+        return $this->cep;
+    }
+
+    /**
+     * Set institution
+     *
+     * @param string $institution
+     *
+     * @return Submission
+     */
+    public function setInstitution($institution)
+    {
+        $this->institution = $institution;
+
+        return $this;
+    }
+
+    /**
+     * Get institution
+     *
+     * @return string
+     */
+    public function getInstitution()
+    {
+        return $this->institution;
+    }
+
+    /**
+     * Set editorState
+     *
+     * @param string $editorState
+     *
+     * @return Submission
+     */
+    public function setEditorState($editorState)
+    {
+        $this->editorState = $editorState;
+
+        return $this;
+    }
+
+    /**
+     * Get editorState
+     *
+     * @return string
+     */
+    public function getEditorState()
+    {
+        return $this->editorState;
+    }
+
+    /**
+     * Set editorCity
+     *
+     * @param string $editorCity
+     *
+     * @return Submission
+     */
+    public function setEditorCity($editorCity)
+    {
+        $this->editorCity = $editorCity;
+
+        return $this;
+    }
+
+    /**
+     * Get editorCity
+     *
+     * @return string
+     */
+    public function getEditorCity()
+    {
+        return $this->editorCity;
+    }
+
+    /**
+     * Set postgraduateGrade
+     *
+     * @param string $postgraduateGrade
+     *
+     * @return Submission
+     */
+    public function setPostgraduateGrade($postgraduateGrade)
+    {
+        $this->postgraduateGrade = $postgraduateGrade;
+
+        return $this;
+    }
+
+    /**
+     * Get postgraduateGrade
+     *
+     * @return string
+     */
+    public function getPostgraduateGrade()
+    {
+        return $this->postgraduateGrade;
+    }
+
+    /**
+     * Set publisherName
+     *
+     * @param string $publisherName
+     *
+     * @return Submission
+     */
+    public function setPublisherName($publisherName)
+    {
+        $this->publisherName = $publisherName;
+
+        return $this;
+    }
+
+    /**
+     * Get publisherName
+     *
+     * @return string
+     */
+    public function getPublisherName()
+    {
+        return $this->publisherName;
+    }
+
+    /**
+     * Set publisherContactName
+     *
+     * @param string $publisherContactName
+     *
+     * @return Submission
+     */
+    public function setPublisherContactName($publisherContactName)
+    {
+        $this->publisherContactName = $publisherContactName;
+
+        return $this;
+    }
+
+    /**
+     * Get publisherContactName
+     *
+     * @return string
+     */
+    public function getPublisherContactName()
+    {
+        return $this->publisherContactName;
+    }
+
+    /**
+     * Set publisherEmail
+     *
+     * @param string $publisherEmail
+     *
+     * @return Submission
+     */
+    public function setPublisherEmail($publisherEmail)
+    {
+        $this->publisherEmail = $publisherEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get publisherEmail
+     *
+     * @return string
+     */
+    public function getPublisherEmail()
+    {
+        return $this->publisherEmail;
+    }
+
+    /**
+     * Set publisherState
+     *
+     * @param string $publisherState
+     *
+     * @return Submission
+     */
+    public function setPublisherState($publisherState)
+    {
+        $this->publisherState = $publisherState;
+
+        return $this;
+    }
+
+    /**
+     * Get publisherState
+     *
+     * @return string
+     */
+    public function getPublisherState()
+    {
+        return $this->publisherState;
+    }
+
+    /**
+     * Set publisherCity
+     *
+     * @param string $publisherCity
+     *
+     * @return Submission
+     */
+    public function setPublisherCity($publisherCity)
+    {
+        $this->publisherCity = $publisherCity;
+
+        return $this;
+    }
+
+    /**
+     * Get publisherCity
+     *
+     * @return string
+     */
+    public function getPublisherCity()
+    {
+        return $this->publisherCity;
+    }
+
+    /**
+     * Set requestorName
+     *
+     * @param string $requestorName
+     *
+     * @return Submission
+     */
+    public function setRequestorName($requestorName)
+    {
+        $this->requestorName = $requestorName;
+
+        return $this;
+    }
+
+    /**
+     * Get requestorName
+     *
+     * @return string
+     */
+    public function getRequestorName()
+    {
+        return $this->requestorName;
+    }
+
+    /**
+     * Set requestorEmail
+     *
+     * @param string $requestorEmail
+     *
+     * @return Submission
+     */
+    public function setRequestorEmail($requestorEmail)
+    {
+        $this->requestorEmail = $requestorEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get requestorEmail
+     *
+     * @return string
+     */
+    public function getRequestorEmail()
+    {
+        return $this->requestorEmail;
+    }
+
+    /**
+     * Set thematicArea
+     *
+     * @param \Proethos2\ModelBundle\Entity\ThematicArea $thematicArea
+     *
+     * @return Submission
+     */
+    public function setThematicArea(\Proethos2\ModelBundle\Entity\ThematicArea $thematicArea = null)
+    {
+        $this->thematicArea = $thematicArea;
+
+        return $this;
+    }
+
+    /**
+     * Get thematicArea
+     *
+     * @return \Proethos2\ModelBundle\Entity\ThematicArea
+     */
+    public function getThematicArea()
+    {
+        return $this->thematicArea;
+    }
+
+    /**
+     * Set specialty
+     *
+     * @param \Proethos2\ModelBundle\Entity\Specialty $specialty
+     *
+     * @return Submission
+     */
+    public function setSpecialty(\Proethos2\ModelBundle\Entity\Specialty $specialty = null)
+    {
+        $this->specialty = $specialty;
+
+        return $this;
+    }
+
+    /**
+     * Get specialty
+     *
+     * @return \Proethos2\ModelBundle\Entity\Specialty
+     */
+    public function getSpecialty()
+    {
+        return $this->specialty;
+    }
+
+    /**
+     * Add language
+     *
+     * @param \Proethos2\ModelBundle\Entity\Language $language
+     *
+     * @return Submission
+     */
+    public function addLanguage(\Proethos2\ModelBundle\Entity\Language $language)
+    {
+        $this->language[] = $language;
+
+        return $this;
+    }
+
+    /**
+     * Remove language
+     *
+     * @param \Proethos2\ModelBundle\Entity\Language $language
+     */
+    public function removeLanguage(\Proethos2\ModelBundle\Entity\Language $language)
+    {
+        $this->language->removeElement($language);
+    }
+
+    /**
+     * Get language
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * Add issue
+     *
+     * @param \Proethos2\ModelBundle\Entity\Issue $issue
+     *
+     * @return Submission
+     */
+    public function addIssue(\Proethos2\ModelBundle\Entity\Issue $issue)
+    {
+        $this->issue[] = $issue;
+
+        return $this;
+    }
+
+    /**
+     * Remove issue
+     *
+     * @param \Proethos2\ModelBundle\Entity\Issue $issue
+     */
+    public function removeIssue(\Proethos2\ModelBundle\Entity\Issue $issue)
+    {
+        $this->issue->removeElement($issue);
+    }
+
+    /**
+     * Get issue
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIssue()
+    {
+        return $this->issue;
+    }
+
+    /**
+     * Set fundedByCnpq
+     *
+     * @param boolean $fundedByCnpq
+     *
+     * @return Submission
+     */
+    public function setFundedByCnpq($fundedByCnpq)
+    {
+        $this->funded_by_cnpq = $fundedByCnpq;
+
+        return $this;
+    }
+
+    /**
+     * Get fundedByCnpq
+     *
+     * @return boolean
+     */
+    public function getFundedByCnpq()
+    {
+        return $this->funded_by_cnpq;
+    }
+
+    /**
+     * Set fullText
+     *
+     * @param string $fullText
+     *
+     * @return Submission
+     */
+    public function setFullText($fullText)
+    {
+        $this->full_text = $fullText;
+
+        return $this;
+    }
+
+    /**
+     * Get fullText
+     *
+     * @return string
+     */
+    public function getFullText()
+    {
+        return $this->full_text;
+    }
+
+    /**
+     * Set db
+     *
+     * @param string $db
+     *
+     * @return Submission
+     */
+    public function setDb($db)
+    {
+        $this->db = $db;
+
+        return $this;
+    }
+
+    /**
+     * Get db
+     *
+     * @return string
+     */
+    public function getDb()
+    {
+        return $this->db;
+    }
+
+    /**
+     * Set issn
+     *
+     * @param string $issn
+     *
+     * @return Submission
+     */
+    public function setIssn($issn)
+    {
+        $this->issn = $issn;
+
+        return $this;
+    }
+
+    /**
+     * Get issn
+     *
+     * @return string
+     */
+    public function getIssn()
+    {
+        return $this->issn;
+    }
+
+    /**
+     * Set issnOnline
+     *
+     * @param string $issnOnline
+     *
+     * @return Submission
+     */
+    public function setIssnOnline($issnOnline)
+    {
+        $this->issnOnline = $issnOnline;
+
+        return $this;
+    }
+
+    /**
+     * Get issnOnline
+     *
+     * @return string
+     */
+    public function getIssnOnline()
+    {
+        return $this->issnOnline;
+    }
+
+    /**
+     * Set country
+     *
+     * @param \Proethos2\ModelBundle\Entity\Country $country
+     *
+     * @return Submission
+     */
+    public function setCountry(\Proethos2\ModelBundle\Entity\Country $country = null)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return \Proethos2\ModelBundle\Entity\Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Add attachment
+     *
+     * @param \Proethos2\ModelBundle\Entity\SubmissionUpload $attachment
+     *
+     * @return Submission
+     */
+    public function addAttachment(\Proethos2\ModelBundle\Entity\SubmissionUpload $attachment)
+    {
+        $this->attachments[] = $attachment;
+
+        return $this;
+    }
+
+    /**
+     * Remove attachment
+     *
+     * @param \Proethos2\ModelBundle\Entity\SubmissionUpload $attachment
+     */
+    public function removeAttachment(\Proethos2\ModelBundle\Entity\SubmissionUpload $attachment)
+    {
+        $this->attachments->removeElement($attachment);
+    }
+
+    /**
+     * Get attachments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttachments()
+    {
+        return $this->attachments;
+    }
+
+    /**
+     * Add publicationType
+     *
+     * @param \Proethos2\ModelBundle\Entity\PublicationType $publicationType
+     *
+     * @return Submission
+     */
+    public function addPublicationType(\Proethos2\ModelBundle\Entity\PublicationType $publicationType)
+    {
+        $this->publication_type[] = $publicationType;
+
+        return $this;
+    }
+
+    /**
+     * Remove publicationType
+     *
+     * @param \Proethos2\ModelBundle\Entity\PublicationType $publicationType
+     */
+    public function removePublicationType(\Proethos2\ModelBundle\Entity\PublicationType $publicationType)
+    {
+        $this->publication_type->removeElement($publicationType);
+    }
+
+    /**
+     * Get publicationType
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPublicationType()
+    {
+        return $this->publication_type;
     }
 }

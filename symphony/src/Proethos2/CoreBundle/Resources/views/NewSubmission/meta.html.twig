@@ -2,7 +2,7 @@
     <div class='row'>
         <div class='col-md-12'>
             <div class='alert alert-warning'>
-                <h4>{% trans %}Reason that this protocol was rejected{% endtrans %}</h4>
+                <h4>{% trans %}Reason that this journal was rejected{% endtrans %}</h4>
                 {{ submission.protocol.rejectReason }}
             </div>
         </div>
@@ -50,32 +50,27 @@
     <div class='col-md-12'>
         <ul class="nav nav-tabs" id='new-submission-tab'>
             <!-- <li role="presentation">
-                <a href="javascript:void(0)" title="{% trans %}First Information{% endtrans %}">
-                    {% trans %}First Information{% endtrans %}
+                <a href="javascript:void(0)" title="{% trans %}Journal Data{% endtrans %}">
+                    {% trans %}Journal Data{% endtrans %}
                 </a>
             </li> -->
             <li role="presentation" {% if app.request.get('_route') == "submission_new_first_created_protocol_step" %}class='active'{% endif %}>
-                <a href="{{ path('submission_new_first_created_protocol_step', {'submission_id': submission.id }) }}" title="{% trans %}First Information{% endtrans %}">{% trans %}First Information{% endtrans %}</a>
+                <a href="{{ path('submission_new_first_created_protocol_step', {'submission_id': submission.id }) }}" title="{% trans %}Journal Data{% endtrans %}">{% trans %}Journal Data{% endtrans %}</a>
             </li>
             <li role="presentation" {% if app.request.get('_route') == "submission_new_second_step" %}class='active'{% endif %}>
-                <a href="{{ path('submission_new_second_step', {'submission_id': submission.id }) }}" title="{% trans %}About Project{% endtrans %}">{% trans %}About Project{% endtrans %}</a>
+                <a href="{{ path('submission_new_second_step', {'submission_id': submission.id }) }}" title="{% trans %}Institution Information{% endtrans %}">{% trans %}Institution Information{% endtrans %}</a>
             </li>
-            {% if not submission.isConsultation %}
-                <li role="presentation" {% if app.request.get('_route') == "submission_new_third_step" %}class='active'{% endif %}>
-                    <a href="{{ path('submission_new_third_step', {'submission_id': submission.id }) }}" title='{% trans %}Clinical study{% endtrans %}'>{% trans %}Clinical study{% endtrans %}</a>
-                </li>
-                <li role="presentation" {% if app.request.get('_route') == "submission_new_fourth_step" %}class='active'{% endif %}>
-                    <a href="{{ path('submission_new_fourth_step', {'submission_id': submission.id }) }}" title='{% trans %}Additional Information{% endtrans %}'>{% trans %}Additional Information{% endtrans %}</a>
-                </li>
-                <li role="presentation" {% if app.request.get('_route') == "submission_new_fifth_step" %}class='active'{% endif %}>
-                    <a href="{{ path('submission_new_fifth_step', {'submission_id': submission.id }) }}" title='{% trans %}Bibliography{% endtrans %}'>{% trans %}Bibliography{% endtrans %}</a>
-                </li>
-            {% endif %}
+            <li role="presentation" {% if app.request.get('_route') == "submission_new_third_step" %}class='active'{% endif %}>
+                <a href="{{ path('submission_new_third_step', {'submission_id': submission.id }) }}" title='{% trans %}Publisher Information{% endtrans %}'>{% trans %}Publisher Information{% endtrans %}</a>
+            </li>
+            <li role="presentation" {% if app.request.get('_route') == "submission_new_fourth_step" %}class='active'{% endif %}>
+                <a href="{{ path('submission_new_fourth_step', {'submission_id': submission.id }) }}" title='{% trans %}Evaluation Process Information{% endtrans %}'>{% trans %}Evaluation Process Information{% endtrans %}</a>
+            </li>
+            <li role="presentation" {% if app.request.get('_route') == "submission_new_fifth_step" %}class='active'{% endif %}>
+                <a href="{{ path('submission_new_fifth_step', {'submission_id': submission.id }) }}" title='{% trans %}Attached Files{% endtrans %}'>{% trans %}Attached Files{% endtrans %}</a>
+            </li>
             <li role="presentation" {% if app.request.get('_route') == "submission_new_sixth_step" %}class='active'{% endif %}>
-                <a href="{{ path('submission_new_sixth_step', {'submission_id': submission.id }) }}" title='{% trans %}Attached Files{% endtrans %}'>{% trans %}Attached Files{% endtrans %}</a>
-            </li>
-            <li role="presentation" {% if app.request.get('_route') == "submission_new_seventh_step" %}class='active'{% endif %}>
-                <a href="{{ path('submission_new_seventh_step', {'submission_id': submission.id }) }}" title='{% trans %}Revision{% endtrans %}'>{% trans %}Revision{% endtrans %}</a>
+                <a href="{{ path('submission_new_sixth_step', {'submission_id': submission.id }) }}" title='{% trans %}Revision{% endtrans %}'>{% trans %}Revision{% endtrans %}</a>
             </li>
         </ul>
     </div>
@@ -90,36 +85,20 @@
 
             <div class='col-md-5'>
                 <div class='block'>
-                    <div class='label'>{% trans %}Project Title{% endtrans %}</div>
+                    <div class='label'>{% trans %}Journal Title{% endtrans %}</div>
                     <h2>
-                        {{ submission.publicTitle }}
-                        {% if submission.isTranslation %}
-                            <small>
-                                {% trans %}translation{% endtrans %}{% endif %}:
-                                {% if submission.language == 'pt_BR' %}Português{% endif %}
-                                {% if submission.language == 'es_ES' %}Español{% endif %}
-                                {% if submission.language == 'en' %}English{% endif %}
-                                {% if submission.language == 'fr_FR' %}Français{% endif %}
-                            </small>
-                    </h2>
+                        {{ submission.title }}
                 </div>
             </div>
 
-            <div class='col-md-2'>
+            <div class='col-md-3'>
                 <div class='block'>
                     <div class='label'>{% trans %}First Author{% endtrans %}</div>
                     <h3>{{ submission.owner }}</h3>
                 </div>
             </div>
 
-            <div class='col-md-2'>
-                <div class='block'>
-                    <div class='label'>{% trans %}Main Type{% endtrans %}</div>
-                    <h3>-</h3>
-                </div>
-            </div>
-
-            <div class='col-md-2'>
+            <div class='col-md-3'>
                 <div class='block'>
                     <div class='label'>{% trans %}Updated At{% endtrans %}</div>
                     <h3>{{ submission.updated|date('d/m/Y') }}</h3>
