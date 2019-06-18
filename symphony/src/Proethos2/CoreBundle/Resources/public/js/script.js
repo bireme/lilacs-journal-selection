@@ -21,39 +21,25 @@ $(function(){
 
     // initters
     $('[data-toggle="tooltip"]').tooltip()
-
-    /* START: protocol first step */
-    $( "#radio_clinical_trial_yes" ).on( "click", function() {
-        $("input[name=is_consultation]").attr('disabled', true);
+/*
+    $(".btnLeft").click(function () {
+        var selectedItem = $(this).closest('div.multiple').find(".rightValues option:selected");
+        $(this).closest('div.multiple').find(".leftValues").append(selectedItem);
     });
 
-    $( "#radio_clinical_trial_no" ).on( "click", function() {
-        $("input[name=is_consultation]").attr('disabled', false);
+    $(".btnRight").click(function () {
+        var selectedItem = $(this).closest('div.multiple').find(".leftValues option:selected");
+        $(this).closest('div.multiple').find(".rightValues").append(selectedItem);
     });
 
-    $( "#radio_consultation_yes" ).on( "click", function() {
-        $("input[name=is_clinical_trial]").attr('disabled', true);
+    $('.submission-button-controls').click(function() {
+        $('#select-publication-type option, #select-language option').prop('selected', true);
     });
-
-    $( "#radio_consultation_no" ).on( "click", function() {
-        $("input[name=is_clinical_trial]").attr('disabled', false);
+*/
+    $('input').iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
+        // increaseArea: '20%'
     });
-
-    $( "#first_step, #first_step_created_protocol" ).submit( function() {
-        $("input[name=is_clinical_trial]").attr('disabled', false);
-        $("input[name=is_consultation]").attr('disabled', false);
-
-    })
-
-    if( $("#first_step_created_protocol").length ) {
-        if( $('#radio_clinical_trial_yes').is(':checked') ) {
-            $("input[name=is_consultation]").attr('disabled', true);
-        }
-
-        if( $('#radio_consultation_yes').is(':checked') ) {
-            $("input[name=is_clinical_trial]").attr('disabled', true);
-        }
-    }
-    /* END: protocol first step */
 
 });

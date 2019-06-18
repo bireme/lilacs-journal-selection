@@ -211,3 +211,31 @@ img.logo {
     vertical-align: super;
     cursor: pointer;
 }
+
+#table-issue tbody tr td {
+    width: 25%;
+}
+/*
+DIV.multiple SELECT, INPUT[type="number"] {
+    width: 160px;
+    box-sizing: border-box;
+}
+DIV.multiple {
+    overflow: auto;
+}
+DIV.multiple > DIV {
+    float: left;
+    padding: 4px;
+}
+DIV.multiple > DIV + DIV {
+    width: 40px;
+    text-align: center;
+}
+DIV.multiple label {
+    display: block;
+}
+DIV.multiple INPUT.btnLeft,
+DIV.multiple INPUT.btnRight {
+    font-family: Arial, Helvetica, sans-serif; 
+}
+*/

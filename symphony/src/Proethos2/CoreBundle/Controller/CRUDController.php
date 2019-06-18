@@ -252,7 +252,7 @@ class CRUDController extends Controller
             $status_array = array($status_query);
 
         $query = $protocol_repository->createQueryBuilder('p')->join('p.main_submission', 's')
-           ->where("s.publicTitle LIKE :query AND p.status IN (:status)")
+           ->where("s.title LIKE :query AND p.status IN (:status)")
            ->orderBy("p.created", 'DESC')
            ->setParameter('query', "%". $search_query ."%")
            ->setParameter('status', $status_array);
@@ -277,7 +277,7 @@ class CRUDController extends Controller
                 $current_line[] = $protocol->getId();
                 $current_line[] = $protocol->getOwner()->getUsername();
                 $current_line[] = $protocol->getStatusLabel();
-                $current_line[] = $protocol->getMainSubmission()->getPublicTitle();
+                $current_line[] = $protocol->getMainSubmission()->getTitle();
                 // $current_line[] = $protocol->getMainSubmission()->getIsClinicalTrial() ? "Clinical Trial" : "Research";
                 $current_line[] = $type;
                 $current_line[] = $protocol->getMainSubmission()->getRecruitmentInitDate() ? $protocol->getMainSubmission()->getRecruitmentInitDate()->format("Y-m-d H:i") : "";
@@ -338,7 +338,7 @@ class CRUDController extends Controller
            ->join('p.main_submission', 's')
            ->leftJoin('s.team', 't')
            ->leftJoin('p.revision', 'r')
-           ->where("s.publicTitle LIKE :query AND p.status IN (:status) AND ((s.owner = :owner OR t = :owner) OR r.member = :owner)")
+           ->where("s.title LIKE :query AND p.status IN (:status) AND ((s.owner = :owner OR t = :owner) OR r.member = :owner)")
            ->orderBy("p.created", 'DESC')
            ->setParameter('query', "%". $search_query ."%")
            ->setParameter('status', $status_array)
