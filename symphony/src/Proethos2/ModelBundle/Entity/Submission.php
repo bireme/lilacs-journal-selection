@@ -429,8 +429,6 @@ class Submission extends Base
 
     public function __construct() {
 
-        $this->publication_type = new ArrayCollection();
-        $this->languages = new ArrayCollection();
         $this->issue = new ArrayCollection();
         $this->attachments = new ArrayCollection();
 
@@ -444,7 +442,7 @@ class Submission extends Base
         $this->setUpdated(new \Datetime());
         $this->setIsSended(false);
 
-        foreach(array('publication_type', 'languages', 'issue', 'attachments') as $attribute) {
+        foreach(array('issue', 'attachments') as $attribute) {
 
             $mClone = new ArrayCollection();
             foreach ($this->$attribute as $item) {

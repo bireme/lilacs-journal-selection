@@ -58,7 +58,6 @@ class MigrateProethos1DatabaseCommand extends ContainerAwareCommand
         139 => 131,
         152 => 145,
         182 => 176,
-        // 221 =>
         238 => 826,
         240 => 840,
         243 => 858,
@@ -260,13 +259,6 @@ class MigrateProethos1DatabaseCommand extends ContainerAwareCommand
         // TODO: Dúvida: usar o status do protocolo ou da submissão?
         $PROTOCOL_STATUS_RELATIONS = array(
             '@' => 'D',
-            // 'A' => 'S',
-            // 'B' => 'I',
-            // 'C' => 'I',
-            // 'D' => 'H',
-            // '$' => 'R',
-            // 'X' => 'D', // TODO: neste caso ele é cancelado pelo pesquisador. Pular este protocolo no nomento da migração
-            // 'Z' => 'A',
             'A' => 'S',
             'B' => 'S',
             'C' => 'S',

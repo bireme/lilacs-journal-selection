@@ -110,9 +110,8 @@ class SendMonitoringActionEmailCommand extends ContainerAwareCommand
                 "<br />" .
                 "<br />" . $translator->trans("Please access your account in the system to present your monitoring action.") .
                 "<br />" .
-                "<br />" . $translator->trans("Sincerely") . "," .
-                "<br />" . $translator->trans("PAHOERC Secretariat") .
-                "<br />" . $translator->trans("PAHOERC@paho.org") .
+                "<br />" . $translator->trans("Regards") . "," .
+                "<br />" . $translator->trans("Proethos2 Team") .
                 "<br /><br />"
                 ,
                 'text/html'

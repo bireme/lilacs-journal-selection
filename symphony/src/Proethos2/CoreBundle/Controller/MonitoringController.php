@@ -198,9 +198,6 @@ class MonitoringController extends Controller
         $upload_types = $upload_type_repository->findByStatus(true);
         $output['upload_types'] = $upload_types;
 
-        $mail_translator = $this->get('translator');
-        $mail_translator->setLocale($submission->getLanguage());
-
         $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         $help_repository = $em->getRepository('Proethos2ModelBundle:Help');
         // $help = $help_repository->findBy(array("id" => {id}, "type" => "mail"));
@@ -304,15 +301,6 @@ class MonitoringController extends Controller
             $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
             $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
-            $help = $help_repository->find(217);
-            $translations = $trans_repository->findTranslations($help);
-            $text = $translations[$submission->getLanguage()];
-            $body = $text['message'];
-            $body = str_replace("%protocol_url%", $url, $body);
-            $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
-            $body = str_replace("\r\n", "<br />", $body);
-            $body .= "<br /><br />";
-
             $recipients = array();
             foreach($user_repository->findAll() as $secretary) {
                 if(in_array("secretary", $secretary->getRolesSlug())) {
@@ -322,11 +310,23 @@ class MonitoringController extends Controller
 
             foreach($recipients as $recipient) {
                 $message = \Swift_Message::newInstance()
-                ->setSubject("[proethos2] " . $mail_translator->trans("A new monitoring action has been submitted."))
+                ->setSubject("[proethos2] " . $translator->trans("A new monitoring action has been submitted."))
                 ->setFrom($util->getConfiguration('committee.email'))
                 ->setTo($recipient->getEmail())
                 ->setBody(
-                    $body
+                    $translator->trans("Dear investigator,") .
+                    "<br />" .
+                    "<br />" . $translator->trans("This is to remind you that protocol <b>%protocol%</b> has a pending
+                                                       monitoring action.",
+                                                       array(
+                                                           '%protocol%' => $protocol->getCode(),
+                                                       )) .
+                    "<br />" .
+                    "<br />" . $translator->trans("Please access your account in the system to present your monitoring action.") .
+                    "<br />" .
+                    "<br />" . $translator->trans("Regards") . "," .
+                    "<br />" . $translator->trans("Proethos2 Team") .
+                    "<br /><br />"
                     ,
                     'text/html'
                 );

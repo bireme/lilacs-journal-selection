@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{% trans %}Analyze Protocol{% endtrans %}{% endblock %}
+{% block title %}{% trans %}Analyze Journal{% endtrans %}{% endblock %}
 
 {% block content %}
     
@@ -8,7 +8,7 @@
 
         <div class="row">
             <div class='col-md-12'>
-                <h1 class="page-header">{% trans %}Analyze Protocol{% endtrans %}</h1>
+                <h1 class="page-header">{% trans %}Analyze Journal{% endtrans %}</h1>
             </div>
         </div>
         
@@ -82,7 +82,7 @@
                         <h4 class="modal-title" id="myModalLabel">{% trans %}Confirm?{% endtrans %}</h4>
                     </div>
                     <div class="modal-body">
-                        <p>{% trans %}Are you sure that you want to end this protocol evaluation?{% endtrans %}</p>
+                        <p>{% trans %}Are you sure that you want to end this journal evaluation?{% endtrans %}</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
@@ -102,7 +102,7 @@
             $("[id^=button-]").hide();
             $("[id^=group-]").hide();
 
-            $("#form-action input[name='action']").change(function(){
+            $("#form-action input[name='action']").on('ifChanged', function(){
                 var id = $(this).attr('id');
                 if(id.search("reject") >= 0) {
                     reject();

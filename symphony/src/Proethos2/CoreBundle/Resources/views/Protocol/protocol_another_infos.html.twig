@@ -6,63 +6,6 @@
                     <i class='glyphicon glyphicon-minus'></i>
                 </small>
                 
-                {% trans %}Team{% endtrans %}
-            </h2>
-        </div>
-    </div>
-
-    <div class='row'>
-        <div class="col-md-12">
-            <table class='table table-hover table-condensed' id='table-team'>
-                
-                <thead>
-                    <tr>
-                        <th width="50%">{% trans %}Name{% endtrans %}</th>
-                        <th>{% trans %}E-mail{% endtrans %}</th>
-                        <th>{% trans %}Country{% endtrans %}</th>
-                        <th>{% trans %}Main?{% endtrans %}</th>
-                        <!-- <th>{% trans %}Actions{% endtrans %}</th> -->
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    <tr>
-                        <td>{{ protocol.mainSubmission.owner.name }}</td> 
-                        <td><a href='{{ protocol.mainSubmission.owner.email }}'>{{ protocol.mainSubmission.owner.email }}</a></td> 
-                        <td>{{ protocol.mainSubmission.owner.country }}</td> 
-                        <td><label class='label label-success'>{% trans %}Yes{% endtrans %}</label></td> 
-                        <!-- <td>-</td>  -->
-                    </tr>
-                    {% for team_user in protocol.mainSubmission.team %}
-                        <tr>
-                            <td>
-                                <input type='hidden' name='team_user[]' value='{{ team_user.id }}'>
-                                {{ team_user.name }}
-                            </td> 
-                            <td><a href='{{ team_user.email }}'>{{ team_user.email }}</a></td> 
-                            <td>{{ team_user.country }}</td> 
-                            <td><label class='label label-default'>{% trans %}No{% endtrans %}</label></td> 
-                            <!-- <td><a href='#' class='btn btn-default btn-xs button-remove-team'><i class='glyphicon glyphicon-trash'></i></a></td>  -->
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-
-            <!-- <a href='#' class='btn btn-default' data-toggle="modal" data-target="#modal-new-investigator">
-                {% trans %}New Investigator{% endtrans %}
-            </a> -->
-        </div>
-    </div>
-</div>
-
-<div class='block'>
-    <div class='row'>
-        <div class="col-md-12">
-            <h2 class='sub-header toggle-block'>
-                <small class='pull-right'>
-                    <i class='glyphicon glyphicon-minus'></i>
-                </small>
-                
                 {% trans %}File submission{% endtrans %}:
             </h2>
         </div>
@@ -75,7 +18,6 @@
                 <thead>
                     <tr>
                         <th>{% trans %}Type{% endtrans %}</th>
-                        <th>{% trans %}Original Submission{% endtrans %}</th>
                         <th>{% trans %}Submitted by{% endtrans %}</th>
                         <th>{% trans %}File name{% endtrans %}</th>
                         <th>{% trans %}Date & Time{% endtrans %}</th>
@@ -87,7 +29,6 @@
                     {% for file in protocol.mainSubmission.attachments if not file.isMonitoringAction %}
                         <tr>
                             <td>{{ file.uploadType }}</td>
-                            <td>{{ file.submissionNumber }}</td> 
                             <td>{{ file.user }}</td> 
                             <td>{{ file.filename }}</td> 
                             <td>{{ file.created|date("d/m/Y H:i") }}</td> 
