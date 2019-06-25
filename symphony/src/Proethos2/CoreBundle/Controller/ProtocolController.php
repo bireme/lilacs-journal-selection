@@ -55,7 +55,7 @@ class ProtocolController extends Controller
         $output['protocol'] = $protocol;
 
         if (!$protocol) {
-            throw $this->createNotFoundException($translator->trans('No protocol found'));
+            throw $this->createNotFoundException($translator->trans('No journal found'));
         }
 
         // checking if was a post request
@@ -78,7 +78,7 @@ class ProtocolController extends Controller
                 $em->persist($comment);
                 $em->flush();
 
-                $session->getFlashBag()->add('success', $translator->trans("Comment was created with sucess."));
+                $session->getFlashBag()->add('success', $translator->trans("Comment was created with success."));
             }
         }
 
@@ -107,7 +107,7 @@ class ProtocolController extends Controller
         $output['protocol'] = $protocol;
 
         if (!$protocol) {
-            throw $this->createNotFoundException($translator->trans('No protocol found'));
+            throw $this->createNotFoundException($translator->trans('No journal found'));
         }
 
         $referer = $request->headers->get('referer');
@@ -132,7 +132,7 @@ class ProtocolController extends Controller
             $em->persist($comment);
             $em->flush();
 
-            $session->getFlashBag()->add('success', $translator->trans("Comment was created with sucess."));
+            $session->getFlashBag()->add('success', $translator->trans("Comment was created with success."));
         }
 
         return $this->redirect($referer, 301);
@@ -163,16 +163,13 @@ class ProtocolController extends Controller
         $submission = $protocol->getMainSubmission();
         $output['protocol'] = $protocol;
 
-        $mail_translator = $this->get('translator');
-        $mail_translator->setLocale($submission->getLanguage());
-
         $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         $help_repository = $em->getRepository('Proethos2ModelBundle:Help');
         // $help = $help_repository->findBy(array("id" => {id}, "type" => "mail"));
         // $translations = $trans_repository->findTranslations($help[0]);
 
         if (!$protocol or $protocol->getStatus() != "S") {
-            throw $this->createNotFoundException($translator->trans('No protocol found'));
+            throw $this->createNotFoundException($translator->trans('No journal found'));
         }
 
         // checking if was a post request
@@ -187,9 +184,10 @@ class ProtocolController extends Controller
                 $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
                 $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
-                $help = $help_repository->find(209);
+                $_locale = $request->getSession()->get('_locale');
+                $help = $help_repository->find(100);
                 $translations = $trans_repository->findTranslations($help);
-                $text = $translations[$submission->getLanguage()];
+                $text = $translations[$_locale];
                 $body = $text['message'];
                 $body = str_replace("%protocol_url%", $url, $body);
                 $body = str_replace("\r\n", "<br />", $body);
@@ -202,7 +200,7 @@ class ProtocolController extends Controller
 
                 foreach($recipients as $recipient) {
                     $message = \Swift_Message::newInstance()
-                    ->setSubject("[proethos2] " . $mail_translator->trans("Your protocol was rejected"))
+                    ->setSubject("[LILACS] " . $translator->trans("Your journal was rejected"))
                     ->setFrom($util->getConfiguration('committee.email'))
                     ->setTo($recipient->getEmail())
                     ->setBody(
@@ -233,7 +231,7 @@ class ProtocolController extends Controller
                     $em->persist($protocol);
                     $em->flush();
 
-                    $session->getFlashBag()->add('success', $translator->trans("Protocol rejected with success!"));
+                    $session->getFlashBag()->add('success', $translator->trans("Journal rejected with success!"));
                     return $this->redirectToRoute('protocol_show_protocol', array('protocol_id' => $protocol->getId()), 301);
                 }
 
@@ -263,8 +261,8 @@ class ProtocolController extends Controller
                 // setting protocool history
                 $protocol_history = new ProtocolHistory();
                 $protocol_history->setProtocol($protocol);
-                // $protocol_history->setMessage($translator->trans("Protocol was rejected by") ." ". $user . ".");
-                $protocol_history->setMessage($translator->trans('Protocol was rejected by %user% with this justification "%justify%".',
+                // $protocol_history->setMessage($translator->trans("Journal was rejected by") ." ". $user . ".");
+                $protocol_history->setMessage($translator->trans('Journal was rejected by %user% with this justification "%justify%".',
                     array(
                         '%user%' => $user->getUsername(),
                         '%justify%' => $post_data['reject-reason'],
@@ -279,7 +277,7 @@ class ProtocolController extends Controller
                 $em->persist($protocol);
                 $em->flush();
 
-                $session->getFlashBag()->add('success', $translator->trans("Protocol rejected with success!"));
+                $session->getFlashBag()->add('success', $translator->trans("Journal rejected with success!"));
                 return $this->redirectToRoute('protocol_show_protocol', array('protocol_id' => $protocol->getId()), 301);
 
             } else {
@@ -298,7 +296,7 @@ class ProtocolController extends Controller
                     // setting protocool history
                     $protocol_history = new ProtocolHistory();
                     $protocol_history->setProtocol($protocol);
-                    $protocol_history->setMessage($translator->trans("Protocol was sent to comittee for initial analysis by %user%.", array("%user%" => $user->getUsername())));
+                    $protocol_history->setMessage($translator->trans("Journal was sent to comittee for initial analysis by %user%.", array("%user%" => $user->getUsername())));
                     $em->persist($protocol_history);
                     $em->flush();
 
@@ -306,9 +304,10 @@ class ProtocolController extends Controller
                     // $url = $baseurl . $this->generateUrl('home');
                     $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
-                    $help = $help_repository->find(210);
+                    $_locale = $request->getSession()->get('_locale');
+                    $help = $help_repository->find(101);
                     $translations = $trans_repository->findTranslations($help);
-                    $text = $translations[$submission->getLanguage()];
+                    $text = $translations[$_locale];
                     $body = $text['message'];
                     $body = str_replace("%protocol_url%", $url, $body);
                     $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
@@ -320,7 +319,7 @@ class ProtocolController extends Controller
                             if(in_array($role, $member->getRolesSlug())) {
 
                                 $message = \Swift_Message::newInstance()
-                                ->setSubject("[proethos2] " . $mail_translator->trans("A new protocol needs your analysis."))
+                                ->setSubject("[LILACS] " . $translator->trans("A new journal needs your analysis."))
                                 ->setFrom($util->getConfiguration('committee.email'))
                                 ->setTo($member->getEmail())
                                 ->setBody(
@@ -334,7 +333,7 @@ class ProtocolController extends Controller
                         }
                     }
 
-                    $session->getFlashBag()->add('success', $translator->trans("Protocol updated with success!"));
+                    $session->getFlashBag()->add('success', $translator->trans("Journal updated with success!"));
                     return $this->redirectToRoute('protocol_initial_committee_screening', array('protocol_id' => $protocol->getId()), 301);
                 }
 
@@ -346,7 +345,7 @@ class ProtocolController extends Controller
                     // setting protocool history
                     $protocol_history = new ProtocolHistory();
                     $protocol_history->setProtocol($protocol);
-                    $protocol_history->setMessage($translator->trans("Protocol accepted for review by %user% and investigators notified.", array("%user%" => $user->getUsername())));
+                    $protocol_history->setMessage($translator->trans("Journal accepted for review by %user% and members notified.", array("%user%" => $user->getUsername())));
                     $em->persist($protocol_history);
                     $em->flush();
 
@@ -362,9 +361,10 @@ class ProtocolController extends Controller
                         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
                         $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
-                        $help = $help_repository->find(211);
+                        $_locale = $request->getSession()->get('_locale');
+                        $help = $help_repository->find(102);
                         $translations = $trans_repository->findTranslations($help);
-                        $text = $translations[$submission->getLanguage()];
+                        $text = $translations[$_locale];
                         $body = $text['message'];
                         $body = str_replace("%protocol_url%", $url, $body);
                         $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
@@ -372,7 +372,7 @@ class ProtocolController extends Controller
                         $body .= "<br /><br />";
 
                         $message = \Swift_Message::newInstance()
-                        ->setSubject("[proethos2] " . $mail_translator->trans("Your protocol was sent to review!"))
+                        ->setSubject("[LILACS] " . $translator->trans("Your journal was sent to review!"))
                         ->setFrom($util->getConfiguration('committee.email'))
                         ->setTo($investigator->getEmail())
                         ->setBody(
@@ -384,7 +384,7 @@ class ProtocolController extends Controller
                         $send = $this->get('mailer')->send($message);
                     }
 
-                    $session->getFlashBag()->add('success', $translator->trans("Protocol updated with success!"));
+                    $session->getFlashBag()->add('success', $translator->trans("Journal updated with success!"));
                     return $this->redirectToRoute('protocol_show_protocol', array('protocol_id' => $protocol->getId()), 301);
                 }
 
@@ -403,7 +403,7 @@ class ProtocolController extends Controller
                     $em->persist($protocol);
                     $em->flush();
 
-                    $session->getFlashBag()->add('success', $translator->trans("Protocol updated with success!"));
+                    $session->getFlashBag()->add('success', $translator->trans("Journal updated with success!"));
                     return $this->redirectToRoute('protocol_show_protocol', array('protocol_id' => $protocol->getId()), 301);
                 }
 
@@ -438,16 +438,13 @@ class ProtocolController extends Controller
         $submission = $protocol->getMainSubmission();
         $output['protocol'] = $protocol;
 
-        $mail_translator = $this->get('translator');
-        $mail_translator->setLocale($submission->getLanguage());
-
         $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         $help_repository = $em->getRepository('Proethos2ModelBundle:Help');
         // $help = $help_repository->findBy(array("id" => {id}, "type" => "mail"));
         // $translations = $trans_repository->findTranslations($help[0]);
 
         if (!$protocol or $protocol->getStatus() != "I") {
-            throw $this->createNotFoundException($translator->trans('No protocol found'));
+            throw $this->createNotFoundException($translator->trans('No journal found'));
         }
 
         // checking if was a post request
@@ -461,13 +458,13 @@ class ProtocolController extends Controller
 
             if($post_data['send-to'] == "ethical-revision") {
 
-                // setting the Rejected status
+                // setting the Waiting for Committee status
                 $protocol->setStatus("E");
 
                 // setting protocool history
                 $protocol_history = new ProtocolHistory();
                 $protocol_history->setProtocol($protocol);
-                $protocol_history->setMessage($translator->trans("Your protocol has been accepted for ethics review. The committee's decision will be informed when the process is finalized."));
+                $protocol_history->setMessage($translator->trans("Your journal has been accepted for evaluation. The committee's decision will be informed when the process is finalized."));
                 $em->persist($protocol_history);
                 $em->flush();
 
@@ -478,9 +475,10 @@ class ProtocolController extends Controller
                 $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                 if ( $post_data['committee-screening'] ) {
-                    $help = $help_repository->find(212);
+                    $_locale = $request->getSession()->get('_locale');
+                    $help = $help_repository->find(103);
                     $translations = $trans_repository->findTranslations($help);
-                    $text = $translations[$submission->getLanguage()];
+                    $text = $translations[$_locale];
                     $body = $text['message'];
                     $body = str_replace("%protocol_url%", $url, $body);
                     $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
@@ -488,9 +486,10 @@ class ProtocolController extends Controller
                     $body = str_replace("\r\n", "<br />", $body);
                     $body .= "<br /><br />";
                 } else {
-                    $help = $help_repository->find(213);
+                    $_locale = $request->getSession()->get('_locale');
+                    $help = $help_repository->find(104);
                     $translations = $trans_repository->findTranslations($help);
-                    $text = $translations[$submission->getLanguage()];
+                    $text = $translations[$_locale];
                     $body = $text['message'];
                     $body = str_replace("%protocol_url%", $url, $body);
                     $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
@@ -505,7 +504,7 @@ class ProtocolController extends Controller
                 }
                 foreach($investigators as $investigator) {
                     $message = \Swift_Message::newInstance()
-                    ->setSubject("[proethos2] " . $mail_translator->trans("Your protocol was sent to review!"))
+                    ->setSubject("[LILACS] " . $translator->trans("Your journal was sent to review!"))
                     ->setFrom($util->getConfiguration('committee.email'))
                     ->setTo($investigator->getEmail())
                     ->setBody(
@@ -517,7 +516,7 @@ class ProtocolController extends Controller
                     $send = $this->get('mailer')->send($message);
                 }
 
-                $session->getFlashBag()->add('success', $translator->trans("Protocol updated with success!"));
+                $session->getFlashBag()->add('success', $translator->trans("Journal updated with success!"));
                 return $this->redirectToRoute('protocol_initial_committee_review', array('protocol_id' => $protocol->getId()), 301);
             }
 
@@ -549,13 +548,13 @@ class ProtocolController extends Controller
                     $em->flush();
                 }
 
-                // setting the Rejected status
+                // setting the Exempted status
                 $protocol->setStatus("F");
 
                 // setting protocool history
                 $protocol_history = new ProtocolHistory();
                 $protocol_history->setProtocol($protocol);
-                $protocol_history->setMessage($translator->trans("Protocol was concluded as Exempt."));
+                $protocol_history->setMessage($translator->trans("Journal was concluded as Exempt."));
                 $em->persist($protocol_history);
                 $em->flush();
 
@@ -568,9 +567,10 @@ class ProtocolController extends Controller
                     $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
                     $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
-                    $help = $help_repository->find(214);
+                    $_locale = $request->getSession()->get('_locale');
+                    $help = $help_repository->find(105);
                     $translations = $trans_repository->findTranslations($help);
-                    $text = $translations[$submission->getLanguage()];
+                    $text = $translations[$_locale];
                     $body = $text['message'];
                     $body = str_replace("%protocol_url%", $url, $body);
                     $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
@@ -578,7 +578,7 @@ class ProtocolController extends Controller
                     $body .= "<br /><br />";
 
                     $message = \Swift_Message::newInstance()
-                    ->setSubject("[proethos2] " . $mail_translator->trans("Your protocol was concluded as Exempt."))
+                    ->setSubject("[LILACS] " . $translator->trans("Your journal was concluded as Exempt."))
                     ->setFrom($util->getConfiguration('committee.email'))
                     ->setTo($investigator->getEmail())
                     ->setBody(
@@ -594,7 +594,7 @@ class ProtocolController extends Controller
                     $send = $this->get('mailer')->send($message);
                 }
 
-                $session->getFlashBag()->add('success', $translator->trans("Protocol updated with success!"));
+                $session->getFlashBag()->add('success', $translator->trans("Journal updated with success!"));
                 return $this->redirectToRoute('protocol_show_protocol', array('protocol_id' => $protocol->getId()), 301);
             }
 
@@ -651,16 +651,13 @@ class ProtocolController extends Controller
         $total_final_revisions = count($final_revisions);
         $output['total_final_revisions'] = $total_final_revisions;
 
-        $mail_translator = $this->get('translator');
-        $mail_translator->setLocale($submission->getLanguage());
-
         $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         $help_repository = $em->getRepository('Proethos2ModelBundle:Help');
         // $help = $help_repository->findBy(array("id" => {id}, "type" => "mail"));
         // $translations = $trans_repository->findTranslations($help[0]);
 
         if (!$protocol or $protocol->getStatus() != "E") {
-            throw $this->createNotFoundException($translator->trans('No protocol found'));
+            throw $this->createNotFoundException($translator->trans('No journal found'));
         }
 
         // checking if was a post request
@@ -703,9 +700,10 @@ class ProtocolController extends Controller
                             // $url = $baseurl . $this->generateUrl('home');
                             $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
-                            $help = $help_repository->find(215);
+                            $_locale = $request->getSession()->get('_locale');
+                            $help = $help_repository->find(106);
                             $translations = $trans_repository->findTranslations($help);
-                            $text = $translations[$submission->getLanguage()];
+                            $text = $translations[$_locale];
                             $body = $text['message'];
                             $body = str_replace("%protocol_url%", $url, $body);
                             $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
@@ -713,7 +711,7 @@ class ProtocolController extends Controller
                             $body .= "<br /><br />";
 
                             $message = \Swift_Message::newInstance()
-                            ->setSubject("[proethos2] " . $mail_translator->trans("You were assigned to review a protocol"))
+                            ->setSubject("[LILACS] " . $translator->trans("You were assigned to review a journal"))
                             ->setFrom($util->getConfiguration('committee.email'))
                             ->setTo($member->getEmail())
                             ->setBody(
@@ -797,7 +795,7 @@ class ProtocolController extends Controller
         $output['protocol'] = $protocol;
 
         if (!$protocol or $protocol->getStatus() != "E") {
-            throw $this->createNotFoundException($translator->trans('No protocol found'));
+            throw $this->createNotFoundException($translator->trans('No journal found'));
         }
 
         // getting the protocol_revisiion
@@ -900,7 +898,6 @@ class ProtocolController extends Controller
             'N' => $translator->trans('Not approved'),
             'C' => $translator->trans('Conditional approval'),
             'X' => $translator->trans('Expedite approval'),
-            'F' => $translator->trans('Exempt'),
         );
         $output['finish_options'] = $finish_options;
 
@@ -911,16 +908,13 @@ class ProtocolController extends Controller
         $submission = $protocol->getMainSubmission();
         $output['protocol'] = $protocol;
 
-        $mail_translator = $this->get('translator');
-        $mail_translator->setLocale($submission->getLanguage());
-
         $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         $help_repository = $em->getRepository('Proethos2ModelBundle:Help');
         // $help = $help_repository->findBy(array("id" => {id}, "type" => "mail"));
         // $translations = $trans_repository->findTranslations($help[0]);
 
         if (!$protocol or $protocol->getStatus() != "H") {
-            throw $this->createNotFoundException($translator->trans('No protocol found'));
+            throw $this->createNotFoundException($translator->trans('No journal found'));
         }
 
         // checking if was a post request
@@ -974,7 +968,7 @@ class ProtocolController extends Controller
             $protocol_history = new ProtocolHistory();
             $protocol_history->setProtocol($protocol);
             $protocol_history->setMessage($translator->trans(
-                'Protocol finalized by %user% under option "%option%".',
+                'Journal finalized by %user% under option "%option%".',
                 array(
                     '%user%' => $user->getUsername(),
                     '%option%' => $finish_options[$post_data['final-decision']],
@@ -1001,9 +995,10 @@ class ProtocolController extends Controller
                 $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
                 $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
-                $help = $help_repository->find(216);
+                $_locale = $request->getSession()->get('_locale');
+                $help = $help_repository->find(107);
                 $translations = $trans_repository->findTranslations($help);
-                $text = $translations[$submission->getLanguage()];
+                $text = $translations[$_locale];
                 $body = $text['message'];
                 $body = str_replace("%protocol_url%", $url, $body);
                 $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
@@ -1011,7 +1006,7 @@ class ProtocolController extends Controller
                 $body .= "<br /><br />";
 
                 $message = \Swift_Message::newInstance()
-                ->setSubject("[proethos2] " . $mail_translator->trans("The protocol review was finalized!"))
+                ->setSubject("[LILACS] " . $translator->trans("The journal review was finalized!"))
                 ->setFrom($util->getConfiguration('committee.email'))
                 ->setTo($investigator->getEmail())
                 ->setBody(
@@ -1027,7 +1022,7 @@ class ProtocolController extends Controller
                 $send = $this->get('mailer')->send($message);
             }
 
-            $session->getFlashBag()->add('success', $translator->trans("Protocol was finalized with success!"));
+            $session->getFlashBag()->add('success', $translator->trans("Journal was finalized with success!"));
             return $this->redirectToRoute('protocol_show_protocol', array('protocol_id' => $protocol->getId()), 301);
         }
 
@@ -1057,7 +1052,7 @@ class ProtocolController extends Controller
         $output['protocol'] = $protocol;
 
         if (!$protocol or !(in_array('administrator', $user->getRolesSlug()) or $user == $protocol->getOwner())) {
-            throw $this->createNotFoundException($translator->trans('No protocol found'));
+            throw $this->createNotFoundException($translator->trans('No journal found'));
         }
 
         // checking if was a post request
@@ -1079,7 +1074,7 @@ class ProtocolController extends Controller
                 $em->remove($protocol);
                 $em->flush();
 
-                $session->getFlashBag()->add('success', $translator->trans("Protocol was removed with success!"));
+                $session->getFlashBag()->add('success', $translator->trans("Journal was removed with success!"));
                 if(in_array('administrator', $user->getRolesSlug())) {
                     return $this->redirectToRoute('crud_committee_protocol_list', array(), 301);
                 }
@@ -1113,7 +1108,7 @@ class ProtocolController extends Controller
         $protocol = $protocol_repository->find($protocol_id);
 
         if (!$protocol or !(in_array('administrator', $user->getRolesSlug()) or $user == $protocol->getOwner())) {
-            throw $this->createNotFoundException($translator->trans('No protocol found'));
+            throw $this->createNotFoundException($translator->trans('No journal found'));
         }
 
         // finding translation
@@ -1129,7 +1124,7 @@ class ProtocolController extends Controller
         }
 
         if(!$submission) {
-            throw $this->createNotFoundException($translator->trans('No protocol found'));
+            throw $this->createNotFoundException($translator->trans('No journal found'));
         }
 
         $xml = new \SimpleXMLElement('<trials><trial></trial></trials>');

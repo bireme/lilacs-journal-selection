@@ -25,63 +25,75 @@
                                 <legend>{% trans %}Institution Information{% endtrans %}</legend>
                                 <div class="form-group required">
                                     <label for="input-editor-name">{% trans %}Editor Name{% endtrans %}:</label>
-                                    <a href="{{ path("crud_admin_help_show", {help_id: 2} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 28} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                     <input type="text" class="form-control" placeholder="" id='input-editor-name' name='editor_name' value='{{ submission.editorName }}' required>
                                 </div>
 
                                 <div class="form-group required">
                                     <label for="input-editor-email">{% trans %}Editor Email{% endtrans %}:</label>
-                                    <a href="{{ path("crud_admin_help_show", {help_id: 2} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 29} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                     <input type="email" class="form-control" placeholder="" id='input-editor-email' name='editor_email' value='{{ submission.editorEmail }}' required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="input-editor-alt-email">{% trans %}Editor Alternate Email{% endtrans %}:</label>
-                                    <a href="{{ path("crud_admin_help_show", {help_id: 2} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 30} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                     <input type="email" class="form-control" placeholder="" id='input-editor-alt-email' name='editor_alternate_email' value='{{ submission.editorAlternateEmail }}'>
                                 </div>
 
                                 <div class="form-group required">
                                     <label for="input-phone">{% trans %}Phone{% endtrans %}:</label>
-                                    <a href="{{ path("crud_admin_help_show", {help_id: 2} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 31} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                     <input type="text" class="form-control" placeholder="" id='input-phone' name='phone' value='{{ submission.phone }}' required>
                                 </div>
 
                                 <div class="form-group required">
-                                    <label for="input-address">{% trans %}Address{% endtrans %}:</label>
-                                    <a href="{{ path("crud_admin_help_show", {help_id: 2} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                                    <input type="text" class="form-control" placeholder="" id='input-address' name='address' value='{{ submission.address }}' required>
-                                </div>
-
-                                <div class="form-group required">
                                     <label for="input-cep">{% trans %}CEP{% endtrans %}:</label>
-                                    <a href="{{ path("crud_admin_help_show", {help_id: 2} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 32} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                     <input type="text" class="form-control" placeholder="" id='input-cep' name='cep' value='{{ submission.cep }}' required>
                                 </div>
 
                                 <div class="form-group required">
-                                    <label for="input-institution">{% trans %}Institution{% endtrans %}:</label>
-                                    <a href="{{ path("crud_admin_help_show", {help_id: 2} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                                    <input type="text" class="form-control" placeholder="" id='input-institution' name='institution' value='{{ submission.institution }}' required>
+                                    <label for="input-address">{% trans %}Address{% endtrans %}:</label>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 33} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <input type="text" class="form-control" placeholder="" id='input-address' name='address' value='{{ submission.address }}' required>
                                 </div>
-
+{#
                                 <div class="form-group required">
                                     <label for="select-state">{% trans %}State{% endtrans %}:</label>
-                                    <a href="{{ path("crud_admin_help_show", {help_id: 19} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 34} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                     <select class='form-control' id='select-state' name='state' data-size="5" required></select>
                                 </div>
 
                                 <div class="form-group required">
                                     <label for="select-city">{% trans %}City{% endtrans %}:</label>
-                                    <a href="{{ path("crud_admin_help_show", {help_id: 19} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 35} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                     <select class='form-control' id='select-city' name='city' title="-" data-size="5" required>
                                         <option value="">-</option>
                                     </select>
                                 </div>
+#}
+                                <div class="form-group required">
+                                    <label for="input-state">{% trans %}State{% endtrans %}:</label>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 34} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <input type="text" class="form-control" placeholder="" id='input-state' name='state' value='{{ submission.editorState }}' required>
+                                </div>
+
+                                <div class="form-group required">
+                                    <label for="input-city">{% trans %}City{% endtrans %}:</label>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 35} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <input type="text" class="form-control" placeholder="" id='input-city' name='city' value='{{ submission.editorCity }}' required>
+                                </div>
+
+                                <div class="form-group required">
+                                    <label for="input-institution">{% trans %}Institution{% endtrans %}:</label>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 36} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <input type="text" class="form-control" placeholder="" id='input-institution' name='institution' value='{{ submission.institution }}' required>
+                                </div>
 
                                 <div class="form-group">
                                     <label for="input-postgraduate-grade">{% trans %}Postgraduate Grade{% endtrans %}:</label>
-                                    <a href="{{ path("crud_admin_help_show", {help_id: 2} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 37} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                     <input type="text" class="form-control" placeholder="" id='input-postgraduate-grade' name='postgraduate_grade' value='{{ submission.postgraduateGrade }}'>
                                 </div>
                             </fieldset>
@@ -99,6 +111,7 @@
 
 {% block script %}
 <script>
+/*
     $(function() {
         $.getJSON('{{ asset('bundles/proethos2core/js/estados_cidades.json') }}', function (data) {
         
@@ -136,6 +149,52 @@
             }).change();
         
         });
+    });
+*/
+
+    $(function() {
+
+        function clean_form() {
+            $("#input-address").val("");
+            $("#input-state").val("");
+            $("#input-city").val("");
+        }
+        
+        $("#input-cep").blur(function() {
+
+            var cep = $(this).val().replace(/\D/g, '');
+
+            if (cep != "") {
+
+                var valid_cep = /^[0-9]{8}$/;
+
+                if(valid_cep.test(cep)) {
+
+                    $("#input-address").val("...");
+                    $("#input-state").val("...");
+                    $("#input-city").val("...");
+
+                    $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(data) {
+                        if (!("erro" in data)) {
+                            // Atualiza os campos com os valores da consulta.
+                            $("#input-address").val(data.logradouro+", "+data.bairro);
+                            $("#input-state").val(data.uf);
+                            $("#input-city").val(data.localidade);
+                        } else {
+                            clean_form();
+                            alert("{% trans %}CEP not found{% endtrans %}");
+                        }
+                    });
+                } else {
+                    clean_form();
+                    alert("{% trans %}Invalid CEP format{% endtrans %}");
+                }
+            } else {
+                clean_form();
+            }
+            
+        });
+
     });
 </script>
 {% endblock %}

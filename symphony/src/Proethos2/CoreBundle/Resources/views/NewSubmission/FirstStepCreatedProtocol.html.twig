@@ -23,49 +23,49 @@
 
                             <div class="form-group required">
                                 <label for="input_title">{% trans %}Title{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 1} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='title' id='input_title' value="{{ submission.title }}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="input_short_title">{% trans %}Short Title{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 15} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 2} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='short_title' id='input_short_title' value="{{ submission.shortTitle }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="input_acronym_title">{% trans %}Title Acronym{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 16} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 3} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='acronym_title' id='input_acronym_title' value="{{ submission.acronymTitle }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="input_previous_title">{% trans %}Previous Title{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 4} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='previous_title' id='input_previous_title' value="{{ submission.previousTitle }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="input_additional_title">{% trans %}Additional Title{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 5} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='additional_title' id='input_additional_title' value="{{ submission.additionalTitle }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="input_issn">{% trans %}ISSN{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 6} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='issn' id='input_issn' value="{{ submission.issn }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="input_issn_online">{% trans %}ISSN Online{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 7} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='issn_online' id='input_issn_online' value="{{ submission.issnOnline }}">
                             </div>
 
                             <div class="form-group required">
                                 <label for="select-frequency">{% trans %}Frequency{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 19} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 8} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <select class='form-control selectpicker' id='select-frequency' name='frequency' data-size="5" required>
                                     <option value="">-</option>
                                     {% for code, name in frequency %}
@@ -76,31 +76,31 @@
 
                             <div class="form-group required">
                                 <label for="input_standards">{% trans %}Standards{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 9} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='standards' id='input_standards' value="{{ submission.standards }}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="input_bibliographic_subtitle">{% trans %}Bibliographic Subtitle{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 10} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='bibliographic_subtitle' id='input_bibliographic_subtitle' value="{{ submission.bibliographicSubtitle }}">
                             </div>
 
                             <div class="form-group required">
                                 <label for="input_creation_year">{% trans %}Creation Year{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 20} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 11} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='creation_year' id='input_creation_year' maxlength="4" value="{{ submission.creationYear }}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="input_lifetime">{% trans %}Lifetime{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 12} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='lifetime' id='input_lifetime' value="{{ submission.lifetime }}">
                             </div>
 
                              <div class="form-group required">
                                 <label for="select-support">{% trans %}Support{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 19} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 13} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <select class='form-control selectpicker' id='select-support' name='support' data-size="5" required>
                                     <option value="">-</option>
                                     {% for code, name in support %}
@@ -111,7 +111,7 @@
 
                              <div class="form-group required">
                                 <label for="select-fulltext">{% trans %}Full Text{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 19} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <select class='form-control selectpicker' id='select-fulltext' name='fulltext' data-size="5" required>
                                     <option value="">-</option>
                                     {% for code, name in fulltext %}
@@ -122,31 +122,31 @@
 
                             <div class="form-group">
                                 <label for="input_website">{% trans %}Website{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 15} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='website' id='input_website' value="{{ submission.website }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="input_website_info">{% trans %}Website Information{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 16} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='website_info' id='input_website_info' value="{{ submission.websiteInfo }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="textarea-social-networks-info">{% trans %}Social Networks Information{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 3} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 17} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <textarea rows="6" class="form-control" name='social_networks_info' id='textarea-social-networks-info'>{{ submission.socialNetworksInfo }}</textarea>
                             </div>
 
                             <div class="form-group required">
                                 <label for="textarea-mission">{% trans %}Mission{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 3} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 18} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <textarea rows="6" class="form-control" name='mission' id='textarea-mission' required>{{ submission.mission }}</textarea>
                             </div>
 {#
                             <div class="form-group required">
                                 <label for="select-publication-type">{% trans %}Publication Type{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 3} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 19} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <div class="multiple">
                                     <div>
                                         <select multiple class="form-control leftValues " id="select-publication-type" name="publication_type[]" size="5" required>
@@ -171,7 +171,7 @@
 
                             <div class="form-group required">
                                 <label for="select-language">{% trans %}Language{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 3} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 20} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <div class="multiple">
                                     <div>
                                         <select multiple class="form-control leftValues" id="select-language" name="language[]" size="5" required>
@@ -196,7 +196,7 @@
 #}
                             <div class="form-group required">
                                 <label for="select-publication-type">{% trans %}Publication Type{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 3} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 19} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <div>
                                     <select class="form-control selectpicker" id="select-publication-type" name="publication_type[]" data-size="5" data-width="fit" title="{% trans %}Choose one of the following...{% endtrans %}" multiple>
                                         {% for p_type in publication_type %}
@@ -208,7 +208,7 @@
 
                             <div class="form-group required">
                                 <label for="select-language">{% trans %}Language{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 3} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 20} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <div>
                                     <select class="form-control selectpicker" id="select-language" name="language[]" data-size="5" data-width="fit" title="{% trans %}Choose one of the following...{% endtrans %}" multiple>
                                         {% for lang in language %}
@@ -220,7 +220,7 @@
 
                             <div class="form-group required">
                                 <label for="select-thematic-area">{% trans %}Thematic Area{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 19} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 21} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <select class='form-control selectpicker' id='select-thematic-area' name='thematic_area' data-size="5" required>
                                     <option value="">-</option>
                                     {% for t_area in thematic_area %}
@@ -231,7 +231,7 @@
 
                             <div class="form-group required">
                                 <label for="select-specialty">{% trans %}Specialty{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 19} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 22} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <select class='form-control selectpicker' id='select-specialty' name='specialty' data-size="5" required>
                                     <option value="">-</option>
                                     {% for special in specialty %}
@@ -242,13 +242,13 @@
 
                             <div class="form-group">
                                 <label for="input_qualis">{% trans %}Qualis Grade{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 23} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='qualis' id='input_qualis' value="{{ submission.qualis }}">
                             </div>
 
                             <div class="form-group required">
                                 <label for="">{% trans %}Funded by CNPq{% endtrans %}?</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 199} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 24} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <div class="radio">
                                     <label><input type="radio" name="funded_by_cnpq" id="radio_cnpq_yes" value="yes" {% if submission.fundedByCnpq %}checked{% endif %} required> {% trans %}yes{% endtrans %}</label>
                                     <label><input type="radio" name="funded_by_cnpq" id="radio_cnpq_no" value="no" {% if not submission.fundedByCnpq %}checked{% endif %} required> {% trans %}no{% endtrans %}</label>
@@ -257,19 +257,19 @@
 
                             <div class="form-group required">
                                 <label for="input_funders">{% trans %}Funders{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 25} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='funders' id='input_funders' value="{{ submission.funders }}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="input_indexed_in">{% trans %}Other Indexes{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 26} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='indexed_in' id='input_indexed_in' value="{{ submission.indexedIn }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="input_databases">{% trans %}Databases{% endtrans %}:</label>
-                                <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 27} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <input type="text" class="form-control" name='databases' id='input_databases' value="{{ submission.db }}">
                             </div>
                         </fieldset>

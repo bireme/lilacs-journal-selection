@@ -1288,7 +1288,7 @@ class NewSubmissionController extends Controller
 
                         $submission_number = count($submission->getProtocol()->getSubmission());
 
-                        $upload_type = $upload_type_repository->findOneBy(array("slug" => "protocol"));
+                        $upload_type = $upload_type_repository->findOneBy(array("slug" => "journal"));
 
                         // send tmp file to upload class and save
                         $pdfFile = new SubmissionUpload();
@@ -1386,16 +1386,6 @@ class NewSubmissionController extends Controller
                         // sending email
                         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
                         $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
-                        
-                        $_locale = $request->getSession()->get('_locale');
-                        $help = $help_repository->find(201);
-                        $translations = $trans_repository->findTranslations($help);
-                        $text = $translations[$_locale];
-                        $body = $text['message'];
-                        $body = str_replace("%protocol_url%", $url, $body);
-                        $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
-                        $body = str_replace("\r\n", "<br />", $body);
-                        $body .= "<br /><br />";
 
                         $recipients = array();
                         foreach($user_repository->findAll() as $secretary) {
@@ -1410,7 +1400,19 @@ class NewSubmissionController extends Controller
                             ->setFrom($util->getConfiguration('committee.email'))
                             ->setTo($recipient->getEmail())
                             ->setBody(
-                                $body
+                                $translator->trans("Dear investigator,") .
+                                "<br />" .
+                                "<br />" . $translator->trans("This is to remind you that protocol <b>%protocol%</b> has a pending
+                                                                   monitoring action.",
+                                                                   array(
+                                                                       '%protocol%' => $protocol->getCode(),
+                                                                   )) .
+                                "<br />" .
+                                "<br />" . $translator->trans("Please access your account in the system to present your monitoring action.") .
+                                "<br />" .
+                                "<br />" . $translator->trans("Regards") . "," .
+                                "<br />" . $translator->trans("Proethos2 Team") .
+                                "<br /><br />"
                                 ,
                                 'text/html'
                             );
@@ -1425,7 +1427,7 @@ class NewSubmissionController extends Controller
                         $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
                         
                         $_locale = $request->getSession()->get('_locale');
-                        $help = $help_repository->find(202);
+                        $help = $help_repository->find(99);
                         $translations = $trans_repository->findTranslations($help);
                         $text = $translations[$_locale];
                         $body = $text['message'];
