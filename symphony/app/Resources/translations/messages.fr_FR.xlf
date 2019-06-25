@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-06-18T11:25:07Z" source-language="en" target-language="fr_FR" datatype="plaintext" original="not.available">
+  <file date="2019-06-25T14:39:30Z" source-language="en" target-language="fr_FR" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
-      <trans-unit id="f7fae9b58ef582a295b2bbe3ffcf73705281cd4b" resname="12 months">
-        <source>12 months</source>
-        <target>12 months</target>
-      </trans-unit>
-      <trans-unit id="d2d2a163c8790997f0f1c324eaedf508d5000db7" resname="18 months">
-        <source>18 months</source>
-        <target>18 months</target>
-      </trans-unit>
-      <trans-unit id="b0fd8a12a07549acd38a980b609975516407a888" resname="24 months">
-        <source>24 months</source>
-        <target>24 months</target>
-      </trans-unit>
-      <trans-unit id="cd75b86f4ff467de8ca92dfa73154505b1a5c32e" resname="6 months">
-        <source>6 months</source>
-        <target>6 months</target>
-      </trans-unit>
       <trans-unit id="f9fe57d0dd1a71a22f9cd08a7c1808dbacfa5894" resname="A new journal needs your analysis.">
         <source>A new journal needs your analysis.</source>
         <target>A new journal needs your analysis.</target>
@@ -114,9 +98,9 @@
         <source>Approved</source>
         <target>Approved</target>
       </trans-unit>
-      <trans-unit id="d613d0e4117be8236c229e91f94bc3390ac931de" resname="Are you sure that you want to delete this protocol?">
-        <source>Are you sure that you want to delete this protocol?</source>
-        <target>Are you sure that you want to delete this protocol?</target>
+      <trans-unit id="c68eeab4c3b26f5f1c18c17c95593c4ac40961af" resname="Are you sure that you want to delete this journal?">
+        <source>Are you sure that you want to delete this journal?</source>
+        <target>Are you sure that you want to delete this journal?</target>
       </trans-unit>
       <trans-unit id="406f7a197a465586c1af3a9c76978c12bccb59ce" resname="Are you sure that you want to end this journal evaluation?">
         <source>Are you sure that you want to end this journal evaluation?</source>
@@ -174,6 +158,10 @@
         <source>CEP</source>
         <target>CEP</target>
       </trans-unit>
+      <trans-unit id="5f84d1b3ce0de681b763510335face24a9416820" resname="CEP not found">
+        <source>CEP not found</source>
+        <target>CEP not found</target>
+      </trans-unit>
       <trans-unit id="77dfd2135f4db726c47299bb55be26f7f4525a46" resname="Cancel">
         <source>Cancel</source>
         <target>Cancel</target>
@@ -222,9 +210,9 @@
         <source>Code</source>
         <target>Code</target>
       </trans-unit>
-      <trans-unit id="a91012d2bc0e6b884a40d22f02f6e2dc8e01a150" resname="Comment was created with sucess.">
-        <source>Comment was created with sucess.</source>
-        <target>Comment was created with sucess.</target>
+      <trans-unit id="79b3d2121da50bcf4bb954b4c3e8b821da058fef" resname="Comment was created with success.">
+        <source>Comment was created with success.</source>
+        <target>Comment was created with success.</target>
       </trans-unit>
       <trans-unit id="fce06e20e5f7f74aacccab40b59b75a56c8f7305" resname="Comments">
         <source>Comments</source>
@@ -257,6 +245,10 @@
       <trans-unit id="04a212215ef9fbf686d280802eb81ee7a6e681cd" resname="Confirm">
         <source>Confirm</source>
         <target>Confirm</target>
+      </trans-unit>
+      <trans-unit id="68dcd71ce6baa65ce1f3ddb3ead8f9e8f575e147" resname="Confirm New Password">
+        <source>Confirm New Password</source>
+        <target>Confirm New Password</target>
       </trans-unit>
       <trans-unit id="c2d404cb7bad34de0af2136b8efa809ea96170fa" resname="Confirm Password">
         <source>Confirm Password</source>
@@ -485,10 +477,6 @@
       <trans-unit id="67690c75c03cd0e07da2b8ad46be269eb2c39a62" resname="Exclude user">
         <source>Exclude user</source>
         <target>Exclude user</target>
-      </trans-unit>
-      <trans-unit id="63e062bfd36d1337967cd341f29555983c1e67f2" resname="Exempt">
-        <source>Exempt</source>
-        <target>Exempt</target>
       </trans-unit>
       <trans-unit id="2ccdb32230e160bd7028ce8fc0830d9e34e40067" resname="Expedite approval">
         <source>Expedite approval</source>
@@ -726,6 +714,10 @@
         <source>Instructions have been sent to your email.</source>
         <target>Instructions have been sent to your email.</target>
       </trans-unit>
+      <trans-unit id="fcda871e95912c58c18976b76b4306d62b02f0c3" resname="Invalid CEP format">
+        <source>Invalid CEP format</source>
+        <target>Invalid CEP format</target>
+      </trans-unit>
       <trans-unit id="49af6d68308b58e6682dc7d3d0408209ece925d0" resname="Invalid hashcode">
         <source>Invalid hashcode</source>
         <target>Invalid hashcode</target>
@@ -774,6 +766,22 @@
         <source>Journal Type</source>
         <target>Journal Type</target>
       </trans-unit>
+      <trans-unit id="0668490ac6d4a3192b3cace24028e331cdc345a9" resname="Journal accepted for review by %user% and members notified.">
+        <source>Journal accepted for review by %user% and members notified.</source>
+        <target>Journal accepted for review by %user% and members notified.</target>
+      </trans-unit>
+      <trans-unit id="66eef999975619c50d660447c24fe72eeabd6b18" resname="Journal finalized by %user% under option &quot;%option%&quot;.">
+        <source>Journal finalized by %user% under option "%option%".</source>
+        <target>Journal finalized by %user% under option "%option%".</target>
+      </trans-unit>
+      <trans-unit id="78f06375da91258c41b4d90c354376f9c5d53f24" resname="Journal options">
+        <source>Journal options</source>
+        <target>Journal options</target>
+      </trans-unit>
+      <trans-unit id="c3c7cfc65e72755d05b6955d2e51e53f79f1fc00" resname="Journal rejected with success!">
+        <source>Journal rejected with success!</source>
+        <target>Journal rejected with success!</target>
+      </trans-unit>
       <trans-unit id="9d18adc551dea3ea94184aca75b4b51d29934da1" resname="Journal submitted with success!">
         <source>Journal submitted with success!</source>
         <target>Journal submitted with success!</target>
@@ -782,9 +790,25 @@
         <source>Journal updated with success!</source>
         <target>Journal updated with success!</target>
       </trans-unit>
+      <trans-unit id="03c0a8a46e179b832af2dcdb4e42af3d4cb6c2bb" resname="Journal was concluded as Exempt.">
+        <source>Journal was concluded as Exempt.</source>
+        <target>Journal was concluded as Exempt.</target>
+      </trans-unit>
       <trans-unit id="3d54401dc3689ef27cb539218ec0252d18213397" resname="Journal was finalized with success!">
         <source>Journal was finalized with success!</source>
         <target>Journal was finalized with success!</target>
+      </trans-unit>
+      <trans-unit id="a98bfd0631bb07f54020f6329af781710c548324" resname="Journal was rejected by %user% with this justification &quot;%justify%&quot;.">
+        <source>Journal was rejected by %user% with this justification "%justify%".</source>
+        <target>Journal was rejected by %user% with this justification "%justify%".</target>
+      </trans-unit>
+      <trans-unit id="964abb0f1e7fb356cbb6aa4a05f60259a0961f2e" resname="Journal was removed with success!">
+        <source>Journal was removed with success!</source>
+        <target>Journal was removed with success!</target>
+      </trans-unit>
+      <trans-unit id="d2fe47e1ae1acf4da3b009c074e06a7682951305" resname="Journal was sent to comittee for initial analysis by %user%.">
+        <source>Journal was sent to comittee for initial analysis by %user%.</source>
+        <target>Journal was sent to comittee for initial analysis by %user%.</target>
       </trans-unit>
       <trans-unit id="6d4ae6f862f0075a3104ffeaefd25e1f03018534" resname="Journals">
         <source>Journals</source>
@@ -905,14 +929,6 @@
       <trans-unit id="ccdc8acca39f0528e26738b31d65065c3b7244ee" resname="Monitoring action was rejected by %user% with this justification &quot;%justify%&quot;.">
         <source>Monitoring action was rejected by %user% with this justification "%justify%".</source>
         <target>Monitoring action was rejected by %user% with this justification "%justify%".</target>
-      </trans-unit>
-      <trans-unit id="ba0b049ecec7e4353432ec58d78e765dd9459bd4" resname="Monitoring period">
-        <source>Monitoring period</source>
-        <target>Monitoring period</target>
-      </trans-unit>
-      <trans-unit id="08d2e98e6754af941484848930ccbaddfefe13d6" resname="N/A">
-        <source>N/A</source>
-        <target>N/A</target>
       </trans-unit>
       <trans-unit id="709a23220f2c3d64d1e1d6d18c4d5280f8d82fca" resname="Name">
         <source>Name</source>
@@ -1038,6 +1054,10 @@
         <source>No item found</source>
         <target>No item found</target>
       </trans-unit>
+      <trans-unit id="d6e6a9db4b2f8060056a72f089b7f72e58bdb502" resname="No journal found">
+        <source>No journal found</source>
+        <target>No journal found</target>
+      </trans-unit>
       <trans-unit id="47c7ac6224d91b10d8b432efaa81a74dfc3cd76e" resname="No mail found">
         <source>No mail found</source>
         <target>No mail found</target>
@@ -1089,14 +1109,6 @@
       <trans-unit id="ca86dd30b1dc77a2a5f8196f2e8e728cdff6d6ff" resname="Other Indexes">
         <source>Other Indexes</source>
         <target>Other Indexes</target>
-      </trans-unit>
-      <trans-unit id="97fdd5490df99ffa64c2b7a0a31614eff19d9a8e" resname="PAHOERC Secretariat">
-        <source>PAHOERC Secretariat</source>
-        <target>PAHOERC Secretariat</target>
-      </trans-unit>
-      <trans-unit id="7a9620e52585c3424c980a0126b7cca1559d89a4" resname="PAHOERC@paho.org">
-        <source>PAHOERC@paho.org</source>
-        <target>PAHOERC@paho.org</target>
       </trans-unit>
       <trans-unit id="5ef849c72cc4d216fc7f81d5be20df7369d797a0" resname="Pan American Health Organization, 2013. All rights reserved.">
         <source>Pan American Health Organization, 2013. All rights reserved.</source>
@@ -1166,6 +1178,10 @@
         <source>Proethos URL</source>
         <target>Proethos URL</target>
       </trans-unit>
+      <trans-unit id="cb3583fdc95bee8235906aa799b6387f87b2b14a" resname="Proethos2 Team">
+        <source>Proethos2 Team</source>
+        <target>Proethos2 Team</target>
+      </trans-unit>
       <trans-unit id="f2f01e6249a5ad459e77f133a7e3b40627bb5617" resname="Project Title">
         <source>Project Title</source>
         <target>Project Title</target>
@@ -1178,45 +1194,13 @@
         <source>Protocol URL</source>
         <target>Protocol URL</target>
       </trans-unit>
-      <trans-unit id="ed4d7084883b643c2fc1e2f41583751be3baa4fd" resname="Protocol accepted for review by %user% and investigators notified.">
-        <source>Protocol accepted for review by %user% and investigators notified.</source>
-        <target>Protocol accepted for review by %user% and investigators notified.</target>
-      </trans-unit>
       <trans-unit id="d80090c23fb5ce21ada4e04d747c32da5a0ec75c" resname="Protocol code">
         <source>Protocol code</source>
         <target>Protocol code</target>
       </trans-unit>
-      <trans-unit id="06bf9594ee1763ecffe91609059d78947ce13591" resname="Protocol finalized by %user% under option &quot;%option%&quot;.">
-        <source>Protocol finalized by %user% under option "%option%".</source>
-        <target>Protocol finalized by %user% under option "%option%".</target>
-      </trans-unit>
       <trans-unit id="185a971b99159441d069b7b1aabcec8c0de209c1" resname="Protocol options">
         <source>Protocol options</source>
         <target>Protocol options</target>
-      </trans-unit>
-      <trans-unit id="585ced76384ea0f630d2739a958c67ab7ab2bc10" resname="Protocol rejected with success!">
-        <source>Protocol rejected with success!</source>
-        <target>Protocol rejected with success!</target>
-      </trans-unit>
-      <trans-unit id="890d8149df67798f79ecd13beaacdc815b30c201" resname="Protocol updated with success!">
-        <source>Protocol updated with success!</source>
-        <target>Protocol updated with success!</target>
-      </trans-unit>
-      <trans-unit id="3224369bc089e3ef36e591adcf9030467e4e7808" resname="Protocol was concluded as Exempt.">
-        <source>Protocol was concluded as Exempt.</source>
-        <target>Protocol was concluded as Exempt.</target>
-      </trans-unit>
-      <trans-unit id="e8d168bb9ad0021a44854c5ff373769ca0aa4b1b" resname="Protocol was rejected by %user% with this justification &quot;%justify%&quot;.">
-        <source>Protocol was rejected by %user% with this justification "%justify%".</source>
-        <target>Protocol was rejected by %user% with this justification "%justify%".</target>
-      </trans-unit>
-      <trans-unit id="2c56fcfbf450e4083ffc685ab1babb8c8a0b5f6f" resname="Protocol was removed with success!">
-        <source>Protocol was removed with success!</source>
-        <target>Protocol was removed with success!</target>
-      </trans-unit>
-      <trans-unit id="e76c7159e192d371590953e2b0d3cc660c24edfa" resname="Protocol was sent to comittee for initial analysis by %user%.">
-        <source>Protocol was sent to comittee for initial analysis by %user%.</source>
-        <target>Protocol was sent to comittee for initial analysis by %user%.</target>
       </trans-unit>
       <trans-unit id="66504a22bf9c7de6cb0b13fc9e1924db84e74810" resname="Public title">
         <source>Public title</source>
@@ -1297,6 +1281,10 @@
       <trans-unit id="1e09d6baa08eee9735606efb79ac7f275094a921" resname="Recruitment Status">
         <source>Recruitment Status</source>
         <target>Recruitment Status</target>
+      </trans-unit>
+      <trans-unit id="e8831ffbbf8470faa83d1d1e77be272f5f957ec4" resname="Regards">
+        <source>Regards</source>
+        <target>Regards</target>
       </trans-unit>
       <trans-unit id="819133f871d8e86af4cc2f170e04112a94a8799d" resname="Reject Submission">
         <source>Reject Submission</source>
@@ -1482,6 +1470,10 @@
         <source>Send decision</source>
         <target>Send decision</target>
       </trans-unit>
+      <trans-unit id="f7f7607b333b374d1116f2a2dd4cd970e3c6ef56" resname="Send draft opinion">
+        <source>Send draft opinion</source>
+        <target>Send draft opinion</target>
+      </trans-unit>
       <trans-unit id="a0168e9ec147cd3bc85fa825f621b4feaaefca80" resname="Send journal revision">
         <source>Send journal revision</source>
         <target>Send journal revision</target>
@@ -1490,9 +1482,9 @@
         <source>Send me instructions</source>
         <target>Send me instructions</target>
       </trans-unit>
-      <trans-unit id="f4150af6b13029b733c888779a3d9c66fd5853e8" resname="Send to Ethical Review">
-        <source>Send to Ethical Review</source>
-        <target>Send to Ethical Review</target>
+      <trans-unit id="8a9d14e7c1f701c4ec72605ee5d00a10b760b55a" resname="Send to Review">
+        <source>Send to Review</source>
+        <target>Send to Review</target>
       </trans-unit>
       <trans-unit id="d7ec62cd2e6527cce3320a981c4467ac06d66775" resname="Send to committee to decide">
         <source>Send to committee to decide</source>
@@ -1506,9 +1498,9 @@
         <source>Send us a message by entering the fields below, or write to us at</source>
         <target>Send us a message by entering the fields below, or write to us at</target>
       </trans-unit>
-      <trans-unit id="ead70aedefb78deab783bfd70a0ce258bf2d8111" resname="Set protocol as exempt">
-        <source>Set protocol as exempt</source>
-        <target>Set protocol as exempt</target>
+      <trans-unit id="0df571e6b53fefa53bf1b4ad2e57683cfb3002a6" resname="Set as Exempt">
+        <source>Set as Exempt</source>
+        <target>Set as Exempt</target>
       </trans-unit>
       <trans-unit id="4f9f9c131024bbda7e9be202a9e7c43f4d05fbe4" resname="Set your password">
         <source>Set your password</source>
@@ -1521,10 +1513,6 @@
       <trans-unit id="341760cf17e98fb92555ca6425578799ac54b2c2" resname="Show Journal">
         <source>Show Journal</source>
         <target>Show Journal</target>
-      </trans-unit>
-      <trans-unit id="56860002c2285b9bff80391678937a3f082e20e5" resname="Sincerely">
-        <source>Sincerely</source>
-        <target>Sincerely</target>
       </trans-unit>
       <trans-unit id="6535ca3f517be900ed9cdd02c37ea1508ba8ce18" resname="Social Networks Information">
         <source>Social Networks Information</source>
@@ -1641,6 +1629,18 @@
       <trans-unit id="57482c5aaff1ec5281be4a8390934b2a15263f7a" resname="This is a translated version.">
         <source>This is a translated version.</source>
         <target>This is a translated version.</target>
+      </trans-unit>
+      <trans-unit id="a122057fb20524fbc1ad7fbb71aa0863323060ab" resname="This is to remind you that protocol &lt;b&gt;%protocol%&lt;/b&gt; has a pending&#10;                                                                   monitoring action.">
+        <source><![CDATA[This is to remind you that protocol <b>%protocol%</b> has a pending
+                                                                   monitoring action.]]></source>
+        <target><![CDATA[This is to remind you that protocol <b>%protocol%</b> has a pending
+                                                                   monitoring action.]]></target>
+      </trans-unit>
+      <trans-unit id="e4a29a083278cd19122f18e57a547f3cb29cb578" resname="This is to remind you that protocol &lt;b&gt;%protocol%&lt;/b&gt; has a pending&#10;                                                       monitoring action.">
+        <source><![CDATA[This is to remind you that protocol <b>%protocol%</b> has a pending
+                                                       monitoring action.]]></source>
+        <target><![CDATA[This is to remind you that protocol <b>%protocol%</b> has a pending
+                                                       monitoring action.]]></target>
       </trans-unit>
       <trans-unit id="60ee41a6d8c54b4fcdf27977e61e995bf2aa4709" resname="This is to remind you that protocol &lt;b&gt;%protocol%&lt;/b&gt; has a pending&#10;                                                   monitoring action that is due on &lt;b&gt;%date%&lt;/b&gt;.">
         <source><![CDATA[This is to remind you that protocol <b>%protocol%</b> has a pending
@@ -1848,6 +1848,14 @@
         <source>Your Profile</source>
         <target>Your Profile</target>
       </trans-unit>
+      <trans-unit id="1773229ea15924f0fab4ca4a9f251910c6c6bdb8" resname="Your journal has been accepted for evaluation. The committee's decision will be informed when the process is finalized.">
+        <source>Your journal has been accepted for evaluation. The committee's decision will be informed when the process is finalized.</source>
+        <target>Your journal has been accepted for evaluation. The committee's decision will be informed when the process is finalized.</target>
+      </trans-unit>
+      <trans-unit id="ecfdfdb330575b1e1c0c760da3e530b83e53d8f1" resname="Your journal was concluded as Exempt.">
+        <source>Your journal was concluded as Exempt.</source>
+        <target>Your journal was concluded as Exempt.</target>
+      </trans-unit>
       <trans-unit id="df5324d0c6f2777cc43524dbcf73dbcc9eeeb767" resname="Your journal was rejected">
         <source>Your journal was rejected</source>
         <target>Your journal was rejected</target>
@@ -1859,14 +1867,6 @@
       <trans-unit id="4e4f1f773e44862fdd658df7a0b1144b182e220f" resname="Your journal was sent to review.">
         <source>Your journal was sent to review.</source>
         <target>Your journal was sent to review.</target>
-      </trans-unit>
-      <trans-unit id="972ecffb6ef8ccde5aabf03f81c5fead85440f71" resname="Your protocol has been accepted for ethics review. The committee's decision will be informed when the process is finalized.">
-        <source>Your protocol has been accepted for ethics review. The committee's decision will be informed when the process is finalized.</source>
-        <target>Your protocol has been accepted for ethics review. The committee's decision will be informed when the process is finalized.</target>
-      </trans-unit>
-      <trans-unit id="a7f43023c76df13d79a9fb65e60db865f8af8002" resname="Your protocol was concluded as Exempt.">
-        <source>Your protocol was concluded as Exempt.</source>
-        <target>Your protocol was concluded as Exempt.</target>
       </trans-unit>
       <trans-unit id="2bb6b986c5d6fb26dd9dd1054b545ce022371b0c" resname="active">
         <source>active</source>
@@ -1887,10 +1887,6 @@
       <trans-unit id="fd1286353570c5703799ba76999323b7c7447b06" resname="no">
         <source>no</source>
         <target>no</target>
-      </trans-unit>
-      <trans-unit id="b1824b569a7f6e1c580e3b02d2a02b83aa919421" resname="send draft opinion">
-        <source>send draft opinion</source>
-        <target>send draft opinion</target>
       </trans-unit>
       <trans-unit id="6c8872c54edb32ec392c8c7110ab1fb2b1a4cec5" resname="with this justification:">
         <source>with this justification:</source>
