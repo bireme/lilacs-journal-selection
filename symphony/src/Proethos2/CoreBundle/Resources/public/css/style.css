@@ -215,6 +215,11 @@ img.logo {
 #table-issue tbody tr td {
     width: 25%;
 }
+
+legend a.help {
+    font-size: 14px;
+    margin-left: 5px;
+}
 /*
 DIV.multiple SELECT, INPUT[type="number"] {
     width: 160px;
