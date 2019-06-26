@@ -55,6 +55,15 @@ class Language extends Base
         return $this->getName();
     }
 
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
+    public function getLocale(){
+        return $this->locale;
+    }
+
     /**
      * Get id
      *

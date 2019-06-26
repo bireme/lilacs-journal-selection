@@ -34,6 +34,7 @@ use Proethos2\ModelBundle\Entity\UploadTypeExtension;
 use Proethos2\ModelBundle\Entity\UploadType;
 use Proethos2\ModelBundle\Entity\Specialty;
 use Proethos2\ModelBundle\Entity\PublicationType;
+use Proethos2\ModelBundle\Entity\Language;
 
 
 class CRUDController extends Controller
@@ -2598,6 +2599,121 @@ class CRUDController extends Controller
 
             $session->getFlashBag()->add('success', $translator->trans("Item updated with success."));
             return $this->redirectToRoute('crud_admin_controlled_list_publication_type_list', array(), 301);
+        }
+
+        return $output;
+    }
+
+    /**
+     * @Route("/admin/controlled-list/language", name="crud_admin_controlled_list_language_list")
+     * @Template()
+     */
+    public function listControlledListLanguageAction()
+    {
+        $output = array();
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $translator = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+
+        $item_repository = $em->getRepository('Proethos2ModelBundle:Language');
+        $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
+
+        $items = $item_repository->findAll();
+        $output['items'] = $items;
+
+        // checking if was a post request
+        if($this->getRequest()->isMethod('POST')) {
+
+            // getting post data
+            $post_data = $request->request->all();
+
+            // checking required files
+            foreach(array('name', 'code') as $field) {
+
+                if(!isset($post_data[$field]) or empty($post_data[$field])) {
+                    $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
+                    return $output;
+                }
+            }
+
+            $item = new Language();
+            $item->setTranslatableLocale('en');
+
+            $item->setName($post_data['name']);
+            $item->setCode($post_data['code']);
+
+            foreach(array('pt_BR', 'es_ES', 'fr_FR') as $locale) {
+                if(!empty($post_data["name-$locale"])) {
+                    $trans_repository = $trans_repository->translate($item, 'name', $locale, $post_data["name-$locale"]);
+                }
+            }
+
+            $em->persist($item);
+            $em->flush();
+
+            $session->getFlashBag()->add('success', $translator->trans("Item created with success."));
+            return $this->redirectToRoute('crud_admin_controlled_list_language_list', array(), 301);
+        }
+
+        return $output;
+    }
+
+    /**
+     * @Route("/admin/controlled-list/language/{item_id}", name="crud_admin_controlled_list_language_update")
+     * @Template()
+     */
+    public function updateControlledListLanguageAction($item_id)
+    {
+        $output = array();
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $translator = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+
+        $item_repository = $em->getRepository('Proethos2ModelBundle:Language');
+        $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
+
+        $item = $item_repository->find($item_id);
+
+        if (!$item) {
+            throw $this->createNotFoundException($translator->trans('No item found'));
+        }
+        $output['item'] = $item;
+
+        $translations = $trans_repository->findTranslations($item);
+        $output['translations'] = $translations;
+
+        // checking if was a post request
+        if($this->getRequest()->isMethod('POST')) {
+
+            // getting post data
+            $post_data = $request->request->all();
+
+            // checking required files
+            foreach(array('name', 'code') as $field) {
+                if(!isset($post_data[$field]) or empty($post_data[$field])) {
+                    $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
+                    return $output;
+                }
+            }
+
+            $item->setTranslatableLocale('en');
+
+            $item->setName($post_data['name']);
+            $item->setCode($post_data['code']);
+
+            foreach(array('pt_BR', 'es_ES', 'fr_FR') as $locale) {
+                if(!empty($post_data["name-$locale"])) {
+                    $trans_repository = $trans_repository->translate($item, 'name', $locale, $post_data["name-$locale"]);
+                }
+            }
+
+            $em->persist($item);
+            $em->flush();
+
+            $session->getFlashBag()->add('success', $translator->trans("Item updated with success."));
+            return $this->redirectToRoute('crud_admin_controlled_list_language_list', array(), 301);
         }
 
         return $output;
