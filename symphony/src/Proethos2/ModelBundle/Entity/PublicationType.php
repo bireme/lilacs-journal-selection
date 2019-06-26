@@ -52,6 +52,11 @@ class PublicationType extends Base
     private $slug;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $status = true;
+
+    /**
      * @Gedmo\Locale
      * Used locale to override Translation listener`s locale
      * this is not a mapped field of entity metadata, just a simple property
@@ -113,9 +118,12 @@ class PublicationType extends Base
      * @return PublicationType
      */
     public function setName($name)
-    {
-        $this->name = $name;
+    {   
+        $slugify = new Slugify();
 
+        $this->name = $name;
+        $this->slug = $slugify->slugify($name);
+        
         return $this;
     }
 
@@ -127,5 +135,29 @@ class PublicationType extends Base
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set status
+     *
+     * @param boolean $status
+     *
+     * @return PublicationType
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return boolean
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

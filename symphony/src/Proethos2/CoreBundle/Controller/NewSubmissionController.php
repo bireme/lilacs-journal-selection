@@ -78,7 +78,7 @@ class NewSubmissionController extends Controller
 
         // getting publication type list
         $publication_type_repository = $em->getRepository('Proethos2ModelBundle:PublicationType');
-        $publication_type = $publication_type_repository->findAll();
+        $publication_type = $publication_type_repository->findByStatus(true);
         $output['publication_type'] = $publication_type;
 
         // getting language list
@@ -278,7 +278,7 @@ class NewSubmissionController extends Controller
 
         // getting publication type list
         $publication_type_repository = $em->getRepository('Proethos2ModelBundle:PublicationType');
-        $publication_type = $publication_type_repository->findAll();
+        $publication_type = $publication_type_repository->findByStatus(true);
         $output['publication_type'] = $publication_type;
 
         // getting language list
