@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-06-25T14:39:30Z" source-language="en" target-language="fr_FR" datatype="plaintext" original="not.available">
+  <file date="2019-06-26T15:03:06Z" source-language="en" target-language="fr_FR" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -826,6 +826,10 @@
         <source>Language</source>
         <target>Language</target>
       </trans-unit>
+      <trans-unit id="db07be184479f34078cd4fc76d248dc0975720e9" resname="Languages">
+        <source>Languages</source>
+        <target>Languages</target>
+      </trans-unit>
       <trans-unit id="8351ebe53db2a3981a7e85ac4e1f58217f715944" resname="Last Update">
         <source>Last Update</source>
         <target>Last Update</target>
@@ -978,6 +982,10 @@
         <source>New Issue</source>
         <target>New Issue</target>
       </trans-unit>
+      <trans-unit id="686aa3bc2e8d5bedf328724cbbbaeeea670f6dfc" resname="New Language">
+        <source>New Language</source>
+        <target>New Language</target>
+      </trans-unit>
       <trans-unit id="e4cc33d64af4f8eaa127a13adf4a8d2289fcd97a" resname="New Meeting">
         <source>New Meeting</source>
         <target>New Meeting</target>
@@ -990,6 +998,10 @@
         <source>New Password</source>
         <target>New Password</target>
       </trans-unit>
+      <trans-unit id="8409ad1c3e0c322e7035cdd4d9c104bf4f31fbe0" resname="New Publication Type">
+        <source>New Publication Type</source>
+        <target>New Publication Type</target>
+      </trans-unit>
       <trans-unit id="6579b40580369448376cc845c6f094016fc2c420" resname="New Question">
         <source>New Question</source>
         <target>New Question</target>
@@ -997,6 +1009,14 @@
       <trans-unit id="4ece96747e457fdf6cd3ff76a6a82669c0783649" resname="New Recruitment Status">
         <source>New Recruitment Status</source>
         <target>New Recruitment Status</target>
+      </trans-unit>
+      <trans-unit id="178a7dc9d55919db39b3eebd03b324901ebeb570" resname="New Specialty">
+        <source>New Specialty</source>
+        <target>New Specialty</target>
+      </trans-unit>
+      <trans-unit id="c8b01e169741f05a38e866022c8c08c15465fe68" resname="New Thematic Area">
+        <source>New Thematic Area</source>
+        <target>New Thematic Area</target>
       </trans-unit>
       <trans-unit id="18f799d1cd8870445a42463145ecd8b976bf884c" resname="New Upload Extension Type">
         <source>New Upload Extension Type</source>
@@ -1209,6 +1229,10 @@
       <trans-unit id="5bbe1938af494997a740721e7814b0b3c4ea51f1" resname="Publication Type">
         <source>Publication Type</source>
         <target>Publication Type</target>
+      </trans-unit>
+      <trans-unit id="ed70dee782d9f1c068f2184534a7ee5afbeabdbc" resname="Publication Types">
+        <source>Publication Types</source>
+        <target>Publication Types</target>
       </trans-unit>
       <trans-unit id="fa1a1c0e831b22c1ce9095585b11d6c80ecdfe5e" resname="Publisher City">
         <source>Publisher City</source>
@@ -1530,6 +1554,10 @@
         <source>Spanish message</source>
         <target>Spanish message</target>
       </trans-unit>
+      <trans-unit id="1b0cec4fd71b5900dea4e142fd8e6727e605c4b9" resname="Specialties">
+        <source>Specialties</source>
+        <target>Specialties</target>
+      </trans-unit>
       <trans-unit id="a98926213d84b65ef9d202c6d4b3c99ab480f26a" resname="Specialty">
         <source>Specialty</source>
         <target>Specialty</target>
@@ -1613,6 +1641,10 @@
       <trans-unit id="bc6fd408b391f887f50cbc85c84fb8bbecbeb939" resname="Thematic Area">
         <source>Thematic Area</source>
         <target>Thematic Area</target>
+      </trans-unit>
+      <trans-unit id="e6e21b91fe035e6e76181adc09d4f8fb3f5e8479" resname="Thematic Areas">
+        <source>Thematic Areas</source>
+        <target>Thematic Areas</target>
       </trans-unit>
       <trans-unit id="80641d12b06bab66399479a096f095554b0710ae" resname="There is no help message set for this field.">
         <source>There is no help message set for this field.</source>
