@@ -1403,7 +1403,7 @@ class NewSubmissionController extends Controller
                         $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
                         
                         $_locale = $request->getSession()->get('_locale');
-                        $help = $help_repository->find(99);
+                        $help = $help_repository->find(91);
                         $translations = $trans_repository->findTranslations($help);
                         $text = $translations[$_locale];
                         $body = $text['message'];

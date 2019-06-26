@@ -185,7 +185,7 @@ class ProtocolController extends Controller
                 $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                 $_locale = $request->getSession()->get('_locale');
-                $help = $help_repository->find(100);
+                $help = $help_repository->find(92);
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
@@ -305,7 +305,7 @@ class ProtocolController extends Controller
                     $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                     $_locale = $request->getSession()->get('_locale');
-                    $help = $help_repository->find(101);
+                    $help = $help_repository->find(93);
                     $translations = $trans_repository->findTranslations($help);
                     $text = $translations[$_locale];
                     $body = $text['message'];
@@ -362,7 +362,7 @@ class ProtocolController extends Controller
                         $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                         $_locale = $request->getSession()->get('_locale');
-                        $help = $help_repository->find(102);
+                        $help = $help_repository->find(94);
                         $translations = $trans_repository->findTranslations($help);
                         $text = $translations[$_locale];
                         $body = $text['message'];
@@ -476,7 +476,7 @@ class ProtocolController extends Controller
 
                 if ( $post_data['committee-screening'] ) {
                     $_locale = $request->getSession()->get('_locale');
-                    $help = $help_repository->find(103);
+                    $help = $help_repository->find(95);
                     $translations = $trans_repository->findTranslations($help);
                     $text = $translations[$_locale];
                     $body = $text['message'];
@@ -487,7 +487,7 @@ class ProtocolController extends Controller
                     $body .= "<br /><br />";
                 } else {
                     $_locale = $request->getSession()->get('_locale');
-                    $help = $help_repository->find(104);
+                    $help = $help_repository->find(96);
                     $translations = $trans_repository->findTranslations($help);
                     $text = $translations[$_locale];
                     $body = $text['message'];
@@ -568,7 +568,7 @@ class ProtocolController extends Controller
                     $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                     $_locale = $request->getSession()->get('_locale');
-                    $help = $help_repository->find(105);
+                    $help = $help_repository->find(97);
                     $translations = $trans_repository->findTranslations($help);
                     $text = $translations[$_locale];
                     $body = $text['message'];
@@ -701,7 +701,7 @@ class ProtocolController extends Controller
                             $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                             $_locale = $request->getSession()->get('_locale');
-                            $help = $help_repository->find(106);
+                            $help = $help_repository->find(98);
                             $translations = $trans_repository->findTranslations($help);
                             $text = $translations[$_locale];
                             $body = $text['message'];
@@ -996,7 +996,7 @@ class ProtocolController extends Controller
                 $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                 $_locale = $request->getSession()->get('_locale');
-                $help = $help_repository->find(107);
+                $help = $help_repository->find(99);
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];

@@ -909,7 +909,7 @@ class CRUDController extends Controller
             $url = $baseurl . "/public/account/reset_my_password?hashcode=" . $hashcode;
             
             $locale = $request->getSession()->get('_locale');
-            $help = $help_repository->find(108);
+            $help = $help_repository->find(100);
             $translations = $trans_repository->findTranslations($help);
             $text = $translations[$locale];
             $body = $text['message'];
@@ -1061,7 +1061,7 @@ class CRUDController extends Controller
                 $url = $baseurl . $this->generateUrl('home');
 
                 $locale = $request->getSession()->get('_locale');
-                $help = $help_repository->find(109);
+                $help = $help_repository->find(101);
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$locale];
                 $body = $text['message'];
@@ -1263,7 +1263,7 @@ class CRUDController extends Controller
             }
 
             $locale = $request->getSession()->get('_locale');
-            $help = $help_repository->find(110);
+            $help = $help_repository->find(102);
             $translations = $trans_repository->findTranslations($help);
             $text = $translations[$locale];
             $body = $text['message'];

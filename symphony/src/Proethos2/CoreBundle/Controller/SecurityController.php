@@ -199,7 +199,7 @@ class SecurityController extends Controller
             $url = $baseurl . "/public/account/reset_my_password?hashcode=" . $hashcode;
 
             $locale = $request->getSession()->get('_locale');
-            $help = $help_repository->find(111);
+            $help = $help_repository->find(103);
             $translations = $trans_repository->findTranslations($help);
             $text = $translations[$locale];
             $body = $text['message'];
@@ -399,7 +399,7 @@ class SecurityController extends Controller
 
             $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
-            $help = $help_repository->find(112);
+            $help = $help_repository->find(104);
             $translations = $trans_repository->findTranslations($help);
             $text = $translations[$locale];
             $body = $text['message'];
@@ -418,7 +418,7 @@ class SecurityController extends Controller
             );
             $send = $this->get('mailer')->send($message);
 
-            $help = $help_repository->find(113);
+            $help = $help_repository->find(105);
             $translations = $trans_repository->findTranslations($help);
             $text = $translations[$locale];
             $body = $text['message'];
