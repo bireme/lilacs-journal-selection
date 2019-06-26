@@ -40,6 +40,31 @@ use Proethos2\ModelBundle\Entity\Issue;
 
 class NewSubmissionController extends Controller
 {
+    // frequency list
+    private $frequency = array(
+        "FC"  => "Fluxo Contínuo",
+        "S"   => "Semestral",
+        "QUA" => "Quadrimestral",
+        "T"   => "Trimestral",
+        "B"   => "Bimestral",
+        "M"   => "Mensal",
+        "QUI" => "Quinzenal"  
+    );
+
+    // support list
+    private $support = array(
+        "I"  => "Impresso",
+        "E"  => "Eletrônico",
+        "IE" => "Impresso e Eletrônico"
+    );
+
+    // fulltext list
+    private $fulltext = array(
+        "T" => "Portal próprio",
+        "B" => "Repositório institucional",
+        "M" => "Não provemos acesso ao texto completo. No entanto, vamos ingressar na iniciativa LILACS-Express para disponibilizá-los"
+    );
+
     /**
      * @Route("/submission/new/first", name="submission_new_first_step")
      * @Template()
@@ -68,39 +93,17 @@ class NewSubmissionController extends Controller
 
         // getting specialty list
         $specialty_repository = $em->getRepository('Proethos2ModelBundle:Specialty');
-        $specialty = $specialty_repository->findAll();
+        $specialty = $specialty_repository->findByStatus(true);
         $output['specialty'] = $specialty;
 
         // getting frequency list
-        $frequency = array(
-            "FC"  => "Fluxo Contínuo",
-            "S"   => "Semestral",
-            "QUA" => "Quadrimestral",
-            "T"   => "Trimestral",
-            "B"   => "Bimestral",
-            "M"   => "Mensal",
-            "QUI" => "Quinzenal"  
-        );
-
-        $output['frequency'] = $frequency;
+        $output['frequency'] = $this->frequency;
 
         // getting support list
-        $support = array(
-            "I"  => "Impresso",
-            "E"  => "Eletrônico",
-            "IE" => "Impresso e Eletrônico"
-        );
-
-        $output['support'] = $support;
+        $output['support'] = $this->support;
 
         // getting fulltext list
-        $fulltext = array(
-            "T" => "Portal próprio",
-            "B" => "Repositório institucional",
-            "M" => "Não provemos acesso ao texto completo. No entanto, vamos ingressar na iniciativa LILACS-Express para disponibilizá-los"
-        );
-
-        $output['fulltext'] = $fulltext;
+        $output['fulltext'] = $this->fulltext;
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
@@ -252,39 +255,17 @@ class NewSubmissionController extends Controller
 
         // getting specialty list
         $specialty_repository = $em->getRepository('Proethos2ModelBundle:Specialty');
-        $specialty = $specialty_repository->findAll();
+        $specialty = $specialty_repository->findByStatus(true);
         $output['specialty'] = $specialty;
 
         // getting frequency list
-        $frequency = array(
-            "FC"  => "Fluxo Contínuo",
-            "S"   => "Semestral",
-            "QUA" => "Quadrimestral",
-            "T"   => "Trimestral",
-            "B"   => "Bimestral",
-            "M"   => "Mensal",
-            "QUI" => "Quinzenal"  
-        );
-
-        $output['frequency'] = $frequency;
+        $output['frequency'] = $this->frequency;
 
         // getting support list
-        $support = array(
-            "I"  => "Impresso",
-            "E"  => "Eletrônico",
-            "IE" => "Impresso e Eletrônico"
-        );
-
-        $output['support'] = $support;
+        $output['support'] = $this->support;
 
         // getting fulltext list
-        $fulltext = array(
-            "T" => "Portal próprio",
-            "B" => "Repositório institucional",
-            "M" => "Não provemos acesso ao texto completo. No entanto, vamos ingressar na iniciativa LILACS-Express para disponibilizá-los"
-        );
-
-        $output['fulltext'] = $fulltext;
+        $output['fulltext'] = $this->fulltext;
 
         $submission_repository = $em->getRepository('Proethos2ModelBundle:Submission');
         $user_repository = $em->getRepository('Proethos2ModelBundle:User');
@@ -649,11 +630,6 @@ class NewSubmissionController extends Controller
         // getting the current submission
         $submission = $submission_repository->find($submission_id);
         $output['submission'] = $submission;
-
-        // getting specialty list
-        $specialty_repository = $em->getRepository('Proethos2ModelBundle:Specialty');
-        $specialty = $specialty_repository->findAll();
-        $output['specialty'] = $specialty;
 
         // getting countries list
         $country_repository = $em->getRepository('Proethos2ModelBundle:Country');
