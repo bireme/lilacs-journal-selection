@@ -2474,8 +2474,10 @@ class CRUDController extends Controller
                 }
             }
 
-            if(isset($post_data['status']) and $post_data['status'] == "true") {
+            if ( isset($post_data['status']) and $post_data['status'] == "true" ) {
                 $item->setStatus(true);
+            } else {
+                $item->setStatus(false);
             }
 
             $em->persist($item);
@@ -2591,8 +2593,10 @@ class CRUDController extends Controller
                 }
             }
 
-            if(isset($post_data['status']) and $post_data['status'] == "true") {
+            if ( isset($post_data['status']) and $post_data['status'] == "true" ) {
                 $item->setStatus(true);
+            } else {
+                $item->setStatus(false);
             }
 
             $em->persist($item);
@@ -2823,8 +2827,10 @@ class CRUDController extends Controller
                 }
             }
 
-            if(isset($post_data['status']) and $post_data['status'] == "true") {
+            if ( isset($post_data['status']) and $post_data['status'] == "true" ) {
                 $item->setStatus(true);
+            } else {
+                $item->setStatus(false);
             }
 
             $em->persist($item);
