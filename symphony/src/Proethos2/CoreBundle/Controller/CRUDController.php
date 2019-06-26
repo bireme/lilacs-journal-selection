@@ -35,6 +35,7 @@ use Proethos2\ModelBundle\Entity\UploadType;
 use Proethos2\ModelBundle\Entity\Specialty;
 use Proethos2\ModelBundle\Entity\PublicationType;
 use Proethos2\ModelBundle\Entity\Language;
+use Proethos2\ModelBundle\Entity\ThematicArea;
 
 
 class CRUDController extends Controller
@@ -2714,6 +2715,123 @@ class CRUDController extends Controller
 
             $session->getFlashBag()->add('success', $translator->trans("Item updated with success."));
             return $this->redirectToRoute('crud_admin_controlled_list_language_list', array(), 301);
+        }
+
+        return $output;
+    }
+
+    /**
+     * @Route("/admin/controlled-list/thematic-area", name="crud_admin_controlled_list_thematic_area_list")
+     * @Template()
+     */
+    public function listControlledListThematicAreaAction()
+    {
+        $output = array();
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $translator = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+
+        $item_repository = $em->getRepository('Proethos2ModelBundle:ThematicArea');
+        $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
+
+        $items = $item_repository->findAll();
+        $output['items'] = $items;
+
+        // checking if was a post request
+        if($this->getRequest()->isMethod('POST')) {
+
+            // getting post data
+            $post_data = $request->request->all();
+
+            // checking required files
+            foreach(array('name') as $field) {
+
+                if(!isset($post_data[$field]) or empty($post_data[$field])) {
+                    $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
+                    return $output;
+                }
+            }
+
+            $item = new ThematicArea();
+            $item->setTranslatableLocale('en');
+
+            $item->setName($post_data['name']);
+
+            foreach(array('pt_BR', 'es_ES', 'fr_FR') as $locale) {
+                if(!empty($post_data["name-$locale"])) {
+                    $trans_repository = $trans_repository->translate($item, 'name', $locale, $post_data["name-$locale"]);
+                }
+            }
+
+            $em->persist($item);
+            $em->flush();
+
+            $session->getFlashBag()->add('success', $translator->trans("Item created with success."));
+            return $this->redirectToRoute('crud_admin_controlled_list_thematic_area_list', array(), 301);
+        }
+
+        return $output;
+    }
+
+    /**
+     * @Route("/admin/controlled-list/thematic-area/{item_id}", name="crud_admin_controlled_list_thematic_area_update")
+     * @Template()
+     */
+    public function updateControlledListThematicAreaAction($item_id)
+    {
+        $output = array();
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $translator = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+
+        $item_repository = $em->getRepository('Proethos2ModelBundle:ThematicArea');
+        $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
+
+        $item = $item_repository->find($item_id);
+
+        if (!$item) {
+            throw $this->createNotFoundException($translator->trans('No item found'));
+        }
+        $output['item'] = $item;
+
+        $translations = $trans_repository->findTranslations($item);
+        $output['translations'] = $translations;
+
+        // checking if was a post request
+        if($this->getRequest()->isMethod('POST')) {
+
+            // getting post data
+            $post_data = $request->request->all();
+
+            // checking required files
+            foreach(array('name') as $field) {
+                if(!isset($post_data[$field]) or empty($post_data[$field])) {
+                    $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
+                    return $output;
+                }
+            }
+
+            $item->setTranslatableLocale('en');
+
+            $item->setName($post_data['name']);
+
+            foreach(array('pt_BR', 'es_ES', 'fr_FR') as $locale) {
+                if(!empty($post_data["name-$locale"])) {
+                    $trans_repository = $trans_repository->translate($item, 'name', $locale, $post_data["name-$locale"]);
+                }
+            }
+
+            if(isset($post_data['status']) and $post_data['status'] == "true") {
+                $item->setStatus(true);
+            }
+
+            $em->persist($item);
+            $em->flush();
+
+            $session->getFlashBag()->add('success', $translator->trans("Item updated with success."));
+            return $this->redirectToRoute('crud_admin_controlled_list_thematic_area_list', array(), 301);
         }
 
         return $output;

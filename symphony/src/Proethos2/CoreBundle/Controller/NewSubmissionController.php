@@ -88,7 +88,7 @@ class NewSubmissionController extends Controller
 
         // getting thematic area list
         $thematic_area_repository = $em->getRepository('Proethos2ModelBundle:ThematicArea');
-        $thematic_area = $thematic_area_repository->findAll();
+        $thematic_area = $thematic_area_repository->findByStatus(true);
         $output['thematic_area'] = $thematic_area;
 
         // getting specialty list
@@ -250,7 +250,7 @@ class NewSubmissionController extends Controller
 
         // getting thematic area list
         $thematic_area_repository = $em->getRepository('Proethos2ModelBundle:ThematicArea');
-        $thematic_area = $thematic_area_repository->findAll();
+        $thematic_area = $thematic_area_repository->findByStatus(true);
         $output['thematic_area'] = $thematic_area;
 
         // getting specialty list
