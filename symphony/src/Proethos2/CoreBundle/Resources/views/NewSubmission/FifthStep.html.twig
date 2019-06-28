@@ -18,7 +18,6 @@
                 <input type='hidden' name='submission_id' value='{{ submission.id }}'>
 
                 <div class='block'>
-
                     <div class='row'>
                         <div class="col-md-12">
                             <h2 class='sub-header'>{% trans %}File submission{% endtrans %}:</h2>
@@ -30,7 +29,6 @@
                             <fieldset>
                                 <legend>{% trans %}Peer Review and <a href="https://bit.ly/2K6drNz">Submission Data</a>{% endtrans %}<a href="{{ path("crud_admin_help_show", {help_id: 49} ) }}" class="help" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a></legend>
                                 <table class='table table-hover table-condensed' id='table-attachment'>
-
                                     <thead>
                                         <tr>
                                             <th>{% trans %}Type{% endtrans %}</th>
@@ -79,7 +77,6 @@
                 <input type="hidden" name="MAX_FILE_SIZE" value="{{ 10*1024*1024 }}" />
 
                 <div class="modal-content">
-
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">{% trans %}New Attachment{% endtrans %}</h4>
@@ -104,7 +101,6 @@
                             <a href="{{ path("crud_admin_help_show", {help_id: 12} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                             <input type='file' class='form-control' name='new-attachment-file' id='input-new-attachment-file' required>
                         </div>
-
                     </div>
 
                     <div class="modal-footer">
@@ -123,7 +119,6 @@
                 <input type="hidden" name="delete-attachment-id" id='hidden-delete-attachment' value="" />
 
                 <div class="modal-content">
-
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">{% trans %}Delete Attachment{% endtrans %}</h4>
@@ -151,10 +146,10 @@
                 var id = $(this).data('id');
                 $("#hidden-delete-attachment").val(id);
             });
-        });
 
-        $('#modal-delete-attachment').on('hidden.bs.modal', function () {
-            $("#hidden-delete-attachment").val("");
-        })
+            $('#modal-delete-attachment').on('hidden.bs.modal', function () {
+                $("#hidden-delete-attachment").val("");
+            })
+        });
     </script>
 {% endblock %}

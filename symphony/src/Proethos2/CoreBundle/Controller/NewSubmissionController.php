@@ -920,10 +920,8 @@ class NewSubmissionController extends Controller
             }
 
             if(isset($post_data['delete-attachment-id']) and !empty($post_data['delete-attachment-id'])) {
-
                 $submission_upload = $submission_upload_repository->find($post_data['delete-attachment-id']);
                 if($submission_upload) {
-
                     $em->remove($submission_upload);
                     $em->flush();
                     $session->getFlashBag()->add('success', $translator->trans("File removed with success."));

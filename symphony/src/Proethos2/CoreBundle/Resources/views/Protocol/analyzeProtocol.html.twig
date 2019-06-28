@@ -58,9 +58,9 @@
 
             <div class='row'>
                 <div class='submission-button-controls col-md-12'>
-                    <button type="submit" class='btn btn-danger' id='button-reject-submission'>{% trans %}Send back to investigator{% endtrans %}</button>
-                    <button class='btn btn-primary' id='button-send-to-committee'>{% trans %}Send to committee to decide{% endtrans %}</button>
-                    <button class='btn btn-primary' id='button-send-to-ethical-revision'>{% trans %}Send to ethical revision{% endtrans %}</button>
+                    <button type="submit" class='btn btn-danger' id='button-reject-submission'>{% trans %}Reject submission{% endtrans %}</button>
+                    <button class='btn btn-primary' id='button-send-to-committee'>{% trans %}Send to screening{% endtrans %}</button>
+                    <button class='btn btn-primary' id='button-send-to-ethical-revision'>{% trans %}Send to review{% endtrans %}</button>
                     {% if protocol.monitoringAction %}
                         <span data-toggle='tooltip' data-placement='top' title="{% trans %}This monitoring action will not be reviewed by the committee{% endtrans %}">
                             <button type='button' class='btn btn-success' data-toggle='modal' data-target='#modal-confirm' id='button-accept-as-notification'>{% trans %}Accept as Notification{% endtrans %}</button>
