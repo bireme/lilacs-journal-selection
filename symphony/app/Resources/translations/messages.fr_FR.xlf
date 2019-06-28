@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-06-26T15:03:06Z" source-language="en" target-language="fr_FR" datatype="plaintext" original="not.available">
+  <file date="2019-06-28T15:12:15Z" source-language="en" target-language="fr_FR" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -118,9 +118,9 @@
         <source>Are you sure that you want to remove this member?</source>
         <target>Are you sure that you want to remove this member?</target>
       </trans-unit>
-      <trans-unit id="c9cfdfefe700ad0c6ce8167a78d04e7cfc305a3e" resname="Are you sure that you want to set this protocol as Exempt?">
-        <source>Are you sure that you want to set this protocol as Exempt?</source>
-        <target>Are you sure that you want to set this protocol as Exempt?</target>
+      <trans-unit id="a59be3133e778816cccc5d98621f0151371ae1a3" resname="Are you sure that you want to send this journal to committee review?">
+        <source>Are you sure that you want to send this journal to committee review?</source>
+        <target>Are you sure that you want to send this journal to committee review?</target>
       </trans-unit>
       <trans-unit id="8de6e73ba7b7e7a2c5f18e2bc38d0a44a17be1d3" resname="Are you sure you want to continue?">
         <source>Are you sure you want to continue?</source>
@@ -466,9 +466,9 @@
         <source>Enter registered email</source>
         <target>Enter registered email</target>
       </trans-unit>
-      <trans-unit id="e40fc78a9b51f6d7d56a711e2de19c6f9e68fd30" resname="Estou de acordo com a disponibilização e carga dos links / arquivos para o texto completo dos artigos, caso o periódico seja aprovado">
-        <source>Estou de acordo com a disponibilização e carga dos links / arquivos para o texto completo dos artigos, caso o periódico seja aprovado</source>
-        <target>Estou de acordo com a disponibilização e carga dos links / arquivos para o texto completo dos artigos, caso o periódico seja aprovado</target>
+      <trans-unit id="d8c18689efdfb9595d168de85f61d7be86c5b8c4" resname="Estou de acordo com a disponibilização e carga dos links/arquivos para o texto completo dos artigos, caso o periódico seja aprovado">
+        <source>Estou de acordo com a disponibilização e carga dos links/arquivos para o texto completo dos artigos, caso o periódico seja aprovado</source>
+        <target>Estou de acordo com a disponibilização e carga dos links/arquivos para o texto completo dos artigos, caso o periódico seja aprovado</target>
       </trans-unit>
       <trans-unit id="e2cf5cb161b25b5599f85fae60e7a9708409c89a" resname="Evaluation Process Information">
         <source>Evaluation Process Information</source>
@@ -601,6 +601,10 @@
       <trans-unit id="ae6fc6d7afac19b0f3fd51042c1eb0dfc6633d43" resname="Forgot my password">
         <source>Forgot my password</source>
         <target>Forgot my password</target>
+      </trans-unit>
+      <trans-unit id="9133ed60e529bf2188c0de3a585fc471e4d3dfdd" resname="Format, Retrospective, Endogeny and Citation">
+        <source>Format, Retrospective, Endogeny and Citation</source>
+        <target>Format, Retrospective, Endogeny and Citation</target>
       </trans-unit>
       <trans-unit id="e43268269e7edeb3cfcac1024e0ff4c1cb9363a6" resname="Fourth step saved with success.">
         <source>Fourth step saved with success.</source>
@@ -789,10 +793,6 @@
       <trans-unit id="a8e0ab6607e510c8cc36c82d7c427ebdf8e70505" resname="Journal updated with success!">
         <source>Journal updated with success!</source>
         <target>Journal updated with success!</target>
-      </trans-unit>
-      <trans-unit id="03c0a8a46e179b832af2dcdb4e42af3d4cb6c2bb" resname="Journal was concluded as Exempt.">
-        <source>Journal was concluded as Exempt.</source>
-        <target>Journal was concluded as Exempt.</target>
       </trans-unit>
       <trans-unit id="3d54401dc3689ef27cb539218ec0252d18213397" resname="Journal was finalized with success!">
         <source>Journal was finalized with success!</source>
@@ -1174,6 +1174,10 @@
         <source>Please submit 3 issues.</source>
         <target>Please submit 3 issues.</target>
       </trans-unit>
+      <trans-unit id="03b3af4f4f7efadbc60717fd3e61321576b6f633" resname="Please submit all required files.">
+        <source>Please submit all required files.</source>
+        <target>Please submit all required files.</target>
+      </trans-unit>
       <trans-unit id="23882c575954a0789bf02aba9e6dd01f539bc738" resname="Portuguese">
         <source>Portuguese</source>
         <target>Portuguese</target>
@@ -1314,6 +1318,10 @@
         <source>Reject Submission</source>
         <target>Reject Submission</target>
       </trans-unit>
+      <trans-unit id="9baed847cf0e77a99ed6e6f2f1cba6ab85af1d37" resname="Reject submission">
+        <source>Reject submission</source>
+        <target>Reject submission</target>
+      </trans-unit>
       <trans-unit id="27eeb7a291bfc566447d9cd928e98caf90f70ee6" resname="Rejected">
         <source>Rejected</source>
         <target>Rejected</target>
@@ -1329,6 +1337,10 @@
       <trans-unit id="933bc50be1e309f6de3aac77c5ead37510e2f105" resname="Requestor Name">
         <source>Requestor Name</source>
         <target>Requestor Name</target>
+      </trans-unit>
+      <trans-unit id="774382e072afbf0f8ed2a34d35a1014b2302e9d9" resname="Required files">
+        <source>Required files</source>
+        <target>Required files</target>
       </trans-unit>
       <trans-unit id="be601df25eea91eaaf0d5e80263930143af345be" resname="Research">
         <source>Research</source>
@@ -1377,6 +1389,10 @@
       <trans-unit id="efc007a393f66cdb14d57d385822a3d9e36ef873" resname="Save">
         <source>Save</source>
         <target>Save</target>
+      </trans-unit>
+      <trans-unit id="f35dccd4b59f124b8d53340697b16a42a259ca2d" resname="Save Journal">
+        <source>Save Journal</source>
+        <target>Save Journal</target>
       </trans-unit>
       <trans-unit id="d891b939ebd30c077be9b8947d719284d03aae02" resname="Save and finish">
         <source>Save and finish</source>
@@ -1486,14 +1502,6 @@
         <source>Send Message</source>
         <target>Send Message</target>
       </trans-unit>
-      <trans-unit id="ed0aad95adb0760d3cf37450799a0f8080dcc7dd" resname="Send back to investigator">
-        <source>Send back to investigator</source>
-        <target>Send back to investigator</target>
-      </trans-unit>
-      <trans-unit id="a43a4a64f63ed79cc6b820b73acf46db0b7c31e1" resname="Send decision">
-        <source>Send decision</source>
-        <target>Send decision</target>
-      </trans-unit>
       <trans-unit id="f7f7607b333b374d1116f2a2dd4cd970e3c6ef56" resname="Send draft opinion">
         <source>Send draft opinion</source>
         <target>Send draft opinion</target>
@@ -1510,21 +1518,17 @@
         <source>Send to Review</source>
         <target>Send to Review</target>
       </trans-unit>
-      <trans-unit id="d7ec62cd2e6527cce3320a981c4467ac06d66775" resname="Send to committee to decide">
-        <source>Send to committee to decide</source>
-        <target>Send to committee to decide</target>
+      <trans-unit id="8e788620ceae177369046eb1a1475b37d5d2b176" resname="Send to review">
+        <source>Send to review</source>
+        <target>Send to review</target>
       </trans-unit>
-      <trans-unit id="19ffa1466728796701f5ce75fb65995ecad95697" resname="Send to ethical revision">
-        <source>Send to ethical revision</source>
-        <target>Send to ethical revision</target>
+      <trans-unit id="b2684e3314e18c0625a83b7a21c900288e2e2eac" resname="Send to screening">
+        <source>Send to screening</source>
+        <target>Send to screening</target>
       </trans-unit>
       <trans-unit id="b07eb00d111a743c92ecfbc78133c45b9f7d58c4" resname="Send us a message by entering the fields below, or write to us at">
         <source>Send us a message by entering the fields below, or write to us at</source>
         <target>Send us a message by entering the fields below, or write to us at</target>
-      </trans-unit>
-      <trans-unit id="0df571e6b53fefa53bf1b4ad2e57683cfb3002a6" resname="Set as Exempt">
-        <source>Set as Exempt</source>
-        <target>Set as Exempt</target>
       </trans-unit>
       <trans-unit id="4f9f9c131024bbda7e9be202a9e7c43f4d05fbe4" resname="Set your password">
         <source>Set your password</source>
@@ -1883,10 +1887,6 @@
       <trans-unit id="1773229ea15924f0fab4ca4a9f251910c6c6bdb8" resname="Your journal has been accepted for evaluation. The committee's decision will be informed when the process is finalized.">
         <source>Your journal has been accepted for evaluation. The committee's decision will be informed when the process is finalized.</source>
         <target>Your journal has been accepted for evaluation. The committee's decision will be informed when the process is finalized.</target>
-      </trans-unit>
-      <trans-unit id="ecfdfdb330575b1e1c0c760da3e530b83e53d8f1" resname="Your journal was concluded as Exempt.">
-        <source>Your journal was concluded as Exempt.</source>
-        <target>Your journal was concluded as Exempt.</target>
       </trans-unit>
       <trans-unit id="df5324d0c6f2777cc43524dbcf73dbcc9eeeb767" resname="Your journal was rejected">
         <source>Your journal was rejected</source>
