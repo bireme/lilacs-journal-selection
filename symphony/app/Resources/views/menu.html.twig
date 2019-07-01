@@ -43,13 +43,13 @@
                     </li>
                 {% endif %}
 
-                <li class=""><a href="{{ path('crud_faq_list') }}">{% trans %}FAQ{% endtrans %}</a></li>
+                <li class=""><a href="{% if is_granted("ROLE_USER") %}{{ path('crud_admin_faq_list') }}{% else %}{{ path('crud_public_faq_list') }}{% endif %}">{% trans %}FAQ{% endtrans %}</a></li>
 
                 {% if is_granted("ROLE_USER") %}
                     <li class=""><a href="{{ path('crud_document_list') }}">{% trans %}Documents{% endtrans %}</a></li>
                 {% endif %}
 
-                <li class=""><a href="{{ path('crud_contact_list') }}">{% trans %}Contact{% endtrans %}</a></li>
+                <li class=""><a href="{% if is_granted("ROLE_USER") %}{{ path('crud_admin_contact_list') }}{% else %}{{ path('crud_public_contact_list') }}{% endif %}">{% trans %}Contact{% endtrans %}</a></li>
 
                 {% if is_granted("ROLE_USER") and 'administrator' in app.user.rolesSlug %}
                     <li class="dropdown">

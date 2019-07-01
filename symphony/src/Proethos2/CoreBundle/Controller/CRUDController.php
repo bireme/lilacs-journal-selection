@@ -551,7 +551,8 @@ class CRUDController extends Controller
     }
 
     /**
-     * @Route("/public/faq", name="crud_faq_list")
+     * @Route("/admin/faq", name="crud_admin_faq_list")
+     * @Route("/public/faq", name="crud_public_faq_list")
      * @Template()
      */
     public function listFaqAction()
@@ -1222,7 +1223,8 @@ class CRUDController extends Controller
     }
 
     /**
-     * @Route("/public/contact", name="crud_contact_list")
+     * @Route("/admin/contact", name="crud_admin_contact_list")
+     * @Route("/public/contact", name="crud_public_contact_list")
      * @Template()
      */
     public function listContactAction()
@@ -1234,8 +1236,6 @@ class CRUDController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $util = new Util($this->container, $this->getDoctrine());
-
-        $user = $this->get('security.token_storage')->getToken()->getUser();
 
         $output['committee_prefix'] = $util->getConfiguration('committee.prefix');
         $output['committee_name'] = $util->getConfiguration('committee.name');
