@@ -1234,6 +1234,7 @@ class CRUDController extends Controller
         $session = $request->getSession();
         $translator = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
+        $route = $request->get('_route');
 
         $util = new Util($this->container, $this->getDoctrine());
 
@@ -1286,7 +1287,7 @@ class CRUDController extends Controller
 
             $send = $this->get('mailer')->send($message);
             $session->getFlashBag()->add('success', $translator->trans("Message sent to administrators."));
-            return $this->redirectToRoute('crud_contact_list', array(), 301);
+            return $this->redirectToRoute($route, array(), 301);
         }
 
         return $output;
