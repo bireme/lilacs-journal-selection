@@ -216,7 +216,7 @@ class ProtocolController extends Controller
 
                     $protocol_history = new ProtocolHistory();
                     $protocol_history->setProtocol($protocol);
-                    $protocol_history->setMessage($translator->trans('Monitoring action was rejected by %user% with this justification "%justify%".',
+                    $protocol_history->setMessage($translator->trans('Monitoring action was rejected by secretary with this justification "%justify%".',
                         array(
                             '%user%' => $user->getUsername(),
                             '%justify%' => $post_data['reject-reason'],
@@ -258,11 +258,11 @@ class ProtocolController extends Controller
                 // setting the Rejected status
                 $protocol->setStatus("R");
 
-                // setting protocool history
+                // setting protocol history
                 $protocol_history = new ProtocolHistory();
                 $protocol_history->setProtocol($protocol);
                 // $protocol_history->setMessage($translator->trans("Journal was rejected by") ." ". $user . ".");
-                $protocol_history->setMessage($translator->trans('Journal was rejected by %user% with this justification "%justify%".',
+                $protocol_history->setMessage($translator->trans('Journal was rejected by secretary with this justification "%justify%".',
                     array(
                         '%user%' => $user->getUsername(),
                         '%justify%' => $post_data['reject-reason'],
@@ -293,10 +293,14 @@ class ProtocolController extends Controller
                     // setting the Rejected status
                     $protocol->setStatus("I");
 
-                    // setting protocool history
+                    // setting protocol history
                     $protocol_history = new ProtocolHistory();
                     $protocol_history->setProtocol($protocol);
-                    $protocol_history->setMessage($translator->trans("Journal was sent to comittee for initial analysis by %user%.", array("%user%" => $user->getUsername())));
+                    $protocol_history->setMessage($translator->trans("Journal was sent to comittee for initial analysis by secretary.",
+                        array(
+                            "%user%" => $user->getUsername(),
+                        )
+                    ));
                     $em->persist($protocol_history);
                     $em->flush();
 
@@ -342,10 +346,14 @@ class ProtocolController extends Controller
                     // setting the Rejected status
                     $protocol->setStatus("E");
 
-                    // setting protocool history
+                    // setting protocol history
                     $protocol_history = new ProtocolHistory();
                     $protocol_history->setProtocol($protocol);
-                    $protocol_history->setMessage($translator->trans("Journal accepted for review by %user% and members notified.", array("%user%" => $user->getUsername())));
+                    $protocol_history->setMessage($translator->trans("Journal accepted for review by secretary and members notified.",
+                        array(
+                            "%user%" => $user->getUsername(),
+                        )
+                    ));
                     $em->persist($protocol_history);
                     $em->flush();
 
@@ -393,10 +401,14 @@ class ProtocolController extends Controller
                     $protocol->setStatus("A");
                     $protocol->setMonitoringAction(NULL);
 
-                    // setting protocool history
+                    // setting protocol history
                     $protocol_history = new ProtocolHistory();
                     $protocol_history->setProtocol($protocol);
-                    $protocol_history->setMessage($translator->trans("Monitoring action was accepted by %user% as notification only.", array("%user%" => $user->getUsername())));
+                    $protocol_history->setMessage($translator->trans("Monitoring action was accepted by secretary as notification only.",
+                        array(
+                            "%user%" => $user->getUsername(),
+                        )
+                    ));
                     $em->persist($protocol_history);
                     $em->flush();
 
@@ -432,11 +444,15 @@ class ProtocolController extends Controller
         $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
         $user_repository = $em->getRepository('Proethos2ModelBundle:User');
         $upload_type_repository = $em->getRepository('Proethos2ModelBundle:UploadType');
+        $submission_upload_repository = $em->getRepository('Proethos2ModelBundle:SubmissionUpload');
 
         // getting the current submission
         $protocol = $protocol_repository->find($protocol_id);
         $submission = $protocol->getMainSubmission();
         $output['protocol'] = $protocol;
+
+        $upload_types = $upload_type_repository->findByStatus(true);
+        $output['upload_types'] = $upload_types;
 
         $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         $help_repository = $em->getRepository('Proethos2ModelBundle:Help');
@@ -455,13 +471,96 @@ class ProtocolController extends Controller
 
             // setting the Committee Screening
             $protocol->setCommitteeScreening($post_data['committee-screening']);
+            $em->persist($protocol);
+            $em->flush();
 
-            if($post_data['send-to'] == "ethical-revision") {
+            $file = $request->files->get('new-attachment-file');
+            if(!empty($file)) {
+
+                if(!isset($post_data['new-attachment-type']) or empty($post_data['new-attachment-type'])) {
+                    $session->getFlashBag()->add('error', $translator->trans("Field 'new-attachment-type' is required."));
+                    return $output;
+                }
+
+                $upload_type = $upload_type_repository->find($post_data['new-attachment-type']);
+                if (!$upload_type) {
+                    throw $this->createNotFoundException($translator->trans('No upload type found'));
+                    return $output;
+                }
+
+                $submission_upload = new SubmissionUpload();
+                $submission_upload->setSubmission($protocol->getMainSubmission());
+                $submission_upload->setUploadType($upload_type);
+                $submission_upload->setUser($user);
+                $submission_upload->setFile($file);
+                $submission_upload->setSubmissionNumber($protocol->getMainSubmission()->getNumber());
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($submission_upload);
+                $em->flush();
+
+                $protocol->getMainSubmission()->addAttachment($submission_upload);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($protocol->getMainSubmission());
+                $em->flush();
+
+                $session->getFlashBag()->add('success', $translator->trans("File uploaded with success."));
+                return $this->redirectToRoute('protocol_initial_committee_screening', array('protocol_id' => $protocol->getId()), 301);
+
+            }
+
+            if(isset($post_data['delete-attachment-id']) and !empty($post_data['delete-attachment-id'])) {
+                $submission_upload = $submission_upload_repository->find($post_data['delete-attachment-id']);
+                if($submission_upload) {
+                    $em->remove($submission_upload);
+                    $em->flush();
+                    $session->getFlashBag()->add('success', $translator->trans("File removed with success."));
+                    return $this->redirectToRoute('protocol_initial_committee_screening', array('protocol_id' => $protocol->getId()), 301);
+                }
+            }
+
+            if($post_data['send-to'] == "review-journal") {
+
+                // checking required format attachment
+                $upload_type = $upload_type_repository->findBy(array('slug' => 'format'));
+                $upload_type_id = $upload_type[0]->getId();
+                $format = $submission_upload_repository->findBy(array('submission' => $protocol->getMainSubmission()->getId(), 'upload_type' => $upload_type_id));
+                if( !$format or count($format) != 1 ) {
+                    $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
+                    return $output;
+                }
+
+                // checking required retrospective attachment
+                $upload_type = $upload_type_repository->findBy(array('slug' => 'retrospective'));
+                $upload_type_id = $upload_type[0]->getId();
+                $retrospective = $submission_upload_repository->findBy(array('submission' => $protocol->getMainSubmission()->getId(), 'upload_type' => $upload_type_id));
+                if( !$retrospective or count($retrospective) != 1 ) {
+                    $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
+                    return $output;
+                }
+
+                // checking required endogeny attachment
+                $upload_type = $upload_type_repository->findBy(array('slug' => 'endogeny'));
+                $upload_type_id = $upload_type[0]->getId();
+                $endogeny = $submission_upload_repository->findBy(array('submission' => $protocol->getMainSubmission()->getId(), 'upload_type' => $upload_type_id));
+                if( !$endogeny or count($endogeny) != 1 ) {
+                    $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
+                    return $output;
+                }
+
+                // checking required citation attachment
+                $upload_type = $upload_type_repository->findBy(array('slug' => 'citation'));
+                $upload_type_id = $upload_type[0]->getId();
+                $citation = $submission_upload_repository->findBy(array('submission' => $protocol->getMainSubmission()->getId(), 'upload_type' => $upload_type_id));
+                if( !$citation or count($citation) != 1 ) {
+                    $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
+                    return $output;
+                }
 
                 // setting the Waiting for Committee status
                 $protocol->setStatus("E");
 
-                // setting protocool history
+                // setting protocol history
                 $protocol_history = new ProtocolHistory();
                 $protocol_history->setProtocol($protocol);
                 $protocol_history->setMessage($translator->trans("Your journal has been accepted for evaluation. The committee's decision will be informed when the process is finalized."));
@@ -520,83 +619,8 @@ class ProtocolController extends Controller
                 return $this->redirectToRoute('protocol_initial_committee_review', array('protocol_id' => $protocol->getId()), 301);
             }
 
-            if($post_data['send-to'] == "exempt") {
-
-                $file = $request->files->get('draft-opinion');
-                if(!empty($file)) {
-
-                    // getting the upload type
-                    $upload_type = $upload_type_repository->findOneBy(array("slug" => "draft-opinion"));
-
-                    // adding the file uploaded
-                    $submission_upload = new SubmissionUpload();
-                    $submission_upload->setSubmission($protocol->getMainSubmission());
-                    $submission_upload->setUploadType($upload_type);
-                    $submission_upload->setUser($user);
-                    $submission_upload->setFile($file);
-                    $submission_upload->setSubmissionNumber($protocol->getMainSubmission()->getNumber());
-
-                    $attachment = \Swift_Attachment::fromPath($submission_upload->getFilepath());
-
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($submission_upload);
-                    $em->flush();
-
-                    $protocol->getMainSubmission()->addAttachment($submission_upload);
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($protocol->getMainSubmission());
-                    $em->flush();
-                }
-
-                // setting the Exempted status
-                $protocol->setStatus("F");
-
-                // setting protocool history
-                $protocol_history = new ProtocolHistory();
-                $protocol_history->setProtocol($protocol);
-                $protocol_history->setMessage($translator->trans("Journal was concluded as Exempt."));
-                $em->persist($protocol_history);
-                $em->flush();
-
-                $investigators = array();
-                $investigators[] = $protocol->getMainSubmission()->getOwner();
-                foreach($protocol->getMainSubmission()->getTeam() as $investigator) {
-                    $investigators[] = $investigator;
-                }
-                foreach($investigators as $investigator) {
-                    $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-                    $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
-
-                    $_locale = $request->getSession()->get('_locale');
-                    $help = $help_repository->find(97);
-                    $translations = $trans_repository->findTranslations($help);
-                    $text = $translations[$_locale];
-                    $body = $text['message'];
-                    $body = str_replace("%protocol_url%", $url, $body);
-                    $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
-                    $body = str_replace("\r\n", "<br />", $body);
-                    $body .= "<br /><br />";
-
-                    $message = \Swift_Message::newInstance()
-                    ->setSubject("[LILACS] " . $translator->trans("Your journal was concluded as Exempt."))
-                    ->setFrom($util->getConfiguration('committee.email'))
-                    ->setTo($investigator->getEmail())
-                    ->setBody(
-                        $body
-                        ,
-                        'text/html'
-                    );
-
-                    if(!empty($file)) {
-                        $message->attach($attachment);
-                    }
-
-                    $send = $this->get('mailer')->send($message);
-                }
-
-                $session->getFlashBag()->add('success', $translator->trans("Journal updated with success!"));
-                return $this->redirectToRoute('protocol_show_protocol', array('protocol_id' => $protocol->getId()), 301);
-            }
+            $session->getFlashBag()->add('success', $translator->trans("Journal updated with success!"));
+            return $this->redirectToRoute('protocol_initial_committee_screening', array('protocol_id' => $protocol->getId()), 301);
 
         }
 
@@ -968,7 +992,7 @@ class ProtocolController extends Controller
             $protocol_history = new ProtocolHistory();
             $protocol_history->setProtocol($protocol);
             $protocol_history->setMessage($translator->trans(
-                'Journal finalized by %user% under option "%option%".',
+                'Journal finalized by secretary under option "%option%".',
                 array(
                     '%user%' => $user->getUsername(),
                     '%option%' => $finish_options[$post_data['final-decision']],
