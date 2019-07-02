@@ -62,7 +62,6 @@
     <div class='row'>
         <div class="col-md-12">
             <table class='table table-hover table-condensed'>
-                
                 <thead>
                     <tr>
                         <th>{% trans %}Date & Time{% endtrans %}</th>
@@ -135,34 +134,32 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">{% trans %}New Comment{% endtrans %}</h4>
                 </div>
+                
                 <div class="modal-body">
-                    <form class='form'>
-                        <div class="form-group">
-                            <label for="textarea-new-comment-message">{% trans %}Message{% endtrans %}:</label> 
-                            <a href="{{ path("crud_admin_help_show", {help_id: 126} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <textarea class='form-control' rows='4' name='new-comment-message' id='textarea-new-comment-message' required></textarea>
-                        </div>
+                    <div class="form-group">
+                        <label for="textarea-new-comment-message">{% trans %}Message{% endtrans %}:</label> 
+                        <a href="{{ path("crud_admin_help_show", {help_id: 5} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                        <textarea class='form-control' rows='4' name='new-comment-message' id='textarea-new-comment-message' required></textarea>
+                    </div>
 
-                        {# code that discover if should show the confidential option #}
-                        {% set is_show_confiential_field = false %}
-                        {% for role in app.user.getRolesSlug %}
-                            {% if role in ['secretary', 'member-of-committee', 'member-ad-hoc'] %}
-                                {% set is_show_confiential_field = true %}
-                            {% endif %}
-                        {% endfor %}
-
-                        {% if is_show_confiential_field and not protocol.mainSubmission.isOwner(app.user) %}
-                            <div class="form-group">
-                                <div class="checkbox">
-                                    <label for="checkbox-new-comment-is-confidential">
-                                        <input type="checkbox" name='new-comment-is-confidential' id='checkbox-new-comment-is-confidential' value="yes">{% trans %}Is this a confidential comment?{% endtrans %}
-                                        <a href="{{ path("crud_admin_help_show", {help_id: 184} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                                    </label>
-                                </div>
-                            </div>
+                    {# code that discover if should show the confidential option #}
+                    {% set is_show_confiential_field = false %}
+                    {% for role in app.user.getRolesSlug %}
+                        {% if role in ['secretary', 'member-of-committee', 'member-ad-hoc'] %}
+                            {% set is_show_confiential_field = true %}
                         {% endif %}
-                        
-                    </form>
+                    {% endfor %}
+
+                    {% if is_show_confiential_field and not protocol.mainSubmission.isOwner(app.user) %}
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label for="checkbox-new-comment-is-confidential">
+                                    <input type="checkbox" name='new-comment-is-confidential' id='checkbox-new-comment-is-confidential' value="yes">{% trans %}Is this a confidential comment?{% endtrans %}
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 184} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                </label>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
                 
                 <div class="modal-footer">

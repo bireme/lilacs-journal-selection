@@ -49,6 +49,8 @@ class ProtocolController extends Controller
         $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
         $user_repository = $em->getRepository('Proethos2ModelBundle:User');
 
+        $util = new Util($this->container, $this->getDoctrine());
+
         // getting the current submission
         $protocol = $protocol_repository->find($protocol_id);
         $submission = $protocol->getMainSubmission();
@@ -79,6 +81,7 @@ class ProtocolController extends Controller
                 $em->flush();
 
                 $session->getFlashBag()->add('success', $translator->trans("Comment was created with success."));
+
             }
         }
 
@@ -133,6 +136,7 @@ class ProtocolController extends Controller
             $em->flush();
 
             $session->getFlashBag()->add('success', $translator->trans("Comment was created with success."));
+
         }
 
         return $this->redirect($referer, 301);
@@ -321,7 +325,6 @@ class ProtocolController extends Controller
                     foreach($user_repository->findAll() as $member) {
                         foreach(array("members-of-committee") as $role) {
                             if(in_array($role, $member->getRolesSlug())) {
-
                                 $message = \Swift_Message::newInstance()
                                 ->setSubject("[LILACS] " . $translator->trans("A new journal needs your analysis."))
                                 ->setFrom($util->getConfiguration('committee.email'))
@@ -708,7 +711,7 @@ class ProtocolController extends Controller
 
                 foreach(array("select-members-of-committee", "select-members-ad-hoc") as $input_name) {
                     if(isset($post_data[$input_name])) {
-                        foreach($post_data['select-members-of-committee'] as $member) {
+                        foreach($post_data[$input_name] as $member) {
                             $member = $user_repository->findOneById($member);
 
                             $revision = $protocol_revision_repository->findOneBy(array('member' => $member, "protocol" => $protocol));
