@@ -292,61 +292,9 @@ class ProtocolController extends Controller
                 $protocol_code = sprintf('%s.%04d.%02d', $committee_prefix, $protocol->getId(), $total_submissions);
                 $protocol->setCode($protocol_code);
 
-                if($post_data['send-to'] == "comittee") {
+                if($post_data['send-to'] == "committee") {
 
-                    // setting the Rejected status
-                    $protocol->setStatus("I");
-
-                    // setting protocol history
-                    $protocol_history = new ProtocolHistory();
-                    $protocol_history->setProtocol($protocol);
-                    $protocol_history->setMessage($translator->trans("Journal was sent to comittee for initial analysis by secretary.",
-                        array(
-                            "%user%" => $user->getUsername(),
-                        )
-                    ));
-                    $em->persist($protocol_history);
-                    $em->flush();
-
-                    $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-                    // $url = $baseurl . $this->generateUrl('home');
-                    $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
-
-                    $_locale = $request->getSession()->get('_locale');
-                    $help = $help_repository->find(93);
-                    $translations = $trans_repository->findTranslations($help);
-                    $text = $translations[$_locale];
-                    $body = $text['message'];
-                    $body = str_replace("%protocol_url%", $url, $body);
-                    $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
-                    $body = str_replace("\r\n", "<br />", $body);
-                    $body .= "<br /><br />";
-
-                    foreach($user_repository->findAll() as $member) {
-                        foreach(array("members-of-committee") as $role) {
-                            if(in_array($role, $member->getRolesSlug())) {
-                                $message = \Swift_Message::newInstance()
-                                ->setSubject("[LILACS] " . $translator->trans("A new journal needs your analysis."))
-                                ->setFrom($util->getConfiguration('committee.email'))
-                                ->setTo($member->getEmail())
-                                ->setBody(
-                                    $body
-                                    ,
-                                    'text/html'
-                                );
-
-                                $send = $this->get('mailer')->send($message);
-                            }
-                        }
-                    }
-
-                    $session->getFlashBag()->add('success', $translator->trans("Journal updated with success!"));
-                    return $this->redirectToRoute('protocol_initial_committee_screening', array('protocol_id' => $protocol->getId()), 301);
-                }
-
-                if($post_data['send-to'] == "ethical-revision") {
-
-                    // setting the Rejected status
+                    // setting the Waiting for Committee status
                     $protocol->setStatus("E");
 
                     // setting protocol history
@@ -394,9 +342,27 @@ class ProtocolController extends Controller
 
                         $send = $this->get('mailer')->send($message);
                     }
+/*
+                    foreach($user_repository->findAll() as $member) {
+                        foreach(array("members-of-committee") as $role) {
+                            if(in_array($role, $member->getRolesSlug())) {
+                                $message = \Swift_Message::newInstance()
+                                ->setSubject("[LILACS] " . $translator->trans("A new journal needs your analysis."))
+                                ->setFrom($util->getConfiguration('committee.email'))
+                                ->setTo($member->getEmail())
+                                ->setBody(
+                                    $body
+                                    ,
+                                    'text/html'
+                                );
 
+                                $send = $this->get('mailer')->send($message);
+                            }
+                        }
+                    }
+*/
                     $session->getFlashBag()->add('success', $translator->trans("Journal updated with success!"));
-                    return $this->redirectToRoute('protocol_show_protocol', array('protocol_id' => $protocol->getId()), 301);
+                    return $this->redirectToRoute('protocol_initial_committee_review', array('protocol_id' => $protocol->getId()), 301);
                 }
 
                 if($post_data['send-to'] == "notification-only") {
@@ -462,7 +428,7 @@ class ProtocolController extends Controller
         // $help = $help_repository->findBy(array("id" => {id}, "type" => "mail"));
         // $translations = $trans_repository->findTranslations($help[0]);
 
-        if (!$protocol or $protocol->getStatus() != "I") {
+        if (!$protocol or !in_array($protocol->getStatus(), array("I", "E", "H"))) {
             throw $this->createNotFoundException($translator->trans('No journal found'));
         }
 
@@ -471,12 +437,12 @@ class ProtocolController extends Controller
 
             // getting post data
             $post_data = $request->request->all();
-
+/*
             // setting the Committee Screening
             $protocol->setCommitteeScreening($post_data['committee-screening']);
             $em->persist($protocol);
             $em->flush();
-
+*/
             $file = $request->files->get('new-attachment-file');
             if(!empty($file)) {
 
@@ -521,107 +487,101 @@ class ProtocolController extends Controller
                     return $this->redirectToRoute('protocol_initial_committee_screening', array('protocol_id' => $protocol->getId()), 301);
                 }
             }
-
-            if($post_data['send-to'] == "review-journal") {
-
-                // checking required format attachment
-                $upload_type = $upload_type_repository->findBy(array('slug' => 'format'));
-                $upload_type_id = $upload_type[0]->getId();
-                $format = $submission_upload_repository->findBy(array('submission' => $protocol->getMainSubmission()->getId(), 'upload_type' => $upload_type_id));
-                if( !$format or count($format) != 1 ) {
-                    $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
-                    return $output;
-                }
-
-                // checking required retrospective attachment
-                $upload_type = $upload_type_repository->findBy(array('slug' => 'retrospective'));
-                $upload_type_id = $upload_type[0]->getId();
-                $retrospective = $submission_upload_repository->findBy(array('submission' => $protocol->getMainSubmission()->getId(), 'upload_type' => $upload_type_id));
-                if( !$retrospective or count($retrospective) != 1 ) {
-                    $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
-                    return $output;
-                }
-
-                // checking required endogeny attachment
-                $upload_type = $upload_type_repository->findBy(array('slug' => 'endogeny'));
-                $upload_type_id = $upload_type[0]->getId();
-                $endogeny = $submission_upload_repository->findBy(array('submission' => $protocol->getMainSubmission()->getId(), 'upload_type' => $upload_type_id));
-                if( !$endogeny or count($endogeny) != 1 ) {
-                    $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
-                    return $output;
-                }
-
-                // checking required citation attachment
-                $upload_type = $upload_type_repository->findBy(array('slug' => 'citation'));
-                $upload_type_id = $upload_type[0]->getId();
-                $citation = $submission_upload_repository->findBy(array('submission' => $protocol->getMainSubmission()->getId(), 'upload_type' => $upload_type_id));
-                if( !$citation or count($citation) != 1 ) {
-                    $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
-                    return $output;
-                }
-
-                // setting the Waiting for Committee status
-                $protocol->setStatus("E");
-
-                // setting protocol history
-                $protocol_history = new ProtocolHistory();
-                $protocol_history->setProtocol($protocol);
-                $protocol_history->setMessage($translator->trans("Your journal has been accepted for evaluation. The committee's decision will be informed when the process is finalized."));
-                $em->persist($protocol_history);
-                $em->flush();
-
-                $em->persist($protocol);
-                $em->flush();
-
-                $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-                $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
-
-                if ( $post_data['committee-screening'] ) {
-                    $_locale = $request->getSession()->get('_locale');
-                    $help = $help_repository->find(95);
-                    $translations = $trans_repository->findTranslations($help);
-                    $text = $translations[$_locale];
-                    $body = $text['message'];
-                    $body = str_replace("%protocol_url%", $url, $body);
-                    $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
-                    $body = str_replace("%committee_screening%", $post_data['committee-screening'], $body);
-                    $body = str_replace("\r\n", "<br />", $body);
-                    $body .= "<br /><br />";
-                } else {
-                    $_locale = $request->getSession()->get('_locale');
-                    $help = $help_repository->find(96);
-                    $translations = $trans_repository->findTranslations($help);
-                    $text = $translations[$_locale];
-                    $body = $text['message'];
-                    $body = str_replace("%protocol_url%", $url, $body);
-                    $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
-                    $body = str_replace("\r\n", "<br />", $body);
-                    $body .= "<br /><br />";
-                }
-
-                $investigators = array();
-                $investigators[] = $protocol->getMainSubmission()->getOwner();
-                foreach($protocol->getMainSubmission()->getTeam() as $investigator) {
-                    $investigators[] = $investigator;
-                }
-                foreach($investigators as $investigator) {
-                    $message = \Swift_Message::newInstance()
-                    ->setSubject("[LILACS] " . $translator->trans("Your journal was sent to review!"))
-                    ->setFrom($util->getConfiguration('committee.email'))
-                    ->setTo($investigator->getEmail())
-                    ->setBody(
-                        $body
-                        ,
-                        'text/html'
-                    );
-
-                    $send = $this->get('mailer')->send($message);
-                }
-
-                $session->getFlashBag()->add('success', $translator->trans("Journal updated with success!"));
-                return $this->redirectToRoute('protocol_initial_committee_review', array('protocol_id' => $protocol->getId()), 301);
+/*
+            // checking required format attachment
+            $upload_type = $upload_type_repository->findBy(array('slug' => 'format'));
+            $upload_type_id = $upload_type[0]->getId();
+            $format = $submission_upload_repository->findBy(array('submission' => $protocol->getMainSubmission()->getId(), 'upload_type' => $upload_type_id));
+            if( !$format or count($format) != 1 ) {
+                $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
+                return $output;
             }
 
+            // checking required endogeny attachment
+            $upload_type = $upload_type_repository->findBy(array('slug' => 'endogeny'));
+            $upload_type_id = $upload_type[0]->getId();
+            $endogeny = $submission_upload_repository->findBy(array('submission' => $protocol->getMainSubmission()->getId(), 'upload_type' => $upload_type_id));
+            if( !$endogeny or count($endogeny) != 1 ) {
+                $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
+                return $output;
+            }
+
+            // checking required citation attachment
+            $upload_type = $upload_type_repository->findBy(array('slug' => 'citation'));
+            $upload_type_id = $upload_type[0]->getId();
+            $citation = $submission_upload_repository->findBy(array('submission' => $protocol->getMainSubmission()->getId(), 'upload_type' => $upload_type_id));
+            if( !$citation or count($citation) != 1 ) {
+                $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
+                return $output;
+            }
+
+            // checking required retrospective attachment
+            $upload_type = $upload_type_repository->findBy(array('slug' => 'retrospective'));
+            $upload_type_id = $upload_type[0]->getId();
+            $retrospective = $submission_upload_repository->findBy(array('submission' => $protocol->getMainSubmission()->getId(), 'upload_type' => $upload_type_id));
+            if( !$retrospective or count($retrospective) != 1 ) {
+                $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
+                return $output;
+            }
+*/
+            // setting the Waiting for Committee status
+            $protocol->setStatus("E");
+
+            // setting protocol history
+            $protocol_history = new ProtocolHistory();
+            $protocol_history->setProtocol($protocol);
+            $protocol_history->setMessage($translator->trans("Your journal has been accepted for evaluation. The committee's decision will be informed when the process is finalized."));
+            $em->persist($protocol_history);
+            $em->flush();
+
+            $em->persist($protocol);
+            $em->flush();
+/*
+            $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+            $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
+
+            if ( $post_data['committee-screening'] ) {
+                $_locale = $request->getSession()->get('_locale');
+                $help = $help_repository->find(95);
+                $translations = $trans_repository->findTranslations($help);
+                $text = $translations[$_locale];
+                $body = $text['message'];
+                $body = str_replace("%protocol_url%", $url, $body);
+                $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
+                $body = str_replace("%committee_screening%", $post_data['committee-screening'], $body);
+                $body = str_replace("\r\n", "<br />", $body);
+                $body .= "<br /><br />";
+            } else {
+                $_locale = $request->getSession()->get('_locale');
+                $help = $help_repository->find(96);
+                $translations = $trans_repository->findTranslations($help);
+                $text = $translations[$_locale];
+                $body = $text['message'];
+                $body = str_replace("%protocol_url%", $url, $body);
+                $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
+                $body = str_replace("\r\n", "<br />", $body);
+                $body .= "<br /><br />";
+            }
+
+            $investigators = array();
+            $investigators[] = $protocol->getMainSubmission()->getOwner();
+            foreach($protocol->getMainSubmission()->getTeam() as $investigator) {
+                $investigators[] = $investigator;
+            }
+            foreach($investigators as $investigator) {
+                $message = \Swift_Message::newInstance()
+                ->setSubject("[LILACS] " . $translator->trans("Your journal was sent to review!"))
+                ->setFrom($util->getConfiguration('committee.email'))
+                ->setTo($investigator->getEmail())
+                ->setBody(
+                    $body
+                    ,
+                    'text/html'
+                );
+
+                $send = $this->get('mailer')->send($message);
+            }
+*/
             $session->getFlashBag()->add('success', $translator->trans("Journal updated with success!"));
             return $this->redirectToRoute('protocol_initial_committee_screening', array('protocol_id' => $protocol->getId()), 301);
 
@@ -650,6 +610,8 @@ class ProtocolController extends Controller
         $role_repository = $em->getRepository('Proethos2ModelBundle:Role');
         $protocol_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolRevision');
         $meeting_repository = $em->getRepository('Proethos2ModelBundle:Meeting');
+        $upload_type_repository = $em->getRepository('Proethos2ModelBundle:UploadType');
+        $submission_upload_repository = $em->getRepository('Proethos2ModelBundle:SubmissionUpload');
 
         $util = new Util($this->container, $this->getDoctrine());
 
@@ -678,12 +640,15 @@ class ProtocolController extends Controller
         $total_final_revisions = count($final_revisions);
         $output['total_final_revisions'] = $total_final_revisions;
 
+        $upload_types = $upload_type_repository->findByStatus(true);
+        $output['upload_types'] = $upload_types;
+
         $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         $help_repository = $em->getRepository('Proethos2ModelBundle:Help');
         // $help = $help_repository->findBy(array("id" => {id}, "type" => "mail"));
         // $translations = $trans_repository->findTranslations($help[0]);
 
-        if (!$protocol or $protocol->getStatus() != "E") {
+        if (!$protocol or !in_array($protocol->getStatus(), array("I", "E", "H"))) {
             throw $this->createNotFoundException($translator->trans('No journal found'));
         }
 
@@ -692,6 +657,51 @@ class ProtocolController extends Controller
 
             // getting post data
             $post_data = $request->request->all();
+
+            $file = $request->files->get('new-attachment-file');
+            if(!empty($file)) {
+
+                if(!isset($post_data['new-attachment-type']) or empty($post_data['new-attachment-type'])) {
+                    $session->getFlashBag()->add('error', $translator->trans("Field 'new-attachment-type' is required."));
+                    return $output;
+                }
+
+                $upload_type = $upload_type_repository->find($post_data['new-attachment-type']);
+                if (!$upload_type) {
+                    throw $this->createNotFoundException($translator->trans('No upload type found'));
+                    return $output;
+                }
+
+                $submission_upload = new SubmissionUpload();
+                $submission_upload->setSubmission($protocol->getMainSubmission());
+                $submission_upload->setUploadType($upload_type);
+                $submission_upload->setUser($user);
+                $submission_upload->setFile($file);
+                $submission_upload->setSubmissionNumber($protocol->getMainSubmission()->getNumber());
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($submission_upload);
+                $em->flush();
+
+                $protocol->getMainSubmission()->addAttachment($submission_upload);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($protocol->getMainSubmission());
+                $em->flush();
+
+                $session->getFlashBag()->add('success', $translator->trans("File uploaded with success."));
+                return $this->redirectToRoute('protocol_initial_committee_review', array('protocol_id' => $protocol->getId()), 301);
+
+            }
+
+            if(isset($post_data['delete-attachment-id']) and !empty($post_data['delete-attachment-id'])) {
+                $submission_upload = $submission_upload_repository->find($post_data['delete-attachment-id']);
+                if($submission_upload) {
+                    $em->remove($submission_upload);
+                    $em->flush();
+                    $session->getFlashBag()->add('success', $translator->trans("File removed with success."));
+                    return $this->redirectToRoute('protocol_initial_committee_review', array('protocol_id' => $protocol->getId()), 301);
+                }
+            }
 
             if(isset($post_data['send-to']) and $post_data['send-to'] == "button-save-and-wait-revisions") {
 
@@ -778,6 +788,42 @@ class ProtocolController extends Controller
                     return $output;
                 }
 
+                // checking required format attachment
+                $upload_type = $upload_type_repository->findBy(array('slug' => 'format'));
+                $upload_type_id = $upload_type[0]->getId();
+                $format = $submission_upload_repository->findBy(array('submission' => $protocol->getMainSubmission()->getId(), 'upload_type' => $upload_type_id));
+                if( !$format or count($format) != 1 ) {
+                    $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
+                    return $output;
+                }
+
+                // checking required endogeny attachment
+                $upload_type = $upload_type_repository->findBy(array('slug' => 'endogeny'));
+                $upload_type_id = $upload_type[0]->getId();
+                $endogeny = $submission_upload_repository->findBy(array('submission' => $protocol->getMainSubmission()->getId(), 'upload_type' => $upload_type_id));
+                if( !$endogeny or count($endogeny) != 1 ) {
+                    $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
+                    return $output;
+                }
+
+                // checking required citation attachment
+                $upload_type = $upload_type_repository->findBy(array('slug' => 'citation'));
+                $upload_type_id = $upload_type[0]->getId();
+                $citation = $submission_upload_repository->findBy(array('submission' => $protocol->getMainSubmission()->getId(), 'upload_type' => $upload_type_id));
+                if( !$citation or count($citation) != 1 ) {
+                    $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
+                    return $output;
+                }
+/*
+                // checking required retrospective attachment
+                $upload_type = $upload_type_repository->findBy(array('slug' => 'retrospective'));
+                $upload_type_id = $upload_type[0]->getId();
+                $retrospective = $submission_upload_repository->findBy(array('submission' => $protocol->getMainSubmission()->getId(), 'upload_type' => $upload_type_id));
+                if( !$retrospective or count($retrospective) != 1 ) {
+                    $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
+                    return $output;
+                }
+*/
                 $meeting = $meeting_repository->find($post_data['meeting']);
                 $protocol->setMeeting($meeting);
 
@@ -821,7 +867,7 @@ class ProtocolController extends Controller
         $submission = $protocol->getMainSubmission();
         $output['protocol'] = $protocol;
 
-        if (!$protocol or $protocol->getStatus() != "E") {
+        if (!$protocol or !in_array($protocol->getStatus(), array("I", "E", "H"))) {
             throw $this->createNotFoundException($translator->trans('No journal found'));
         }
 
@@ -940,7 +986,7 @@ class ProtocolController extends Controller
         // $help = $help_repository->findBy(array("id" => {id}, "type" => "mail"));
         // $translations = $trans_repository->findTranslations($help[0]);
 
-        if (!$protocol or $protocol->getStatus() != "H") {
+        if (!$protocol or !in_array($protocol->getStatus(), array("I", "E", "H"))) {
             throw $this->createNotFoundException($translator->trans('No journal found'));
         }
 
