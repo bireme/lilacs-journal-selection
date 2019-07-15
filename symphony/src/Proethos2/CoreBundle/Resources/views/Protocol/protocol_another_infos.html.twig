@@ -54,6 +54,50 @@
                     <i class='glyphicon glyphicon-minus'></i>
                 </small>
                 
+                {% trans %}Issues{% endtrans %}:
+            </h2>
+        </div>
+    </div>
+
+    <div class='row'>
+        <div class="col-md-12">
+            <table class='table table-hover table-condensed' id='table-issue'>
+                <thead>
+                    <tr>
+                        <th>{% trans %}Volume{% endtrans %}</th>
+                        <th>{% trans %}Number{% endtrans %}</th>
+                        <th>{% trans %}Year{% endtrans %}</th>
+                        <th>{% trans %}Actions{% endtrans %}</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% for issue in protocol.mainSubmission.issue %}
+                        <tr>
+                            <td>{{ issue.volume }}</td>
+                            <td>{{ issue.number }}</td> 
+                            <td>{{ issue.year }}</td> 
+                            <td>
+                                {% if issue.fulltext %}
+                                    <a href='{{ issue.fulltext }}' target="_blank" class='btn btn-default btn-xs' target="_blank" title="Link to full text"><i class='glyphicon glyphicon-eye-open'></i></a>
+                                {% endif%}
+                            </td> 
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class='block'>
+    <div class='row'>
+        <div class="col-md-12">
+            <h2 class='sub-header toggle-block'>
+                <small class='pull-right'>
+                    <i class='glyphicon glyphicon-minus'></i>
+                </small>
+                
                 {% trans %}History{% endtrans %}:
             </h2>
         </div>
