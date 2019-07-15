@@ -27,7 +27,8 @@ use Proethos2\CoreBundle\Util\Util;
 
 use Proethos2\ModelBundle\Entity\ProtocolComment;
 use Proethos2\ModelBundle\Entity\ProtocolHistory;
-use Proethos2\ModelBundle\Entity\ProtocolRevision;
+use Proethos2\ModelBundle\Entity\ProtocolCommitteeRevision;
+use Proethos2\ModelBundle\Entity\ProtocolAdhocRevision;
 use Proethos2\ModelBundle\Entity\Submission;
 use Proethos2\ModelBundle\Entity\SubmissionUpload;
 
@@ -81,7 +82,25 @@ class ProtocolController extends Controller
                 $em->flush();
 
                 $session->getFlashBag()->add('success', $translator->trans("Comment was created with success."));
+/*
+                foreach($user_repository->findAll() as $member) {
+                    foreach(array("members-of-committee") as $role) {
+                        if(in_array($role, $member->getRolesSlug())) {
+                            $message = \Swift_Message::newInstance()
+                            ->setSubject("[LILACS] " . $translator->trans("A new journal needs your analysis."))
+                            ->setFrom($util->getConfiguration('committee.email'))
+                            ->setTo($member->getEmail())
+                            ->setBody(
+                                $body
+                                ,
+                                'text/html'
+                            );
 
+                            $send = $this->get('mailer')->send($message);
+                        }
+                    }
+                }
+*/
             }
         }
 
@@ -136,7 +155,25 @@ class ProtocolController extends Controller
             $em->flush();
 
             $session->getFlashBag()->add('success', $translator->trans("Comment was created with success."));
+/*
+            foreach($user_repository->findAll() as $member) {
+                foreach(array("members-of-committee") as $role) {
+                    if(in_array($role, $member->getRolesSlug())) {
+                        $message = \Swift_Message::newInstance()
+                        ->setSubject("[LILACS] " . $translator->trans("A new journal needs your analysis."))
+                        ->setFrom($util->getConfiguration('committee.email'))
+                        ->setTo($member->getEmail())
+                        ->setBody(
+                            $body
+                            ,
+                            'text/html'
+                        );
 
+                        $send = $this->get('mailer')->send($message);
+                    }
+                }
+            }
+*/
         }
 
         return $this->redirect($referer, 301);
@@ -608,7 +645,8 @@ class ProtocolController extends Controller
         $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
         $user_repository = $em->getRepository('Proethos2ModelBundle:User');
         $role_repository = $em->getRepository('Proethos2ModelBundle:Role');
-        $protocol_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolRevision');
+        $protocol_committee_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolCommitteeRevision');
+        $protocol_adhoc_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolAdhocRevision');
         $meeting_repository = $em->getRepository('Proethos2ModelBundle:Meeting');
         $upload_type_repository = $em->getRepository('Proethos2ModelBundle:UploadType');
         $submission_upload_repository = $em->getRepository('Proethos2ModelBundle:SubmissionUpload');
@@ -636,9 +674,11 @@ class ProtocolController extends Controller
         $output['meetings'] = $meetings;
 
         // getting total of revision with final revision from this protocol
-        $final_revisions = $protocol_revision_repository->findBy(array("protocol" => $protocol, "is_final_revision" => true));
-        $total_final_revisions = count($final_revisions);
-        $output['total_final_revisions'] = $total_final_revisions;
+        $committee_final_revisions       = $protocol_committee_revision_repository->findBy(array("protocol" => $protocol, "is_final_revision" => true));
+        $total_committee_final_revisions = count($committee_final_revisions);
+        $adhoc_final_revisions           = $protocol_adhoc_revision_repository->findBy(array("protocol" => $protocol, "is_final_revision" => true));
+        $total_adhoc_final_revisions     = count($adhoc_final_revisions);
+        $output['total_final_revisions'] = $total_committee_final_revisions + $total_adhoc_final_revisions;
 
         $upload_types = $upload_type_repository->findByStatus(true);
         $output['upload_types'] = $upload_types;
@@ -721,12 +761,23 @@ class ProtocolController extends Controller
 
                 foreach(array("select-members-of-committee", "select-members-ad-hoc") as $input_name) {
                     if(isset($post_data[$input_name])) {
+
+                        if ( "select-members-of-committee" == $input_name ) {
+                            $protocol_revision_repository = $protocol_committee_revision_repository;
+                        } else {
+                            $protocol_revision_repository = $protocol_adhoc_revision_repository;
+                        }
+
                         foreach($post_data[$input_name] as $member) {
                             $member = $user_repository->findOneById($member);
 
                             $revision = $protocol_revision_repository->findOneBy(array('member' => $member, "protocol" => $protocol));
                             if(!$revision) {
-                                $revision = new ProtocolRevision();
+                                if ( "select-members-of-committee" == $input_name ) {
+                                    $revision = new ProtocolCommitteeRevision();
+                                } else {
+                                    $revision = new ProtocolAdhocRevision();
+                                }
                                 $revision->setMember($member);
                                 $revision->setProtocol($protocol);
                                 $em->persist($revision);
@@ -758,7 +809,6 @@ class ProtocolController extends Controller
                             );
 
                             $send = $this->get('mailer')->send($message);
-
                         }
                     }
                 }
@@ -770,6 +820,12 @@ class ProtocolController extends Controller
             // if form was to remove a member
             if(isset($post_data['remove-member']) and !empty($post_data['remove-member'])) {
 
+                if ( "committee" == $post_data['member-type'] ) {
+                    $protocol_revision_repository = $protocol_committee_revision_repository;
+                } else {
+                    $protocol_revision_repository = $protocol_adhoc_revision_repository;
+                }
+
                 $revision = $protocol_revision_repository->findOneById($post_data['remove-member']);
                 if($revision) {
                     $em->remove($revision);
@@ -778,6 +834,7 @@ class ProtocolController extends Controller
                     $session->getFlashBag()->add('success', $translator->trans("Member has been removed with success!"));
                     return $this->redirectToRoute('protocol_initial_committee_review', array('protocol_id' => $protocol->getId()), 301);
                 }
+
             }
 
             if(isset($post_data['send-to']) and $post_data['send-to'] == "button-save-and-send-to-meeting") {
@@ -860,7 +917,32 @@ class ProtocolController extends Controller
         $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
         $user_repository = $em->getRepository('Proethos2ModelBundle:User');
         $role_repository = $em->getRepository('Proethos2ModelBundle:Role');
-        $protocol_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolRevision');
+
+        $member = $request->query->get('member');
+        if ( "committee" == $member ) {
+            $protocol_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolCommitteeRevision');
+        } elseif ( "adhoc" == $member ) {
+            $protocol_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolAdhocRevision');
+        } else {
+            throw $this->createNotFoundException($translator->trans('You cannot edit this protocol'));
+        }
+
+        // getting the accept journal options
+        $accept_journal = array(
+            1 => $translator->trans('YES'),
+            2 => $translator->trans('YES (with restrictions)'),
+            3 => $translator->trans('NO')
+        );
+        $output['accept_journal'] = $accept_journal;
+
+        // getting the journal concept options
+        $journal_concept = array(
+            1 => $translator->trans('Priority'),
+            2 => $translator->trans('Important'),
+            3 => $translator->trans('Relative importance'),
+            4 => $translator->trans('Not relevant')
+        );
+        $output['journal_concept'] = $journal_concept;
 
         // getting the current submission
         $protocol = $protocol_repository->find($protocol_id);
@@ -885,30 +967,50 @@ class ProtocolController extends Controller
             // getting post data
             $post_data = $request->request->all();
 
+            // echo "<pre>"; print_r($post_data); echo "</pre>"; die();
+
             // only change if is not final revision
             if(!$protocol_revision->getIsFinalRevision()) {
 
                 // checking required files
-                foreach(array('decision', 'suggestions') as $field) {
-                    if(!isset($post_data[$field]) or empty($post_data[$field])) {
+                foreach($post_data as $field) {
+                    if(!isset($field) or empty($field)) {
                         $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
                         return $output;
                     }
                 }
 
+                if ( $post_data['accept-conditions'] == 'off' ) {
+                    $session->getFlashBag()->add('error', $translator->trans("You must accept the conditions for sending submission."));
+                    return $output;
+                }
+
+                if ( "committee" == $post_data['member-type'] ) {
+                    $protocol_revision->setPositiveAspects($post_data['positive-aspects']);
+                    $protocol_revision->setNegativeAspects($post_data['negative-aspects']);
+                    $protocol_revision->setOtherComments($post_data['other-comments']);
+                    $protocol_revision->setAcceptJournal($post_data['accept-journal']);
+                    $protocol_revision->setAcceptConditions($post_data['accept-conditions']);
+                } elseif ( "adhoc" == $post_data['member-type'] ) {
+                    $protocol_revision->setEditorialTeam($post_data['editorial-team']);
+                    $protocol_revision->setContentA($post_data['content-a']);
+                    $protocol_revision->setContentB($post_data['content-b']);
+                    $protocol_revision->setContentC($post_data['content-c']);
+                    $protocol_revision->setContentD($post_data['content-d']);
+                    $protocol_revision->setPeerArbitrationA($post_data['peer-arbitration-a']);
+                    $protocol_revision->setPeerArbitrationB($post_data['peer-arbitration-b']);
+                    $protocol_revision->setPeerArbitrationC($post_data['peer-arbitration-c']);
+                    $protocol_revision->setJournalConcept($post_data['journal-concept']);
+                    $protocol_revision->setJournalRelevance($post_data['journal-relevance']);
+                    $protocol_revision->setOtherComments($post_data['other-comments']);
+                    $protocol_revision->setAcceptConditions($post_data['accept-conditions']);
+                } else {
+                    throw $this->createNotFoundException($translator->trans('You cannot edit this protocol'));
+                }
+
                 if($post_data['is-final-revision'] == "true") {
                     $protocol_revision->setIsFinalRevision(true);
                 }
-
-                $protocol_revision->setDecision($post_data['decision']);
-                $protocol_revision->setSocialValue($post_data['social-value']);
-                $protocol_revision->setSscientificValidity($post_data['sscientific-validity']);
-                $protocol_revision->setFairParticipantSelection($post_data['fair-participant-selection']);
-                $protocol_revision->setFavorableBalance($post_data['favorable-balance']);
-                $protocol_revision->setInformedConsent($post_data['informed-consent']);
-                $protocol_revision->setRespectForParticipants($post_data['respect-for-participants']);
-                $protocol_revision->setOtherComments($post_data['other-comments']);
-                $protocol_revision->setSuggestions($post_data['suggestions']);
 
                 $protocol_revision->setAnswered(true);
 
@@ -916,7 +1018,7 @@ class ProtocolController extends Controller
                 $em->flush();
 
                 $session->getFlashBag()->add('success', $translator->trans("Fields answered with success!"));
-                return $this->redirectToRoute('protocol_initial_committee_review_revisor', array('protocol_id' => $protocol->getId()), 301);
+                return $this->redirectToRoute('protocol_initial_committee_review_revisor', array('protocol_id' => $protocol->getId(), 'member' => $post_data['member-type']), 301);
             }
 
         }
@@ -939,7 +1041,31 @@ class ProtocolController extends Controller
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        $protocol_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolRevision');
+        // getting the accept journal options
+        $accept_journal = array(
+            1 => $translator->trans('YES'),
+            2 => $translator->trans('YES (with restrictions)'),
+            3 => $translator->trans('NO')
+        );
+        $output['accept_journal'] = $accept_journal;
+
+        // getting the journal concept options
+        $journal_concept = array(
+            1 => $translator->trans('Priority'),
+            2 => $translator->trans('Important'),
+            3 => $translator->trans('Relative importance'),
+            4 => $translator->trans('Not relevant')
+        );
+        $output['journal_concept'] = $journal_concept;
+
+        $member = $request->query->get('member');
+        if ( "committee" == $member ) {
+            $protocol_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolCommitteeRevision');
+        } elseif ( "adhoc" == $member ) {
+            $protocol_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolAdhocRevision');
+        } else {
+            throw $this->createNotFoundException($translator->trans('You cannot edit this protocol'));
+        }
 
         // getting the current submission
         $protocol_revision = $protocol_revision_repository->find($protocol_revision_id);

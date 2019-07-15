@@ -1,0 +1,127 @@
+<input type='hidden' name='accept-conditions' value="off">
+<div class='row'>
+    <div class="col-md-12">
+        <h3 class='sub-header revision'>{% trans %}Editorial team{% endtrans %}</h3>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-editorial-team">{% trans %}Opine sobre a representatividade do Corpo Editorial da revista, considerando sua abrangência geográfica e diversidade institucional, bem como observando a contribuição e competência de seus membros{% endtrans %}</label>
+            <textarea class="form-control" id='textarea-editorial-team' name="editorial-team" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.editorialTeam }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <h3 class='sub-header revision'>{% trans %}Content{% endtrans %}</h3>
+    </div>
+</div>
+<p>{% trans %}A partir da análise do conteúdo dos artigos dos 3 (três) últimos fascículos da revista, opine sobre os aspectos relacionados abaixo, justificando por escrito sua opinião{% endtrans %}:</p>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-content-a">{% trans %}a) Caráter científico da revista considerando os artigos originais de pesquisa ou reflexão, e sua coerência com a orientação temática da revista{% endtrans %}</label>
+            <textarea class="form-control" id='textarea-content-a' name="content-a" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentA }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-content-b">{% trans %}b) Caráter científico da revista, considerando a propriedade, atualidade e exaustividade nos artigos de revisão e debates, quando houver{% endtrans %}</label>
+            <textarea class="form-control" id='textarea-content-b' name="content-b" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentB }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-content-c">{% trans %}c) Qualidade com relação a metodologia e estrutura dos artigos/ensaios{% endtrans %}</label>
+            <textarea class="form-control" id='textarea-content-c' name="content-c" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentC }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-content-d">{% trans %}d) Qualidade dos elementos gráficos do periódico (imagens, tabelas, gráficos, impressão){% endtrans %}</label>
+            <textarea class="form-control" id='textarea-content-d' name="content-d" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentD }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <h3 class='sub-header revision'>{% trans %}Peer Arbitration{% endtrans %}</h3>
+    </div>
+</div>
+<p>{% trans %}Com base nas informações constantes nas Instruções aos Autores e/ou cuidado editorial percebido na seleção dos artigos, opine sobre o processo de arbitragem por pares utilizado pela revista. <b>Justifique por escrito</b> sua opinião{% endtrans %}:</p>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-peer-arbitration-a">{% trans %}a) Apresentação dos procedimentos adotados pela revista para análise e aprovação dos artigos{% endtrans %}</label>
+            <textarea class="form-control" id='textarea-peer-arbitration-a' name="peer-arbitration-a" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.peerArbitrationA }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-peer-arbitration-b">{% trans %}b) Informações do formulário de <i>peer review</i> utilizado pela revista para avaliação de artigos{% endtrans %}</label> 
+            <textarea class="form-control" id='textarea-peer-arbitration-b' name="peer-arbitration-b" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.peerArbitrationB }}</textarea>
+        </div>
+    </div>
+</div><div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-peer-arbitration-c">{% trans %}c) Abrangência geográfica, diversidade institucional, contribuição e competência do grupo de revisores{% endtrans %}</label> 
+            <textarea class="form-control" id='textarea-peer-arbitration-c' name="peer-arbitration-c" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.peerArbitrationC }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <h3 class='sub-header revision'>{% trans %}Comments{% endtrans %}</h3>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="select-journal-concept">{% trans %}Atribua um conceito ao periódico, considerando a área em análise{% endtrans %}</label>
+            <select class='form-control selectpicker' id='select-journal-concept' name='journal-concept' data-size="5" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>
+                <option value="">-</option>
+                {% for code, name in journal_concept %}
+                    <option value="{{ code }}" {% if protocol_revision.journalConcept == code %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-journal-relevance">{% trans %}Opine sobre a importância da revista para o desenvolvimento da área{% endtrans %}</label> 
+            <textarea class="form-control" id='textarea-journal-relevance' name="journal-relevance" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.journalRelevance }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-other-comments">{% trans %}Indique os melhoramentos necessários e comentários específicos a serem comunicados ao editor{% endtrans %}</label> 
+            <textarea class="form-control" id='textarea-other-comments' name="other-comments" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.otherComments }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="checkbox">
+                <label for='input-accept-terms'>
+                    <input type='checkbox' name='accept-conditions' id='input-accept-conditions' {% if protocol_revision.acceptConditions %}checked{% endif %} {% if protocol_revision.isFinalRevision %}disabled{% endif %}>
+                    {% trans %}I declare that I have no ties or self-interest in the evaluation of this journal{% endtrans %}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

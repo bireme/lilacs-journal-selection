@@ -19,6 +19,7 @@
             <input type="hidden" id="input-is-final-revision" name="is-final-revision" value="false">
 
             <div class='block action'>
+            
                 <a name='action'></a>
                 <div class='row'>
                     <div class="col-md-12">
@@ -26,102 +27,26 @@
                     </div>
                 </div>
 
-                <div class='row'>
-                    <div class="col-md-12">
-                        <div class="form-group required">
-                            <label for="input-decision">{% trans %}Decision{% endtrans %}:</label> 
-                            <a href="{{ path("crud_admin_help_show", {help_id: 113} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <input type='text' class="form-control" id='input-decision' name="decision" value="{{ protocol_revision.decision }}" required {% if protocol_revision.isFinalRevision %}readonly{% endif %}>
-                        </div>
-                    </div>
-                </div>
-                <div class='row'>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="textarea-social-value">{% trans %}Social Value{% endtrans %}:</label> 
-                            <a href="{{ path("crud_admin_help_show", {help_id: 114} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <textarea class="form-control" id='textarea-social-value' name="social-value" {% if protocol_revision.isFinalRevision %}readonly{% endif %}>{{ protocol_revision.socialValue }}</textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class='row'>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="textarea-sscientific-validity">{% trans %}Scientific Validity{% endtrans %}:</label> 
-                            <a href="{{ path("crud_admin_help_show", {help_id: 115} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <textarea class="form-control" id='textarea-sscientific-validity' name="sscientific-validity" {% if protocol_revision.isFinalRevision %}readonly{% endif %}>{{ protocol_revision.sscientificValidity }}</textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class='row'>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="textarea-fair-participant-selection">{% trans %}Fair participant selection{% endtrans %}:</label> 
-                            <a href="{{ path("crud_admin_help_show", {help_id: 116} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <textarea class="form-control" id='textarea-fair-participant-selection' name="fair-participant-selection" {% if protocol_revision.isFinalRevision %}readonly{% endif %}>{{ protocol_revision.fairParticipantSelection }}</textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class='row'>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="textarea-favorable-balance">{% trans %}Favorable balance of benefits and risks{% endtrans %}:</label> 
-                            <a href="{{ path("crud_admin_help_show", {help_id: 117} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <textarea class="form-control" id='textarea-favorable-balance' name="favorable-balance" {% if protocol_revision.isFinalRevision %}readonly{% endif %}>{{ protocol_revision.favorableBalance }}</textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class='row'>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="textarea-informed-consent">{% trans %}Informed Consent{% endtrans %}:</label> 
-                            <a href="{{ path("crud_admin_help_show", {help_id: 118} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <textarea class="form-control" id='textarea-informed-consent' name="informed-consent" {% if protocol_revision.isFinalRevision %}readonly{% endif %}>{{ protocol_revision.informedConsent }}</textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class='row'>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="textarea-respect-for-participants">{% trans %}Respect for participants{% endtrans %}:</label> 
-                            <a href="{{ path("crud_admin_help_show", {help_id: 119} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <textarea class="form-control" id='textarea-respect-for-participants' name="respect-for-participants" {% if protocol_revision.isFinalRevision %}readonly{% endif %}>{{ protocol_revision.respectForParticipants }}</textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class='row'>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="textarea-other-comments">{% trans %}Other Comments{% endtrans %}:</label> 
-                            <a href="{{ path("crud_admin_help_show", {help_id: 120} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <textarea class="form-control" id='textarea-other-comments' name="other-comments" {% if protocol_revision.isFinalRevision %}readonly{% endif %}>{{ protocol_revision.otherComments }}</textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class='row'>
-                    <div class="col-md-12">
-                        <div class="form-group required">
-                            <label for="input-suggestions">{% trans %}Suggestions{% endtrans %}:</label> 
-                            <a href="{{ path("crud_admin_help_show", {help_id: 121} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <input type='text' class="form-control" id='input-suggestions' name="suggestions" value="{{ protocol_revision.suggestions }}" required {% if protocol_revision.isFinalRevision %}readonly{% endif %}>
-                        </div>
-                    </div>
-                </div>
-
+                {% if 'committee' in app.request.get('member') %}
+                    <input type="hidden" id="member-type" name="member-type" value="committee">
+                    {% include 'Proethos2CoreBundle:Protocol:committee_revisor_form.html.twig' %}
+                {% else %}
+                    <input type="hidden" id="member-type" name="member-type" value="adhoc">
+                    {% include 'Proethos2CoreBundle:Protocol:adhoc_revisor_form.html.twig' %}
+                {% endif %}
+                
             </div>
             
             <div class='row'>
                 <div class='submission-button-controls col-md-12'>
                     <button type="submit" class='btn btn-primary' id='button-save' {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{% trans %}Save{% endtrans %}</button>
-                    <button type="button" class='btn btn-primary' id='button-save-and-finish' {% if not protocol_revision.decision or protocol_revision.isFinalRevision %}disabled{% endif %}>
+                    <button type="button" class='btn btn-primary' id='button-save-and-finish' {% if not protocol_revision.answered or protocol_revision.isFinalRevision %}disabled{% endif %}>
                         {% trans %}Save and mark as final revision{% endtrans %}
                     </button>
                 </div>
             </div>
         </form>
     </div>
-
-    
 
 {% endblock %}
 

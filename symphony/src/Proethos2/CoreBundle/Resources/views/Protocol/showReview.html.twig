@@ -2,53 +2,61 @@
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <h4 class="modal-title" id="myModalLabel">Parecer do Reviewer</h4>
 </div>
-<div class="modal-body">
 
-    <h5>{% trans %}Decision{% endtrans %}</h5>
-    <p>{{ protocol_revision.decision }}</p>
+{% if 'committee' in app.request.get('member') %}
+    <div class="modal-body">
+        <h5>{% trans %}Please highlight the journal positive aspects{% endtrans %}</h5>
+        <p>{{ protocol_revision.positiveAspects }}</p>
 
-    {% if protocol_revision.socialValue %}
-        <h5>{% trans %}Social Value{% endtrans %}</h5>
-        <p>{{ protocol_revision.socialValue }}</p>
-    {% endif %}
+        <h5>{% trans %}Please highlight the journal negative aspects{% endtrans %}</h5>
+        <p>{{ protocol_revision.negativeAspects }}</p>
 
-    {% if protocol_revision.sscientificValidity %}
-        <h5>{% trans %}Scientific Validity{% endtrans %}</h5>
-        <p>{{ protocol_revision.sscientificValidity }}</p>
-    {% endif %}
+        <h5>{% trans %}Do you approve the inclusion of the journal?{% endtrans %}</h5>
+        <p>{{ accept_journal[protocol_revision.acceptJournal] }}</p>
 
-    {% if protocol_revision.fairParticipantSelection %}
-        <h5>{% trans %}Fair Participant Selection{% endtrans %}</h5>
-        <p>{{ protocol_revision.fairParticipantSelection }}</p>
-    {% endif %}
-    {% if protocol_revision.favorableBalance %}
-        <h5>{% trans %}Favorable balance of benefits and risks{% endtrans %}</h5>
-        <p>{{ protocol_revision.favorableBalance }}</p>
-
-    {% endif %}
-
-    {% if protocol_revision.informedConsent %}
-        <h5>{% trans %}Informed Consent{% endtrans %}</h5>
-        <p>{{ protocol_revision.informedConsent }}</p>
-
-    {% endif %}
-
-    {% if protocol_revision.respectForParticipants %}
-        <h5>'{% trans %}Respect for participants{% endtrans %}'</h5>
-        <p>{{ protocol_revision.respectForParticipants }}</p>
-
-    {% endif %}
-
-    {% if protocol_revision.otherComments %}
-        <h5>{% trans %}Other Comments{% endtrans %}</h5>
+        <h5>{% trans %}Comments and justifications{% endtrans %}</h5>
         <p>{{ protocol_revision.otherComments }}</p>
-    {% endif %}
+    </div>
+{% else %}
+    <div class="modal-body">
+        <h4 class="modal-title">Editorial Team</h4>
+        <h5>{% trans %}Opine sobre a representatividade do Corpo Editorial da revista, considerando sua abrangência geográfica e diversidade institucional, bem como observando a contribuição e competência de seus membros{% endtrans %}.</h5>
+        <p>{{ protocol_revision.editorialTeam }}</p>
 
-    {% if protocol_revision.suggestions %}
-        <h5>{% trans %}Suggestions{% endtrans %}</h5>
-        <p>{{ protocol_revision.suggestions }}</p>
-    {% endif %}
-</div>
+        <h4 class="modal-title modal-revision">Content</h4>
+        <h5>{% trans %}a) Caráter científico da revista considerando os artigos originais de pesquisa ou reflexão, e sua coerência com a orientação temática da revista{% endtrans %}.</h5>
+        <p>{{ protocol_revision.contentA }}</p>
+
+        <h5>{% trans %}b) Caráter científico da revista, considerando a propriedade, atualidade e exaustividade nos artigos de revisão e debates, quando houver{% endtrans %}.</h5>
+        <p>{{ protocol_revision.contentB }}</p>
+
+        <h5>{% trans %}c) Qualidade com relação a metodologia e estrutura dos artigos/ensaios{% endtrans %}.</h5>
+        <p>{{ protocol_revision.contentC }}</p>
+
+        <h5>{% trans %}d) Qualidade dos elementos gráficos do periódico (imagens, tabelas, gráficos, impressão){% endtrans %}.</h5>
+        <p>{{ protocol_revision.contentD }}</p>
+
+        <h4 class="modal-title modal-revision">Peer Arbitration</h4>
+        <h5>{% trans %}a) Apresentação dos procedimentos adotados pela revista para análise e aprovação dos artigos{% endtrans %}.</h5>
+        <p>{{ protocol_revision.peerArbitrationA }}</p>
+
+        <h5>{% trans %}b) Informações do formulário de peer review utilizado pela revista para avaliação de artigos{% endtrans %}.</h5>
+        <p>{{ protocol_revision.peerArbitrationB }}</p>
+
+        <h5>{% trans %}c) Abrangência geográfica, diversidade institucional, contribuição e competência do grupo de revisores{% endtrans %}.</h5>
+        <p>{{ protocol_revision.peerArbitrationC }}</p>
+
+        <h4 class="modal-title modal-revision">Comments</h4>
+        <h5>{% trans %}Atribua um conceito ao periódico, considerando a área em análise{% endtrans %}.</h5>
+        <p>{{ journal_concept[protocol_revision.journalConcept] }}</p>
+
+        <h5>{% trans %}Opine sobre a importância da revista para o desenvolvimento da área.{% endtrans %}</h5>
+        <p>{{ protocol_revision.journalRelevance }}</p>
+
+        <h5>{% trans %}Indique os melhoramentos necessários e comentários específicos a serem comunicados ao editor{% endtrans %}.</h5>
+        <p>{{ protocol_revision.otherComments }}</p>
+    </div>
+{% endif %}
 
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>

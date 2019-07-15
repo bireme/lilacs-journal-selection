@@ -135,11 +135,18 @@ class Protocol extends Base
     private $decision_in;
 
     /**
-     * @var ProtocolRevision
+     * @var ProtocolCommitteeRevision
      *
-     * @ORM\OneToMany(targetEntity="ProtocolRevision", mappedBy="protocol", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="ProtocolCommitteeRevision", mappedBy="protocol", cascade={"remove"})
      */
-    private $revision;
+    private $committee_revision;
+
+    /**
+     * @var ProtocolAdhocRevision
+     *
+     * @ORM\OneToMany(targetEntity="ProtocolAdhocRevision", mappedBy="protocol", cascade={"remove"})
+     */
+    private $adhoc_revision;
 
     /**
      * @ORM\ManyToOne(targetEntity="Meeting", inversedBy="protocols")
@@ -506,50 +513,6 @@ class Protocol extends Base
     }
 
     /**
-     * Add revision
-     *
-     * @param \Proethos2\ModelBundle\Entity\ProtocolRevision $revision
-     *
-     * @return Protocol
-     */
-    public function addRevision(\Proethos2\ModelBundle\Entity\ProtocolRevision $revision)
-    {
-        $this->revision[] = $revision;
-
-        return $this;
-    }
-
-    /**
-     * Remove revision
-     *
-     * @param \Proethos2\ModelBundle\Entity\ProtocolRevision $revision
-     */
-    public function removeRevision(\Proethos2\ModelBundle\Entity\ProtocolRevision $revision)
-    {
-        $this->revision->removeElement($revision);
-    }
-
-    /**
-     * Get revision
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRevision()
-    {
-        return $this->revision;
-    }
-
-    public function getRevisionUsers() {
-
-        $users = array();
-        foreach($this->getRevision() as $revision) {
-            $users[] = $revision->getMember();
-        }
-
-        return $users;
-    }
-
-    /**
      * Set updatedIn
      *
      * @param \DateTime $updatedIn
@@ -752,5 +715,93 @@ class Protocol extends Base
         }
 
         return $xml_available_list;
+    }
+
+    /**
+     * Add committeeRevision
+     *
+     * @param \Proethos2\ModelBundle\Entity\ProtocolCommitteeRevision $committeeRevision
+     *
+     * @return Protocol
+     */
+    public function addCommitteeRevision(\Proethos2\ModelBundle\Entity\ProtocolCommitteeRevision $committeeRevision)
+    {
+        $this->committee_revision[] = $committeeRevision;
+
+        return $this;
+    }
+
+    /**
+     * Remove committeeRevision
+     *
+     * @param \Proethos2\ModelBundle\Entity\ProtocolCommitteeRevision $committeeRevision
+     */
+    public function removeCommitteeRevision(\Proethos2\ModelBundle\Entity\ProtocolCommitteeRevision $committeeRevision)
+    {
+        $this->committee_revision->removeElement($committeeRevision);
+    }
+
+    /**
+     * Get committeeRevision
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCommitteeRevision()
+    {
+        return $this->committee_revision;
+    }
+
+    public function getCommitteeRevisionUsers() {
+        $users = array();
+        
+        foreach($this->getCommitteeRevision() as $revision) {
+            $users[] = $revision->getMember();
+        }
+
+        return $users;
+    }
+
+    /**
+     * Add adhocRevision
+     *
+     * @param \Proethos2\ModelBundle\Entity\ProtocolAdhocRevision $adhocRevision
+     *
+     * @return Protocol
+     */
+    public function addAdhocRevision(\Proethos2\ModelBundle\Entity\ProtocolAdhocRevision $adhocRevision)
+    {
+        $this->adhoc_revision[] = $adhocRevision;
+
+        return $this;
+    }
+
+    /**
+     * Remove adhocRevision
+     *
+     * @param \Proethos2\ModelBundle\Entity\ProtocolAdhocRevision $adhocRevision
+     */
+    public function removeAdhocRevision(\Proethos2\ModelBundle\Entity\ProtocolAdhocRevision $adhocRevision)
+    {
+        $this->adhoc_revision->removeElement($adhocRevision);
+    }
+
+    /**
+     * Get adhocRevision
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAdhocRevision()
+    {
+        return $this->adhoc_revision;
+    }
+
+    public function getAdhocRevisionUsers() {
+        $users = array();
+
+        foreach($this->getAdhocRevision() as $revision) {
+            $users[] = $revision->getMember();
+        }
+
+        return $users;
     }
 }
