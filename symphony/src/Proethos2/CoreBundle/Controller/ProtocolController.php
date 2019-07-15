@@ -1095,8 +1095,7 @@ class ProtocolController extends Controller
         $finish_options = array(
             "A" => $translator->trans("Approved"),
             'N' => $translator->trans('Not approved'),
-            'C' => $translator->trans('Conditional approval'),
-            'X' => $translator->trans('Expedite approval'),
+            'R' => $translator->trans('Approval with restrictions'),
         );
         $output['finish_options'] = $finish_options;
 
