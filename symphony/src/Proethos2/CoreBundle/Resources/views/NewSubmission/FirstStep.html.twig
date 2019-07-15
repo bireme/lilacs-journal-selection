@@ -114,7 +114,7 @@
                                 <input type="text" class="form-control" name='lifetime' id='input_lifetime' value="{{ post_data.lifetime }}">
                             </div>
 
-                             <div class="form-group required">
+                            <div class="form-group required">
                                 <label for="select-support">{% trans %}Support{% endtrans %}:</label>
                                 <a href="{{ path("crud_admin_help_show", {help_id: 13} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <select class='form-control selectpicker' id='select-support' name='support' data-size="5" required>
@@ -125,7 +125,7 @@
                                 </select>
                             </div>
 
-                             <div class="form-group required">
+                            <div class="form-group required">
                                 <label for="select-fulltext">{% trans %}Full Text{% endtrans %}:</label>
                                 <a href="{{ path("crud_admin_help_show", {help_id: 14} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <select class='form-control selectpicker' id='select-fulltext' name='fulltext' data-size="5" required>

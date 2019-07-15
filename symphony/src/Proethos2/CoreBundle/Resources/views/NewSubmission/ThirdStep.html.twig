@@ -39,6 +39,12 @@
                                     <a href="{{ path("crud_admin_help_show", {help_id: 40} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                     <input type="email" class="form-control" placeholder="" id='input-publisher-email' name='publisher_email' value='{{ submission.publisherEmail }}'>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="input-cep">{% trans %}CEP{% endtrans %}:</label>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 32} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <input type="text" class="form-control" placeholder="" id='input-cep' name='cep' value='{{ submission.cep }}'>
+                                </div>
 {#
                                 <div class="form-group">
                                     <label for="select-state">{% trans %}State{% endtrans %}:</label>
@@ -131,5 +137,50 @@
         });
     });
 */
+
+    $(function() {
+
+        function clean_form() {
+            // $("#input-address").val("");
+            $("#input-state").val("");
+            $("#input-city").val("");
+        }
+        
+        $("#input-cep").blur(function() {
+
+            var cep = $(this).val().replace(/\D/g, '');
+
+            if (cep != "") {
+
+                var valid_cep = /^[0-9]{8}$/;
+
+                if(valid_cep.test(cep)) {
+
+                    // $("#input-address").val("...");
+                    $("#input-state").val("...");
+                    $("#input-city").val("...");
+
+                    $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(data) {
+                        if (!("erro" in data)) {
+                            // Atualiza os campos com os valores da consulta.
+                            // $("#input-address").val(data.logradouro+", "+data.bairro);
+                            $("#input-state").val(data.uf);
+                            $("#input-city").val(data.localidade);
+                        } else {
+                            clean_form();
+                            alert("{% trans %}CEP not found{% endtrans %}");
+                        }
+                    });
+                } else {
+                    clean_form();
+                    alert("{% trans %}Invalid CEP format{% endtrans %}");
+                }
+            } else {
+                clean_form();
+            }
+            
+        });
+
+    });
 </script>
 {% endblock %}

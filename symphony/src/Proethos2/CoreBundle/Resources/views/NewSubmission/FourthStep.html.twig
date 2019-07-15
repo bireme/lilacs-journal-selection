@@ -86,6 +86,8 @@
             <form method="POST" id='form-new-issue' action="{{ path("submission_new_fourth_step", {submission_id: submission.id}) }}">
                 
                 <input type='hidden' name='issue' value='{{ submission.id }}'>
+                <input type="hidden" id='hidden-requestor-name' name='requestor_name' value='{{ submission.requestorName }}'>
+                <input type="hidden" id='hidden-requestor-email' name='requestor_email' value='{{ submission.requestorEmail }}'>
                 
                 <div class="modal-content">
                     <div class="modal-header">
@@ -164,10 +166,17 @@
                 var id = $(this).data('id');
                 $("#hidden-delete-issue").val(id);
             });
-        });
 
-        $('#modal-delete-issue').on('hidden.bs.modal', function () {
-            $("#hidden-delete-issue").val("");
-        })
+            $("#form-new-issue").on("submit", function(e){
+                var requestor_name  = $("#input-requestor-name").val();
+                var requestor_email = $("#input-requestor-email").val();
+                $("#hidden-requestor-name").val(requestor_name);
+                $("#hidden-requestor-email").val(requestor_email);
+            });
+
+            $('#modal-delete-issue').on('hidden.bs.modal', function () {
+                $("#hidden-delete-issue").val("");
+            })
+        });
     </script>
 {% endblock %}

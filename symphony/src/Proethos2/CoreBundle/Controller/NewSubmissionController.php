@@ -40,31 +40,6 @@ use Proethos2\ModelBundle\Entity\Issue;
 
 class NewSubmissionController extends Controller
 {
-    // frequency list
-    private $frequency = array(
-        "FC"  => "Fluxo Contínuo",
-        "S"   => "Semestral",
-        "QUA" => "Quadrimestral",
-        "T"   => "Trimestral",
-        "B"   => "Bimestral",
-        "M"   => "Mensal",
-        "QUI" => "Quinzenal"  
-    );
-
-    // support list
-    private $support = array(
-        "I"  => "Impresso",
-        "E"  => "Eletrônico",
-        "IE" => "Impresso e Eletrônico"
-    );
-
-    // fulltext list
-    private $fulltext = array(
-        "T" => "Portal próprio",
-        "B" => "Repositório institucional",
-        "M" => "Não provemos acesso ao texto completo. No entanto, vamos ingressar na iniciativa LILACS-Express para disponibilizá-los"
-    );
-
     /**
      * @Route("/submission/new/first", name="submission_new_first_step")
      * @Template()
@@ -97,13 +72,35 @@ class NewSubmissionController extends Controller
         $output['specialty'] = $specialty;
 
         // getting frequency list
-        $output['frequency'] = $this->frequency;
+        $frequency = array(
+            "FC"  => $translator->trans("Fluxo Contínuo"),
+            "S"   => $translator->trans("Semestral"),
+            "QUA" => $translator->trans("Quadrimestral"),
+            "T"   => $translator->trans("Trimestral"),
+            "B"   => $translator->trans("Bimestral"),
+            "M"   => $translator->trans("Mensal"),
+            "QUI" => $translator->trans("Quinzenal")
+        );
+
+        $output['frequency'] = $frequency;
 
         // getting support list
-        $output['support'] = $this->support;
+        $support = array(
+            "I"  => $translator->trans("Impresso"),
+            "E"  => $translator->trans("Eletrônico"),
+            "IE" => $translator->trans("Impresso e Eletrônico")
+        );
+
+        $output['support'] = $support;
 
         // getting fulltext list
-        $output['fulltext'] = $this->fulltext;
+        $fulltext = array(
+            "T" => $translator->trans("Portal próprio"),
+            "B" => $translator->trans("Repositório institucional"),
+            "M" => $translator->trans("Não provemos acesso ao texto completo. No entanto, vamos ingressar na iniciativa LILACS-Express para disponibilizá-los")
+        );
+        
+        $output['fulltext'] = $fulltext;
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
@@ -129,7 +126,6 @@ class NewSubmissionController extends Controller
                 'language',
                 'thematic_area',
                 'specialty',
-                'funded_by_cnpq',
                 'funders'
             );
 
@@ -259,13 +255,35 @@ class NewSubmissionController extends Controller
         $output['specialty'] = $specialty;
 
         // getting frequency list
-        $output['frequency'] = $this->frequency;
+        $frequency = array(
+            "FC"  => $translator->trans("Fluxo Contínuo"),
+            "S"   => $translator->trans("Semestral"),
+            "QUA" => $translator->trans("Quadrimestral"),
+            "T"   => $translator->trans("Trimestral"),
+            "B"   => $translator->trans("Bimestral"),
+            "M"   => $translator->trans("Mensal"),
+            "QUI" => $translator->trans("Quinzenal")
+        );
+
+        $output['frequency'] = $frequency;
 
         // getting support list
-        $output['support'] = $this->support;
+        $support = array(
+            "I"  => $translator->trans("Impresso"),
+            "E"  => $translator->trans("Eletrônico"),
+            "IE" => $translator->trans("Impresso e Eletrônico")
+        );
+
+        $output['support'] = $support;
 
         // getting fulltext list
-        $output['fulltext'] = $this->fulltext;
+        $fulltext = array(
+            "T" => $translator->trans("Portal próprio"),
+            "B" => $translator->trans("Repositório institucional"),
+            "M" => $translator->trans("Não provemos acesso ao texto completo. No entanto, vamos ingressar na iniciativa LILACS-Express para disponibilizá-los")
+        );
+        
+        $output['fulltext'] = $fulltext;
 
         $submission_repository = $em->getRepository('Proethos2ModelBundle:Submission');
         $user_repository = $em->getRepository('Proethos2ModelBundle:User');
@@ -312,7 +330,6 @@ class NewSubmissionController extends Controller
                 'language',
                 'thematic_area',
                 'specialty',
-                'funded_by_cnpq',
                 'funders'
             );
 
@@ -752,6 +769,14 @@ class NewSubmissionController extends Controller
             // getting post data
             $post_data = $request->request->all();
 
+            // adding fields to model
+            $submission->setRequestorName($post_data['requestor_name']);
+            $submission->setRequestorEmail($post_data['requestor_email']);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($submission);
+            $em->flush();
+
             if(isset($post_data['issue']) and !empty($post_data['issue'])) {
 
                 // checking required issues
@@ -810,14 +835,6 @@ class NewSubmissionController extends Controller
                 $session->getFlashBag()->add('error', $translator->trans("Please submit 3 issues."));
                 return $output;
             }
-
-            // adding fields to model
-            $submission->setRequestorName($post_data['requestor_name']);
-            $submission->setRequestorEmail($post_data['requestor_email']);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($submission);
-            $em->flush();
 
             $session->getFlashBag()->add('success', $translator->trans("Fourth step saved with success."));
             return $this->redirectToRoute('submission_new_fifth_step', array('submission_id' => $submission->getId()), 301);
@@ -1096,14 +1113,6 @@ class NewSubmissionController extends Controller
         $text = $translator->trans('Specialty');
         $item = array('text' => $text, 'status' => true);
         if(empty($submission->getSpecialty())) {
-            $item = array('text' => $text, 'status' => false);
-            $final_status = false;
-        }
-        $revisions[] = $item;
-
-        $text = $translator->trans('Funded by CNPq');
-        $item = array('text' => $text, 'status' => true);
-        if(empty($submission->getFundedByCnpq())) {
             $item = array('text' => $text, 'status' => false);
             $final_status = false;
         }
@@ -1461,33 +1470,33 @@ class NewSubmissionController extends Controller
 
         // getting frequency list
         $frequency = array(
-            "FC"  => "Fluxo Contínuo",
-            "S"   => "Semestral",
-            "QUA" => "Quadrimestral",
-            "T"   => "Trimestral",
-            "B"   => "Bimestral",
-            "M"   => "Mensal",
-            "QUI" => "Quinzenal"  
+            "FC"  => $translator->trans("Fluxo Contínuo"),
+            "S"   => $translator->trans("Semestral"),
+            "QUA" => $translator->trans("Quadrimestral"),
+            "T"   => $translator->trans("Trimestral"),
+            "B"   => $translator->trans("Bimestral"),
+            "M"   => $translator->trans("Mensal"),
+            "QUI" => $translator->trans("Quinzenal")
         );
 
         $output['frequency'] = $frequency;
 
         // getting support list
         $support = array(
-            "I"  => "Impresso",
-            "E"  => "Eletrônico",
-            "IE" => "Impresso e Eletrônico"
+            "I"  => $translator->trans("Impresso"),
+            "E"  => $translator->trans("Eletrônico"),
+            "IE" => $translator->trans("Impresso e Eletrônico")
         );
 
         $output['support'] = $support;
 
         // getting fulltext list
         $fulltext = array(
-            "T" => "Portal próprio",
-            "B" => "Repositório institucional",
-            "M" => "Não provemos acesso ao texto completo. No entanto, vamos ingressar na iniciativa LILACS-Express para disponibilizá-los"
+            "T" => $translator->trans("Portal próprio"),
+            "B" => $translator->trans("Repositório institucional"),
+            "M" => $translator->trans("Não provemos acesso ao texto completo. No entanto, vamos ingressar na iniciativa LILACS-Express para disponibilizá-los")
         );
-
+        
         $output['fulltext'] = $fulltext;
 
         if (!$submission or ($submission->getCanBeEdited() and !in_array('administrator', $user->getRolesSlug()))) {
