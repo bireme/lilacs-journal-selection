@@ -1040,7 +1040,7 @@ class CRUDController extends Controller
             $post_data = $request->request->all();
 
             // checking required fields
-            foreach(array('name', 'country', 'lattess' ) as $field) {
+            foreach(array('name', 'country', 'lattes' ) as $field) {
                 if(!isset($post_data[$field]) or empty($post_data[$field])) {
                     $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
                     return $output;

@@ -88,6 +88,12 @@ class User extends Base implements UserInterface, \Serializable
     private $institution;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     */
+    private $lattes;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $hashcode;
@@ -420,5 +426,29 @@ class User extends Base implements UserInterface, \Serializable
     public function getHashcode()
     {
         return $this->hashcode;
+    }
+
+    /**
+     * Set lattes
+     *
+     * @param string $lattes
+     *
+     * @return User
+     */
+    public function setLattes($lattes)
+    {
+        $this->lattes = $lattes;
+
+        return $this;
+    }
+
+    /**
+     * Get lattes
+     *
+     * @return string
+     */
+    public function getLattes()
+    {
+        return $this->lattes;
     }
 }
