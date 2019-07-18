@@ -199,7 +199,7 @@ class SecurityController extends Controller
             $url = $baseurl . "/public/account/reset_my_password?hashcode=" . $hashcode;
 
             $locale = $request->getSession()->get('_locale');
-            $help = $help_repository->find(103);
+            $help = $help_repository->find(117);
             $translations = $trans_repository->findTranslations($help);
             $text = $translations[$locale];
             $body = $text['message'];
@@ -333,7 +333,7 @@ class SecurityController extends Controller
             $output['content'] = $post_data;
 
             // checking required fields
-            foreach(array('name', 'username', 'email', 'country', 'password', 'confirm-password') as $field) {   
+            foreach(array('name', 'username', 'email', 'country', 'lattes', 'password', 'confirm-password') as $field) {   
                 if(!isset($post_data[$field]) or empty($post_data[$field])) {
                     $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
                     return $output;
@@ -385,6 +385,7 @@ class SecurityController extends Controller
             $user->setName($post_data['name']);
             $user->setUsername($post_data['username']);
             $user->setEmail($post_data['email']);
+            $user->setLattes($post_data['lattes']);
             $user->setInstitution($post_data['institution']);
             $user->setFirstAccess(false);
             $user->setIsActive(false);
@@ -399,7 +400,7 @@ class SecurityController extends Controller
 
             $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
-            $help = $help_repository->find(104);
+            $help = $help_repository->find(118);
             $translations = $trans_repository->findTranslations($help);
             $text = $translations[$locale];
             $body = $text['message'];
@@ -408,7 +409,7 @@ class SecurityController extends Controller
 
             // send email to the user
             $message = \Swift_Message::newInstance()
-            ->setSubject("[proethos2] " . $translator->trans("Welcome to the Proethos2 platform!"))
+            ->setSubject("[proethos2] " . $translator->trans("Welcome to the LILACS Journal Evaluation platform"))
             ->setFrom($util->getConfiguration('committee.email'))
             ->setTo($post_data['email'])
             ->setBody(
@@ -418,7 +419,7 @@ class SecurityController extends Controller
             );
             $send = $this->get('mailer')->send($message);
 
-            $help = $help_repository->find(105);
+            $help = $help_repository->find(119);
             $translations = $trans_repository->findTranslations($help);
             $text = $translations[$locale];
             $body = $text['message'];
@@ -435,7 +436,7 @@ class SecurityController extends Controller
             }
 
             $message = \Swift_Message::newInstance()
-            ->setSubject("[proethos2] " . $translator->trans("New user on Proethos2 platform"))
+            ->setSubject("[proethos2] " . $translator->trans("New user on LILACS Journal Evaluation platform"))
             ->setFrom($util->getConfiguration('committee.email'))
             ->setTo($secretaries_emails)
             ->setBody(
