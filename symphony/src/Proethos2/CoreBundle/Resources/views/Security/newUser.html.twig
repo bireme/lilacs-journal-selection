@@ -110,6 +110,16 @@
                 <div class='row'>
                     <div class='col-md-12'>
                         <div class="form-group required">
+                            <label for="input-lattes">{% trans %}Lattes URL{% endtrans %}:</label> 
+                            <a href="{{ path("crud_admin_help_show", {help_id: 107} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <input type='text' class='form-control' id="input-lattes" name="lattes" value="{% if content %}{{ content.lattes }}{% endif %}" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='col-md-12'>
+                        <div class="form-group required">
                             <label for="input-password">{% trans %}Password{% endtrans %}:</label> 
                             <a href="{{ path("crud_admin_help_show", {help_id: 87} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                             <input type='password' class='form-control' id="input-password" name="password" required>

@@ -837,7 +837,7 @@ class CRUDController extends Controller
         // output parameter
         $output_parameter = $request->query->get('output');
         if($output_parameter == 'csv') {
-            $csv_headers = array('USERNAME', 'ID', 'EMAIL', 'ROLES', 'ACTIVE?', 'NAME', 'COUNTRY', 'INSTITUTION');
+            $csv_headers = array('USERNAME', 'ID', 'EMAIL', 'ROLES', 'ACTIVE?', 'NAME', 'COUNTRY', 'INSTITUTION', 'LATTES');
             $csv_output = array();
             foreach($users as $user) {
                 $current_line = array();
@@ -849,6 +849,7 @@ class CRUDController extends Controller
                 $current_line[] = $user->getName();
                 $current_line[] = $user->getCountry() ? $user->getCountry()->getName() : '';
                 $current_line[] = $user->getInstitution();
+                $current_line[] = $user->getLattes();
                 $csv_output[] = $current_line;
             }
 
@@ -870,7 +871,7 @@ class CRUDController extends Controller
             $post_data = $request->request->all();
 
             // checking required fields
-            foreach(array('name', 'username', 'email', 'country', ) as $field) {
+            foreach(array('name', 'username', 'email', 'country', 'lattes' ) as $field) {
                 if(!isset($post_data[$field]) or empty($post_data[$field])) {
                     $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
                     return $output;
@@ -885,6 +886,7 @@ class CRUDController extends Controller
             $user->setUsername($post_data['username']);
             $user->setEmail($post_data['email']);
             $user->setInstitution($post_data['institution']);
+            $user->setLattes($post_data['lattes']);
             $user->setFirstAccess(false);
 
             if(isset($post_data['status'])) {
@@ -911,7 +913,7 @@ class CRUDController extends Controller
             $url = $baseurl . "/public/account/reset_my_password?hashcode=" . $hashcode;
             
             $locale = $request->getSession()->get('_locale');
-            $help = $help_repository->find(100);
+            $help = $help_repository->find(114);
             $translations = $trans_repository->findTranslations($help);
             $text = $translations[$locale];
             $body = $text['message'];
@@ -968,7 +970,7 @@ class CRUDController extends Controller
             $post_data = $request->request->all();
 
             // checking required fields
-            foreach(array('name', 'country', ) as $field) {
+            foreach(array('name', 'country', 'lattes' ) as $field) {
                 if(!isset($post_data[$field]) or empty($post_data[$field])) {
                     $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
                     return $output;
@@ -979,6 +981,7 @@ class CRUDController extends Controller
 
             $user->setCountry($country);
             $user->setName($post_data['name']);
+            $user->setLattes($post_data['lattes']);
             $user->setInstitution($post_data['institution']);
 
             $em->persist($user);
@@ -1037,7 +1040,7 @@ class CRUDController extends Controller
             $post_data = $request->request->all();
 
             // checking required fields
-            foreach(array('name', 'country', ) as $field) {
+            foreach(array('name', 'country', 'lattess' ) as $field) {
                 if(!isset($post_data[$field]) or empty($post_data[$field])) {
                     $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
                     return $output;
@@ -1049,6 +1052,7 @@ class CRUDController extends Controller
             $user->setCountry($country);
             $user->setName($post_data['name']);
             $user->setInstitution($post_data['institution']);
+            $user->setLattes($post_data['lattes']);
 
             $user->setIsActive(false);
             if(isset($post_data['status'])) {
@@ -1063,7 +1067,7 @@ class CRUDController extends Controller
                 $url = $baseurl . $this->generateUrl('home');
 
                 $locale = $request->getSession()->get('_locale');
-                $help = $help_repository->find(101);
+                $help = $help_repository->find(115);
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$locale];
                 $body = $text['message'];
@@ -1265,7 +1269,7 @@ class CRUDController extends Controller
             }
 
             $locale = $request->getSession()->get('_locale');
-            $help = $help_repository->find(102);
+            $help = $help_repository->find(116);
             $translations = $trans_repository->findTranslations($help);
             $text = $translations[$locale];
             $body = $text['message'];
@@ -1277,7 +1281,7 @@ class CRUDController extends Controller
             $body .= "<br /><br />";
 
             $message = \Swift_Message::newInstance()
-            ->setSubject("[proethos2] " . $translator->trans("Message from plataform."))
+            ->setSubject("[proethos2] " . $translator->trans("Message from plataform"))
             ->setFrom($output['committee_email'])
             ->setTo($output['committee_email'])
             ->setBody(
