@@ -232,6 +232,11 @@ a.help {
 h4.modal-revision {
     margin-top: 20px;
 }
+
+legend.advice {
+    font-size: 18px;
+    color: #555555;
+}
 /*
 DIV.multiple SELECT, INPUT[type="number"] {
     width: 160px;
