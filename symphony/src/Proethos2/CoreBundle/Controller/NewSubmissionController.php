@@ -779,13 +779,6 @@ class NewSubmissionController extends Controller
 
             if(isset($post_data['issue']) and !empty($post_data['issue'])) {
 
-                // checking required issues
-                $total_issues = count($submission->getIssue());
-                if( $total_issues == 3 ) {
-                    $session->getFlashBag()->add('error', $translator->trans("Please submit 3 issues."));
-                    return $output;
-                }
-
                 $issue = new Issue();
                 $issue->setSubmission($submission);
                 $issue->setUser($user);
@@ -1410,7 +1403,7 @@ class NewSubmissionController extends Controller
                         $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
                         
                         $_locale = $request->getSession()->get('_locale');
-                        $help = $help_repository->find(91);
+                        $help = $help_repository->find(108);
                         $translations = $trans_repository->findTranslations($help);
                         $text = $translations[$_locale];
                         $body = $text['message'];
