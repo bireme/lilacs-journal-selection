@@ -15,7 +15,6 @@
         </div>
 
         <div class='block'>
-
             <form class="form-group" id='form-filter'>
                 <div class='row'>
                     <div class="col-md-8">
@@ -38,6 +37,8 @@
                                 <option value="I" {% if app.request.get('status') == "I" %}selected{% endif %}>{% trans %}Waiting for initial evaluation{% endtrans %}</option>
                                 <option value="E" {% if app.request.get('status') == "E" %}selected{% endif %}>{% trans %}Waiting for Committee{% endtrans %}</option>
                                 <option value="H" {% if app.request.get('status') == "H" %}selected{% endif %}>{% trans %}Scheduled{% endtrans %}</option>
+                                <option value="C" {% if app.request.get('status') == "C" %}selected{% endif %}>{% trans %}Approved with restrictions{% endtrans %}</option>
+                                <option value="V" {% if app.request.get('status') == "V" %}selected{% endif %}>{% trans %}Waiting for final evaluation{% endtrans %}</option>
                             </select>
                         </div>
                     </div>
@@ -55,7 +56,6 @@
             <div class='row'>
                 <div class="col-md-12">
                     <table class='table table-hover table-condensed'>
-
                         <thead>
                             <tr>
                                 <th width="10%">{% trans %}ID{% endtrans %}</th>
@@ -77,8 +77,12 @@
                                     <td><span class='label {% if protocol.status == 'R' %}label-danger{% else %}label-default{% endif %}'>{{ protocol.statusLabel|trans }}</span></td>
                                     <td>
                                         <a href='{{ path("protocol_show_protocol", {protocol_id: protocol.id}) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}See journal{% endtrans %}"><i class='glyphicon glyphicon-eye-open'></i></a>
-                                        <a href='{{ path("submission_new_first_created_protocol_step", {submission_id: protocol.mainSubmission.id}) }}' class='btn btn-default btn-xs {% if protocol.status not in ["D"] %}disabled{% endif %}' data-toggle="tooltip" data-placement="top" title="{% trans %}Edit submission{% endtrans %}"><i class='glyphicon glyphicon-pencil'></i></a>
-                                        {% if protocol.status in ['D','A'] %}
+                                        {% if protocol.status in ['C'] %}
+                                            <a href='{{ path("protocol_recommendations", {protocol_id: protocol.id} ) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}Send recommendations{% endtrans %}"><i class='glyphicon glyphicon-pencil'></i></a>
+                                        {% else %}
+                                            <a href='{{ path("submission_new_first_created_protocol_step", {submission_id: protocol.mainSubmission.id}) }}' class='btn btn-default btn-xs {% if protocol.status not in ["D"] %}disabled{% endif %}' data-toggle="tooltip" data-placement="top" title="{% trans %}Edit submission{% endtrans %}"><i class='glyphicon glyphicon-pencil'></i></a>
+                                        {% endif %}
+                                        {% if protocol.status in ['D'] %}
                                             <span data-toggle="tooltip" data-placement="top" title="{% trans %}Delete this journal{% endtrans %}"><a href='{{ path("protocol_delete", {protocol_id: protocol.id} ) }}' class='btn btn-danger btn-xs' data-toggle='modal' data-target='#modalBaseAjax'><i class='glyphicon glyphicon-trash'></i></a></span>
                                         {% endif %}
                                     </td>
@@ -98,9 +102,6 @@
 
 {% block script %}
     <script>
-        $(function(){
-
-
-        });
+        $(function(){});
     </script>
 {% endblock %}

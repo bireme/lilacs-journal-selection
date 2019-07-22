@@ -1,0 +1,204 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{% trans %}Journal recommendations{% endtrans %}{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid main-content see-submission">
+
+        <div class="row">
+            <div class='col-md-12'>
+                <h1 class="page-header">{% trans %}Journal Recommendations{% endtrans %}</h1>
+            </div>
+        </div>
+
+        {% include 'Proethos2CoreBundle:Protocol:meta.html.twig' %}
+
+        <!-- action -->
+        <form method="POST" id='form-action' enctype="multipart/form-data" action="">
+
+            <input type="hidden" id="input-send-info" name="send-info" value="">
+
+            <div class='block'>
+                <div class='row'>
+                    <div class="col-md-12">
+                        <h2 class='sub-header'>{% trans %}Deployment Report{% endtrans %}<a class="help" href="{{ path("crud_admin_help_show", {help_id: 105} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a></h2>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="file-deploy-report">{% trans %}Send deployment report{% endtrans %}:</label>
+                            <input type='file' class='form-control' id='file-deploy-report' name="deploy-report" required {% if deploy_report %}disabled{% endif %}>
+                        </div>
+                        <button type="submit" class='btn btn-default' {% if deploy_report %}disabled{% endif %}>{% trans %}Save report{% endtrans %}</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class='block'>
+                <div class='row'>
+                    <div class="col-md-12">
+                        <h2 class='sub-header'>{% trans %}Additional Issues{% endtrans %}<a class="help" href="{{ path("crud_admin_help_show", {help_id: 106} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a></h2>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class="col-md-12">
+                        <table class='table table-hover table-condensed' id='table-issue-list'>
+                            <thead>
+                                <tr>
+                                    <th>{% trans %}Volume{% endtrans %}</th>
+                                    <th>{% trans %}Number{% endtrans %}</th>
+                                    <th>{% trans %}Year{% endtrans %}</th>
+                                    <th>{% trans %}Actions{% endtrans %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for issue in protocol.mainSubmission.issue if issue.created|date("U") > protocol.decisionIn|date("U") %}
+                                    <tr>
+                                        <td>{{ issue.volume }}</td>
+                                        <td>{{ issue.number }}</td>
+                                        <td>{{ issue.year }}</td>
+                                        <td>
+                                            {% if issue.fulltext %}
+                                                <a href='{{ issue.fulltext }}' target="_blank" class='btn btn-default btn-xs' target="_blank" title="Link to full text">
+                                                    <i class='glyphicon glyphicon-eye-open'></i>
+                                                </a>
+                                            {% endif%}
+                                            <a href='#' class='btn btn-default btn-xs button-delete-issue' data-id='{{ issue.id }}' data-toggle="modal" data-target="#modal-delete-issue" title="Remove issue"><i class='glyphicon glyphicon-trash'></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <a href='#' class='btn btn-default' data-toggle="modal" data-target="#modal-new-issue" {% if protocol.mainSubmission.issue|length == 7 %}disabled{% endif %}>{% trans %}New Issue{% endtrans %}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='submission-button-controls col-md-12'>
+                    <button type="button" class='btn btn-primary' data-toggle='modal' data-target='#modalConfirm' {% if not deploy_report or protocol.mainSubmission.issue|length < 5 %}disabled{% endif %}>{% trans %}Save and send recommendations{% endtrans %}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Confirm -->
+    <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{% trans %}Confirm?{% endtrans %}</h4>
+                </div>
+                <div class="modal-body">
+                    <p>{% trans %}Are you sure that you want to send this recommendations?{% endtrans %}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                    <button type="button" class="btn btn-success" id='button-submit'>{% trans %}Confirm{% endtrans %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Novo Fascículo -->
+    <div class="modal fade" id="modal-new-issue" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <form method="POST" id='form-new-issue' action="">
+                
+                <input type='hidden' name='issue' value='{{ protocol.mainSubmission.id }}'>
+                
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{% trans %}New Issue{% endtrans %}</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group required">
+                            <label for="input-issue-volume">{% trans %}Volume{% endtrans %}:</label>
+                            <a href="{{ path("crud_admin_help_show", {help_id: 93} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <input type="text" class="form-control" placeholder="" id='input-issue-volume' name='issue_volume' required>
+                        </div>
+
+                        <div class="form-group required">
+                            <label for="input-issue-number">{% trans %}Number{% endtrans %}:</label>
+                            <a href="{{ path("crud_admin_help_show", {help_id: 94} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <input type="text" class="form-control" placeholder="" id='input-issue-number' name='issue_number' required>
+                        </div>
+
+                        <div class="form-group required">
+                            <label for="input-issue-year">{% trans %}Year{% endtrans %}:</label>
+                            <a href="{{ path("crud_admin_help_show", {help_id: 95} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <input type="text" class="form-control" placeholder="" id='input-issue-year' name='issue_year' maxlength="4" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-issue-fulltext">{% trans %}Full Text{% endtrans %}:</label> 
+                            <a href="{{ path("crud_admin_help_show", {help_id: 96} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <input type="text" class="form-control" placeholder="" id='input-issue-fulltext' name='issue_fulltext'>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                        <button type="submit" class="btn btn-primary">{% trans %}Send{% endtrans %}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Confirmar Exclusão -->
+    <div class="modal fade" id="modal-delete-issue" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <form method="POST" id='form-delete-issue' action="">
+                <input type="hidden" name="delete-issue-id" id='hidden-delete-issue' value="" />
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{% trans %}Delete Issue{% endtrans %}</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <p>{% trans %}Do you confirm the exclusion of this issue?{% endtrans %}</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                        <button type="submit" class="btn btn-danger">{% trans %}Confirm{% endtrans %}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(function(){
+            $("#table-issue-list").on("click", ".button-delete-issue", function(e){
+                var id = $(this).data('id');
+                $("#hidden-delete-issue").val(id);
+            });
+
+            $('#modal-delete-issue').on('hidden.bs.modal', function () {
+                $("#hidden-delete-issue").val("");
+            });
+
+            $("#button-submit").on('click', function(){
+                $("#input-send-info").val('yes');
+                $("#form-action").submit();
+            });
+        });
+    </script>
+{% endblock %}

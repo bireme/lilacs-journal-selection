@@ -296,6 +296,7 @@ class Protocol extends Base
             case 'N': return "Not approved"; break;
             case 'C': return "Approved with restrictions"; break;
             case 'X': return "Expedite Approval"; break;
+            case 'V': return "Waiting for final evaluation"; break;
         }
         return $this->status;
     }

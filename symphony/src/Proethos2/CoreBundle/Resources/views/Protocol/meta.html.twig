@@ -1,4 +1,6 @@
-{% include 'Proethos2CoreBundle:Protocol:protocol_tabs.html.twig' %}
+{% if protocol.status not in ['C'] %}
+	{% include 'Proethos2CoreBundle:Protocol:protocol_tabs.html.twig' %}
+{% endif %}
+
 {% include 'Proethos2CoreBundle:Protocol:protocol_header.html.twig' %}
 {% include 'Proethos2CoreBundle:Protocol:protocol_another_infos.html.twig' %}
-

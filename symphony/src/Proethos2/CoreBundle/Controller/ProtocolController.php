@@ -31,6 +31,7 @@ use Proethos2\ModelBundle\Entity\ProtocolCommitteeRevision;
 use Proethos2\ModelBundle\Entity\ProtocolAdhocRevision;
 use Proethos2\ModelBundle\Entity\Submission;
 use Proethos2\ModelBundle\Entity\SubmissionUpload;
+use Proethos2\ModelBundle\Entity\Issue;
 
 class ProtocolController extends Controller
 {
@@ -106,6 +107,7 @@ class ProtocolController extends Controller
 
         return $output;
     }
+
     /**
      * @Route("/protocol/{protocol_id}/comment", name="protocol_new_comment")
      */
@@ -226,7 +228,7 @@ class ProtocolController extends Controller
                 $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                 $_locale = $request->getSession()->get('_locale');
-                $help = $help_repository->find(92);
+                $help = $help_repository->find(109);
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
@@ -358,7 +360,7 @@ class ProtocolController extends Controller
                         $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                         $_locale = $request->getSession()->get('_locale');
-                        $help = $help_repository->find(94);
+                        $help = $help_repository->find(110);
                         $translations = $trans_repository->findTranslations($help);
                         $text = $translations[$_locale];
                         $body = $text['message'];
@@ -368,7 +370,7 @@ class ProtocolController extends Controller
                         $body .= "<br /><br />";
 
                         $message = \Swift_Message::newInstance()
-                        ->setSubject("[LILACS] " . $translator->trans("Your journal was sent to review!"))
+                        ->setSubject("[LILACS] " . $translator->trans("Your journal was sent to review"))
                         ->setFrom($util->getConfiguration('committee.email'))
                         ->setTo($investigator->getEmail())
                         ->setBody(
@@ -579,7 +581,7 @@ class ProtocolController extends Controller
 
             if ( $post_data['committee-screening'] ) {
                 $_locale = $request->getSession()->get('_locale');
-                $help = $help_repository->find(95);
+                $help = $help_repository->find(110);
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
@@ -590,7 +592,7 @@ class ProtocolController extends Controller
                 $body .= "<br /><br />";
             } else {
                 $_locale = $request->getSession()->get('_locale');
-                $help = $help_repository->find(96);
+                $help = $help_repository->find(110);
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
@@ -607,7 +609,7 @@ class ProtocolController extends Controller
             }
             foreach($investigators as $investigator) {
                 $message = \Swift_Message::newInstance()
-                ->setSubject("[LILACS] " . $translator->trans("Your journal was sent to review!"))
+                ->setSubject("[LILACS] " . $translator->trans("Your journal was sent to review"))
                 ->setFrom($util->getConfiguration('committee.email'))
                 ->setTo($investigator->getEmail())
                 ->setBody(
@@ -789,7 +791,7 @@ class ProtocolController extends Controller
                             $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                             $_locale = $request->getSession()->get('_locale');
-                            $help = $help_repository->find(98);
+                            $help = $help_repository->find(111);
                             $translations = $trans_repository->findTranslations($help);
                             $text = $translations[$_locale];
                             $body = $text['message'];
@@ -1194,7 +1196,7 @@ class ProtocolController extends Controller
                 $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                 $_locale = $request->getSession()->get('_locale');
-                $help = $help_repository->find(99);
+                $help = $help_repository->find(112);
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
@@ -1222,6 +1224,196 @@ class ProtocolController extends Controller
 
             $session->getFlashBag()->add('success', $translator->trans("Journal was finalized with success!"));
             return $this->redirectToRoute('protocol_show_protocol', array('protocol_id' => $protocol->getId()), 301);
+        }
+
+        return $output;
+    }
+
+    /**
+     * @Route("/protocol/{protocol_id}/recommendations", name="protocol_recommendations")
+     * @Template()
+     */
+    public function recommendationsAction($protocol_id)
+    {
+
+        $output = array();
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $translator = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
+        $user_repository = $em->getRepository('Proethos2ModelBundle:User');
+        $upload_type_repository = $em->getRepository('Proethos2ModelBundle:UploadType');
+        $submission_upload_repository = $em->getRepository('Proethos2ModelBundle:SubmissionUpload');
+        $issue_repository = $em->getRepository('Proethos2ModelBundle:Issue');
+
+        $util = new Util($this->container, $this->getDoctrine());
+
+        // getting the current submission
+        $protocol = $protocol_repository->find($protocol_id);
+        $submission = $protocol->getMainSubmission();
+        $output['protocol'] = $protocol;
+
+        $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
+        $help_repository = $em->getRepository('Proethos2ModelBundle:Help');
+        // $help = $help_repository->findBy(array("id" => {id}, "type" => "mail"));
+        // $translations = $trans_repository->findTranslations($help[0]);
+
+        // checking required deployment report attachment
+        $upload_type = $upload_type_repository->findBy(array('slug' => 'deployment-report'));
+        $upload_type_id = $upload_type[0]->getId();
+        $deploy_report = $submission_upload_repository->findBy(array('submission' => $submission->getId(), 'upload_type' => $upload_type_id));
+        $output['deploy_report'] = ( $deploy_report ) ? true : false;
+
+        if (!$protocol or !in_array($protocol->getStatus(), array("C")) or $user != $protocol->getOwner()) {
+            throw $this->createNotFoundException($translator->trans('No journal found'));
+        }
+
+        // checking if was a post request
+        if($this->getRequest()->isMethod('POST')) {
+
+            // getting post data
+            $post_data = $request->request->all();
+
+            if(isset($post_data['issue']) and !empty($post_data['issue'])) {
+
+                $issue = new Issue();
+                $issue->setSubmission($submission);
+                $issue->setUser($user);
+                $issue->setSubmissionNumber($submission->getNumber());
+                $issue->setVolume($post_data['issue_volume']);
+                $issue->setNumber($post_data['issue_number']);
+                $issue->setYear($post_data['issue_year']);
+                $issue->setFulltext($post_data['issue_fulltext']);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($issue);
+                $em->flush();
+
+                $submission->addIssue($issue);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($submission);
+                $em->flush();
+
+                $session->getFlashBag()->add('success', $translator->trans("Issue added with success."));
+                return $this->redirectToRoute('protocol_recommendations', array('protocol_id' => $protocol->getId()), 301);
+
+            }
+
+            if(isset($post_data['delete-issue-id']) and !empty($post_data['delete-issue-id'])) {
+                $issue = $issue_repository->find($post_data['delete-issue-id']);
+                
+                if($issue) {
+                    $em->remove($issue);
+                    $em->flush();
+                    $session->getFlashBag()->add('success', $translator->trans("Issue removed with success."));
+                    return $this->redirectToRoute('protocol_recommendations', array('protocol_id' => $protocol->getId()), 301);
+                }
+            }
+
+            if ( !$deploy_report ) {
+                $file = $request->files->get('deploy-report');
+                if ( empty($file) ) {
+                    $session->getFlashBag()->add('error', $translator->trans("You have to upload a deployment report."));
+                    return $output;
+                }
+
+                // getting the upload type
+                $upload_type = $upload_type_repository->findOneBy(array("slug" => "deployment-report"));
+
+                // adding the file uploaded
+                $submission_upload = new SubmissionUpload();
+                $submission_upload->setSubmission($protocol->getMainSubmission());
+                $submission_upload->setUploadType($upload_type);
+                $submission_upload->setUser($user);
+                $submission_upload->setFile($file);
+                $submission_upload->setSubmissionNumber($protocol->getMainSubmission()->getNumber());
+
+                // $attachment = \Swift_Attachment::fromPath($submission_upload->getFilepath());
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($submission_upload);
+                $em->flush();
+
+                $protocol->getMainSubmission()->addAttachment($submission_upload);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($protocol->getMainSubmission());
+                $em->flush();
+
+                // $output['deploy_report'] = true;
+
+                $session->getFlashBag()->add('success', $translator->trans("Deployment report added with success."));
+                return $this->redirectToRoute('protocol_recommendations', array('protocol_id' => $protocol->getId()), 301);
+            }
+
+            // checking required issues
+            $total_issues = count($submission->getIssue());
+            if( $total_issues < 5 or $total_issues > 7 ) {
+                $session->getFlashBag()->add('error', $translator->trans("Please submit at least 2 and at most 4 additional issues."));
+                return $output;
+            }
+            
+            if ( isset($post_data['send-info']) and $post_data['send-info'] == "yes" ) {
+                $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+                $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
+
+                $protocol_history = new ProtocolHistory();
+                $protocol_history->setProtocol($protocol);
+                $protocol_history->setMessage($translator->trans(
+                    'The recommendations of the journal were sent by the publisher.',
+                    array(
+                        '%user%' => $user->getUsername(),
+                    )
+                ));
+                $em->persist($protocol_history);
+                $em->flush();
+
+                // setting the Reviewed status
+                $protocol->setStatus("V");
+                $em->persist($protocol);
+                $em->flush();
+
+                $_locale = $request->getSession()->get('_locale');
+                $help = $help_repository->find(113);
+                $translations = $trans_repository->findTranslations($help);
+                $text = $translations[$_locale];
+                $body = $text['message'];
+                $body = str_replace("%protocol_url%", $url, $body);
+                $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
+                $body = str_replace("\r\n", "<br />", $body);
+                $body .= "<br /><br />";
+
+                $recipients = array();
+                foreach($user_repository->findAll() as $secretary) {
+                    if(in_array("secretary", $secretary->getRolesSlug())) {
+                        $recipients[] = $secretary;
+                    }
+                }
+
+                foreach($recipients as $recipient) {
+                    $message = \Swift_Message::newInstance()
+                    ->setSubject("[LILACS] " . $translator->trans("The recommendations of the journal were sent"))
+                    ->setFrom($util->getConfiguration('committee.email'))
+                    ->setTo($recipient->getEmail())
+                    ->setBody(
+                        $body
+                        ,
+                        'text/html'
+                    );
+
+                    // if(!empty($file)) {
+                    //     $message->attach($attachment);
+                    // }
+
+                    $send = $this->get('mailer')->send($message);
+                }
+
+                $session->getFlashBag()->add('success', $translator->trans("The recommendations were sent successfully!"));
+                return $this->redirectToRoute('protocol_show_protocol', array('protocol_id' => $protocol->getId()), 301);
+            }
         }
 
         return $output;
