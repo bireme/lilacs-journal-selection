@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-07-15T15:56:08Z" source-language="en" target-language="pt_BR" datatype="plaintext" original="not.available">
+  <file date="2019-07-22T11:29:09Z" source-language="en" target-language="pt_BR" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -13,10 +13,6 @@
       <trans-unit id="e71b20bf4d8984884cf27d47b414de0431713adb" resname="A partir da análise do conteúdo dos artigos dos 3 (três) últimos fascículos da revista, opine sobre os aspectos relacionados abaixo, justificando por escrito sua opinião">
         <source>A partir da análise do conteúdo dos artigos dos 3 (três) últimos fascículos da revista, opine sobre os aspectos relacionados abaixo, justificando por escrito sua opinião</source>
         <target>A partir da análise do conteúdo dos artigos dos 3 (três) últimos fascículos da revista, opine sobre os aspectos relacionados abaixo, justificando por escrito sua opinião</target>
-      </trans-unit>
-      <trans-unit id="dc9fddafc66c1d0c41a9e7bee52e2f2768b6e2b5" resname="About Project">
-        <source>About Project</source>
-        <target>Sobre o projeto</target>
       </trans-unit>
       <trans-unit id="f8305e030f96d910b8adfa5d7f1623ea1d07b001" resname="Accept Submission">
         <source>Accept Submission</source>
@@ -32,7 +28,7 @@
       </trans-unit>
       <trans-unit id="c3cd636a585b20c40ac2df5ffb403e83cb2eef51" resname="Actions">
         <source>Actions</source>
-        <target>Ações</target>
+        <target>Decisão</target>
       </trans-unit>
       <trans-unit id="c6b2b26e21b9615365e63788354660b6bdc98179" resname="Active?">
         <source>Active?</source>
@@ -40,15 +36,15 @@
       </trans-unit>
       <trans-unit id="b31107a8f658eb90764a2a77348c6e4f52767dcc" resname="Ad-hoc Reviewers">
         <source>Ad-hoc Reviewers</source>
-        <target>Ad-hoc Reviewers</target>
+        <target>Pareceristas Ad-hoc</target>
       </trans-unit>
       <trans-unit id="61cc55aa0453184734c3fa0b621eda6fa874bd83" resname="Add">
         <source>Add</source>
         <target>Adicionar</target>
       </trans-unit>
-      <trans-unit id="ecfe29ef8fcfc7c6552fb9793fd0884a7b9c0a8b" resname="Additional Information">
-        <source>Additional Information</source>
-        <target>Informações adicionais</target>
+      <trans-unit id="fbc01bc19aa64dd895e8b982c70196e6583566f3" resname="Additional Issues">
+        <source>Additional Issues</source>
+        <target>Fascículos adicionais</target>
       </trans-unit>
       <trans-unit id="4c7a7dd0d93fe5fd67a899e0015d536e030877a6" resname="Additional Title">
         <source>Additional Title</source>
@@ -60,7 +56,7 @@
       </trans-unit>
       <trans-unit id="6a72085653e4c5be8c7640c868ef787cbcf063d1" resname="All">
         <source>All</source>
-        <target>Todo</target>
+        <target>Tudo</target>
       </trans-unit>
       <trans-unit id="c8f667a27fdcf4a8cfc5c2662471139f333b46fa" resname="Amendment submitted with success!">
         <source>Amendment submitted with success!</source>
@@ -68,7 +64,7 @@
       </trans-unit>
       <trans-unit id="0e524de0b8226a149e73a5ad0308dee279154e71" resname="Analyze">
         <source>Analyze</source>
-        <target>Analisar</target>
+        <target>Análise</target>
       </trans-unit>
       <trans-unit id="63c66894665d2ead0545454d234faa3d9434613d" resname="Analyze Journal">
         <source>Analyze Journal</source>
@@ -96,15 +92,15 @@
       </trans-unit>
       <trans-unit id="e0aafffa028c1a77c7cc61a286a8bfa21a85356c" resname="Answered">
         <source>Answered</source>
-        <target>Respondeu</target>
-      </trans-unit>
-      <trans-unit id="5f84ae27071beb5e91fe8b68e7d7b406bdc88451" resname="Approval with restrictions">
-        <source>Approval with restrictions</source>
-        <target>Approval with restrictions</target>
+        <target>Respondido</target>
       </trans-unit>
       <trans-unit id="41b81eb8db1b97e812a8fc182e3a5b3ce0f3aacb" resname="Approved">
         <source>Approved</source>
         <target>Aprovado</target>
+      </trans-unit>
+      <trans-unit id="d2aa07cd9e71a8a59dd4f63e315bcd78aa3c9bf8" resname="Approved with restrictions">
+        <source>Approved with restrictions</source>
+        <target>Aprovado com restrições</target>
       </trans-unit>
       <trans-unit id="c68eeab4c3b26f5f1c18c17c95593c4ac40961af" resname="Are you sure that you want to delete this journal?">
         <source>Are you sure that you want to delete this journal?</source>
@@ -113,10 +109,6 @@
       <trans-unit id="406f7a197a465586c1af3a9c76978c12bccb59ce" resname="Are you sure that you want to end this journal evaluation?">
         <source>Are you sure that you want to end this journal evaluation?</source>
         <target>Tem certeza que deseja finalizar a avaliação deste periódico?</target>
-      </trans-unit>
-      <trans-unit id="82a015d57a9b653f5938e233e81618c31955e00e" resname="Are you sure that you want to end this protocol evaluation?">
-        <source>Are you sure that you want to end this protocol evaluation?</source>
-        <target>Tem certeza que deseja terminar esta avaliação de protocolo?</target>
       </trans-unit>
       <trans-unit id="3d0e6589cf988b9b7df265be8361e1f5ee2d4692" resname="Are you sure that you want to go to the next step without any revisions?">
         <source>Are you sure that you want to go to the next step without any revisions?</source>
@@ -129,6 +121,10 @@
       <trans-unit id="a59be3133e778816cccc5d98621f0151371ae1a3" resname="Are you sure that you want to send this journal to committee review?">
         <source>Are you sure that you want to send this journal to committee review?</source>
         <target>Tem certeza de que deseja enviar este periódico para a revisão do comitê?</target>
+      </trans-unit>
+      <trans-unit id="493cea2ce137e8f363c7cc26b9ab99abc078d2c7" resname="Are you sure that you want to send this recommendations?">
+        <source>Are you sure that you want to send this recommendations?</source>
+        <target>Tem certeza de que deseja enviar estas recomendações?</target>
       </trans-unit>
       <trans-unit id="8de6e73ba7b7e7a2c5f18e2bc38d0a44a17be1d3" resname="Are you sure you want to continue?">
         <source>Are you sure you want to continue?</source>
@@ -152,19 +148,15 @@
       </trans-unit>
       <trans-unit id="875e271607d431fe62a7af9ec0e009f087ae3cdd" resname="Attached Files">
         <source>Attached Files</source>
-        <target>Arquivos anexados</target>
+        <target>Anexo de Arquivos</target>
       </trans-unit>
       <trans-unit id="5fda23d62015b99fb2a9f86b38bcdf2bdf7609c8" resname="Author">
         <source>Author</source>
-        <target>Autor</target>
+        <target>Usuário</target>
       </trans-unit>
       <trans-unit id="be095c1c3368f4bb298ce0a05a8ef12c6ac35351" resname="Bibliographic Subtitle">
         <source>Bibliographic Subtitle</source>
         <target>Legenda bibliográfica</target>
-      </trans-unit>
-      <trans-unit id="619d65e1ae1a2704aa306451ac2a75a0cde345a8" resname="Bibliography">
-        <source>Bibliography</source>
-        <target>Bibliografia</target>
       </trans-unit>
       <trans-unit id="6e279de1dc7d0c43908e7a764d5bbcfc3a920855" resname="Bimestral">
         <source>Bimestral</source>
@@ -204,7 +196,7 @@
       </trans-unit>
       <trans-unit id="802718b260cba37555c0799ad7c73f3a3bcd15df" resname="Choose reviewers">
         <source>Choose reviewers</source>
-        <target>Escolha os revisores</target>
+        <target>Escolha os pareceristas</target>
       </trans-unit>
       <trans-unit id="4271627f4f0bef6104a95cca7bb21cda4d74503e" resname="City">
         <source>City</source>
@@ -213,10 +205,6 @@
       <trans-unit id="ed6b163354d00afa17647b94816172f80c7de3fa" resname="Clinical Trial Names">
         <source>Clinical Trial Names</source>
         <target>Nomes de ensaios clínicos</target>
-      </trans-unit>
-      <trans-unit id="6fecaa784451ebd573e8969c22edc08d1695c249" resname="Clinical study">
-        <source>Clinical study</source>
-        <target>Estudo clínico</target>
       </trans-unit>
       <trans-unit id="bbfa773e5a63a5ea58c9b6207e608ca0120e592a" resname="Close">
         <source>Close</source>
@@ -236,11 +224,11 @@
       </trans-unit>
       <trans-unit id="fce06e20e5f7f74aacccab40b59b75a56c8f7305" resname="Comments">
         <source>Comments</source>
-        <target>Comentários</target>
+        <target>Comentários:</target>
       </trans-unit>
       <trans-unit id="3be4ec83700f574e756404a2c8390360e4d2f777" resname="Comments and justifications">
         <source>Comments and justifications</source>
-        <target>Comments and justifications</target>
+        <target>Comentários e justificativas</target>
       </trans-unit>
       <trans-unit id="f43dba5677dfd5e3e6793095b56bfab6f533b68f" resname="Committee">
         <source>Committee</source>
@@ -248,7 +236,7 @@
       </trans-unit>
       <trans-unit id="a6df377813cfbd7a34fc49a03e59066687631851" resname="Committee Reviewers">
         <source>Committee Reviewers</source>
-        <target>Committee Reviewers</target>
+        <target>Membros revisores do Comitê</target>
       </trans-unit>
       <trans-unit id="5506eb6161a07356d96e91770d25d5a0f22200ef" resname="Conditions">
         <source>Conditions</source>
@@ -280,7 +268,7 @@
       </trans-unit>
       <trans-unit id="d52e960b454b197a5f1ae19eb2f19c5e7240310c" resname="Confirmation of valid access to the Proethos2 platform">
         <source>Confirmation of valid access to the Proethos2 platform</source>
-        <target>Confirmação de acesso válido à plataforma Proethos2</target>
+        <target>Confirmação de acesso válido à plataforma de Avaliação de Periódicos LILACS</target>
       </trans-unit>
       <trans-unit id="b123081290446f691fa3d57670bfe89a383e597a" resname="Confirmo que realizei a autoavaliação do periódico e ele está apto a ser submetido para avaliação">
         <source>Confirmo que realizei a autoavaliação do periódico e ele está apto a ser submetido para avaliação</source>
@@ -386,13 +374,21 @@
         <source>Delete this journal</source>
         <target>Excluir este periódico</target>
       </trans-unit>
+      <trans-unit id="73e865985ca3678f329f6f402beb4ea6caf02323" resname="Deployment Report">
+        <source>Deployment Report</source>
+        <target>Relatório de implantação de melhorias</target>
+      </trans-unit>
+      <trans-unit id="637d03369b754a9668f3b81decf05ee807ba648f" resname="Deployment report added with success.">
+        <source>Deployment report added with success.</source>
+        <target>Relatório de implantação de melhorias adicionado com sucesso.</target>
+      </trans-unit>
       <trans-unit id="55f8ebc805e65b5b71ddafdae390e3be2bcd69af" resname="Description">
         <source>Description</source>
         <target>Descrição</target>
       </trans-unit>
       <trans-unit id="bad008af3092f9dfda6df4b3cf24b6a946111960" resname="Do you approve the inclusion of the journal?">
         <source>Do you approve the inclusion of the journal?</source>
-        <target>Do you approve the inclusion of the journal?</target>
+        <target>Aprova a inclusão do periódico?</target>
       </trans-unit>
       <trans-unit id="961f36de4c326fdd7cb4cc66ab04a5bd2188e0c3" resname="Do you confirm the exclusion of this attachment?">
         <source>Do you confirm the exclusion of this attachment?</source>
@@ -460,7 +456,7 @@
       </trans-unit>
       <trans-unit id="e0c9f35acd0322871d2afd65f6c6a327d46c2c5c" resname="Editorial team">
         <source>Editorial team</source>
-        <target>Editorial team</target>
+        <target>Equipe editorial</target>
       </trans-unit>
       <trans-unit id="74c71ca9166caf59ff2469eeb4ac486afcc264ce" resname="Eletrônico">
         <source>Eletrônico</source>
@@ -577,7 +573,7 @@
       </trans-unit>
       <trans-unit id="014776fef86e430eda7cf9fc73a0619d4870f73e" resname="File submission">
         <source>File submission</source>
-        <target>Envio de arquivo</target>
+        <target>Documentação para análise</target>
       </trans-unit>
       <trans-unit id="647519f4a3c1523cb00f8ce1fa2221e927a5c4f0" resname="File uploaded with success.">
         <source>File uploaded with success.</source>
@@ -593,15 +589,15 @@
       </trans-unit>
       <trans-unit id="5199d07c39685889136fc2c3e9ec9b732f9e2e71" resname="Find journals">
         <source>Find journals</source>
-        <target>Encontrar periódicos</target>
+        <target>Pesquisar periódicos</target>
       </trans-unit>
       <trans-unit id="21d27778c9e028893e244e4785823935c6bc40ea" resname="Finished in">
         <source>Finished in</source>
-        <target>Terminou em</target>
+        <target>Finalizado em</target>
       </trans-unit>
       <trans-unit id="0b2524216fdd23203c0429eb00e528a14e18fdfc" resname="First Author">
         <source>First Author</source>
-        <target>Primeiro autor</target>
+        <target>Requisitante</target>
       </trans-unit>
       <trans-unit id="e6aa62241a28ff638a1f8e537203ff4d5f651876" resname="First step saved with success.">
         <source>First step saved with success.</source>
@@ -681,11 +677,11 @@
       </trans-unit>
       <trans-unit id="90ccd6497400b5576aeca1bd94af74aae1e0a250" resname="History">
         <source>History</source>
-        <target>História</target>
+        <target>Histórico</target>
       </trans-unit>
       <trans-unit id="9b8fcc3de1aa5e4dd61a6f1f55d3a6c8f0deb403" resname="I declare that I have no ties or self-interest in the evaluation of this journal">
         <source>I declare that I have no ties or self-interest in the evaluation of this journal</source>
-        <target>I declare that I have no ties or self-interest in the evaluation of this journal</target>
+        <target>Declaro não possuir nenhum vínculo ou interesse próprio na avaliação deste periódico.</target>
       </trans-unit>
       <trans-unit id="89f89c02cf47e091e726a4e07b88af0966806897" resname="ID">
         <source>ID</source>
@@ -705,7 +701,7 @@
       </trans-unit>
       <trans-unit id="4b6d6a30150a506f9b79caf45da5aecb76b0018e" resname="Important">
         <source>Important</source>
-        <target>Important</target>
+        <target>Importante</target>
       </trans-unit>
       <trans-unit id="1b4c4582be1081614372e2afc006f5d3a9ae3dd2" resname="Impresso">
         <source>Impresso</source>
@@ -745,7 +741,7 @@
       </trans-unit>
       <trans-unit id="e7bb8cafc4bf75aeb2719b2432f9ffc161b4bb35" resname="Institution Information">
         <source>Institution Information</source>
-        <target>Informação da Instituição</target>
+        <target>Informações da Instituição</target>
       </trans-unit>
       <trans-unit id="9233558115eef0fcfc733ff8993c4e6df7a62e86" resname="Instructions have been sent to your email.">
         <source>Instructions have been sent to your email.</source>
@@ -795,6 +791,10 @@
         <source>Journal Data</source>
         <target>Dados do Periódico</target>
       </trans-unit>
+      <trans-unit id="363312832db04a7c0d4e6f7822e4fc88885dea64" resname="Journal Recommendations">
+        <source>Journal Recommendations</source>
+        <target>Recomendações ao periódico</target>
+      </trans-unit>
       <trans-unit id="8863addf13b105c517c3a0c1424b6f199b6d5cd5" resname="Journal Title">
         <source>Journal Title</source>
         <target>Título do Periódico</target>
@@ -805,15 +805,19 @@
       </trans-unit>
       <trans-unit id="e211cccf5c3cd847d33826bc0d1fa1687007762f" resname="Journal accepted for review by secretary and members notified.">
         <source>Journal accepted for review by secretary and members notified.</source>
-        <target>Journal accepted for review by secretary and members notified.</target>
+        <target>Periódico aceito para revisão pela secretaria e membros notificados.</target>
       </trans-unit>
       <trans-unit id="f2a5b2fd94b39f107efe30b1019e941a649b757c" resname="Journal finalized by secretary under option &quot;%option%&quot;.">
         <source>Journal finalized by secretary under option "%option%".</source>
-        <target>Journal finalized by secretary under option "%option%".</target>
+        <target>Periódico finalizado pela secretaria na opção "%option%".</target>
       </trans-unit>
       <trans-unit id="78f06375da91258c41b4d90c354376f9c5d53f24" resname="Journal options">
         <source>Journal options</source>
         <target>Opções de periódicos</target>
+      </trans-unit>
+      <trans-unit id="448dc29cc2cd9bf3fe38bb129650d9a938da8f5d" resname="Journal recommendations">
+        <source>Journal recommendations</source>
+        <target>Recomendações ao periódico</target>
       </trans-unit>
       <trans-unit id="c3c7cfc65e72755d05b6955d2e51e53f79f1fc00" resname="Journal rejected with success!">
         <source>Journal rejected with success!</source>
@@ -833,7 +837,7 @@
       </trans-unit>
       <trans-unit id="2ab2d8d349b4512e0ad30e4fbb9ef5a0d4d8efd8" resname="Journal was rejected by secretary with this justification &quot;%justify%&quot;.">
         <source>Journal was rejected by secretary with this justification "%justify%".</source>
-        <target>Journal was rejected by secretary with this justification "%justify%".</target>
+        <target>O periódico foi rejeitado pela secretaria com a justificativa "%justify%".</target>
       </trans-unit>
       <trans-unit id="964abb0f1e7fb356cbb6aa4a05f60259a0961f2e" resname="Journal was removed with success!">
         <source>Journal was removed with success!</source>
@@ -865,11 +869,15 @@
       </trans-unit>
       <trans-unit id="9ff72d2d8caeff4d5f91b28e1ea93095440e539f" resname="Last journals in which you are part of the research team">
         <source>Last journals in which you are part of the research team</source>
-        <target>Últimos periódicos em que você faz parte da equipe de pesquisa.</target>
+        <target>Últimos periódicos em que você faz parte da equipe.</target>
       </trans-unit>
       <trans-unit id="daba441828e03d8ff2c587e9c3769e4101dc039e" resname="Last journals that you reviewed">
         <source>Last journals that you reviewed</source>
         <target>Últimos periódicos que você revisou</target>
+      </trans-unit>
+      <trans-unit id="82aad91e4f49d0daa694506a98952f33cfb862d6" resname="Lattes URL">
+        <source>Lattes URL</source>
+        <target>Lattes URL</target>
       </trans-unit>
       <trans-unit id="db2c64b012d82b90a8a5fac6c7b3a6bee2716058" resname="Legal disclaimer">
         <source>Legal disclaimer</source>
@@ -881,7 +889,7 @@
       </trans-unit>
       <trans-unit id="e43d612e11f1568f2373e719d4c4b08dcecdc7cc" resname="Logout">
         <source>Logout</source>
-        <target>Logout</target>
+        <target>Sair</target>
       </trans-unit>
       <trans-unit id="92379cbb8ecf696194b47b619a87e9e4f9a75db2" resname="Mail">
         <source>Mail</source>
@@ -935,13 +943,13 @@
         <source>Message</source>
         <target>Mensagem</target>
       </trans-unit>
-      <trans-unit id="1a17e74b22217ce990f863fde649bfb6a9341bb8" resname="Message from plataform.">
-        <source>Message from plataform.</source>
-        <target>Mensagem da plataforma</target>
+      <trans-unit id="310b705c57fbfccfbc8cf981383c93893993559f" resname="Message from plataform">
+        <source>Message from plataform</source>
+        <target>Nova mensagem da plataforma de Avaliação de Periódicos LILACS</target>
       </trans-unit>
       <trans-unit id="d378cd32935cd41425f00181812285372e78a72b" resname="Message sent to administrators.">
         <source>Message sent to administrators.</source>
-        <target>Mensagem enviada para os administradores </target>
+        <target>Mensagem enviada aos administradores </target>
       </trans-unit>
       <trans-unit id="e4698d4ceacbe68b86631da8ede65f011550b971" resname="Mission">
         <source>Mission</source>
@@ -961,15 +969,15 @@
       </trans-unit>
       <trans-unit id="fbc9683841ee0376807065dc3bafd7c08047286d" resname="Monitoring action was accepted by secretary as notification only.">
         <source>Monitoring action was accepted by secretary as notification only.</source>
-        <target>Monitoring action was accepted by secretary as notification only.</target>
+        <target>A ação de monitoramento foi aceita pela secretaria apenas como notificação.</target>
       </trans-unit>
       <trans-unit id="069bd5496b414115efd7dfeafdf25491c9a6868b" resname="Monitoring action was rejected by secretary with this justification &quot;%justify%&quot;.">
         <source>Monitoring action was rejected by secretary with this justification "%justify%".</source>
-        <target>Monitoring action was rejected by secretary with this justification "%justify%".</target>
+        <target>A ação de monitoramento foi rejeitada pela secretaria com a justificativa "%justify%".</target>
       </trans-unit>
       <trans-unit id="a0509b7780628bd9d9abc7eb8a2163477341053a" resname="NO">
         <source>NO</source>
-        <target>NO</target>
+        <target>Não</target>
       </trans-unit>
       <trans-unit id="709a23220f2c3d64d1e1d6d18c4d5280f8d82fca" resname="Name">
         <source>Name</source>
@@ -989,7 +997,7 @@
       </trans-unit>
       <trans-unit id="638cc9053d072da80069d7cb061a302418787cb0" resname="Name in Spanish">
         <source>Name in Spanish</source>
-        <target>Nome em espanhol </target>
+        <target>Nome em Espanhol </target>
       </trans-unit>
       <trans-unit id="fb373941a47807ada47e699f5a809b28bf546761" resname="New Attachment">
         <source>New Attachment</source>
@@ -1073,11 +1081,11 @@
       </trans-unit>
       <trans-unit id="505235c949c23571ad04e474dce1649c0dd150e7" resname="New submission">
         <source>New submission</source>
-        <target>Nova apresentação </target>
+        <target>Nova submissão</target>
       </trans-unit>
-      <trans-unit id="2bc04be017f3b93c433108b00d2e4393852e3f8b" resname="New user on Proethos2 platform">
-        <source>New user on Proethos2 platform</source>
-        <target>Novo usuário na plataforma ProEthos2</target>
+      <trans-unit id="c38fc36130fbd7351ebcb6fe2946e04a4142bfaa" resname="New user on LILACS Journal Evaluation platform">
+        <source>New user on LILACS Journal Evaluation platform</source>
+        <target>Novo usuário na plataforma de Avaliação de Periódicos LILACS</target>
       </trans-unit>
       <trans-unit id="907961cea29c6ad5f0736a8170a68e6b48ebab82" resname="Next meetings">
         <source>Next meetings</source>
@@ -1149,7 +1157,7 @@
       </trans-unit>
       <trans-unit id="f7810b2678d7209da9c197bb86e870f2b638b7f1" resname="Not relevant">
         <source>Not relevant</source>
-        <target>Not relevant</target>
+        <target>Irrelevante</target>
       </trans-unit>
       <trans-unit id="b7baa1d40c4ea29afc9098732bffee2a861a6c44" resname="Number">
         <source>Number</source>
@@ -1201,11 +1209,11 @@
       </trans-unit>
       <trans-unit id="f7ebd211f9cf5580c55b5741fde5197ac87c7dac" resname="Peer Arbitration">
         <source>Peer Arbitration</source>
-        <target>Peer Arbitration</target>
+        <target>Arbitragem por pares</target>
       </trans-unit>
       <trans-unit id="31ac8dd59637d281f4bf2d364b065fa96257ee82" resname="Peer Review">
         <source>Peer Review</source>
-        <target>Peer Review</target>
+        <target>Formulário de "Peer Review"</target>
       </trans-unit>
       <trans-unit id="0d10f6f04ac3e1b1ad66fcfeba5268b6703bb727" resname="Peer Review and &lt;a href=&quot;https://bit.ly/2K6drNz&quot;&gt;Submission Data&lt;/a&gt;">
         <source><![CDATA[Peer Review and <a href="https://bit.ly/2K6drNz">Submission Data</a>]]></source>
@@ -1225,11 +1233,11 @@
       </trans-unit>
       <trans-unit id="6181c97eae367fe64804198c1deedb43195e631e" resname="Please highlight the journal negative aspects">
         <source>Please highlight the journal negative aspects</source>
-        <target>Please highlight the journal negative aspects</target>
+        <target>Destaque os aspectos desfavoráveis do periódico</target>
       </trans-unit>
       <trans-unit id="3344b9e2dd22adf7788b4fb038bc7926afe81ef1" resname="Please highlight the journal positive aspects">
         <source>Please highlight the journal positive aspects</source>
-        <target>Please highlight the journal positive aspects</target>
+        <target>Destaque os aspectos favoráveis do periódico</target>
       </trans-unit>
       <trans-unit id="d8f655659ca4a548a3c7f45d9cb7fb04d6ecbb14" resname="Please submit 1 peer review and 1 submission data attachments.">
         <source>Please submit 1 peer review and 1 submission data attachments.</source>
@@ -1242,6 +1250,10 @@
       <trans-unit id="03b3af4f4f7efadbc60717fd3e61321576b6f633" resname="Please submit all required files.">
         <source>Please submit all required files.</source>
         <target>Por favor, envie todos os arquivos solicitados.</target>
+      </trans-unit>
+      <trans-unit id="4d8615580a10b8b55ba4b10235d046ef3716dfe6" resname="Please submit at least 2 and at most 4 additional issues.">
+        <source>Please submit at least 2 and at most 4 additional issues.</source>
+        <target>Please submit at least 2 and at most 4 additional issues.</target>
       </trans-unit>
       <trans-unit id="1ecdeace1db1b5808b094d1eb9e243a69367f5ed" resname="Portal próprio">
         <source>Portal próprio</source>
@@ -1265,7 +1277,7 @@
       </trans-unit>
       <trans-unit id="886cbff9d9df761ec642945e519631a23ed173a2" resname="Priority">
         <source>Priority</source>
-        <target>Priority</target>
+        <target>Prioridade</target>
       </trans-unit>
       <trans-unit id="d1c3f33e6d81e5377d770db5cabd2b4a8b5263bc" resname="Problems generating PDF. Please contact the administrator.">
         <source>Problems generating PDF. Please contact the administrator.</source>
@@ -1309,19 +1321,19 @@
       </trans-unit>
       <trans-unit id="ed70dee782d9f1c068f2184534a7ee5afbeabdbc" resname="Publication Types">
         <source>Publication Types</source>
-        <target>Publication Types</target>
+        <target>Tipos de trabalhos publicados</target>
       </trans-unit>
       <trans-unit id="fa1a1c0e831b22c1ce9095585b11d6c80ecdfe5e" resname="Publisher City">
         <source>Publisher City</source>
-        <target>Cidade da Editora</target>
+        <target>Cidade da Editora Comercial</target>
       </trans-unit>
       <trans-unit id="167b7fbf513e108d455de31b4b29c3c4c44bb349" resname="Publisher Contact Name">
         <source>Publisher Contact Name</source>
-        <target>Nome do contato na Editora</target>
+        <target>Nome do contato na Editora Comercial</target>
       </trans-unit>
       <trans-unit id="ee1b0153950d3306e5190c3dbfe047be25a94b4a" resname="Publisher Email">
         <source>Publisher Email</source>
-        <target>E-mail de contato da Editora</target>
+        <target>E-mail de contato da Editora Comercial</target>
       </trans-unit>
       <trans-unit id="15b29d9e5e91dd8cb46c41e998107ab121b6aea1" resname="Publisher Information">
         <source>Publisher Information</source>
@@ -1329,11 +1341,11 @@
       </trans-unit>
       <trans-unit id="34d73fdf8f04dc9e138c561dc5b25e95ae68914c" resname="Publisher Name">
         <source>Publisher Name</source>
-        <target>Nome da Editora</target>
+        <target>Nome da Editora Comercial</target>
       </trans-unit>
       <trans-unit id="04d487497049ecab953b4fa0ca421a3c50d4beb9" resname="Publisher State">
         <source>Publisher State</source>
-        <target>Estado da Editora</target>
+        <target>Estado da Editora Nome da Editora Comercial</target>
       </trans-unit>
       <trans-unit id="920c7f26898f5fec30a4b92efd648e5f921b9115" resname="Quadrimestral">
         <source>Quadrimestral</source>
@@ -1401,7 +1413,7 @@
       </trans-unit>
       <trans-unit id="9baed847cf0e77a99ed6e6f2f1cba6ab85af1d37" resname="Reject submission">
         <source>Reject submission</source>
-        <target>Reject submission</target>
+        <target>Rejeitar a submissão</target>
       </trans-unit>
       <trans-unit id="27eeb7a291bfc566447d9cd928e98caf90f70ee6" resname="Rejected">
         <source>Rejected</source>
@@ -1409,7 +1421,7 @@
       </trans-unit>
       <trans-unit id="4364b3fb9d571a0a6dd4f48532a145fb608cc0b3" resname="Relative importance">
         <source>Relative importance</source>
-        <target>Relative importance</target>
+        <target>Importância relativa</target>
       </trans-unit>
       <trans-unit id="e963907dac5cd5c017869b4c96c18021c9bd058b" resname="Remove">
         <source>Remove</source>
@@ -1421,7 +1433,7 @@
       </trans-unit>
       <trans-unit id="3c1ddfbb0fbe0bb1c5d40287f88e2d07b0ad0c98" resname="Requestor Contact Emails">
         <source>Requestor Contact Emails</source>
-        <target>Emails de contato do requisitante</target>
+        <target>E-mails de contato do requisitante</target>
       </trans-unit>
       <trans-unit id="933bc50be1e309f6de3aac77c5ead37510e2f105" resname="Requestor Name">
         <source>Requestor Name</source>
@@ -1441,7 +1453,7 @@
       </trans-unit>
       <trans-unit id="a5c6c50c2aa87d3ca138c44ec18716e67238d29e" resname="Return reason">
         <source>Return reason</source>
-        <target>Razão para retornar</target>
+        <target>Justificativa para rejeição</target>
       </trans-unit>
       <trans-unit id="c2b90e0cf183a4d16219a17b8e74e556cc4b12c1" resname="Reviewer's evaluation">
         <source>Reviewer's evaluation</source>
@@ -1483,6 +1495,10 @@
         <source>Save and next</source>
         <target>Salvar e avançar </target>
       </trans-unit>
+      <trans-unit id="f847a9230f34f895712d701db1209078874b37d1" resname="Save and send recommendations">
+        <source>Save and send recommendations</source>
+        <target>Salvar e enviar as recomendações</target>
+      </trans-unit>
       <trans-unit id="538417dd35d60b4f1597be368fed485f6fb14c9d" resname="Save and send to meeting">
         <source>Save and send to meeting</source>
         <target>Salvar e enviar para reunião </target>
@@ -1494,6 +1510,10 @@
       <trans-unit id="7dc93dfdfd8466365adcc58b37f66a5a654e8f27" resname="Save decision and finalize process">
         <source>Save decision and finalize process</source>
         <target>Salvar decisão e finalizar o processo </target>
+      </trans-unit>
+      <trans-unit id="d54bdd02147e9b46dd92565240f9d555f0aaae79" resname="Save report">
+        <source>Save report</source>
+        <target>Save report</target>
       </trans-unit>
       <trans-unit id="1cd1bdad468f24f0cafe2226bfdd78b917ba7912" resname="Scheduled">
         <source>Scheduled</source>
@@ -1553,7 +1573,7 @@
       </trans-unit>
       <trans-unit id="e83c8ea5e65429ae92948d5761d702c0ab4f52c9" resname="Select Members of Committee">
         <source>Select Members of Committee</source>
-        <target>Select Members of Committee</target>
+        <target>Selecione membros do comitê </target>
       </trans-unit>
       <trans-unit id="21995b67ba3b5423b41a9a2ad6ab3501814bfef9" resname="Select an action">
         <source>Select an action</source>
@@ -1583,6 +1603,10 @@
         <source>Send Message</source>
         <target>Enviar mensagem </target>
       </trans-unit>
+      <trans-unit id="dacd464caf2b878ecec20c7608e0e18c1aaccc99" resname="Send deployment report">
+        <source>Send deployment report</source>
+        <target>Send deployment report</target>
+      </trans-unit>
       <trans-unit id="f7f7607b333b374d1116f2a2dd4cd970e3c6ef56" resname="Send draft opinion">
         <source>Send draft opinion</source>
         <target>Enviar projeto de opinião</target>
@@ -1595,6 +1619,10 @@
         <source>Send me instructions</source>
         <target>Envie-me instruções </target>
       </trans-unit>
+      <trans-unit id="d0341fee23e83ec3c8b4c063d6bd8866ef86f7c7" resname="Send recommendations">
+        <source>Send recommendations</source>
+        <target>Enviar recomendações</target>
+      </trans-unit>
       <trans-unit id="8e788620ceae177369046eb1a1475b37d5d2b176" resname="Send to review">
         <source>Send to review</source>
         <target>Enviar para revisão</target>
@@ -1605,7 +1633,7 @@
       </trans-unit>
       <trans-unit id="4f9f9c131024bbda7e9be202a9e7c43f4d05fbe4" resname="Set your password">
         <source>Set your password</source>
-        <target>Defina sua senha</target>
+        <target>Cadastro como avaliador de mérito científico de periódicos para LILACS</target>
       </trans-unit>
       <trans-unit id="8005b07c6149ace5dc44c76cd8bb890c7646b39d" resname="Short Title">
         <source>Short Title</source>
@@ -1613,7 +1641,7 @@
       </trans-unit>
       <trans-unit id="341760cf17e98fb92555ca6425578799ac54b2c2" resname="Show Journal">
         <source>Show Journal</source>
-        <target>Mostrar Periódico</target>
+        <target>Informações do Periódico</target>
       </trans-unit>
       <trans-unit id="6535ca3f517be900ed9cdd02c37ea1508ba8ce18" resname="Social Networks Information">
         <source>Social Networks Information</source>
@@ -1706,6 +1734,18 @@
       <trans-unit id="7ff9079eaa6cbb585ad439df16b609759698866d" resname="The journal review was finalized!">
         <source>The journal review was finalized!</source>
         <target>A revisão da revista foi finalizada!</target>
+      </trans-unit>
+      <trans-unit id="3d3c8aad7b0901ab13552909b60ec2f910128a45" resname="The recommendations of the journal were sent">
+        <source>The recommendations of the journal were sent</source>
+        <target>The recommendations of the journal were sent</target>
+      </trans-unit>
+      <trans-unit id="55d6ff64534872ee16ab5e97844be5d8e430fa95" resname="The recommendations of the journal were sent by the publisher.">
+        <source>The recommendations of the journal were sent by the publisher.</source>
+        <target>The recommendations of the journal were sent by the publisher.</target>
+      </trans-unit>
+      <trans-unit id="c804215c3802d769f0803ae59574938ef3668548" resname="The recommendations were sent successfully!">
+        <source>The recommendations were sent successfully!</source>
+        <target>As recomendações foram enviadas com sucesso!</target>
       </trans-unit>
       <trans-unit id="bc6fd408b391f887f50cbc85c84fb8bbecbeb939" resname="Thematic Area">
         <source>Thematic Area</source>
@@ -1845,7 +1885,7 @@
       </trans-unit>
       <trans-unit id="41aca16f905ad31d0eec695b710915a4892e116f" resname="Upload files">
         <source>Upload files</source>
-        <target>Upload files</target>
+        <target>Anexar arquivos</target>
       </trans-unit>
       <trans-unit id="dfbff40e0380406fc9e4129026791082174263ee" resname="User created with success.">
         <source>User created with success.</source>
@@ -1853,7 +1893,7 @@
       </trans-unit>
       <trans-unit id="47d11cb1df700c1d0155843dfc261b18d3b134f7" resname="User created with success. Wait for approval.">
         <source>User created with success. Wait for approval.</source>
-        <target>Usuário criado com sucesso. Esperar pela aprovação </target>
+        <target>Usuário criado com sucesso. Esperar pela aprovação.</target>
       </trans-unit>
       <trans-unit id="e0e4ebff5200c40e7359f66bd05c69cba4554014" resname="User deleted with success.">
         <source>User deleted with success.</source>
@@ -1891,6 +1931,10 @@
         <source>Waiting for Committee</source>
         <target>À espera do comitê </target>
       </trans-unit>
+      <trans-unit id="7c87c9fe40e0478bf5a1ee7f6ef8ddacb78529c8" resname="Waiting for final evaluation">
+        <source>Waiting for final evaluation</source>
+        <target>Waiting for final evaluation</target>
+      </trans-unit>
       <trans-unit id="c0dbc9647009c412d8233097b849a2ab76fc58c3" resname="Waiting for initial evaluation">
         <source>Waiting for initial evaluation</source>
         <target>À espera da avaliação inicial </target>
@@ -1903,17 +1947,17 @@
         <source>Website Information</source>
         <target>Informações do Website</target>
       </trans-unit>
-      <trans-unit id="477bc7417793d2bd9001b1ab4e8087d6c09fc5d4" resname="Welcome to the Proethos2 platform!">
-        <source>Welcome to the Proethos2 platform!</source>
-        <target>Bem-vindo à plataforma ProEthos2</target>
+      <trans-unit id="9cac87a99a88740272b4df96493c0eabec1a4b69" resname="Welcome to the LILACS Journal Evaluation platform">
+        <source>Welcome to the LILACS Journal Evaluation platform</source>
+        <target>Bem-vindo à plataforma de Avaliação de Periódicos LILACS</target>
       </trans-unit>
       <trans-unit id="8fff039853f5c2bbb8a28d056b579c7dcb7d137f" resname="YES">
         <source>YES</source>
-        <target>YES</target>
+        <target>Sim</target>
       </trans-unit>
       <trans-unit id="74d804f335ebb75b7b64fd28be6eaaae30c2506f" resname="YES (with restrictions)">
         <source>YES (with restrictions)</source>
-        <target>YES (with restrictions)</target>
+        <target>Sim (com restrições)</target>
       </trans-unit>
       <trans-unit id="879e32326c5217968ac8e3a14e4a8a5214957264" resname="Year">
         <source>Year</source>
@@ -1944,6 +1988,10 @@
         <source>You have to upload a decision.</source>
         <target>Você precisa fazer o upload de uma decisão </target>
       </trans-unit>
+      <trans-unit id="244f744784ea7b7836cc84c96f1e375e6827e170" resname="You have to upload a deployment report.">
+        <source>You have to upload a deployment report.</source>
+        <target>You have to upload a deployment report.</target>
+      </trans-unit>
       <trans-unit id="e57b628a510d0beed2c6165ddbb945f4e32724ee" resname="You haven't submitted any protocols yet.">
         <source>You haven't submitted any protocols yet.</source>
         <target>Você ainda não submeteu qualquer protocolos </target>
@@ -1954,7 +2002,7 @@
       </trans-unit>
       <trans-unit id="15e790e67d81f347f827d527855512b7c8ad7a64" resname="You were assigned to review a journal">
         <source>You were assigned to review a journal</source>
-        <target>Você foi designado para revisar um periódico</target>
+        <target>Convite para avaliação de mérito científico de periódico para base de dados LILACS</target>
       </trans-unit>
       <trans-unit id="a49979fa27f9e29220ecbc04856bfd678d204f70" resname="Your Journals">
         <source>Your Journals</source>
@@ -1972,9 +2020,9 @@
         <source>Your journal was rejected</source>
         <target>Seu periódico foi rejeitado</target>
       </trans-unit>
-      <trans-unit id="07e36faad9cb3428f94d9d79b1cf9894061da0c4" resname="Your journal was sent to review!">
-        <source>Your journal was sent to review!</source>
-        <target>Seu periódico foi enviado para revisão!</target>
+      <trans-unit id="010147e11bb489855093dea867719449b3131293" resname="Your journal was sent to review">
+        <source>Your journal was sent to review</source>
+        <target>Your journal was sent to review</target>
       </trans-unit>
       <trans-unit id="4e4f1f773e44862fdd658df7a0b1144b182e220f" resname="Your journal was sent to review.">
         <source>Your journal was sent to review.</source>
