@@ -52,6 +52,15 @@ class Specialty extends Base
     private $slug;
 
     /**
+     * @var ThematicArea
+     *
+     * @ORM\ManyToOne(targetEntity="ThematicArea")
+     * @ORM\JoinColumn(name="thematic_area_id", referencedColumnName="id", onDelete="SET NULL")
+     * @Assert\NotBlank
+     */
+    private $thematicArea;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $status = true;
@@ -155,5 +164,29 @@ class Specialty extends Base
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set thematicArea
+     *
+     * @param \Proethos2\ModelBundle\Entity\ThematicArea $thematicArea
+     *
+     * @return Specialty
+     */
+    public function setThematicArea(\Proethos2\ModelBundle\Entity\ThematicArea $thematicArea = null)
+    {
+        $this->thematicArea = $thematicArea;
+
+        return $this;
+    }
+
+    /**
+     * Get thematicArea
+     *
+     * @return \Proethos2\ModelBundle\Entity\ThematicArea
+     */
+    public function getThematicArea()
+    {
+        return $this->thematicArea;
     }
 }

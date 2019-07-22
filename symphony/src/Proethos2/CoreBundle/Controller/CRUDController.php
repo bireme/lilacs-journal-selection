@@ -244,7 +244,7 @@ class CRUDController extends Controller
         $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
 
         // serach  and status parameter
-        $status_array = array('S', 'R', 'I', 'E', 'H', "F", "A", "N", "C", "X");
+        $status_array = array('S', 'R', 'I', 'E', 'H', "F", "A", "N", "C", "X", "V");
         $search_query = $request->query->get('q');
         $status_query = $request->query->get('status');
 
@@ -327,7 +327,7 @@ class CRUDController extends Controller
         $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
 
         // serach  and status parameter
-        $status_array = array('D', 'S', 'R', 'I', 'E', 'H', 'F', 'A', 'N', 'C', 'X');
+        $status_array = array('D', 'S', 'R', 'I', 'E', 'H', 'F', 'A', 'N', 'C', 'X', 'V');
         $search_query = $request->query->get('q');
         $status_query = $request->query->get('status');
 
@@ -922,7 +922,7 @@ class CRUDController extends Controller
             $body .= "<br /><br />";
 
             $message = \Swift_Message::newInstance()
-            ->setSubject("[proethos2] " . $translator->trans("Set your password"))
+            ->setSubject("[LILACS] " . $translator->trans("Set your password"))
             ->setFrom($util->getConfiguration('committee.email'))
             ->setTo($post_data['email'])
             ->setBody(
@@ -1076,7 +1076,7 @@ class CRUDController extends Controller
                 $body .= "<br /><br />";
 
                 $message = \Swift_Message::newInstance()
-                ->setSubject("[proethos2] " . $translator->trans("Confirmation of valid access to the Proethos2 platform"))
+                ->setSubject("[LILACS] " . $translator->trans("Confirmation of valid access to the Proethos2 platform"))
                 ->setFrom($util->getConfiguration('committee.email'))
                 ->setTo($user->getEmail())
                 ->setBody(
@@ -1281,7 +1281,7 @@ class CRUDController extends Controller
             $body .= "<br /><br />";
 
             $message = \Swift_Message::newInstance()
-            ->setSubject("[proethos2] " . $translator->trans("Message from plataform"))
+            ->setSubject("[LILACS] " . $translator->trans("Message from plataform"))
             ->setFrom($output['committee_email'])
             ->setTo($output['committee_email'])
             ->setBody(
@@ -2389,6 +2389,11 @@ class CRUDController extends Controller
         $translator = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
 
+        // getting thematic area list
+        $thematic_area_repository = $em->getRepository('Proethos2ModelBundle:ThematicArea');
+        $thematic_area = $thematic_area_repository->findByStatus(true);
+        $output['thematic_area'] = $thematic_area;
+
         $item_repository = $em->getRepository('Proethos2ModelBundle:Specialty');
         $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
 
@@ -2403,7 +2408,6 @@ class CRUDController extends Controller
 
             // checking required files
             foreach(array('name') as $field) {
-
                 if(!isset($post_data[$field]) or empty($post_data[$field])) {
                     $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
                     return $output;
@@ -2414,6 +2418,10 @@ class CRUDController extends Controller
             $item->setTranslatableLocale('en');
 
             $item->setName($post_data['name']);
+
+            // thematic area
+            $selected_thematic_area = $thematic_area_repository->find($post_data['thematic_area']);
+            $item->setThematicArea($selected_thematic_area);
 
             foreach(array('pt_BR', 'es_ES', 'fr_FR') as $locale) {
                 if(!empty($post_data["name-$locale"])) {
@@ -2442,6 +2450,11 @@ class CRUDController extends Controller
         $session = $request->getSession();
         $translator = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
+
+        // getting thematic area list
+        $thematic_area_repository = $em->getRepository('Proethos2ModelBundle:ThematicArea');
+        $thematic_area = $thematic_area_repository->findByStatus(true);
+        $output['thematic_area'] = $thematic_area;
 
         $item_repository = $em->getRepository('Proethos2ModelBundle:Specialty');
         $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
@@ -2473,6 +2486,10 @@ class CRUDController extends Controller
             $item->setTranslatableLocale('en');
 
             $item->setName($post_data['name']);
+
+            // thematic area
+            $selected_thematic_area = $thematic_area_repository->find($post_data['thematic_area']);
+            $item->setThematicArea($selected_thematic_area);
 
             foreach(array('pt_BR', 'es_ES', 'fr_FR') as $locale) {
                 if(!empty($post_data["name-$locale"])) {

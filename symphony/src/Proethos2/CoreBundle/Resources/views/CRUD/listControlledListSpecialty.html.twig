@@ -21,7 +21,8 @@
                         
                         <thead>
                             <tr>
-                                <th width="80%">{% trans %}Name{% endtrans %}</th>
+                                <th width="40%">{% trans %}Name{% endtrans %}</th>
+                                <th width="40%">{% trans %}Thematic Area{% endtrans %}</th>
                                 <th width="">{% trans %}Status{% endtrans %}</th>
                                 <th>{% trans %}Actions{% endtrans %}</th>
                             </tr>
@@ -31,6 +32,7 @@
                             {% for item in items %}
                                 <tr>
                                     <td>{{ item.name }}</td>
+                                    <td>{{ item.thematicArea.name }}</td>
                                     <td>
                                         {% if item.status %}
                                             <span class='label label-success'>{% trans %}active{% endtrans %}</span>
@@ -60,7 +62,6 @@
                         <h4 class="modal-title" id="myModalLabel">{% trans %}New Specialty{% endtrans %}</h4>
                     </div>
                     <div class="modal-body">
-                        
                         <div class='row'>
                             <div class='col-md-12'>
                                 <div class="form-group">
@@ -97,6 +98,19 @@
                             </div>
                         </div>
 
+                        <div class='row'>
+                            <div class='col-md-12'> 
+                                <div class="form-group">
+                                    <label for="select-thematic-area">{% trans %}Thematic Area{% endtrans %}:</label>
+                                    <select class='form-control selectpicker' id='select-thematic-area' name='thematic_area' data-size="5" required>
+                                        <option value="">-</option>
+                                        {% for t_area in thematic_area %}
+                                            <option value="{{ t_area.id }}" {% if item.thematicArea.id == t_area.id %}selected{% endif %}>{{ t_area.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>

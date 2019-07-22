@@ -44,6 +44,20 @@
         <div class='row'>
             <div class='col-md-12'> 
                 <div class="form-group">
+                    <label for="select-thematic_area">{% trans %}Thematic Area{% endtrans %}:</label>
+                    <select class='form-control' id='select-thematic_area' name='thematic_area' data-size="5" required>
+                        <option value="">-</option>
+                        {% for t_area in thematic_area %}
+                            <option value="{{ t_area.id }}" {% if item.thematicArea.id == t_area.id %}selected{% endif %}>{{ t_area.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col-md-12'> 
+                <div class="form-group">
                     <div class="checkbox">
                         <label for="input-status">
                             <input type="checkbox" id='input-status' name='status' value="true" {% if item.status %}checked{% endif %}> {% trans %}Active?{% endtrans %}
@@ -59,3 +73,11 @@
         <button type="submit" class="btn btn-primary">{% trans %}Save{% endtrans %}</button>
     </div>
 </form>
+
+{% block script %}
+    <script>
+        $(function(){
+            $("#select-thematic_area").selectpicker();
+        });
+    </script>
+{% endblock %}
