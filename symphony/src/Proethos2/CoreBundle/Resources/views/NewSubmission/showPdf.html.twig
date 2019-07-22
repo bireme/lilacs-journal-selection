@@ -2,10 +2,10 @@
     <head>
         <meta charset="UTF-8">
         <style>
-            h1 {
+            h1, h2 {
                 text-align: center;
             }
-            h2, h3 {
+            h3 {
                 border-top: 2px solid #000;
                 margin: 30px 0 10px 0;
             }
@@ -30,7 +30,10 @@
         </style>
     </head>
     <body>
-        <h1>{{ submission.title }}</h1>
+        <h2>{{ season }} {% trans %}Evaluation and Selection Committee Meeting LILACS Brazil{% endtrans %} {{ year }}</h2>
+
+        <h3>{% trans %}Title{% endtrans %}</h3>
+        <p>{{ submission.title }}</p>
 
         <h3>{% trans %}Short Title{% endtrans %}</h3>
         <p>{{ submission.shortTitle }}</p>
@@ -184,7 +187,7 @@
                     <td>{{ issue.volume }}</td>
                     <td>{{ issue.number }}</td>
                     <td>{{ issue.year }}</td>
-                    <td>{{ issue.fulltext }}</td>
+                    <td><a href="{{ issue.fulltext }}">{{ issue.fulltext }}</a></td>
                 </tr>
             {% endfor %}
         </table>

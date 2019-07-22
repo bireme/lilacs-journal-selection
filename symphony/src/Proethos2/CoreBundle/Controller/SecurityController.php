@@ -50,8 +50,7 @@ class SecurityController extends Controller
 
         return array(
                 'last_username' => $lastUsername,
-                'error'         => $error,
-                
+                'error' => $error,
                 'committee_name' => $committee_name,
                 'committee_description' => $committee_description,
                 'committee_logourl' => $committee_logourl,

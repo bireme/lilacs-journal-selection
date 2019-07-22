@@ -1496,6 +1496,20 @@ class NewSubmissionController extends Controller
             throw $this->createNotFoundException($translator->trans('No submission found'));
         }
 
+        $datetime = new \DateTime();
+        $year = $datetime->format('Y');
+        $output['year'] = $year;
+
+        // $ends = array('th','st','nd','rd','th','th','th','th','th','th');
+        // if (($number %100) >= 11 && ($number%100) <= 13)
+        //    $abbreviation = $number. 'th';
+        // else
+        //    $abbreviation = $number. $ends[$number % 10];
+
+        $season = $year - 1999;
+        $season .= 'ª';
+        $output['season'] = $season;
+
         $html = $this->renderView(
             'Proethos2CoreBundle:NewSubmission:showPdf.html.twig',
             $output
