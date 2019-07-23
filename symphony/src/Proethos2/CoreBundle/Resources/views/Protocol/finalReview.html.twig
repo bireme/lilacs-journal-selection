@@ -1,0 +1,98 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{% trans %}Journal options{% endtrans %}{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid main-content see-submission">
+
+        <div class="row">
+            <div class='col-md-12'>
+                <h1 class="page-header">{% trans %}Final Review{% endtrans %}</h1>
+            </div>
+        </div>
+
+        {% include 'Proethos2CoreBundle:Protocol:meta.html.twig' %}
+
+        <!-- action -->
+        <form method="POST" id='form-action' enctype="multipart/form-data" action="">
+
+            <div class='block'>
+                <div class='row'>
+                    <div class="col-md-12">
+                        <h2 class='sub-header'>{% trans %}Draft Opinion{% endtrans %}:</h2>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="file-draft-opinion">{% trans %}Send draft opinion{% endtrans %}:</label>
+                            <a href="{{ path("crud_admin_help_show", {help_id: 103} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <input type='file' class='form-control' id='file-draft-opinion' name="draft-opinion" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class='block'>
+                <div class='row'>
+                    <div class="col-md-12">
+                        <h2 class='sub-header'>Final decision:</h2>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="select-final-decision">Final decision:</label>
+                            <a href="{{ path("crud_admin_help_show", {help_id: 104} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <select class="form-control select2" id="select-final-decision" name="final-decision" required>
+                                <option value="">-</option>
+                                {% for key, option in finish_options %}
+                                    <option value="{{ key }}">{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='submission-button-controls col-md-12'>
+                    <button type="button" class='btn btn-primary' data-toggle='modal' data-target='#modalConfirm'>{% trans %}Save decision and finalize process{% endtrans %}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal confirm -->
+    <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{% trans %}Confirm?{% endtrans %}</h4>
+                </div>
+                <div class="modal-body">
+                    <p>{% trans %}Are you sure that you want to end this journal evaluation?{% endtrans %}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                    <button type="button" class="btn btn-success" id='button-submit'>{% trans %}Confirm{% endtrans %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(function(){
+            $("#button-submit").on('click', function(){
+                $("#form-action").submit();
+            });
+        });
+    </script>
+{% endblock %}

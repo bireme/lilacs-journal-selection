@@ -1230,6 +1230,158 @@ class ProtocolController extends Controller
     }
 
     /**
+     * @Route("/protocol/{protocol_id}/final-review", name="protocol_final_review")
+     * @Template()
+     */
+    public function finalReviewAction($protocol_id)
+    {
+
+        $output = array();
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $translator = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
+        $upload_type_repository = $em->getRepository('Proethos2ModelBundle:UploadType');
+
+        $finish_options = array(
+            "A" => $translator->trans("Approved"),
+            'N' => $translator->trans('Not approved'),
+        );
+        $output['finish_options'] = $finish_options;
+
+        $util = new Util($this->container, $this->getDoctrine());
+
+        // getting the current submission
+        $protocol = $protocol_repository->find($protocol_id);
+        $submission = $protocol->getMainSubmission();
+        $output['protocol'] = $protocol;
+
+        $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
+        $help_repository = $em->getRepository('Proethos2ModelBundle:Help');
+        // $help = $help_repository->findBy(array("id" => {id}, "type" => "mail"));
+        // $translations = $trans_repository->findTranslations($help[0]);
+
+        if (!$protocol or !in_array($protocol->getStatus(), array("V"))) {
+            throw $this->createNotFoundException($translator->trans('No journal found'));
+        }
+
+        // checking if was a post request
+        if($this->getRequest()->isMethod('POST')) {
+
+            // getting post data
+            $post_data = $request->request->all();
+
+            // checking required files
+            $required_fields = array('final-decision');
+            foreach($required_fields as $field) {
+                if(!isset($post_data[$field]) or empty($post_data[$field])) {
+                    $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
+                    return $output;
+                }
+            }
+
+            $file = $request->files->get('draft-opinion');
+            if(empty($file)) {
+                $session->getFlashBag()->add('error', $translator->trans("You have to upload a decision."));
+                return $output;
+            }
+
+            // setting the Scheduled status
+            $protocol->setStatus($post_data['final-decision']);
+            $protocol->setMonitoringAction(NULL);
+
+            // getting the upload type
+            $upload_type = $upload_type_repository->findOneBy(array("slug" => "opinion"));
+
+            // adding the file uploaded
+            $submission_upload = new SubmissionUpload();
+            $submission_upload->setSubmission($protocol->getMainSubmission());
+            $submission_upload->setUploadType($upload_type);
+            $submission_upload->setUser($user);
+            $submission_upload->setFile($file);
+            $submission_upload->setSubmissionNumber($protocol->getMainSubmission()->getNumber());
+
+            $attachment = \Swift_Attachment::fromPath($submission_upload->getFilepath());
+
+            if(!empty($post_data['monitoring-period'])) {
+                $monitoring_action_next_date = new \DateTime();
+                $monitoring_action_next_date->modify('+'. $post_data['monitoring-period'] .' months');
+                $protocol->setMonitoringActionNextDate($monitoring_action_next_date);
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($submission_upload);
+            $em->flush();
+
+            $protocol_history = new ProtocolHistory();
+            $protocol_history->setProtocol($protocol);
+            $protocol_history->setMessage($translator->trans(
+                'Journal finalized by secretary under option "%option%".',
+                array(
+                    '%user%' => $user->getUsername(),
+                    '%option%' => $finish_options[$post_data['final-decision']],
+                )
+            ));
+            $em->persist($protocol_history);
+            $em->flush();
+
+            $protocol->getMainSubmission()->addAttachment($submission_upload);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($protocol->getMainSubmission());
+            $em->flush();
+
+            $protocol->setDecisionIn(new \DateTime());
+            $em->persist($protocol);
+            $em->flush();
+
+            $investigators = array();
+            $investigators[] = $protocol->getMainSubmission()->getOwner();
+            foreach($protocol->getMainSubmission()->getTeam() as $investigator) {
+                $investigators[] = $investigator;
+            }
+            foreach($investigators as $investigator) {
+                $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+                $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
+
+                $_locale = $request->getSession()->get('_locale');
+                $help = $help_repository->find(120);
+                $translations = $trans_repository->findTranslations($help);
+                $text = $translations[$_locale];
+                $body = $text['message'];
+                $body = str_replace("%protocol_url%", $url, $body);
+                $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
+                $body = str_replace("\r\n", "<br />", $body);
+                $body .= "<br /><br />";
+
+                $message = \Swift_Message::newInstance()
+                ->setSubject("[LILACS] " . $translator->trans("The journal review was finalized!"))
+                ->setFrom($util->getConfiguration('committee.email'))
+                ->setTo($investigator->getEmail())
+                ->setBody(
+                    $body
+                    ,
+                    'text/html'
+                );
+
+                if(!empty($file)) {
+                    $message->attach($attachment);
+                }
+
+                $send = $this->get('mailer')->send($message);
+            }
+
+            $session->getFlashBag()->add('success', $translator->trans("Journal was finalized with success!"));
+            return $this->redirectToRoute('protocol_show_protocol', array('protocol_id' => $protocol->getId()), 301);
+        }
+
+        return $output;
+    }
+
+    /**
      * @Route("/protocol/{protocol_id}/recommendations", name="protocol_recommendations")
      * @Template()
      */
