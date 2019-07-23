@@ -1,0 +1,101 @@
+<div class='block'>
+    <div class='row'>
+        <div class="col-md-12">
+            <h2 class='sub-header toggle-block'>
+                <small class='pull-right'>
+                    <i class='glyphicon glyphicon-minus'></i>
+                </small>
+                
+                {% trans %}Ad-hoc Reviewers{% endtrans %}:
+            </h2>
+        </div>
+    </div>
+    <div class='row'>
+        <div class="col-md-12">
+            <table class='table table-hover table-condensed'>
+                <thead>
+                    <tr>
+                        <th width="30%">{% trans %}Name{% endtrans %}</th>
+                        <th>{% trans %}Institution{% endtrans %}</th>
+                        <th>{% trans %}E-mail{% endtrans %}</th>
+                        <th>{% trans %}Country{% endtrans %}</th>
+                        <th>{% trans %}Recruitment Date{% endtrans %}</th>
+                        <th>{% trans %}Status{% endtrans %}</th>
+                        <th>{% trans %}Actions{% endtrans %}</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for revision in protocol.adhocRevision if revision.answered %}
+                        <tr>
+                            <td>{{ revision.member.name }}</td>
+                            <td>{{ revision.member.institution }}</td>
+                            <td><a href='{{ revision.member.email }}'>{{ revision.member.email }}</a></td>
+                            <td>{{ revision.member.country }}</td>
+                            <td>{{ revision.created|date("d/m/Y") }}</td>
+                            <td>
+                                {% if revision.answered and not revision.isFinalRevision %}<span class='label label-primary'>{% trans %}Answered{% endtrans %}</span>{% endif %}
+                                {% if revision.isFinalRevision %}<span class='label label-success'>{% trans %}Final Revision{% endtrans %}</span>{% endif %}
+                            </td>
+                            <td>
+                                <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=adhoc' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-eye-open'></i></a>
+                                <a href='{{ path("protocol_initial_committee_review_send_alert", {protocol_id: protocol.id, protocol_revision_member_id: revision.member.id }) }}' class='btn btn-default btn-xs send-alert'><i class='glyphicon glyphicon-send'></i></a>
+                            </td
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class='block'>
+    <div class='row'>
+        <div class="col-md-12">
+            <h2 class='sub-header toggle-block'>
+                <small class='pull-right'>
+                    <i class='glyphicon glyphicon-minus'></i>
+                </small>
+                
+                {% trans %}Committee Reviewers{% endtrans %}:
+            </h2>
+        </div>
+    </div>
+    <div class='row'>
+        <div class="col-md-12">
+            <table class='table table-hover table-condensed'>
+                <thead>
+                    <tr>
+                        <th width="30%">{% trans %}Name{% endtrans %}</th>
+                        <th>{% trans %}Institution{% endtrans %}</th>
+                        <th>{% trans %}E-mail{% endtrans %}</th>
+                        <th>{% trans %}Country{% endtrans %}</th>
+                        <th>{% trans %}Recruitment Date{% endtrans %}</th>
+                        <th>{% trans %}Status{% endtrans %}</th>
+                        <th>{% trans %}Actions{% endtrans %}</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for revision in protocol.committeeRevision if revision.answered %}
+                        <tr>
+                            <td>{{ revision.member.name }}</td>
+                            <td>{{ revision.member.institution }}</td>
+                            <td><a href='{{ revision.member.email }}'>{{ revision.member.email }}</a></td>
+                            <td>{{ revision.member.country }}</td>
+                            <td>{{ revision.created|date("d/m/Y") }}</td>
+                            <td>
+                                {% if revision.answered and not revision.isFinalRevision %}<span class='label label-primary'>{% trans %}Answered{% endtrans %}</span>{% endif %}
+                                {% if revision.isFinalRevision %}<span class='label label-success'>{% trans %}Final Revision{% endtrans %}</span>{% endif %}
+                            </td>
+                            <td>
+                                <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=adhoc' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-eye-open'></i></a>
+                                <a href='{{ path("protocol_initial_committee_review_send_alert", {protocol_id: protocol.id, protocol_revision_member_id: revision.member.id }) }}' class='btn btn-default btn-xs send-alert'><i class='glyphicon glyphicon-send'></i></a>
+                            </td
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

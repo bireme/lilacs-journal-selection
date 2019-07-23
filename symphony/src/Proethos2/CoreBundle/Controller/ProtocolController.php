@@ -1697,6 +1697,12 @@ class ProtocolController extends Controller
             $session->getFlashBag()->add('error', $translator->trans("Error sending alert message"));
         }
 
-        return $this->redirectToRoute('protocol_initial_committee_review', array('protocol_id' => $protocol->getId()), 301);
+        if ( $protocol->getStatus() == "H" ) {
+            $route = "protocol_end_review";
+        } else {
+            $route = "protocol_initial_committee_review";
+        }
+
+        return $this->redirectToRoute($route, array('protocol_id' => $protocol->getId()), 301);
     }
 }
