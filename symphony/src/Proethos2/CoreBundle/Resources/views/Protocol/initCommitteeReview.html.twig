@@ -516,14 +516,14 @@
                 e.preventDefault();
                 
                 var href = $(this).attr('href');
-                $('#hidden-send-alert').attr('href', href);
+                $('#hidden-send-alert').val(href);
                 $('#modal-confirm-send-alert').modal('show');
 
                 return false;
             });
 
             $('#button-confirm-send-alert').on('keypress click', function(e){
-                var href = $('#hidden-send-alert').attr('href');
+                var href = $('#hidden-send-alert').val();
                 window.location = href;
             });
 
