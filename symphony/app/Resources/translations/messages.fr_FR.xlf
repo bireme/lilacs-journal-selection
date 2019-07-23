@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-07-22T11:29:12Z" source-language="en" target-language="fr_FR" datatype="plaintext" original="not.available">
+  <file date="2019-07-23T16:49:50Z" source-language="en" target-language="fr_FR" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -53,6 +53,10 @@
       <trans-unit id="d70f93df5e8f9b55be44fbeee9d203972e3383d4" resname="Address">
         <source>Address</source>
         <target>Address</target>
+      </trans-unit>
+      <trans-unit id="b3fad347196c586b30cbbdf662535c5c914f8da3" resname="Alert message were sent successfully!">
+        <source>Alert message were sent successfully!</source>
+        <target>Alert message were sent successfully!</target>
       </trans-unit>
       <trans-unit id="6a72085653e4c5be8c7640c868ef787cbcf063d1" resname="All">
         <source>All</source>
@@ -117,6 +121,10 @@
       <trans-unit id="129d86112d0f124b04a96f1e06036d1b66e8e4b2" resname="Are you sure that you want to remove this member?">
         <source>Are you sure that you want to remove this member?</source>
         <target>Are you sure that you want to remove this member?</target>
+      </trans-unit>
+      <trans-unit id="2ccda468e91cb28bc6ed9b3627823249831c53c8" resname="Are you sure that you want to send an alert message to this reviewer?">
+        <source>Are you sure that you want to send an alert message to this reviewer?</source>
+        <target>Are you sure that you want to send an alert message to this reviewer?</target>
       </trans-unit>
       <trans-unit id="a59be3133e778816cccc5d98621f0151371ae1a3" resname="Are you sure that you want to send this journal to committee review?">
         <source>Are you sure that you want to send this journal to committee review?</source>
@@ -490,6 +498,10 @@
         <source>Enter registered email</source>
         <target>Enter registered email</target>
       </trans-unit>
+      <trans-unit id="9336ea87719382904827cf4f65c075786f99225a" resname="Error sending alert message">
+        <source>Error sending alert message</source>
+        <target>Error sending alert message</target>
+      </trans-unit>
       <trans-unit id="d8c18689efdfb9595d168de85f61d7be86c5b8c4" resname="Estou de acordo com a disponibilização e carga dos links/arquivos para o texto completo dos artigos, caso o periódico seja aprovado">
         <source>Estou de acordo com a disponibilização e carga dos links/arquivos para o texto completo dos artigos, caso o periódico seja aprovado</source>
         <target>Estou de acordo com a disponibilização e carga dos links/arquivos para o texto completo dos artigos, caso o periódico seja aprovado</target>
@@ -497,6 +509,10 @@
       <trans-unit id="e2cf5cb161b25b5599f85fae60e7a9708409c89a" resname="Evaluation Process Information">
         <source>Evaluation Process Information</source>
         <target>Evaluation Process Information</target>
+      </trans-unit>
+      <trans-unit id="71a76189425d3cc5055df031e83b262976f0a6ea" resname="Evaluation and Selection Committee Meeting LILACS Brazil">
+        <source>Evaluation and Selection Committee Meeting LILACS Brazil</source>
+        <target>Evaluation and Selection Committee Meeting LILACS Brazil</target>
       </trans-unit>
       <trans-unit id="67690c75c03cd0e07da2b8ad46be269eb2c39a62" resname="Exclude user">
         <source>Exclude user</source>
@@ -582,9 +598,17 @@
         <source>File uploaded with sucess.</source>
         <target>File uploaded with sucess.</target>
       </trans-unit>
+      <trans-unit id="fb8716d1fbf61b4feef10bdf5d96011afcd5d5e4" resname="Final Review">
+        <source>Final Review</source>
+        <target>Final Review</target>
+      </trans-unit>
       <trans-unit id="a9660077b2bf17b83d5eb8b6dcc2a608c2102572" resname="Final Revision">
         <source>Final Revision</source>
         <target>Final Revision</target>
+      </trans-unit>
+      <trans-unit id="09d35529e7c8ec97f1086d49eeb9421ed81c8604" resname="Final journal review">
+        <source>Final journal review</source>
+        <target>Final journal review</target>
       </trans-unit>
       <trans-unit id="5199d07c39685889136fc2c3e9ec9b732f9e2e71" resname="Find journals">
         <source>Find journals</source>
@@ -1453,6 +1477,10 @@
       <trans-unit id="a5c6c50c2aa87d3ca138c44ec18716e67238d29e" resname="Return reason">
         <source>Return reason</source>
         <target>Return reason</target>
+      </trans-unit>
+      <trans-unit id="4c1ff2a74e8bb25035a54848037407368b94b275" resname="Review Remind">
+        <source>Review Remind</source>
+        <target>Review Remind</target>
       </trans-unit>
       <trans-unit id="c2b90e0cf183a4d16219a17b8e74e556cc4b12c1" resname="Reviewer's evaluation">
         <source>Reviewer's evaluation</source>
