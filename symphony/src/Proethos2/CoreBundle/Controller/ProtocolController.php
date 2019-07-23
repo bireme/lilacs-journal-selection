@@ -1348,7 +1348,7 @@ class ProtocolController extends Controller
                 $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                 $_locale = $request->getSession()->get('_locale');
-                $help = $help_repository->find(120);
+                $help = $help_repository->find(112);
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
@@ -1822,7 +1822,7 @@ class ProtocolController extends Controller
         $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
         $_locale = $request->getSession()->get('_locale');
-        $help = $help_repository->find(121);
+        $help = $help_repository->find(120);
         $translations = $trans_repository->findTranslations($help);
         $text = $translations[$_locale];
         $body = $text['message'];

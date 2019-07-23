@@ -118,7 +118,7 @@
                                     </td>
                                     <td>
                                         <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=adhoc' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-eye-open'></i></a>
-                                        <a href='{{ path("protocol_initial_committee_review_send_alert", {protocol_id: protocol.id, protocol_revision_member_id: revision.member.id }) }}' class='btn btn-default btn-xs send-alert'><i class='glyphicon glyphicon-send'></i></a>
+                                        {% if not revision.answered %}<a href='{{ path("protocol_initial_committee_review_send_alert", {protocol_id: protocol.id, protocol_revision_member_id: revision.member.id }) }}' class='btn btn-default btn-xs send-alert'><i class='glyphicon glyphicon-send'></i></a>{% endif %}
                                         <a href='#' class='btn btn-default btn-xs' data-toggle="modal" data-target="#modal-remove-revisor" id='remove-adhoc-revisor-{{ revision.id }}'><i class='glyphicon glyphicon-trash'></i></a>
                                     </td
                                 </tr>
@@ -373,7 +373,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
-                    <button type="button" class="btn btn-danger" id="button-confirm-send-alert">{% trans %}go on{% endtrans %}</button>
+                    <button type="button" class="btn btn-success" id="button-confirm-send-alert">{% trans %}go on{% endtrans %}</button>
                 </div>
             </div>
         </div>
