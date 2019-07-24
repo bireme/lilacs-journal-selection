@@ -31,6 +31,7 @@ generate_initial:
 generate_translations:
 	
 	# generating the files
+	$(php) app/console translation:extract en --dir=src --dir=app/Resources/views --output-dir=./app/Resources/translations
 	$(php) app/console translation:extract pt_BR --dir=src --dir=app/Resources/views --output-dir=./app/Resources/translations
 	$(php) app/console translation:extract es_ES --dir=src --dir=app/Resources/views --output-dir=./app/Resources/translations
 	$(php) app/console translation:extract fr_FR --dir=src --dir=app/Resources/views --output-dir=./app/Resources/translations
