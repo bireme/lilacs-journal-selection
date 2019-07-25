@@ -264,9 +264,8 @@ class CRUDController extends Controller
         } else {
             $query = $protocol_repository->createQueryBuilder('p')
                 ->join('p.main_submission', 's')
-                ->leftJoin('p.committee_revision', 'cr')
-                ->leftJoin('p.adhoc_revision', 'ar')
-                ->where("s.title LIKE :query AND p.status = 'E' AND ar.member = :owner AND ar.is_final_revision = 0")
+                ->leftJoin('p.adhoc_revision', 'r')
+                ->where("s.title LIKE :query AND p.status = 'E' AND r.member = :owner AND r.is_final_revision = 0")
                 ->orderBy("p.created", 'DESC')
                 ->setParameter('query', "%". $search_query ."%")
                 ->setParameter('owner', $user);
