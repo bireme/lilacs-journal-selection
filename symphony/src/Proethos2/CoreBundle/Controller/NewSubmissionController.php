@@ -977,6 +977,7 @@ class NewSubmissionController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
+
         $util = new Util($this->container, $this->getDoctrine());
 
         $submission_repository = $em->getRepository('Proethos2ModelBundle:Submission');
@@ -1407,7 +1408,8 @@ class NewSubmissionController extends Controller
                         $translations = $trans_repository->findTranslations($help);
                         $text = $translations[$_locale];
                         $body = $text['message'];
-                        $body = str_replace("%protocol_url%", $url, $body);
+                        $body = str_replace("%username%", $user->getName(), $body);
+                        $body = str_replace("%journal_url%", $url, $body);
                         $body = str_replace("\r\n", "<br />", $body);
                         $body .= "<br /><br />";
 

@@ -232,7 +232,7 @@ class ProtocolController extends Controller
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
-                $body = str_replace("%protocol_url%", $url, $body);
+                $body = str_replace("%journal_url%", $url, $body);
                 $body = str_replace("\r\n", "<br />", $body);
                 $body .= "<br /><br />";
 
@@ -242,6 +242,7 @@ class ProtocolController extends Controller
                 }
 
                 foreach($recipients as $recipient) {
+                    $body = str_replace("%username%", $recipient()->getName(), $body);
                     $message = \Swift_Message::newInstance()
                     ->setSubject("[LILACS] " . $translator->trans("Your journal was rejected"))
                     ->setFrom($util->getConfiguration('committee.email'))
@@ -364,8 +365,9 @@ class ProtocolController extends Controller
                         $translations = $trans_repository->findTranslations($help);
                         $text = $translations[$_locale];
                         $body = $text['message'];
-                        $body = str_replace("%protocol_url%", $url, $body);
-                        $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
+                        $body = str_replace("%username%", $investigator->getName(), $body);
+                        $body = str_replace("%journal_url%", $url, $body);
+                        $body = str_replace("%journal_code%", $protocol->getCode(), $body);
                         $body = str_replace("\r\n", "<br />", $body);
                         $body .= "<br /><br />";
 
@@ -447,6 +449,7 @@ class ProtocolController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
+
         $util = new Util($this->container, $this->getDoctrine());
 
         $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
@@ -585,8 +588,8 @@ class ProtocolController extends Controller
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
-                $body = str_replace("%protocol_url%", $url, $body);
-                $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
+                $body = str_replace("%journal_url%", $url, $body);
+                $body = str_replace("%journal_code%", $protocol->getCode(), $body);
                 $body = str_replace("%committee_screening%", $post_data['committee-screening'], $body);
                 $body = str_replace("\r\n", "<br />", $body);
                 $body .= "<br /><br />";
@@ -596,8 +599,8 @@ class ProtocolController extends Controller
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
-                $body = str_replace("%protocol_url%", $url, $body);
-                $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
+                $body = str_replace("%journal_url%", $url, $body);
+                $body = str_replace("%journal_code%", $protocol->getCode(), $body);
                 $body = str_replace("\r\n", "<br />", $body);
                 $body .= "<br /><br />";
             }
@@ -608,6 +611,7 @@ class ProtocolController extends Controller
                 $investigators[] = $investigator;
             }
             foreach($investigators as $investigator) {
+                $body = str_replace("%username%", $investigator->getName(), $body);
                 $message = \Swift_Message::newInstance()
                 ->setSubject("[LILACS] " . $translator->trans("Your journal was sent to review"))
                 ->setFrom($util->getConfiguration('committee.email'))
@@ -795,8 +799,9 @@ class ProtocolController extends Controller
                             $translations = $trans_repository->findTranslations($help);
                             $text = $translations[$_locale];
                             $body = $text['message'];
-                            $body = str_replace("%protocol_url%", $url, $body);
-                            $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
+                            $body = str_replace("%username%", $member->getName(), $body);
+                            $body = str_replace("%journal_url%", $url, $body);
+                            $body = str_replace("%journal_code%", $protocol->getCode(), $body);
                             $body = str_replace("\r\n", "<br />", $body);
                             $body .= "<br /><br />";
 
@@ -1200,8 +1205,9 @@ class ProtocolController extends Controller
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
-                $body = str_replace("%protocol_url%", $url, $body);
-                $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
+                $body = str_replace("%username%", $investigator->getName(), $body);
+                $body = str_replace("%journal_url%", $url, $body);
+                $body = str_replace("%journal_code%", $protocol->getCode(), $body);
                 $body = str_replace("\r\n", "<br />", $body);
                 $body .= "<br /><br />";
 
@@ -1352,8 +1358,9 @@ class ProtocolController extends Controller
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
-                $body = str_replace("%protocol_url%", $url, $body);
-                $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
+                $body = str_replace("%username%", $investigator->getName(), $body);
+                $body = str_replace("%journal_url%", $url, $body);
+                $body = str_replace("%journal_code%", $protocol->getCode(), $body);
                 $body = str_replace("\r\n", "<br />", $body);
                 $body .= "<br /><br />";
 
@@ -1533,8 +1540,8 @@ class ProtocolController extends Controller
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
-                $body = str_replace("%protocol_url%", $url, $body);
-                $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
+                $body = str_replace("%journal_url%", $url, $body);
+                $body = str_replace("%journal_code%", $protocol->getCode(), $body);
                 $body = str_replace("\r\n", "<br />", $body);
                 $body .= "<br /><br />";
 
@@ -1546,6 +1553,7 @@ class ProtocolController extends Controller
                 }
 
                 foreach($recipients as $recipient) {
+                    $body = str_replace("%username%", $recipient->getName(), $body);
                     $message = \Swift_Message::newInstance()
                     ->setSubject("[LILACS] " . $translator->trans("The recommendations of the journal were sent"))
                     ->setFrom($util->getConfiguration('committee.email'))
@@ -1826,8 +1834,9 @@ class ProtocolController extends Controller
         $translations = $trans_repository->findTranslations($help);
         $text = $translations[$_locale];
         $body = $text['message'];
-        $body = str_replace("%protocol_url%", $url, $body);
-        $body = str_replace("%protocol_code%", $protocol->getCode(), $body);
+        $body = str_replace("%username%", $member->getName(), $body);
+        $body = str_replace("%journal_url%", $url, $body);
+        $body = str_replace("%journal_code%", $protocol->getCode(), $body);
         $body = str_replace("\r\n", "<br />", $body);
         $body .= "<br /><br />";
 
