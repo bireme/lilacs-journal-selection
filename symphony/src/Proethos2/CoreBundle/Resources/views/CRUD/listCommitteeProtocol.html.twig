@@ -27,22 +27,24 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="select-filter-status">{% trans %}Status{% endtrans %}:</label>
-                            <a href="{{ path("crud_admin_help_show", {help_id: 53} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <select class='form-control selectpicker submit-on-change' id="select-filter-status" name="status" data-live-search="true">
-                                <option value="" {% if app.request.get('status') == "" %}selected{% endif %}>{% trans %}All{% endtrans %}</option>
-                                <option value="S" {% if app.request.get('status') == "S" %}selected{% endif %}>{% trans %}Submitted{% endtrans %}</option>
-                                <option value="R" {% if app.request.get('status') == "R" %}selected{% endif %}>{% trans %}Rejected{% endtrans %}</option>
-                                <option value="I" {% if app.request.get('status') == "I" %}selected{% endif %}>{% trans %}Waiting for initial evaluation{% endtrans %}</option>
-                                <option value="E" {% if app.request.get('status') == "E" %}selected{% endif %}>{% trans %}Waiting for Committee{% endtrans %}</option>
-                                <option value="H" {% if app.request.get('status') == "H" %}selected{% endif %}>{% trans %}Scheduled{% endtrans %}</option>
-                                <option value="C" {% if app.request.get('status') == "C" %}selected{% endif %}>{% trans %}Approved with restrictions{% endtrans %}</option>
-                                <option value="V" {% if app.request.get('status') == "V" %}selected{% endif %}>{% trans %}Waiting for final evaluation{% endtrans %}</option>
-                            </select>
+                    {% if 'secretary' in app.user.rolesSlug or 'member-of-committee' in app.user.rolesSlug %}
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="select-filter-status">{% trans %}Status{% endtrans %}:</label>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 53} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <select class='form-control selectpicker submit-on-change' id="select-filter-status" name="status" data-live-search="true">
+                                    <option value="" {% if app.request.get('status') == "" %}selected{% endif %}>{% trans %}All{% endtrans %}</option>
+                                    <option value="S" {% if app.request.get('status') == "S" %}selected{% endif %}>{% trans %}Submitted{% endtrans %}</option>
+                                    <option value="R" {% if app.request.get('status') == "R" %}selected{% endif %}>{% trans %}Rejected{% endtrans %}</option>
+                                    <option value="I" {% if app.request.get('status') == "I" %}selected{% endif %}>{% trans %}Waiting for initial evaluation{% endtrans %}</option>
+                                    <option value="E" {% if app.request.get('status') == "E" %}selected{% endif %}>{% trans %}Waiting for Committee{% endtrans %}</option>
+                                    <option value="H" {% if app.request.get('status') == "H" %}selected{% endif %}>{% trans %}Scheduled{% endtrans %}</option>
+                                    <option value="C" {% if app.request.get('status') == "C" %}selected{% endif %}>{% trans %}Approved with restrictions{% endtrans %}</option>
+                                    <option value="V" {% if app.request.get('status') == "V" %}selected{% endif %}>{% trans %}Waiting for final evaluation{% endtrans %}</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
 
                     <div class="col-md-1 search-button">
                         <div class="form-group">
@@ -70,7 +72,7 @@
                                 <th width="50%">{% trans %}Title{% endtrans %}</th>
                                 <th>{% trans %}Type{% endtrans %}</th>
                                 <th>{% trans %}Last Update{% endtrans %}</th>
-                                <th>{% trans %}Status{% endtrans %}</th>
+                                {% if 'secretary' in app.user.rolesSlug or 'member-of-committee' in app.user.rolesSlug %}<th>{% trans %}Status{% endtrans %}</th>{% endif %}
                                 <th>{% trans %}Actions{% endtrans %}</th>
                             </tr>
                         </thead>
@@ -80,9 +82,9 @@
                                 <tr>
                                     <th>{% if protocol.code %}{{ protocol.code }}{% else %}-{% endif %}</th>
                                     <td>{{ protocol.mainSubmission.title }}</td>
-                                    <td><span class='label label-primary'>{% trans %}Research{% endtrans %}</span></td>
+                                    <td><span class='label label-primary'>{% trans %}Journal{% endtrans %}</span></td>
                                     <td>{{ protocol.updatedIn|date("d/m/Y") }}</td>
-                                    <td>{{ protocol.statusLabel|trans }}</td>
+                                    {% if 'secretary' in app.user.rolesSlug or 'member-of-committee' in app.user.rolesSlug %}<td>{{ protocol.statusLabel|trans }}</td>{% endif %}
                                     <td>
                                         <a href='{{ path("protocol_show_protocol", {protocol_id: protocol.id}) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}See journal{% endtrans %}"><i class='glyphicon glyphicon-eye-open'></i></a>
                                         {% if protocol.status == "S" and 'secretary' in app.user.getRolesSlug %}<a href='{{ path("protocol_analyze_protocol", {protocol_id: protocol.id}) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}Analyze journal{% endtrans %}"><i class='glyphicon glyphicon-pencil'></i></a>{% endif %}

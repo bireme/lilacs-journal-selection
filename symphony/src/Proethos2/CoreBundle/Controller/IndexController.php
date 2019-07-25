@@ -41,21 +41,33 @@ class IndexController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
-        $protocol_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolRevision');
+        $committee_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolCommitteeRevision');
+        $adhoc_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolAdhocRevision');
         $meeting_repository = $em->getRepository('Proethos2ModelBundle:Meeting');
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        $revisions = array();
-        foreach($protocol_revision_repository->findBy(array("member" => $user)) as $revision) {
+        $committee_revisions = array();
+        foreach($committee_revision_repository->findBy(array("member" => $user)) as $revision) {
             if($revision->getProtocol()->getStatus() == 'E') {
-                $revisions[] = $revision->getProtocol();
+                $committee_revisions[] = $revision->getProtocol();
             }
         }
         foreach($protocol_repository->findBy(array("status" => "I")) as $protocol) {
-            $revisions[] = $protocol;
+            $committee_revisions[] = $protocol;
         }
-        $output['revisions'] = $revisions;
+        $output['committee_revisions'] = $committee_revisions;
+
+        $adhoc_revisions = array();
+        foreach($adhoc_revision_repository->findBy(array("member" => $user)) as $revision) {
+            if($revision->getProtocol()->getStatus() == 'E') {
+                $adhoc_revisions[] = $revision->getProtocol();
+            }
+        }
+        foreach($protocol_repository->findBy(array("status" => "I")) as $protocol) {
+            $adhoc_revisions[] = $protocol;
+        }
+        $output['adhoc_revisions'] = $adhoc_revisions;
         
         $submissions = array();
         foreach($protocol_repository->findBy(array("owner" => $user), array('id' => 'DESC')) as $submission) {

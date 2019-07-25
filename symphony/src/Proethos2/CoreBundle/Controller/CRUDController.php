@@ -241,6 +241,8 @@ class CRUDController extends Controller
         $translator = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
 
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
         $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
 
         // serach  and status parameter
@@ -251,11 +253,24 @@ class CRUDController extends Controller
         if(!empty($status_query))
             $status_array = array($status_query);
 
-        $query = $protocol_repository->createQueryBuilder('p')->join('p.main_submission', 's')
-           ->where("s.title LIKE :query AND p.status IN (:status)")
-           ->orderBy("p.created", 'DESC')
-           ->setParameter('query', "%". $search_query ."%")
-           ->setParameter('status', $status_array);
+        $intersect = array_intersect($user->getRolesSlug(), array('member-of-committee', 'secretary'));
+
+        if ( count($intersect) > 0 ) {
+            $query = $protocol_repository->createQueryBuilder('p')->join('p.main_submission', 's')
+               ->where("s.title LIKE :query AND p.status IN (:status)")
+               ->orderBy("p.created", 'DESC')
+               ->setParameter('query', "%". $search_query ."%")
+               ->setParameter('status', $status_array);
+        } else {
+            $query = $protocol_repository->createQueryBuilder('p')
+                ->join('p.main_submission', 's')
+                ->leftJoin('p.committee_revision', 'cr')
+                ->leftJoin('p.adhoc_revision', 'ar')
+                ->where("s.title LIKE :query AND p.status = 'E' AND ar.member = :owner AND ar.is_final_revision = 0")
+                ->orderBy("p.created", 'DESC')
+                ->setParameter('query', "%". $search_query ."%")
+                ->setParameter('owner', $user);
+        }
 
         $protocols = $query->getQuery()->getResult();
         $output['protocols'] = $protocols;

@@ -23,7 +23,7 @@
                     <li class=""><a href="{{ path("crud_investigator_protocol_list") }}">{% trans %}Journals{% endtrans %}</a></li>
                 {% endif %}
 
-                {% if is_granted("ROLE_USER") and ('secretary' in app.user.rolesSlug or 'member-of-committee' in app.user.rolesSlug or 'member-ad-hoc' in app.user.rolesSlug)  %}
+                {% if is_granted("ROLE_USER") and 'secretary' in app.user.rolesSlug %}
                     <li class="dropdown">
 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -32,15 +32,15 @@
 
                         <ul class="dropdown-menu">
                             <li><a href="{{ path('crud_committee_protocol_list') }}">{% trans %}Journals{% endtrans %}</a></li>
-                            {% if 'secretary' in app.user.rolesSlug %}
-                                <li role="separator" class="divider"></li>
-                                <li><a href="{{ path('crud_committee_faq_list') }}">{% trans %}FAQ{% endtrans %}</a></li>
-                                <li><a href="{{ path('crud_committee_user_list') }}">{% trans %}Users{% endtrans %}</a></li>
-                                <li><a href="{{ path('crud_committee_meeting_list') }}">{% trans %}Meetings{% endtrans %}</a></li>
-                                <li><a href="{{ path('crud_committee_document_list') }}">{% trans %}Documents{% endtrans %}</a></li>
-                            {% endif %}
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ path('crud_committee_faq_list') }}">{% trans %}FAQ{% endtrans %}</a></li>
+                            <li><a href="{{ path('crud_committee_user_list') }}">{% trans %}Users{% endtrans %}</a></li>
+                            <li><a href="{{ path('crud_committee_meeting_list') }}">{% trans %}Meetings{% endtrans %}</a></li>
+                            <li><a href="{{ path('crud_committee_document_list') }}">{% trans %}Documents{% endtrans %}</a></li>
                         </ul>
                     </li>
+                {% elseif is_granted("ROLE_USER") and ('member-of-committee' in app.user.rolesSlug or 'member-ad-hoc' in app.user.rolesSlug) %}
+                    <li class=""><a href="{{ path("crud_committee_protocol_list") }}">{% trans %}Journals{% endtrans %}</a></li>
                 {% endif %}
 
                 <li class=""><a href="{% if is_granted("ROLE_USER") %}{{ path('crud_admin_faq_list') }}{% else %}{{ path('crud_public_faq_list') }}{% endif %}">{% trans %}FAQ{% endtrans %}</a></li>

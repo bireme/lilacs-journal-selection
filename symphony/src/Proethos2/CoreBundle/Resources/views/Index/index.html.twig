@@ -72,7 +72,7 @@
 
                 <div class='row'>
                     <div class="col-md-12">
-                        {% if revisions %}
+                        {% if committee_revisions or adhoc_revisions %}
                             <table class='table table-hover '>
                                 <thead>
                                     <tr>
@@ -88,19 +88,35 @@
                                 </thead>
 
                                 <tbody>
-                                    {% for revision in revisions %}
-                                        <tr>
-                                            <th>{% if revision.code %}{{ revision.code }}{% else %}-{% endif %}</th>
-                                            <td>{{ revision.mainSubmission.title }}</td>
-                                            <td><span class='label label-primary'>{% trans %}Journal{% endtrans %}</span></td>
-                                            <td>{{ revision.updatedIn|date("d/m/Y") }}</td>
-                                            <td>{{ revision.statusLabel }}</td>
-                                            <td>
-                                                <a href='{{ path("protocol_show_protocol", {protocol_id: revision.id}) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}See journal{% endtrans %}"><i class='glyphicon glyphicon-eye-open'></i></a>
-                                                <a href='{{ path("protocol_initial_committee_review_revisor", {protocol_id: revision.id}) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}Send journal revision{% endtrans %}"><i class='glyphicon glyphicon-list-alt'></i></a>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
+                                    {% if 'member-of-committee' in app.user.rolesSlug %}
+                                        {% for revision in committee_revisions %}
+                                            <tr>
+                                                <th>{% if revision.code %}{{ revision.code }}{% else %}-{% endif %}</th>
+                                                <td>{{ revision.mainSubmission.title }}</td>
+                                                <td><span class='label label-primary'>{% trans %}Journal{% endtrans %}</span></td>
+                                                <td>{{ revision.updatedIn|date("d/m/Y") }}</td>
+                                                <td>{{ revision.statusLabel }}</td>
+                                                <td>
+                                                    <a href='{{ path("protocol_show_protocol", {protocol_id: revision.id}) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}See journal{% endtrans %}"><i class='glyphicon glyphicon-eye-open'></i></a>
+                                                    <a href='{{ path("protocol_initial_committee_review_revisor", {protocol_id: revision.id}) }}?member=committee' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}Send journal revision{% endtrans %}"><i class='glyphicon glyphicon-list-alt'></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for revision in adhoc_revisions %}
+                                            <tr>
+                                                <th>{% if revision.code %}{{ revision.code }}{% else %}-{% endif %}</th>
+                                                <td>{{ revision.mainSubmission.title }}</td>
+                                                <td><span class='label label-primary'>{% trans %}Journal{% endtrans %}</span></td>
+                                                <td>{{ revision.updatedIn|date("d/m/Y") }}</td>
+                                                <td>{{ revision.statusLabel }}</td>
+                                                <td>
+                                                    <a href='{{ path("protocol_show_protocol", {protocol_id: revision.id}) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}See journal{% endtrans %}"><i class='glyphicon glyphicon-eye-open'></i></a>
+                                                    <a href='#' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}Send journal revision{% endtrans %}" disabled><i class='glyphicon glyphicon-list-alt'></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
                                 </tbody>
                             </table>
                         {% endif %}
