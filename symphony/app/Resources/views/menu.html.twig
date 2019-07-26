@@ -103,6 +103,8 @@
                             <i class='glyphicon glyphicon-user'></i> <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
+                            <li class="dropdown-header profile-menu">{% trans %}Hello{% endtrans %}, <span>{{ app.user.username }}</span></li>
+                            <li role="separator" class="divider"></li>
                             <li><a href="{{ path('crud_user_profile_update') }}" data-toggle='modal' data-target='#modalBaseAjax'>{% trans %}Your Profile{% endtrans %}</a></li>
                             <li><a href="{{ path('security_change_password') }}" id='menuChangePassword' data-toggle='modal' data-target='#modalBaseAjax'>{% trans %}Change Password{% endtrans %}</a></li>
                             <li role="separator" class="divider"></li>
