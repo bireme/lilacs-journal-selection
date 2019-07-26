@@ -398,6 +398,7 @@ class SecurityController extends Controller
             $user->cleanHashcode();
 
             $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+            $home_url = $baseurl . $this->generateUrl('home');
 
             $help = $help_repository->find(118);
             $translations = $trans_repository->findTranslations($help);
@@ -422,7 +423,7 @@ class SecurityController extends Controller
             $translations = $trans_repository->findTranslations($help);
             $text = $translations[$locale];
             $body = $text['message'];
-            $body = str_replace("%home_url%", $baseurl, $body);
+            $body = str_replace("%home_url%", $home_url, $body);
             $body = str_replace("\r\n", "<br />", $body);
             $body .= "<br /><br />";
 

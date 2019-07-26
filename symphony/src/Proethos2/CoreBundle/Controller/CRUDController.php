@@ -1078,14 +1078,14 @@ class CRUDController extends Controller
 
             if(isset($post_data['status']) && !$user_status) {
                 $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-                $url = $baseurl . $this->generateUrl('home');
+                $home_url = $baseurl . $this->generateUrl('home');
 
                 $locale = $request->getSession()->get('_locale');
                 $help = $help_repository->find(115);
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$locale];
                 $body = $text['message'];
-                $body = str_replace("%home_url%", $url, $body);
+                $body = str_replace("%home_url%", $home_url, $body);
                 $body = str_replace("\r\n", "<br />", $body);
                 $body .= "<br /><br />";
 

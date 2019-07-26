@@ -225,6 +225,7 @@ class ProtocolController extends Controller
 
                 // sending email
                 $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+                $home_url = $baseurl . $this->generateUrl('home');
                 $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                 $_locale = $request->getSession()->get('_locale');
@@ -232,6 +233,7 @@ class ProtocolController extends Controller
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
+                $body = str_replace("%home_url%", $home_url, $body);
                 $body = str_replace("%journal_url%", $url, $body);
                 $body = str_replace("\r\n", "<br />", $body);
                 $body .= "<br /><br />";
@@ -358,6 +360,7 @@ class ProtocolController extends Controller
                     }
                     foreach($investigators as $investigator) {
                         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+                        $home_url = $baseurl . $this->generateUrl('home');
                         $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                         $_locale = $request->getSession()->get('_locale');
@@ -365,6 +368,7 @@ class ProtocolController extends Controller
                         $translations = $trans_repository->findTranslations($help);
                         $text = $translations[$_locale];
                         $body = $text['message'];
+                        $body = str_replace("%home_url%", $home_url, $body);
                         $body = str_replace("%username%", $investigator->getName(), $body);
                         $body = str_replace("%journal_url%", $url, $body);
                         $body = str_replace("%journal_code%", $protocol->getCode(), $body);
@@ -580,6 +584,7 @@ class ProtocolController extends Controller
             $em->flush();
 /*
             $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+            $home_url = $baseurl . $this->generateUrl('home');
             $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
             if ( $post_data['committee-screening'] ) {
@@ -588,6 +593,7 @@ class ProtocolController extends Controller
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
+                $body = str_replace("%home_url%", $home_url, $body);
                 $body = str_replace("%journal_url%", $url, $body);
                 $body = str_replace("%journal_code%", $protocol->getCode(), $body);
                 $body = str_replace("%committee_screening%", $post_data['committee-screening'], $body);
@@ -599,6 +605,7 @@ class ProtocolController extends Controller
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
+                $body = str_replace("%home_url%", $home_url, $body);
                 $body = str_replace("%journal_url%", $url, $body);
                 $body = str_replace("%journal_code%", $protocol->getCode(), $body);
                 $body = str_replace("\r\n", "<br />", $body);
@@ -791,7 +798,7 @@ class ProtocolController extends Controller
                             }
 
                             $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-                            // $url = $baseurl . $this->generateUrl('home');
+                            $home_url = $baseurl . $this->generateUrl('home');
                             $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                             $_locale = $request->getSession()->get('_locale');
@@ -799,6 +806,7 @@ class ProtocolController extends Controller
                             $translations = $trans_repository->findTranslations($help);
                             $text = $translations[$_locale];
                             $body = $text['message'];
+                            $body = str_replace("%home_url%", $home_url, $body);
                             $body = str_replace("%username%", $member->getName(), $body);
                             $body = str_replace("%journal_url%", $url, $body);
                             $body = str_replace("%journal_code%", $protocol->getCode(), $body);
@@ -1198,6 +1206,7 @@ class ProtocolController extends Controller
             }
             foreach($investigators as $investigator) {
                 $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+                $home_url = $baseurl . $this->generateUrl('home');
                 $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                 $_locale = $request->getSession()->get('_locale');
@@ -1205,6 +1214,7 @@ class ProtocolController extends Controller
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
+                $body = str_replace("%home_url%", $home_url, $body);
                 $body = str_replace("%username%", $investigator->getName(), $body);
                 $body = str_replace("%journal_url%", $url, $body);
                 $body = str_replace("%journal_code%", $protocol->getCode(), $body);
@@ -1351,6 +1361,7 @@ class ProtocolController extends Controller
             }
             foreach($investigators as $investigator) {
                 $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+                $home_url = $baseurl . $this->generateUrl('home');
                 $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                 $_locale = $request->getSession()->get('_locale');
@@ -1358,6 +1369,7 @@ class ProtocolController extends Controller
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
+                $body = str_replace("%home_url%", $home_url, $body);
                 $body = str_replace("%username%", $investigator->getName(), $body);
                 $body = str_replace("%journal_url%", $url, $body);
                 $body = str_replace("%journal_code%", $protocol->getCode(), $body);
@@ -1517,6 +1529,7 @@ class ProtocolController extends Controller
             
             if ( isset($post_data['send-info']) and $post_data['send-info'] == "yes" ) {
                 $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+                $home_url = $baseurl . $this->generateUrl('home');
                 $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
                 $protocol_history = new ProtocolHistory();
@@ -1540,6 +1553,7 @@ class ProtocolController extends Controller
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$_locale];
                 $body = $text['message'];
+                $body = str_replace("%home_url%", $home_url, $body);
                 $body = str_replace("%journal_url%", $url, $body);
                 $body = str_replace("%journal_code%", $protocol->getCode(), $body);
                 $body = str_replace("\r\n", "<br />", $body);
@@ -1827,6 +1841,7 @@ class ProtocolController extends Controller
         // $translations = $trans_repository->findTranslations($help[0]);
         
         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+        $home_url = $baseurl . $this->generateUrl('home');
         $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
         $_locale = $request->getSession()->get('_locale');
@@ -1834,6 +1849,7 @@ class ProtocolController extends Controller
         $translations = $trans_repository->findTranslations($help);
         $text = $translations[$_locale];
         $body = $text['message'];
+        $body = str_replace("%home_url%", $home_url, $body);
         $body = str_replace("%username%", $member->getName(), $body);
         $body = str_replace("%journal_url%", $url, $body);
         $body = str_replace("%journal_code%", $protocol->getCode(), $body);

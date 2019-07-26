@@ -1401,6 +1401,7 @@ class NewSubmissionController extends Controller
                     } else {
                         // sending email
                         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+                        $home_url = $baseurl . $this->generateUrl('home');
                         $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
                         
                         $_locale = $request->getSession()->get('_locale');
@@ -1408,6 +1409,7 @@ class NewSubmissionController extends Controller
                         $translations = $trans_repository->findTranslations($help);
                         $text = $translations[$_locale];
                         $body = $text['message'];
+                        $body = str_replace("%home_url%", $home_url, $body);
                         $body = str_replace("%username%", $user->getName(), $body);
                         $body = str_replace("%journal_url%", $url, $body);
                         $body = str_replace("\r\n", "<br />", $body);
