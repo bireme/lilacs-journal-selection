@@ -17,7 +17,7 @@
                     </li>
                 {% endif %}
 
-                {% if is_granted("ROLE_USER") %}
+                {% if is_granted("ROLE_USER") and 'administrator' not in app.user.rolesSlug %}
                     <li class="active"><a href="{{ path("home") }}">{% trans %}Dashboard{% endtrans %}</a></li>
                 {% endif %}
 
