@@ -15,11 +15,11 @@
         <div class="block">
             
             <div class="row">
-
+{#
                 {% for role in roles %}
                     {% if role in app.user.proethos2Roles %}
                         <div class="col-md-6">
-                            <h2 class='sub-header'>{{ role.name }}</h2>
+                            <h2 class='sub-header'>{{ role.name|trans }}</h2>
                             <ul>
                                 {% for document in documents %}
                                     {% if role in document.roles %}
@@ -34,7 +34,93 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-            </div>    
+#}
+                {% if 'investigator' in app.user.rolesSlug %}
+                    <div class="col-md-6">
+                        <h2 class='sub-header'>{% trans %}Editor{% endtrans %}</h2>
+                        <ul>
+                            {% for document in documents %}
+                                {% if 'investigator' in document.roles %}
+                                    <li><a href="{{ document.uri }}">
+                                        <span data-toggle="tooltip" data-placement="top" title="{{ document.description }}">
+                                            {{ document.title }}
+                                        </span>
+                                    </a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                {% if 'secretary' in app.user.rolesSlug %}
+                <div class="col-md-6">
+                    <h2 class='sub-header'>{% trans %}Secretary{% endtrans %}</h2>
+                    <ul>
+                        {% for document in documents %}
+                            {% if 'secretary' in document.roles %}
+                                <li><a href="{{ document.uri }}">
+                                    <span data-toggle="tooltip" data-placement="top" title="{{ document.description }}">
+                                        {{ document.title }}
+                                    </span>
+                                </a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if 'member-of-committee' in app.user.rolesSlug %}
+                <div class="col-md-6">
+                    <h2 class='sub-header'>{% trans %}Member of Committee{% endtrans %}</h2>
+                    <ul>
+                        {% for document in documents %}
+                            {% if 'member-of-committee' in document.roles %}
+                                <li><a href="{{ document.uri }}">
+                                    <span data-toggle="tooltip" data-placement="top" title="{{ document.description }}">
+                                        {{ document.title }}
+                                    </span>
+                                </a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if 'member-ad-hoc' in app.user.rolesSlug %}
+                <div class="col-md-6">
+                    <h2 class='sub-header'>{% trans %}Member ad-hoc{% endtrans %}</h2>
+                    <ul>
+                        {% for document in documents %}
+                            {% if 'member-ad-hoc' in document.roles %}
+                                <li><a href="{{ document.uri }}">
+                                    <span data-toggle="tooltip" data-placement="top" title="{{ document.description }}">
+                                        {{ document.title }}
+                                    </span>
+                                </a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                
+                {% if 'administrator' in app.user.rolesSlug %}
+                <div class="col-md-6">
+                    <h2 class='sub-header'>{% trans %}Administrator{% endtrans %}</h2>
+                    <ul>
+                        {% for document in documents %}
+                            {% if 'administrator' in document.roles %}
+                                <li><a href="{{ document.uri }}">
+                                    <span data-toggle="tooltip" data-placement="top" title="{{ document.description }}">
+                                        {{ document.title }}
+                                    </span>
+                                </a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+
         </div>
 
     </div>
