@@ -277,14 +277,11 @@ class CRUDController extends Controller
         // output parameter
         $output_parameter = $request->query->get('output');
         if($output_parameter == 'csv') {
-            $csv_headers = array('CODE', 'ID', 'OWNER', 'STATUS', 'PUBLIC TITLE', 'TYPE', 'RECRUITMENT INIT DATE',
-                'REJECT REASON', 'COMMITTEE SCREENING', 'OPINIONS REQUIRED', 'DATE INFORMED', 'UPDATED IN', 'REVISED IN',
-                'DECISION IN', 'MEETING', 'MONITORING ACTION', 'NEXT DATE OF MONITORING ACTION');
+            $csv_headers = array('CODE', 'ID', 'OWNER', 'STATUS', 'PUBLIC TITLE', 'TYPE', 'REJECT REASON',
+                'OPINIONS REQUIRED', 'DATE INFORMED', 'UPDATED IN', 'REVISED IN', 'DECISION IN', 'MEETING');
             $csv_output = array();
             foreach($protocols as $protocol) {
-                $type = "Research";
-                if ( $protocol->getMainSubmission()->getIsClinicalTrial() ) { $type = "Clinical Trial"; }
-                if ( $protocol->getMainSubmission()->getIsConsultation() ) { $type = "Consultation"; }
+                $type = "Journal";
 
                 $current_line = array();
                 $current_line[] = $protocol->getCode();
@@ -292,24 +289,19 @@ class CRUDController extends Controller
                 $current_line[] = $protocol->getOwner()->getUsername();
                 $current_line[] = $protocol->getStatusLabel();
                 $current_line[] = $protocol->getMainSubmission()->getTitle();
-                // $current_line[] = $protocol->getMainSubmission()->getIsClinicalTrial() ? "Clinical Trial" : "Research";
                 $current_line[] = $type;
-                $current_line[] = $protocol->getMainSubmission()->getRecruitmentInitDate() ? $protocol->getMainSubmission()->getRecruitmentInitDate()->format("Y-m-d H:i") : "";
                 $current_line[] = $protocol->getRejectReason();
-                $current_line[] = $protocol->getCommitteeScreening();
                 $current_line[] = $protocol->getOpinionRequired();
                 $current_line[] = $protocol->getDateInformed() ? $protocol->getDateInformed()->format("Y-m-d H:i") : "";
                 $current_line[] = $protocol->getUpdatedIn() ? $protocol->getUpdatedIn()->format("Y-m-d H:i") : "";
                 $current_line[] = $protocol->getRevisedIn() ? $protocol->getRevisedIn()->format("Y-m-d H:i") : "";
                 $current_line[] = $protocol->getDecisionIn() ? $protocol->getDecisionIn()->format("Y-m-d H:i") : "";
                 $current_line[] = $protocol->getMeeting() ? $protocol->getMeeting()->getSubject() : "";
-                $current_line[] = $protocol->getMonitoringAction() ? $protocol->getMonitoringAction()->getName() : "";
-                $current_line[] = $protocol->getMonitoringActionNextDate() ? $protocol->getMonitoringActionNextDate()->format("Y-m-d H:i") : "";
                 $csv_output[] = $current_line;
             }
 
             $response = new CSVResponse( $csv_output, 200, $csv_headers );
-            $response->setFilename( "proethos2-protocols.csv" );
+            $response->setFilename( "lilacs-journals.csv" );
             return $response;
         }
 

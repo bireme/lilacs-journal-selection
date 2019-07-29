@@ -710,7 +710,7 @@ class Protocol extends Base
         }
 
         foreach($submissions as $submission) {
-            if($submission->getProtocol()->getDateInformed() and $submission->getRecruitmentStatus() and $submission->getGender()) {
+            if($submission->getProtocol()->getDateInformed()) {
                 $xml_available_list[] = $submission->getLanguage();
             }
         }
