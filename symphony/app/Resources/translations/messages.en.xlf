@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-07-24T10:28:24Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2019-07-29T10:38:02Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -53,6 +53,10 @@
       <trans-unit id="d70f93df5e8f9b55be44fbeee9d203972e3383d4" resname="Address">
         <source>Address</source>
         <target>Address</target>
+      </trans-unit>
+      <trans-unit id="1eda23758be9e36e5e0d2a6a87de584aaca0193f" resname="Administrator">
+        <source>Administrator</source>
+        <target>Administrator</target>
       </trans-unit>
       <trans-unit id="b3fad347196c586b30cbbdf662535c5c914f8da3" resname="Alert message were sent successfully!">
         <source>Alert message were sent successfully!</source>
@@ -442,6 +446,10 @@
         <source>Edit user's information</source>
         <target>Edit user's information</target>
       </trans-unit>
+      <trans-unit id="c7e9fb2ea6c3b8c3ce97645eb902c348d859f36d" resname="Editor">
+        <source>Editor</source>
+        <target>Editor</target>
+      </trans-unit>
       <trans-unit id="4fd36584f50e58c48a1e60b6fb53736c23856dcb" resname="Editor Alternate Email">
         <source>Editor Alternate Email</source>
         <target>Editor Alternate Email</target>
@@ -686,6 +694,10 @@
         <source>Have an error with captcha. Please try again.</source>
         <target>Have an error with captcha. Please try again.</target>
       </trans-unit>
+      <trans-unit id="f7ff9e8b7bb2e09b70935a5d785e0cc5d9d0abf0" resname="Hello">
+        <source>Hello</source>
+        <target>Hello</target>
+      </trans-unit>
       <trans-unit id="c47ae15370cfe1ed2781eedc1dc2547d12d9e972" resname="Help">
         <source>Help</source>
         <target>Help</target>
@@ -745,10 +757,6 @@
       <trans-unit id="91bf74d821f50065919a9c202be4787c9b3710b5" resname="Initial Committee Screening">
         <source>Initial Committee Screening</source>
         <target>Initial Committee Screening</target>
-      </trans-unit>
-      <trans-unit id="b91714208b2a583fc023ea1270476f75bcca4c41" resname="Initial commitee screening">
-        <source>Initial commitee screening</source>
-        <target>Initial commitee screening</target>
       </trans-unit>
       <trans-unit id="1a3fae1a69fcdaab82d1737fcf3346a46cf50ac5" resname="Initial committee review">
         <source>Initial committee review</source>
@@ -826,9 +834,17 @@
         <source>Journal Type</source>
         <target>Journal Type</target>
       </trans-unit>
+      <trans-unit id="cd60c612e4b927fefaf686f88a47315d75f98ca3" resname="Journal URL">
+        <source>Journal URL</source>
+        <target>Journal URL</target>
+      </trans-unit>
       <trans-unit id="e211cccf5c3cd847d33826bc0d1fa1687007762f" resname="Journal accepted for review by secretary and members notified.">
         <source>Journal accepted for review by secretary and members notified.</source>
         <target>Journal accepted for review by secretary and members notified.</target>
+      </trans-unit>
+      <trans-unit id="050f13848f1851e42ca8725af1507c2f3b5ae4b5" resname="Journal code">
+        <source>Journal code</source>
+        <target>Journal code</target>
       </trans-unit>
       <trans-unit id="f2a5b2fd94b39f107efe30b1019e941a649b757c" resname="Journal finalized by secretary under option &quot;%option%&quot;.">
         <source>Journal finalized by secretary under option "%option%".</source>
@@ -906,10 +922,6 @@
         <source>Lattes URL</source>
         <target>Lattes URL</target>
       </trans-unit>
-      <trans-unit id="db2c64b012d82b90a8a5fac6c7b3a6bee2716058" resname="Legal disclaimer">
-        <source>Legal disclaimer</source>
-        <target>Legal disclaimer</target>
-      </trans-unit>
       <trans-unit id="8d33f31baff91c27917dcfcd7222cc394cee13fd" resname="Lifetime">
         <source>Lifetime</source>
         <target>Lifetime</target>
@@ -954,9 +966,17 @@
         <source>Meetings</source>
         <target>Meetings</target>
       </trans-unit>
+      <trans-unit id="992cb89e0118beaf32b3c24344aa28d838d80eb1" resname="Member ad-hoc">
+        <source>Member ad-hoc</source>
+        <target>Member ad-hoc</target>
+      </trans-unit>
       <trans-unit id="4014afc56173e7dda855348d627c2ccd839bf610" resname="Member has been removed with success!">
         <source>Member has been removed with success!</source>
         <target>Member has been removed with success!</target>
+      </trans-unit>
+      <trans-unit id="936801ef1325d7365e4f98476528231e2e64b5d9" resname="Member of Committee">
+        <source>Member of Committee</source>
+        <target>Member of Committee</target>
       </trans-unit>
       <trans-unit id="abc4f304a08a21ce7477f600961a7c5e317824c5" resname="Members added with success!">
         <source>Members added with success!</source>
@@ -1310,10 +1330,6 @@
         <source>Problems generating PDF. Please contact the administrator.</source>
         <target>Problems generating PDF. Please contact the administrator.</target>
       </trans-unit>
-      <trans-unit id="7cd20f264e9019fe3433cc7983b42977d5341a5e" resname="Proethos URL">
-        <source>Proethos URL</source>
-        <target>Proethos URL</target>
-      </trans-unit>
       <trans-unit id="cb3583fdc95bee8235906aa799b6387f87b2b14a" resname="Proethos2 Team">
         <source>Proethos2 Team</source>
         <target>Proethos2 Team</target>
@@ -1325,14 +1341,6 @@
       <trans-unit id="1ed77c3f7ffc41a33eadccef5727dc7c97079235" resname="Protocol">
         <source>Protocol</source>
         <target>Protocol</target>
-      </trans-unit>
-      <trans-unit id="44e3634965bb62f4183e6d899dc917019e8f33d8" resname="Protocol URL">
-        <source>Protocol URL</source>
-        <target>Protocol URL</target>
-      </trans-unit>
-      <trans-unit id="d80090c23fb5ce21ada4e04d747c32da5a0ec75c" resname="Protocol code">
-        <source>Protocol code</source>
-        <target>Protocol code</target>
       </trans-unit>
       <trans-unit id="185a971b99159441d069b7b1aabcec8c0de209c1" resname="Protocol options">
         <source>Protocol options</source>
@@ -1466,10 +1474,6 @@
         <source>Requestor Name</source>
         <target>Requestor Name</target>
       </trans-unit>
-      <trans-unit id="be601df25eea91eaaf0d5e80263930143af345be" resname="Research">
-        <source>Research</source>
-        <target>Research</target>
-      </trans-unit>
       <trans-unit id="ddc3636f480fa963a0265568f99c14aea5fc8e88" resname="Reset password URL">
         <source>Reset password URL</source>
         <target>Reset password URL</target>
@@ -1578,6 +1582,10 @@
         <source>Second step saved with success.</source>
         <target>Second step saved with success.</target>
       </trans-unit>
+      <trans-unit id="a7f07da18c5beac462a8d871cff6ba2a5a948628" resname="Secretary">
+        <source>Secretary</source>
+        <target>Secretary</target>
+      </trans-unit>
       <trans-unit id="098b31c06adad877999ec578550180c51ce3ba99" resname="See Journal">
         <source>See Journal</source>
         <target>See Journal</target>
@@ -1673,6 +1681,14 @@
       <trans-unit id="341760cf17e98fb92555ca6425578799ac54b2c2" resname="Show Journal">
         <source>Show Journal</source>
         <target>Show Journal</target>
+      </trans-unit>
+      <trans-unit id="ada2e9e96fa9ce85430225b412068b5b62b79800" resname="Sign in">
+        <source>Sign in</source>
+        <target>Sign in</target>
+      </trans-unit>
+      <trans-unit id="29730d830f8f46be6fc523dcd3ffe4eb551cd690" resname="Site URL">
+        <source>Site URL</source>
+        <target>Site URL</target>
       </trans-unit>
       <trans-unit id="6535ca3f517be900ed9cdd02c37ea1508ba8ce18" resname="Social Networks Information">
         <source>Social Networks Information</source>
