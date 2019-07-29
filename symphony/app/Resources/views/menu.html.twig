@@ -6,7 +6,7 @@
             <ul class="nav navbar-nav">
 
                 {% if render(controller('Proethos2CoreBundle:Index:getLogo')) %}
-                <li><a><img src='{{ render(controller('Proethos2CoreBundle:Index:getLogo')) }}' class='logo'></a></li>
+                <li><a href="{{ path("home") }}"><img src='{{ render(controller('Proethos2CoreBundle:Index:getLogo')) }}' class='logo'></a></li>
                 {% endif %}
 
                 {% if is_granted("ROLE_USER") and 'investigator' in app.user.rolesSlug %}
