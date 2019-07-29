@@ -166,7 +166,7 @@
                                     </td>
                                     <td>
                                         <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=committee' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-eye-open'></i></a>
-                                        <a href='{{ path("protocol_initial_committee_review_send_alert", {protocol_id: protocol.id, protocol_revision_member_id: revision.member.id }) }}' class='btn btn-default btn-xs send-alert'><i class='glyphicon glyphicon-send'></i></a>
+                                        {% if not revision.answered %}<a href='{{ path("protocol_initial_committee_review_send_alert", {protocol_id: protocol.id, protocol_revision_member_id: revision.member.id }) }}' class='btn btn-default btn-xs send-alert'><i class='glyphicon glyphicon-send'></i></a>{% endif %}
                                         {% if not revision.isFinalRevision %}<a href='#' class='btn btn-default btn-xs' data-toggle="modal" data-target="#modal-remove-revisor" id='remove-committee-revisor-{{ revision.id }}'><i class='glyphicon glyphicon-trash'></i></a>{% endif %}
                                     </td
                                 </tr>
