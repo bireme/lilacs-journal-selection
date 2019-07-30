@@ -17,7 +17,7 @@
                     </li>
                 {% endif %}
 
-                {% if is_granted("ROLE_USER") and 'administrator' not in app.user.rolesSlug %}
+                {% if is_granted("ROLE_USER") and 'administrator' not in app.user.rolesSlug and 'investigator' not in app.user.rolesSlug %}
                     <li class="active"><a href="{{ path("home") }}">{% trans %}Dashboard{% endtrans %}</a></li>
                 {% endif %}
 
@@ -47,7 +47,7 @@
 
                 <li class=""><a href="{% if is_granted("ROLE_USER") %}{{ path('crud_admin_faq_list') }}{% else %}{{ path('crud_public_faq_list') }}{% endif %}">{% trans %}FAQ{% endtrans %}</a></li>
 
-                {% if is_granted("ROLE_USER") %}
+                {% if is_granted("ROLE_USER") and 'investigator' not in app.user.rolesSlug %}
                     <li class=""><a href="{{ path('crud_document_list') }}">{% trans %}Documents{% endtrans %}</a></li>
                 {% endif %}
 
