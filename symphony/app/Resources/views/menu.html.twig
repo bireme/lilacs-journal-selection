@@ -51,7 +51,9 @@
                     <li class=""><a href="{{ path('crud_document_list') }}">{% trans %}Documents{% endtrans %}</a></li>
                 {% endif %}
 
-                <li class=""><a href="{% if is_granted("ROLE_USER") %}{{ path('crud_admin_contact_list') }}{% else %}{{ path('crud_public_contact_list') }}{% endif %}">{% trans %}Contact{% endtrans %}</a></li>
+                {% if 'administrator' not in app.user.rolesSlug and 'secretary' not in app.user.rolesSlug %}
+                    <li class=""><a href="{% if is_granted("ROLE_USER") %}{{ path('crud_admin_contact_list') }}{% else %}{{ path('crud_public_contact_list') }}{% endif %}">{% trans %}Contact{% endtrans %}</a></li>
+                {% endif %}
 
                 {% if is_granted("ROLE_USER") and 'administrator' in app.user.rolesSlug %}
                     <li class="dropdown">
