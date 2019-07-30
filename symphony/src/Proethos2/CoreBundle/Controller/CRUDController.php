@@ -572,7 +572,7 @@ class CRUDController extends Controller
 
         $faq_repository = $em->getRepository('Proethos2ModelBundle:Faq');
 
-        $questions = $faq_repository->findAll();
+        $questions = $faq_repository->findByStatus(true);
         $output['questions'] = $questions;
 
         return $output;
