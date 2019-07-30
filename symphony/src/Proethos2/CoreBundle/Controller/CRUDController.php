@@ -245,7 +245,7 @@ class CRUDController extends Controller
 
         $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
 
-        // serach  and status parameter
+        // search and status parameter
         $status_array = array('S', 'R', 'I', 'E', 'H', "F", "A", "N", "C", "X", "V");
         $search_query = $request->query->get('q');
         $status_query = $request->query->get('status');
@@ -332,7 +332,7 @@ class CRUDController extends Controller
 
         $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
 
-        // serach  and status parameter
+        // search and status parameter
         $status_array = array('D', 'S', 'R', 'I', 'E', 'H', 'F', 'A', 'N', 'C', 'X', 'V');
         $search_query = $request->query->get('q');
         $status_query = $request->query->get('status');
