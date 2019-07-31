@@ -1,16 +1,16 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Evaluated Journals{% endblock %}
 
 {% block content %}
      <div class="container-fluid main-content see-submission">
 
         <div class="row">
             <div class='col-md-12'>
-                <h1 class="page-header">{% trans %}Dashboard{% endtrans %}</h1>
+                <h1 class="page-header">{% trans %}Evaluated Journals{% endtrans %}</h1>
             </div>
         </div>
-
+{#
         {% if 'investigator' in app.user.rolesSlug %}
             <div class='block'>
                 <div class='row'>
@@ -61,7 +61,7 @@
                 </div>
             </div>
         {% endif %}
-
+#}
         {% if 'member-of-committee' in app.user.rolesSlug or 'member-ad-hoc' in app.user.rolesSlug %}
             <div class='block'>
                 <div class='row'>
@@ -124,7 +124,7 @@
                 </div>
             </div>
         {% endif %}
-
+{#
         {% if 'secretary' in app.user.rolesSlug %}
             <div class='block'>
                 <div class='row'>
@@ -161,6 +161,6 @@
                 </div>
             </div>
         {% endif %}
-
+#}
     </div>
 {% endblock %}

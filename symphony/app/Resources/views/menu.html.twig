@@ -6,7 +6,7 @@
             <ul class="nav navbar-nav">
 
                 {% if render(controller('Proethos2CoreBundle:Index:getLogo')) %}
-                <li><a href="{{ path("home") }}"><img src='{{ render(controller('Proethos2CoreBundle:Index:getLogo')) }}' class='logo'></a></li>
+                    <li><a href="{{ path("home") }}"><img src='{{ render(controller('Proethos2CoreBundle:Index:getLogo')) }}' class='logo'></a></li>
                 {% endif %}
 
                 {% if is_granted("ROLE_USER") and 'investigator' in app.user.rolesSlug %}
@@ -16,11 +16,11 @@
                         </p>
                     </li>
                 {% endif %}
-
-                {% if is_granted("ROLE_USER") and 'administrator' not in app.user.rolesSlug and 'investigator' not in app.user.rolesSlug %}
-                    <li class="active"><a href="{{ path("home") }}">{% trans %}Dashboard{% endtrans %}</a></li>
+{#
+                {% if is_granted("ROLE_USER") and ('member-of-committee' in app.user.rolesSlug or 'member-ad-hoc' in app.user.rolesSlug) %}
+                    <li class="active"><a href="{{ path("home") }}">{% trans %}Evaluated Journals{% endtrans %}</a></li>
                 {% endif %}
-
+#}
                 {% if is_granted("ROLE_USER") and 'investigator' in app.user.rolesSlug %}
                     <li class=""><a href="{{ path("crud_investigator_protocol_list") }}">{% trans %}Journals{% endtrans %}</a></li>
                 {% endif %}

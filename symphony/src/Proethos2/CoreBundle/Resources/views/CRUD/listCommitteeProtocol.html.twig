@@ -104,6 +104,125 @@
                     </table>
                 </div>
             </div>
+        </div>
+
+        {% if 'member-of-committee' in app.user.rolesSlug or 'member-ad-hoc' in app.user.rolesSlug %}
+            <div class="row">
+                <div class='col-md-12'>
+                    <h1 class="page-header">
+                        {% trans %}Evaluated Journals{% endtrans %}
+                    </h1>
+                </div>
+            </div>
+{#
+            <div class='block'>
+                <form class="form-group" id='form-search-revisions'>
+                    <input type="hidden" name="output-revisions" id="input-output-revisions" value="html" />
+
+                    <div class='row'>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="input-filter-revision-q">{% trans %}Find journals{% endtrans %}:</label>
+                                <a href="{{ path("crud_admin_help_show", {help_id: 52} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                <input type='text' class='form-control' id='input-filter-revision-q' name='q' value="{{ app.request.get('q') }}">
+                            </div>
+                        </div>
+
+                        {% if 'secretary' in app.user.rolesSlug or 'member-of-committee' in app.user.rolesSlug %}
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="select-filter-status">{% trans %}Status{% endtrans %}:</label>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 53} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <select class='form-control selectpicker submit-revisions-on-change' id="select-filter-status" name="status" data-live-search="true">
+                                        <option value="" {% if app.request.get('status') == "" %}selected{% endif %}>{% trans %}All{% endtrans %}</option>
+                                        <option value="S" {% if app.request.get('status') == "S" %}selected{% endif %}>{% trans %}Submitted{% endtrans %}</option>
+                                        <option value="R" {% if app.request.get('status') == "R" %}selected{% endif %}>{% trans %}Rejected{% endtrans %}</option>
+                                        <option value="I" {% if app.request.get('status') == "I" %}selected{% endif %}>{% trans %}Waiting for initial evaluation{% endtrans %}</option>
+                                        <option value="E" {% if app.request.get('status') == "E" %}selected{% endif %}>{% trans %}Waiting for Committee{% endtrans %}</option>
+                                        <option value="H" {% if app.request.get('status') == "H" %}selected{% endif %}>{% trans %}Scheduled{% endtrans %}</option>
+                                        <option value="A" {% if app.request.get('status') == "A" %}selected{% endif %}>{% trans %}Approved{% endtrans %}</option>
+                                        <option value="N" {% if app.request.get('status') == "N" %}selected{% endif %}>{% trans %}Not approved{% endtrans %}</option>
+                                        <option value="C" {% if app.request.get('status') == "C" %}selected{% endif %}>{% trans %}Approved with restrictions{% endtrans %}</option>
+                                        <option value="V" {% if app.request.get('status') == "V" %}selected{% endif %}>{% trans %}Waiting for final evaluation{% endtrans %}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div class="col-md-1 search-button">
+                            <div class="form-group">
+                                <a href="#" class='btn btn-warning' id="export-revisions-to-csv-button">{% trans %}Export to CSV{% endtrans %}</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 search-button">
+                            <div class="form-group">
+                                <button class='btn btn-primary' id="id-search-revisions-button" type='submit'>{% trans %}Search{% endtrans %}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+#}
+            <div class='block'>
+                <div class='row'>
+                    <div class="col-md-12">
+                        {% if committee_revisions or adhoc_revisions %}
+                            <table class='table table-hover '>
+                                <thead>
+                                    <tr>
+                                        <tr>
+                                            <th width="10%">{% trans %}ID{% endtrans %}</th>
+                                            <th width="40%">{% trans %}Title{% endtrans %}</th>
+                                            <th width="10%">{% trans %}Type{% endtrans %}</th>
+                                            <th width="15%">{% trans %}Last Update{% endtrans %}</th>
+                                            <th width="10%">{% trans %}Actions{% endtrans %}</th>
+                                        </tr>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% if 'member-of-committee' in app.user.rolesSlug %}
+                                        {% for revision in committee_revisions %}
+                                            <tr>
+                                                <th>{% if revision.protocol.code %}{{ revision.protocol.code }}{% else %}-{% endif %}</th>
+                                                <td>{{ revision.protocol.mainSubmission.title }}</td>
+                                                <td><span class='label label-primary'>{% trans %}Journal{% endtrans %}</span></td>
+                                                <td>{{ revision.protocol.updatedIn|date("d/m/Y") }}</td>
+                                                <td>
+                                                    <a href='{{ path("protocol_show_protocol", {protocol_id: revision.protocol.id}) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}See journal{% endtrans %}"><i class='glyphicon glyphicon-eye-open'></i></a>                                                    
+                                                    <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: revision.protocol.id, protocol_revision_id: revision.id }) }}?member=committee' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-list-alt'></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for revision in adhoc_revisions %}
+                                            <tr>
+                                                <th>{% if revision.protocol.code %}{{ revision.protocol.code }}{% else %}-{% endif %}</th>
+                                                <td>{{ revision.protocol.mainSubmission.title }}</td>
+                                                <td><span class='label label-primary'>{% trans %}Journal{% endtrans %}</span></td>
+                                                <td>{{ revision.protocol.updatedIn|date("d/m/Y") }}</td>
+                                                <td>
+                                                    <a href='{{ path("protocol_show_protocol", {protocol_id: revision.protocol.id}) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}See journal{% endtrans %}"><i class='glyphicon glyphicon-eye-open'></i></a>
+                                                    <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: revision.protocol.id, protocol_revision_id: revision.id }) }}?member=adhoc' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-list-alt'></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Modal Visualizar Parecer do Reviewer -->
+    <div class="modal fade" id="modal-parecer-reviewer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content"></div>
+        </div>
     </div>
 
 {% endblock %}
@@ -124,6 +243,21 @@
             $(".submit-on-change").change(function(){
                 $("#input-output").val('html');
                 $("#form-search").submit();
+            });
+/*
+            $("#export-revisions-to-csv-button").click(function(){
+                $("#input-output-revisions").val('csv');
+                $("#form-search-revisions").submit();
+            });
+
+            $("#id-search-revisions-button").click(function(){
+                $("#input-output-revisions").val('html');
+                $("#form-search-revisions").submit();
+            });
+*/
+            $(".submit-revisions-on-change").change(function(){
+                $("#input-output-revisions").val('html');
+                $("#form-search-revisions").submit();
             });
         });
     </script>

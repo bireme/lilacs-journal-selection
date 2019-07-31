@@ -244,6 +244,8 @@ class CRUDController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
         $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
+        $committee_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolCommitteeRevision');
+        $adhoc_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolAdhocRevision');
 
         // search and status parameter
         $status_array = array('S', 'R', 'I', 'E', 'H', "F", "A", "N", "C", "X", "V");
@@ -253,14 +255,26 @@ class CRUDController extends Controller
         if(!empty($status_query))
             $status_array = array($status_query);
 
-        $intersect = array_intersect($user->getRolesSlug(), array('member-of-committee', 'secretary'));
-
-        if ( count($intersect) > 0 ) {
-            $query = $protocol_repository->createQueryBuilder('p')->join('p.main_submission', 's')
-               ->where("s.title LIKE :query AND p.status IN (:status)")
-               ->orderBy("p.created", 'DESC')
-               ->setParameter('query', "%". $search_query ."%")
-               ->setParameter('status', $status_array);
+        if ( in_array('secretary', $user->getRolesSlug()) ) {
+            $query = $protocol_repository->createQueryBuilder('p')
+                ->join('p.main_submission', 's')
+                ->where("s.title LIKE :query AND p.status IN (:status)")
+                ->orderBy("p.created", 'DESC')
+                ->setParameter('query', "%". $search_query ."%")
+                ->setParameter('status', $status_array);
+        } elseif ( in_array('member-of-committee', $user->getRolesSlug()) ) {
+            $subquery = $protocol_repository->createQueryBuilder('pr')
+                ->join('pr.committee_revision', 'r')
+                ->where("r.member = :owner AND r.is_final_revision = 1")
+                ->orderBy("p.created", 'DESC')
+                ->setParameter('owner', $user);
+            $query = $protocol_repository->createQueryBuilder('p')
+                ->join('p.main_submission', 's')
+                ->where("s.title LIKE :query AND p.status IN (:status) AND p NOT IN ($subquery)")
+                ->orderBy("p.created", 'DESC')
+                ->setParameter('query', "%". $search_query ."%")
+                ->setParameter('status', $status_array)
+                ->setParameter('owner', $user);
         } else {
             $query = $protocol_repository->createQueryBuilder('p')
                 ->join('p.main_submission', 's')
@@ -305,12 +319,38 @@ class CRUDController extends Controller
             return $response;
         }
 
+        $output['committee_revisions'] = $committee_revision_repository->findBy(array("member" => $user, "is_final_revision" => 1));
+        
+        // $query = $protocol_repository->createQueryBuilder('p')
+        //     ->join('p.main_submission', 's')
+        //     ->leftJoin('p.committee_revision', 'r')
+        //     ->where("s.title LIKE :query AND p.status IN (:status) AND r.member = :owner AND r.is_final_revision = 1")
+        //     ->orderBy("p.created", 'DESC')
+        //     ->setParameter('query', "%". $search_query ."%")
+        //     ->setParameter('status', $status_array)
+        //     ->setParameter('owner', $user);
+        
+        // $committee_revisions = $query->getQuery()->getResult();
+        // $output['committee_revisions'] = $committee_revisions;
+
+        $output['adhoc_revisions'] = $adhoc_revision_repository->findBy(array("member" => $user, "is_final_revision" => 1));
+        
+        // $query = $protocol_repository->createQueryBuilder('p')
+        //     ->join('p.main_submission', 's')
+        //     ->leftJoin('p.adhoc_revision', 'r')
+        //     ->where("s.title LIKE :query AND p.status IN (:status) AND r.member = :owner AND r.is_final_revision = 1")
+        //     ->orderBy("p.created", 'DESC')
+        //     ->setParameter('query', "%". $search_query ."%")
+        //     ->setParameter('status', $status_array)
+        //     ->setParameter('owner', $user);
+        
+        // $adhoc_revisions = $query->getQuery()->getResult();
+        // $output['adhoc_revisions'] = $adhoc_revisions;
+
         // checking if was a post request
         if($this->getRequest()->isMethod('POST')) {
-
             // getting post data
             $post_data = $request->request->all();
-
         }
 
         return $output;
