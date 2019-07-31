@@ -824,8 +824,8 @@ class NewSubmissionController extends Controller
 
             // checking required issues
             $total_issues = count($submission->getIssue());
-            if( $total_issues < 3 ) {
-                $session->getFlashBag()->add('error', $translator->trans("Please submit 3 issues."));
+            if( $total_issues < 2 ) {
+                $session->getFlashBag()->add('error', $translator->trans("Please submit at least 2 issues."));
                 return $output;
             }
 
