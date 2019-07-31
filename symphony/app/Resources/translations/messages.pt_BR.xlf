@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-07-29T10:43:38Z" source-language="en" target-language="pt_BR" datatype="plaintext" original="not.available">
+  <file date="2019-07-31T18:11:36Z" source-language="en" target-language="pt_BR" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -12,7 +12,7 @@
       </trans-unit>
       <trans-unit id="e71b20bf4d8984884cf27d47b414de0431713adb" resname="A partir da análise do conteúdo dos artigos dos 3 (três) últimos fascículos da revista, opine sobre os aspectos relacionados abaixo, justificando por escrito sua opinião">
         <source>A partir da análise do conteúdo dos artigos dos 3 (três) últimos fascículos da revista, opine sobre os aspectos relacionados abaixo, justificando por escrito sua opinião</source>
-        <target>A partir da análise do conteúdo dos artigos dos 3 (três) últimos fascículos da revista, opine sobre os aspectos relacionados abaixo, justificando por escrito sua opinião</target>
+        <target>A partir da análise do conteúdo dos artigos dos 3 (três) últimos fascículos do periódico, opine sobre os aspectos relacionados abaixo, justificando sua opinião</target>
       </trans-unit>
       <trans-unit id="f8305e030f96d910b8adfa5d7f1623ea1d07b001" resname="Accept Submission">
         <source>Accept Submission</source>
@@ -228,7 +228,7 @@
       </trans-unit>
       <trans-unit id="c18160507493222ea56e27c4a0e9b7986813eb51" resname="Com base nas informações constantes nas Instruções aos Autores e/ou cuidado editorial percebido na seleção dos artigos, opine sobre o processo de arbitragem por pares utilizado pela revista. &lt;b&gt;Justifique por escrito&lt;/b&gt; sua opinião">
         <source><![CDATA[Com base nas informações constantes nas Instruções aos Autores e/ou cuidado editorial percebido na seleção dos artigos, opine sobre o processo de arbitragem por pares utilizado pela revista. <b>Justifique por escrito</b> sua opinião]]></source>
-        <target><![CDATA[Com base nas informações constantes nas Instruções aos Autores e/ou cuidado editorial percebido na seleção dos artigos, opine sobre o processo de arbitragem por pares utilizado pela revista. <b>Justifique por escrito</b> sua opinião]]></target>
+        <target><![CDATA[Com base nas informações constantes nas Instruções aos Autores e/ou cuidado editorial percebido na seleção dos artigos, opine sobre o processo de arbitragem por pares utilizado pelo periódico. <b>Justifique</b> sua opinião]]></target>
       </trans-unit>
       <trans-unit id="79b3d2121da50bcf4bb954b4c3e8b821da058fef" resname="Comment was created with success.">
         <source>Comment was created with success.</source>
@@ -302,10 +302,6 @@
         <source>Country</source>
         <target>País</target>
       </trans-unit>
-      <trans-unit id="a18c88be99735cca7be4fbae031e40387c909692" resname="Create PDF">
-        <source>Create PDF</source>
-        <target>Criar PDF</target>
-      </trans-unit>
       <trans-unit id="3f4f547d73646d774e8f690b36333e8c9572894b" resname="Create an account">
         <source>Create an account</source>
         <target>Criar uma conta</target>
@@ -329,10 +325,6 @@
       <trans-unit id="e070de224434a2acd352b35cec46f34f9e08e1b2" resname="Currency">
         <source>Currency</source>
         <target>Moeda</target>
-      </trans-unit>
-      <trans-unit id="d87f47b47e4d5794d53fe0734c49417bd046cde0" resname="Dashboard">
-        <source>Dashboard</source>
-        <target>Painel de controle</target>
       </trans-unit>
       <trans-unit id="d9df769b266c487f912c433c67364fc569bb2078" resname="Databases">
         <source>Databases</source>
@@ -494,10 +486,6 @@
         <source>End journal review</source>
         <target>Terminar revisão do periódico</target>
       </trans-unit>
-      <trans-unit id="649df08a448ee3fa90f3746baaf6b0907df42c91" resname="English">
-        <source>English</source>
-        <target>Inglês</target>
-      </trans-unit>
       <trans-unit id="1507054e985d3fca0ad9862f4c2407ccaa09c4be" resname="English message">
         <source>English message</source>
         <target>Mensagem em inglês</target>
@@ -513,6 +501,10 @@
       <trans-unit id="d8c18689efdfb9595d168de85f61d7be86c5b8c4" resname="Estou de acordo com a disponibilização e carga dos links/arquivos para o texto completo dos artigos, caso o periódico seja aprovado">
         <source>Estou de acordo com a disponibilização e carga dos links/arquivos para o texto completo dos artigos, caso o periódico seja aprovado</source>
         <target>Estou de acordo com a disponibilização e carga dos links/arquivos para o texto completo dos artigos, caso o periódico seja aprovado</target>
+      </trans-unit>
+      <trans-unit id="fa113e376a9fc94dae8257496b4ddedf58322e90" resname="Evaluated Journals">
+        <source>Evaluated Journals</source>
+        <target>Histórico das minhas avaliações</target>
       </trans-unit>
       <trans-unit id="e2cf5cb161b25b5599f85fae60e7a9708409c89a" resname="Evaluation Process Information">
         <source>Evaluation Process Information</source>
@@ -655,10 +647,6 @@
         <source>Fourth step saved with success.</source>
         <target>Quarto passo salvo com sucesso.</target>
       </trans-unit>
-      <trans-unit id="44389f6a466eaabf5c1db729e369511134e2b03b" resname="French">
-        <source>French</source>
-        <target>Francês</target>
-      </trans-unit>
       <trans-unit id="cec7d6c2129c9fe6a0dc554c6a825727af0a1055" resname="French message">
         <source>French message</source>
         <target>Mensagem em francês</target>
@@ -697,7 +685,7 @@
       </trans-unit>
       <trans-unit id="f7ff9e8b7bb2e09b70935a5d785e0cc5d9d0abf0" resname="Hello">
         <source>Hello</source>
-        <target>Hello</target>
+        <target>Olá</target>
       </trans-unit>
       <trans-unit id="c47ae15370cfe1ed2781eedc1dc2547d12d9e972" resname="Help">
         <source>Help</source>
@@ -895,6 +883,10 @@
         <source>LILACS</source>
         <target>LILACS</target>
       </trans-unit>
+      <trans-unit id="9d129d99b64d6af9822331b1d2199f030f2bd521" resname="LILACS Journal Evaluation">
+        <source>LILACS Journal Evaluation</source>
+        <target>LILACS Journal Evaluation</target>
+      </trans-unit>
       <trans-unit id="53ec6d7dfa2c6ed480e8ec1293af8d6b2cf0a512" resname="Label translations">
         <source>Label translations</source>
         <target>Traduções de etiquetas</target>
@@ -911,13 +903,9 @@
         <source>Last Update</source>
         <target>Última atualização</target>
       </trans-unit>
-      <trans-unit id="9ff72d2d8caeff4d5f91b28e1ea93095440e539f" resname="Last journals in which you are part of the research team">
-        <source>Last journals in which you are part of the research team</source>
-        <target>Periódicos submetidos anteriormente</target>
-      </trans-unit>
       <trans-unit id="daba441828e03d8ff2c587e9c3769e4101dc039e" resname="Last journals that you reviewed">
         <source>Last journals that you reviewed</source>
-        <target>Últimos periódicos que você revisou</target>
+        <target>Periódicos que você revisou</target>
       </trans-unit>
       <trans-unit id="82aad91e4f49d0daa694506a98952f33cfb862d6" resname="Lattes URL">
         <source>Lattes URL</source>
@@ -969,7 +957,7 @@
       </trans-unit>
       <trans-unit id="992cb89e0118beaf32b3c24344aa28d838d80eb1" resname="Member ad-hoc">
         <source>Member ad-hoc</source>
-        <target>Membro ad-hoc</target>
+        <target>Parecerista ad-hoc</target>
       </trans-unit>
       <trans-unit id="4014afc56173e7dda855348d627c2ccd839bf610" resname="Member has been removed with success!">
         <source>Member has been removed with success!</source>
@@ -1135,10 +1123,6 @@
         <source>New user on LILACS Journal Evaluation platform</source>
         <target>Novo usuário na plataforma de Avaliação de Periódicos LILACS</target>
       </trans-unit>
-      <trans-unit id="907961cea29c6ad5f0736a8170a68e6b48ebab82" resname="Next meetings">
-        <source>Next meetings</source>
-        <target>Próximas reuniões </target>
-      </trans-unit>
       <trans-unit id="816c52fd2bdd94a63cd0944823a6c0aa9384c103" resname="No">
         <source>No</source>
         <target>Não</target>
@@ -1217,15 +1201,15 @@
       </trans-unit>
       <trans-unit id="21ee4f77c2a2da134a8ae96cf652eb531be41bbe" resname="Opine sobre a importância da revista para o desenvolvimento da área">
         <source>Opine sobre a importância da revista para o desenvolvimento da área</source>
-        <target>Opine sobre a importância da revista para o desenvolvimento da área</target>
+        <target>Opine sobre a importância do periódico para o desenvolvimento da área</target>
       </trans-unit>
       <trans-unit id="32ce4e3ca1f6bf508f7d003b63bc1120e7984ea9" resname="Opine sobre a importância da revista para o desenvolvimento da área.">
         <source>Opine sobre a importância da revista para o desenvolvimento da área.</source>
-        <target>Opine sobre a importância da revista para o desenvolvimento da área.</target>
+        <target>Opine sobre a importância do periódico para o desenvolvimento da área.</target>
       </trans-unit>
       <trans-unit id="da7abe1016e928be1c16d68e2fb6749686e7ddcb" resname="Opine sobre a representatividade do Corpo Editorial da revista, considerando sua abrangência geográfica e diversidade institucional, bem como observando a contribuição e competência de seus membros">
         <source>Opine sobre a representatividade do Corpo Editorial da revista, considerando sua abrangência geográfica e diversidade institucional, bem como observando a contribuição e competência de seus membros</source>
-        <target>Opine sobre a representatividade do Corpo Editorial da revista, considerando sua abrangência geográfica e diversidade institucional, bem como observando a contribuição e competência de seus membros</target>
+        <target>Opine sobre a representatividade do Corpo Editorial do periódico, considerando sua abrangência geográfica e diversidade institucional, bem como observando a contribuição e competência de seus membros</target>
       </trans-unit>
       <trans-unit id="81a66b042f92ae09dec0fc1a1d5fccf4d2f6d252" resname="Opinions Required">
         <source>Opinions Required</source>
@@ -1306,10 +1290,6 @@
       <trans-unit id="1ecdeace1db1b5808b094d1eb9e243a69367f5ed" resname="Portal próprio">
         <source>Portal próprio</source>
         <target>Portal próprio</target>
-      </trans-unit>
-      <trans-unit id="23882c575954a0789bf02aba9e6dd01f539bc738" resname="Portuguese">
-        <source>Portuguese</source>
-        <target>Português</target>
       </trans-unit>
       <trans-unit id="ad2d5a59cb269298a2e42b55b8d40bdc7b9a5da4" resname="Portuguese message">
         <source>Portuguese message</source>
@@ -1543,6 +1523,10 @@
         <source>Save and wait for comments</source>
         <target>Salvar e aguardar por comentários </target>
       </trans-unit>
+      <trans-unit id="77d9d7593ba8b7be7b83d857a1689e9eacf89cd6" resname="Save as draft">
+        <source>Save as draft</source>
+        <target>Salvar como Rascunho</target>
+      </trans-unit>
       <trans-unit id="7dc93dfdfd8466365adcc58b37f66a5a654e8f27" resname="Save decision and finalize process">
         <source>Save decision and finalize process</source>
         <target>Salvar decisão e finalizar o processo </target>
@@ -1605,7 +1589,7 @@
       </trans-unit>
       <trans-unit id="60b8efb0f9c942c7851b7737fa07e21babe55542" resname="Select Members Ad-Hoc">
         <source>Select Members Ad-Hoc</source>
-        <target>Selecione membros ad hoc</target>
+        <target>Selecione pareceristas ad hoc</target>
       </trans-unit>
       <trans-unit id="760f9df06db95a28b99e075c59b970b8685671a5" resname="Select Members Of Committee">
         <source>Select Members Of Committee</source>
@@ -1653,7 +1637,7 @@
       </trans-unit>
       <trans-unit id="a0168e9ec147cd3bc85fa825f621b4feaaefca80" resname="Send journal revision">
         <source>Send journal revision</source>
-        <target>Enviar revisão do periódico</target>
+        <target>Avaliar periódico</target>
       </trans-unit>
       <trans-unit id="8c86d73c34f67918b3131fa1eb594dbbeafac78e" resname="Send me instructions">
         <source>Send me instructions</source>
@@ -1694,10 +1678,6 @@
       <trans-unit id="6535ca3f517be900ed9cdd02c37ea1508ba8ce18" resname="Social Networks Information">
         <source>Social Networks Information</source>
         <target>Informações sobre Redes Sociais</target>
-      </trans-unit>
-      <trans-unit id="8df7f1b361b2af42d36011e00d22c0f9891ec0b0" resname="Spanish">
-        <source>Spanish</source>
-        <target>Espanhol</target>
       </trans-unit>
       <trans-unit id="78a6cdd537964b9aa552f2211ad316d5f9416c27" resname="Spanish message">
         <source>Spanish message</source>
@@ -2078,11 +2058,11 @@
       </trans-unit>
       <trans-unit id="7c31216c8106d12fea708a6ad5ec902f9d01a5be" resname="a) Apresentação dos procedimentos adotados pela revista para análise e aprovação dos artigos">
         <source>a) Apresentação dos procedimentos adotados pela revista para análise e aprovação dos artigos</source>
-        <target>a) Apresentação dos procedimentos adotados pela revista para análise e aprovação dos artigos</target>
+        <target>a) Apresentação dos procedimentos adotados pelo periódico para análise e aprovação dos artigos</target>
       </trans-unit>
       <trans-unit id="39889e5a28215c8efde9c6e5ccb4e0dd2824008e" resname="a) Caráter científico da revista considerando os artigos originais de pesquisa ou reflexão, e sua coerência com a orientação temática da revista">
         <source>a) Caráter científico da revista considerando os artigos originais de pesquisa ou reflexão, e sua coerência com a orientação temática da revista</source>
-        <target>a) Caráter científico da revista considerando os artigos originais de pesquisa ou reflexão, e sua coerência com a orientação temática da revista</target>
+        <target>a) Caráter científico do periódico considerando os artigos originais de pesquisa ou reflexão, e sua coerência com a orientação temática do periódico</target>
       </trans-unit>
       <trans-unit id="2bb6b986c5d6fb26dd9dd1054b545ce022371b0c" resname="active">
         <source>active</source>
@@ -2090,15 +2070,15 @@
       </trans-unit>
       <trans-unit id="a7b077f58db7ca55a8d627d196d33b103fbc5dc2" resname="b) Caráter científico da revista, considerando a propriedade, atualidade e exaustividade nos artigos de revisão e debates, quando houver">
         <source>b) Caráter científico da revista, considerando a propriedade, atualidade e exaustividade nos artigos de revisão e debates, quando houver</source>
-        <target>b) Caráter científico da revista, considerando a propriedade, atualidade e exaustividade nos artigos de revisão e debates, quando houver</target>
+        <target>b) Caráter científico do periódico, considerando a propriedade, atualidade e exaustividade nos artigos de revisão e debates, quando houver</target>
       </trans-unit>
       <trans-unit id="de4559c270d966b151a53e284c960724dcbd192a" resname="b) Informações do formulário de &lt;i&gt;peer review&lt;/i&gt; utilizado pela revista para avaliação de artigos">
         <source><![CDATA[b) Informações do formulário de <i>peer review</i> utilizado pela revista para avaliação de artigos]]></source>
-        <target><![CDATA[b) Informações do formulário de <i>peer review</i> utilizado pela revista para avaliação de artigos]]></target>
+        <target><![CDATA[b) Informações do formulário de <i>peer review</i> utilizado pelo periódico para avaliação de artigos]]></target>
       </trans-unit>
       <trans-unit id="fbf86df82bc00dda307630d37e3b6c525e0d0db0" resname="b) Informações do formulário de peer review utilizado pela revista para avaliação de artigos">
         <source>b) Informações do formulário de peer review utilizado pela revista para avaliação de artigos</source>
-        <target>b) Informações do formulário de peer review utilizado pela revista para avaliação de artigos</target>
+        <target>b) Informações do formulário de peer review utilizado pelo periódico para avaliação de artigos</target>
       </trans-unit>
       <trans-unit id="2150a2afa7483309d5f97af8d231bdf68d99a8b1" resname="c) Abrangência geográfica, diversidade institucional, contribuição e competência do grupo de revisores">
         <source>c) Abrangência geográfica, diversidade institucional, contribuição e competência do grupo de revisores</source>

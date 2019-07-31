@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-07-29T10:38:06Z" source-language="en" target-language="es_ES" datatype="plaintext" original="not.available">
+  <file date="2019-07-31T18:11:38Z" source-language="en" target-language="es_ES" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -302,10 +302,6 @@
         <source>Country</source>
         <target>País</target>
       </trans-unit>
-      <trans-unit id="a18c88be99735cca7be4fbae031e40387c909692" resname="Create PDF">
-        <source>Create PDF</source>
-        <target>Crear PDF</target>
-      </trans-unit>
       <trans-unit id="3f4f547d73646d774e8f690b36333e8c9572894b" resname="Create an account">
         <source>Create an account</source>
         <target>Crear una cuenta</target>
@@ -329,10 +325,6 @@
       <trans-unit id="e070de224434a2acd352b35cec46f34f9e08e1b2" resname="Currency">
         <source>Currency</source>
         <target>Moneda</target>
-      </trans-unit>
-      <trans-unit id="d87f47b47e4d5794d53fe0734c49417bd046cde0" resname="Dashboard">
-        <source>Dashboard</source>
-        <target>Panel de control</target>
       </trans-unit>
       <trans-unit id="d9df769b266c487f912c433c67364fc569bb2078" resname="Databases">
         <source>Databases</source>
@@ -494,10 +486,6 @@
         <source>End journal review</source>
         <target>Terminar la revisión de la revista</target>
       </trans-unit>
-      <trans-unit id="649df08a448ee3fa90f3746baaf6b0907df42c91" resname="English">
-        <source>English</source>
-        <target>Inglés</target>
-      </trans-unit>
       <trans-unit id="1507054e985d3fca0ad9862f4c2407ccaa09c4be" resname="English message">
         <source>English message</source>
         <target>Mensaje en inglés</target>
@@ -513,6 +501,10 @@
       <trans-unit id="d8c18689efdfb9595d168de85f61d7be86c5b8c4" resname="Estou de acordo com a disponibilização e carga dos links/arquivos para o texto completo dos artigos, caso o periódico seja aprovado">
         <source>Estou de acordo com a disponibilização e carga dos links/arquivos para o texto completo dos artigos, caso o periódico seja aprovado</source>
         <target>Estou de acordo com a disponibilização e carga dos links/arquivos para o texto completo dos artigos, caso o periódico seja aprovado</target>
+      </trans-unit>
+      <trans-unit id="fa113e376a9fc94dae8257496b4ddedf58322e90" resname="Evaluated Journals">
+        <source>Evaluated Journals</source>
+        <target>Evaluated Journals</target>
       </trans-unit>
       <trans-unit id="e2cf5cb161b25b5599f85fae60e7a9708409c89a" resname="Evaluation Process Information">
         <source>Evaluation Process Information</source>
@@ -653,10 +645,6 @@
       <trans-unit id="e43268269e7edeb3cfcac1024e0ff4c1cb9363a6" resname="Fourth step saved with success.">
         <source>Fourth step saved with success.</source>
         <target>Cuarto paso salvado con éxito.</target>
-      </trans-unit>
-      <trans-unit id="44389f6a466eaabf5c1db729e369511134e2b03b" resname="French">
-        <source>French</source>
-        <target>Francés</target>
       </trans-unit>
       <trans-unit id="cec7d6c2129c9fe6a0dc554c6a825727af0a1055" resname="French message">
         <source>French message</source>
@@ -894,6 +882,10 @@
         <source>LILACS</source>
         <target>LILACS</target>
       </trans-unit>
+      <trans-unit id="9d129d99b64d6af9822331b1d2199f030f2bd521" resname="LILACS Journal Evaluation">
+        <source>LILACS Journal Evaluation</source>
+        <target>LILACS Journal Evaluation</target>
+      </trans-unit>
       <trans-unit id="53ec6d7dfa2c6ed480e8ec1293af8d6b2cf0a512" resname="Label translations">
         <source>Label translations</source>
         <target>Traducción de etiquetas</target>
@@ -909,10 +901,6 @@
       <trans-unit id="8351ebe53db2a3981a7e85ac4e1f58217f715944" resname="Last Update">
         <source>Last Update</source>
         <target>Última actualización</target>
-      </trans-unit>
-      <trans-unit id="9ff72d2d8caeff4d5f91b28e1ea93095440e539f" resname="Last journals in which you are part of the research team">
-        <source>Last journals in which you are part of the research team</source>
-        <target>Últimas revistas en las que forma parte del equipo de investigación.</target>
       </trans-unit>
       <trans-unit id="daba441828e03d8ff2c587e9c3769e4101dc039e" resname="Last journals that you reviewed">
         <source>Last journals that you reviewed</source>
@@ -1134,10 +1122,6 @@
         <source>New user on LILACS Journal Evaluation platform</source>
         <target>New user on LILACS Journal Evaluation platform</target>
       </trans-unit>
-      <trans-unit id="907961cea29c6ad5f0736a8170a68e6b48ebab82" resname="Next meetings">
-        <source>Next meetings</source>
-        <target>Próximas reuniones</target>
-      </trans-unit>
       <trans-unit id="816c52fd2bdd94a63cd0944823a6c0aa9384c103" resname="No">
         <source>No</source>
         <target>No</target>
@@ -1305,10 +1289,6 @@
       <trans-unit id="1ecdeace1db1b5808b094d1eb9e243a69367f5ed" resname="Portal próprio">
         <source>Portal próprio</source>
         <target>Portal próprio</target>
-      </trans-unit>
-      <trans-unit id="23882c575954a0789bf02aba9e6dd01f539bc738" resname="Portuguese">
-        <source>Portuguese</source>
-        <target>Portugués</target>
       </trans-unit>
       <trans-unit id="ad2d5a59cb269298a2e42b55b8d40bdc7b9a5da4" resname="Portuguese message">
         <source>Portuguese message</source>
@@ -1542,6 +1522,10 @@
         <source>Save and wait for comments</source>
         <target>Guardar y esperar por comentarios</target>
       </trans-unit>
+      <trans-unit id="77d9d7593ba8b7be7b83d857a1689e9eacf89cd6" resname="Save as draft">
+        <source>Save as draft</source>
+        <target>Save as draft</target>
+      </trans-unit>
       <trans-unit id="7dc93dfdfd8466365adcc58b37f66a5a654e8f27" resname="Save decision and finalize process">
         <source>Save decision and finalize process</source>
         <target>Guardar decisión y finalizar proceso</target>
@@ -1693,10 +1677,6 @@
       <trans-unit id="6535ca3f517be900ed9cdd02c37ea1508ba8ce18" resname="Social Networks Information">
         <source>Social Networks Information</source>
         <target>Información de redes sociales</target>
-      </trans-unit>
-      <trans-unit id="8df7f1b361b2af42d36011e00d22c0f9891ec0b0" resname="Spanish">
-        <source>Spanish</source>
-        <target>Español</target>
       </trans-unit>
       <trans-unit id="78a6cdd537964b9aa552f2211ad316d5f9416c27" resname="Spanish message">
         <source>Spanish message</source>
