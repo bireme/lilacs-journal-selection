@@ -181,7 +181,7 @@ h5 {
 .dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
 
 img.logo {
-    max-width: 200px;
+    max-width: 190px;
 }
 .nav>li>a>img.logo {
     max-height: 18px;
@@ -245,7 +245,7 @@ legend.advice {
     padding-bottom: 5px !important;
 }
 
-.card h2 {
+.col-xs-8.card h2 {
     font-size: 20px !important;
     color: #fff;
     margin: -28px 0px 30px 69px;
@@ -266,19 +266,19 @@ legend.advice {
 }
 
 .col-xs-8.card {
-    background: url(../img/back.png) right 3px no-repeat !important;
+    background:#001f6d url(../img/back.png) right 3px no-repeat !important; 
 }
 
-.card h1 {
+.col-xs-8.card h1 {
     margin: 10px 0 20px 50px !important;
 } 
 
 .col-xs-8.card p {
     float: right;
-    margin-top: -145px;
+    margin-top: -130px;
     color: #fff;
-    font-size: 28px;
-	margin-right: 43px;
+    font-size: 25px;
+	margin-right: 7%;
 }
 	
 .nav>li>a>img.logo {
