@@ -27,16 +27,18 @@
                 
                 <tbody>
                     {% for file in protocol.mainSubmission.attachments if not file.isMonitoringAction %}
-                        <tr>
-                            <td>{{ file.uploadType }}</td>
-                            <td>{{ file.user }}</td> 
-                            <td>{{ file.filename }}</td> 
-                            <td>{{ file.created|date("d/m/Y H:i") }}</td> 
-                            <td>
-                                <a href='{{ asset(file.uri) }}' target="_blank" class='btn btn-default btn-xs' target="_blank">
-                                <i class='glyphicon glyphicon-eye-open'></i></a>
-                            </td> 
-                        </tr>
+                        {% if 'investigator' not in app.user.rolesSlug or file.uploadType.slug not in ['endogeny', 'format', 'citation', 'retrospective'] %}
+                            <tr>
+                                <td>{{ file.uploadType }}</td>
+                                <td>{{ file.user }}</td> 
+                                <td>{{ file.filename }}</td> 
+                                <td>{{ file.created|date("d/m/Y H:i") }}</td> 
+                                <td>
+                                    <a href='{{ asset(file.uri) }}' target="_blank" class='btn btn-default btn-xs' target="_blank">
+                                    <i class='glyphicon glyphicon-eye-open'></i></a>
+                                </td> 
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
