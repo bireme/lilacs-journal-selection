@@ -139,7 +139,9 @@ class SecurityController extends Controller
             $em->flush();
 
             $session->getFlashBag()->add('success', $translator->trans("Password changed with success."));
-            return $this->redirectToRoute('login_route', array(), 301);
+            $referer = $request->headers->get('referer');
+            return $this->redirect($referer, 301);
+            // return $this->redirectToRoute('login_route', array(), 301);
 
         }
 
@@ -186,6 +188,7 @@ class SecurityController extends Controller
             $user = $user_repository->findOneByEmail($post_data['email']);
             if(!$user) {
                 $session->getFlashBag()->add('error', $translator->trans("Email not registered in platform."));
+                return $output;
             }
 
             $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
