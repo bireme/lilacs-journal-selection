@@ -27,7 +27,7 @@
                 
                 <tbody>
                     {% for file in protocol.mainSubmission.attachments if not file.isMonitoringAction %}
-                        {% if 'investigator' not in app.user.rolesSlug or file.uploadType.slug not in ['endogeny', 'format', 'citation', 'retrospective'] %}
+                        {% if ('investigator' not in app.user.rolesSlug and 'member-ad-hoc' not in app.user.rolesSlug) or file.uploadType.slug not in ['endogeny', 'format', 'citation', 'retrospective'] %}
                             <tr>
                                 <td>{{ file.uploadType }}</td>
                                 <td>{{ file.user }}</td> 
