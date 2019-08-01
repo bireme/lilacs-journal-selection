@@ -206,7 +206,7 @@
                                 <label for="select-publication-type">{% trans %}Publication Type{% endtrans %}:</label>
                                 <a href="{{ path("crud_admin_help_show", {help_id: 19} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <div>
-                                    <select class="form-control selectpicker" id="select-publication-type" name="publication_type[] data-size="5" data-width="fit" title="{% trans %}Choose one of the following...{% endtrans %}" multiple>
+                                    <select class="form-control selectpicker" id="select-publication-type" name="publication_type[] data-size="5" data-width="fit" data-live-search="true" title="{% trans %}Choose one of the following...{% endtrans %}" multiple>
                                         {% for p_type in publication_type %}
                                             <option value="{{ p_type.id }}" {% if p_type.id in post_data.publication_type %}selected{% endif %}>{{ p_type.name }}</option>
                                         {% endfor %}
@@ -218,7 +218,7 @@
                                 <label for="select-language">{% trans %}Language{% endtrans %}:</label>
                                 <a href="{{ path("crud_admin_help_show", {help_id: 20} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                                 <div>
-                                    <select class="form-control selectpicker" id="select-language" name="language[]" data-size="5" data-width="fit" title="{% trans %}Choose one of the following...{% endtrans %}" multiple>
+                                    <select class="form-control selectpicker" id="select-language" name="language[]" data-size="5" data-width="fit" data-live-search="true" title="{% trans %}Choose one of the following...{% endtrans %}" multiple>
                                         {% for lang in language %}
                                             <option value="{{ lang.id }}" {% if lang.id in post_data.language %}selected{% endif %}>{{ lang.name }}</option>
                                         {% endfor %}
@@ -229,7 +229,7 @@
                             <div class="form-group required">
                                 <label for="select-thematic-area">{% trans %}Thematic Area{% endtrans %}:</label>
                                 <a href="{{ path("crud_admin_help_show", {help_id: 21} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                                <select class='form-control selectpicker' id='select-thematic-area' name='thematic_area' data-size="5" required>
+                                <select class='form-control selectpicker' id='select-thematic-area' name='thematic_area' data-size="5" data-live-search="true" required>
                                     <option value="">-</option>
                                     {% for t_area in thematic_area %}
                                         <option value="{{ t_area.id }}" {% if post_data.thematic_area == t_area.id %}selected{% endif %}>{{ t_area.name }}</option>
@@ -240,7 +240,7 @@
                             <div class="form-group required">
                                 <label for="select-specialty">{% trans %}Specialty{% endtrans %}:</label>
                                 <a href="{{ path("crud_admin_help_show", {help_id: 22} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                                <select class='form-control selectpicker' id='select-specialty' name='specialty' data-size="5" required>
+                                <select class='form-control selectpicker' id='select-specialty' name='specialty' data-size="5" data-live-search="true" required>
                                     <option value="">-</option>
                                     {% for special in specialty %}
                                         <option value="{{ special.id }}" {% if post_data.specialty == special.id %}selected{% endif %}>{{ special.name }}</option>
