@@ -963,6 +963,7 @@ class CRUDController extends Controller
             $translations = $trans_repository->findTranslations($help);
             $text = $translations[$locale];
             $body = $text['message'];
+            $body = str_replace("%username%", $post_data['username'], $body);
             $body = str_replace("%reset_password_url%", $url, $body);
             $body = str_replace("\r\n", "<br />", $body);
             $body .= "<br /><br />";
@@ -1117,6 +1118,7 @@ class CRUDController extends Controller
                 $translations = $trans_repository->findTranslations($help);
                 $text = $translations[$locale];
                 $body = $text['message'];
+                $body = str_replace("%username%", $user->getName(), $body);
                 $body = str_replace("%home_url%", $home_url, $body);
                 $body = str_replace("\r\n", "<br />", $body);
                 $body .= "<br /><br />";
