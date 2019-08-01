@@ -48,11 +48,13 @@
                         </div>
                     {% endif %}
 
-                    <div class="col-md-1 search-button">
-                        <div class="form-group">
-                            <a href="#" class='btn btn-warning' id="export-to-csv-button">{% trans %}Export to CSV{% endtrans %}</a>
+                    {% if 'investigator' not in app.user.rolesSlug and 'member-ad-hoc' not in app.user.rolesSlug %}
+                        <div class="col-md-1 search-button">
+                            <div class="form-group">
+                                <a href="#" class='btn btn-warning' id="export-to-csv-button">{% trans %}Export to CSV{% endtrans %}</a>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
 
                     <div class="col-md-1 search-button">
                         <div class="form-group">
