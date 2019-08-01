@@ -1203,7 +1203,7 @@ class NewSubmissionController extends Controller
         $text = $translator->trans('Issues');
         $item = array('text' => $text, 'status' => true);
         $total_issues = count($submission->getIssue());
-        if($total_issues < 3) {
+        if($total_issues < 2) {
             $item = array('text' => $text, 'status' => false);
             $final_status = false;
         }

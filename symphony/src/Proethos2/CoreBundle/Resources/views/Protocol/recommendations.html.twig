@@ -126,10 +126,10 @@
                             <input type="text" class="form-control" placeholder="" id='input-issue-volume' name='issue_volume' required>
                         </div>
 
-                        <div class="form-group required">
+                        <div class="form-group">
                             <label for="input-issue-number">{% trans %}Number{% endtrans %}:</label>
                             <a href="{{ path("crud_admin_help_show", {help_id: 94} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <input type="text" class="form-control" placeholder="" id='input-issue-number' name='issue_number' required>
+                            <input type="text" class="form-control" placeholder="" id='input-issue-number' name='issue_number'>
                         </div>
 
                         <div class="form-group required">
@@ -138,10 +138,10 @@
                             <input type="text" class="form-control" placeholder="" id='input-issue-year' name='issue_year' maxlength="4" required>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group required">
                             <label for="input-issue-fulltext">{% trans %}Full Text{% endtrans %}:</label> 
                             <a href="{{ path("crud_admin_help_show", {help_id: 96} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                            <input type="text" class="form-control" placeholder="" id='input-issue-fulltext' name='issue_fulltext'>
+                            <input type="text" class="form-control" placeholder="" id='input-issue-fulltext' name='issue_fulltext' required>
                         </div>
 
                     </div>
