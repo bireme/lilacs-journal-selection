@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-07-31T18:20:19Z" source-language="en" target-language="es_ES" datatype="plaintext" original="not.available">
+  <file date="2019-08-01T15:27:35Z" source-language="en" target-language="es_ES" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -1246,10 +1246,6 @@
         <source>Peer Review</source>
         <target>Revisión por pares</target>
       </trans-unit>
-      <trans-unit id="0d10f6f04ac3e1b1ad66fcfeba5268b6703bb727" resname="Peer Review and &lt;a href=&quot;https://bit.ly/2K6drNz&quot;&gt;Submission Data&lt;/a&gt;">
-        <source><![CDATA[Peer Review and <a href="https://bit.ly/2K6drNz">Submission Data</a>]]></source>
-        <target><![CDATA[Revisión por pares y <a href="https://bit.ly/2K6drNz"> Datos de envío </a>]]></target>
-      </trans-unit>
       <trans-unit id="77064d5265236e0ac252f3fc4a5ba7b274b6a583" resname="Phone">
         <source>Phone</source>
         <target>Teléfono</target>
@@ -1274,10 +1270,6 @@
         <source>Please submit 1 peer review and 1 submission data attachments.</source>
         <target>Por favor, envíe 1 formulario de revisión por pares y 1 hoja de trabajo con datos de sumisión.</target>
       </trans-unit>
-      <trans-unit id="6910b0ef012440c01172b1e79b6c9455d84c5cfd" resname="Please submit 3 issues.">
-        <source>Please submit 3 issues.</source>
-        <target>Por favor envíe 3 números.</target>
-      </trans-unit>
       <trans-unit id="03b3af4f4f7efadbc60717fd3e61321576b6f633" resname="Please submit all required files.">
         <source>Please submit all required files.</source>
         <target>Please submit all required files.</target>
@@ -1285,6 +1277,10 @@
       <trans-unit id="4d8615580a10b8b55ba4b10235d046ef3716dfe6" resname="Please submit at least 2 and at most 4 additional issues.">
         <source>Please submit at least 2 and at most 4 additional issues.</source>
         <target>Please submit at least 2 and at most 4 additional issues.</target>
+      </trans-unit>
+      <trans-unit id="0fdcb44029df74ff2fca9b77e829f5cdcc4d274a" resname="Please submit at least 2 issues.">
+        <source>Please submit at least 2 issues.</source>
+        <target>Please submit at least 2 issues.</target>
       </trans-unit>
       <trans-unit id="1ecdeace1db1b5808b094d1eb9e243a69367f5ed" resname="Portal próprio">
         <source>Portal próprio</source>
@@ -2064,6 +2060,10 @@
       <trans-unit id="2bb6b986c5d6fb26dd9dd1054b545ce022371b0c" resname="active">
         <source>active</source>
         <target>activo</target>
+      </trans-unit>
+      <trans-unit id="cffa50a32cb13a240d705317bcec65dd1f31b6ad" resname="and">
+        <source>and</source>
+        <target>and</target>
       </trans-unit>
       <trans-unit id="a7b077f58db7ca55a8d627d196d33b103fbc5dc2" resname="b) Caráter científico da revista, considerando a propriedade, atualidade e exaustividade nos artigos de revisão e debates, quando houver">
         <source>b) Caráter científico da revista, considerando a propriedade, atualidade e exaustividade nos artigos de revisão e debates, quando houver</source>
