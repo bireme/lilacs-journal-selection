@@ -304,7 +304,31 @@ class NewSubmissionController extends Controller
         $language = $language_repository->findAll();
         $output['language'] = $language;
 
-        if (!$submission or !$submission->getCanBeEdited() or ($submission->getCanBeEdited() and !in_array('administrator', $user->getRolesSlug()))) {
+        if (!$submission or !$submission->getCanBeEdited() == false) {
+            if(!$submission or ($submission->getProtocol()->getIsMigrated() and !in_array('administrator', $user->getRolesSlug()))) {
+                throw $this->createNotFoundException($translator->trans('No submission found'));
+            }
+        }
+
+        $allow_to_edit_submission = true;
+        // if current user is not owner, check the team
+        if ($user != $submission->getOwner()) {
+            $allow_to_edit_submission = false;
+
+            if(in_array('administrator', $user->getRolesSlug())) {
+                $allow_to_edit_submission = true;
+
+            } else {
+                foreach($submission->getTeam() as $team_member) {
+                    // if current user = some team member, than it allows to edit
+                    if ($user == $team_member) {
+                        $allow_to_edit_submission = true;
+                    }
+                }
+            }
+        }
+        
+        if (!$allow_to_edit_submission) {
             throw $this->createNotFoundException($translator->trans('No submission found'));
         }
 
