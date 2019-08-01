@@ -49,7 +49,9 @@
                                 <div class="form-group">
                                     <label for="select-state">{% trans %}State{% endtrans %}:</label>
                                     <a href="{{ path("crud_admin_help_show", {help_id: 41} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                                    <select class='form-control' id='select-state' name='state' data-size="5"></select>
+                                    <select class='form-control' id='select-state' name='state' title="-" data-size="5">
+                                        <option value="">-</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
