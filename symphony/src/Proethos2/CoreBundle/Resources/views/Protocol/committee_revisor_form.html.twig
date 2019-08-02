@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="textarea-positive-aspects">{% trans %}Please highlight the journal positive aspects{% endtrans %}:</label>
-            <textarea class="form-control" id='textarea-positive-aspects' name="positive-aspects" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.positiveAspects }}</textarea>
+            <textarea rows="5" class="form-control" id='textarea-positive-aspects' name="positive-aspects" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.positiveAspects }}</textarea>
         </div>
     </div>
 </div>
@@ -11,7 +11,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="textarea-negative-aspects">{% trans %}Please highlight the journal negative aspects{% endtrans %}:</label>
-            <textarea class="form-control" id='textarea-negative-aspects' name="negative-aspects" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.negativeAspects }}</textarea>
+            <textarea rows="5" class="form-control" id='textarea-negative-aspects' name="negative-aspects" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.negativeAspects }}</textarea>
         </div>
     </div>
 </div>
@@ -32,7 +32,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="textarea-other-comments">{% trans %}Comments and justifications{% endtrans %}:</label>
-            <textarea class="form-control" id='textarea-other-comments' name="other-comments" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.otherComments }}</textarea>
+            <textarea rows="5" class="form-control" id='textarea-other-comments' name="other-comments" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.otherComments }}</textarea>
         </div>
     </div>
 </div>
