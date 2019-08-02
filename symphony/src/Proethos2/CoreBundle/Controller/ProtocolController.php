@@ -36,7 +36,7 @@ use Proethos2\ModelBundle\Entity\Issue;
 class ProtocolController extends Controller
 {
     /**
-     * @Route("/protocol/{protocol_id}", name="protocol_show_protocol")
+     * @Route("/journal/{protocol_id}", name="protocol_show_protocol")
      * @Template()
      */
     public function showProtocolAction($protocol_id)
@@ -109,7 +109,7 @@ class ProtocolController extends Controller
     }
 
     /**
-     * @Route("/protocol/{protocol_id}/comment", name="protocol_new_comment")
+     * @Route("/journal/{protocol_id}/comment", name="protocol_new_comment")
      */
     public function newCommentProtocolAction($protocol_id)
     {
@@ -182,7 +182,7 @@ class ProtocolController extends Controller
     }
 
     /**
-     * @Route("/protocol/{protocol_id}/analyze", name="protocol_analyze_protocol")
+     * @Route("/journal/{protocol_id}/analyze", name="protocol_analyze_protocol")
      * @Template()
      */
     public function analyzeProtocolAction($protocol_id)
@@ -440,7 +440,7 @@ class ProtocolController extends Controller
     }
 
     /**
-     * @Route("/protocol/{protocol_id}/initial-committee-screening", name="protocol_initial_committee_screening")
+     * @Route("/journal/{protocol_id}/initial-committee-screening", name="protocol_initial_committee_screening")
      * @Template()
      */
     public function initCommitteeScreeningAction($protocol_id)
@@ -641,7 +641,7 @@ class ProtocolController extends Controller
     }
 
     /**
-     * @Route("/protocol/{protocol_id}/initial-committee-review", name="protocol_initial_committee_review")
+     * @Route("/journal/{protocol_id}/initial-committee-review", name="protocol_initial_committee_review")
      * @Template()
      */
     public function initCommitteeReviewAction($protocol_id)
@@ -915,7 +915,7 @@ class ProtocolController extends Controller
     }
 
     /**
-     * @Route("/protocol/{protocol_id}/initial-committee-review/revisor", name="protocol_initial_committee_review_revisor")
+     * @Route("/journal/{protocol_id}/initial-committee-review/revisor", name="protocol_initial_committee_review_revisor")
      * @Template()
      */
     public function initCommitteeReviewRevisorAction($protocol_id)
@@ -1042,7 +1042,7 @@ class ProtocolController extends Controller
     }
 
     /**
-     * @Route("/protocol/{protocol_id}/initial-committee-review/show-review/{protocol_revision_id}", name="protocol_initial_committee_review_show_review")
+     * @Route("/journal/{protocol_id}/initial-committee-review/show-review/{protocol_revision_id}", name="protocol_initial_committee_review_show_review")
      * @Template()
      */
     public function showReviewAction($protocol_id, $protocol_revision_id)
@@ -1090,7 +1090,7 @@ class ProtocolController extends Controller
     }
 
     /**
-     * @Route("/protocol/{protocol_id}/end-review", name="protocol_end_review")
+     * @Route("/journal/{protocol_id}/end-review", name="protocol_end_review")
      * @Template()
      */
     public function endReviewAction($protocol_id)
@@ -1246,7 +1246,7 @@ class ProtocolController extends Controller
     }
 
     /**
-     * @Route("/protocol/{protocol_id}/final-review", name="protocol_final_review")
+     * @Route("/journal/{protocol_id}/final-review", name="protocol_final_review")
      * @Template()
      */
     public function finalReviewAction($protocol_id)
@@ -1401,7 +1401,7 @@ class ProtocolController extends Controller
     }
 
     /**
-     * @Route("/protocol/{protocol_id}/recommendations", name="protocol_recommendations")
+     * @Route("/journal/{protocol_id}/recommendations", name="protocol_recommendations")
      * @Template()
      */
     public function recommendationsAction($protocol_id)
@@ -1594,7 +1594,7 @@ class ProtocolController extends Controller
     }
 
     /**
-     * @Route("/protocol/{protocol_id}/delete", name="protocol_delete")
+     * @Route("/journal/{protocol_id}/delete", name="protocol_delete")
      * @Template()
      */
     public function deleteAction($protocol_id)
@@ -1651,7 +1651,7 @@ class ProtocolController extends Controller
     }
 
     /**
-     * @Route("/protocol/{protocol_id}/xml/{language_code}", name="protocol_xml")
+     * @Route("/journal/{protocol_id}/xml/{language_code}", name="protocol_xml")
      * @Template()
      */
     public function XmlOutputAction($protocol_id, $language_code)
@@ -1813,7 +1813,7 @@ class ProtocolController extends Controller
     }
 
     /**
-     * @Route("/protocol/{protocol_id}/initial-committee-review/send-alert/{protocol_revision_member_id}", name="protocol_initial_committee_review_send_alert")
+     * @Route("/journal/{protocol_id}/initial-committee-review/send-alert/{protocol_revision_member_id}", name="protocol_initial_committee_review_send_alert")
      * @Template()
      */
     public function sendAlertAction($protocol_id, $protocol_revision_member_id)

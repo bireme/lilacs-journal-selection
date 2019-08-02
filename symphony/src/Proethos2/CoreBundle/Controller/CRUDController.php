@@ -230,7 +230,7 @@ class CRUDController extends Controller
     }
 
     /**
-     * @Route("/committee/protocol", name="crud_committee_protocol_list")
+     * @Route("/committee/journal", name="crud_committee_protocol_list")
      * @Template()
      */
     public function listCommitteeProtocolAction()
@@ -357,7 +357,7 @@ class CRUDController extends Controller
     }
 
     /**
-     * @Route("/investigator/protocol", name="crud_investigator_protocol_list")
+     * @Route("/editor/journal", name="crud_investigator_protocol_list")
      * @Template()
      */
     public function listInvestigatorProtocolAction()
