@@ -801,8 +801,13 @@ class ProtocolController extends Controller
                             $home_url = $baseurl . $this->generateUrl('home');
                             $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
+                            if ( "select-members-of-committee" == $input_name ) {
+                                $help = $help_repository->find(111);
+                            } else {
+                                $help = $help_repository->find(122);
+                            }
+
                             $_locale = $request->getSession()->get('_locale');
-                            $help = $help_repository->find(111);
                             $translations = $trans_repository->findTranslations($help);
                             $text = $translations[$_locale];
                             $body = $text['message'];
