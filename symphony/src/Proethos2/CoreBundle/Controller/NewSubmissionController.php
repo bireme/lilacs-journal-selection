@@ -1424,25 +1424,56 @@ class NewSubmissionController extends Controller
                         $session->getFlashBag()->add('success', $translator->trans("Amendment submitted with success!"));
                     } else {
                         // sending email
+                        $_locale = $request->getSession()->get('_locale');
                         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
                         $home_url = $baseurl . $this->generateUrl('home');
                         $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
-                        
-                        $_locale = $request->getSession()->get('_locale');
+
                         $help = $help_repository->find(108);
                         $translations = $trans_repository->findTranslations($help);
                         $text = $translations[$_locale];
                         $body = $text['message'];
                         $body = str_replace("%home_url%", $home_url, $body);
-                        $body = str_replace("%username%", $user->getName(), $body);
                         $body = str_replace("%journal_url%", $url, $body);
                         $body = str_replace("\r\n", "<br />", $body);
                         $body .= "<br /><br />";
 
                         $recipients = array($protocol->getMainSubmission()->getOwner());
                         foreach($recipients as $recipient) {
+                            $body = str_replace("%username%", $recipient->getName(), $body);
                             $message = \Swift_Message::newInstance()
                             ->setSubject("[LILACS] " . $translator->trans("Your journal was sent to review."))
+                            ->setFrom($util->getConfiguration('committee.email'))
+                            ->setTo($recipient->getEmail())
+                            ->setBody(
+                                $body
+                                ,
+                                'text/html'
+                            );
+
+                            $send = $this->get('mailer')->send($message);
+                        }
+
+                        $help = $help_repository->find(121);
+                        $translations = $trans_repository->findTranslations($help);
+                        $text = $translations[$_locale];
+                        $body = $text['message'];
+                        $body = str_replace("%home_url%", $home_url, $body);
+                        $body = str_replace("%journal_url%", $url, $body);
+                        $body = str_replace("\r\n", "<br />", $body);
+                        $body .= "<br /><br />";
+
+                        $recipients = array();
+                        foreach($user_repository->findAll() as $secretary) {
+                            if(in_array("secretary", $secretary->getRolesSlug())) {
+                                $recipients[] = $secretary;
+                            }
+                        }
+
+                        foreach($recipients as $recipient) {
+                            $body = str_replace("%username%", $recipient->getName(), $body);
+                            $message = \Swift_Message::newInstance()
+                            ->setSubject("[LILACS] " . $translator->trans("New submission on LILACS Journal Evaluation platform"))
                             ->setFrom($util->getConfiguration('committee.email'))
                             ->setTo($recipient->getEmail())
                             ->setBody(
