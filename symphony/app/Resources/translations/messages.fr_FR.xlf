@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-08-01T17:13:38Z" source-language="en" target-language="fr_FR" datatype="plaintext" original="not.available">
+  <file date="2019-08-02T18:36:07Z" source-language="en" target-language="fr_FR" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -1118,6 +1118,10 @@
         <source>New submission</source>
         <target>New submission</target>
       </trans-unit>
+      <trans-unit id="8556e152883c341c28bbb3dca26c19767f2aee3b" resname="New submission on LILACS Journal Evaluation platform">
+        <source>New submission on LILACS Journal Evaluation platform</source>
+        <target>New submission on LILACS Journal Evaluation platform</target>
+      </trans-unit>
       <trans-unit id="c38fc36130fbd7351ebcb6fe2946e04a4142bfaa" resname="New user on LILACS Journal Evaluation platform">
         <source>New user on LILACS Journal Evaluation platform</source>
         <target>New user on LILACS Journal Evaluation platform</target>
@@ -1301,6 +1305,10 @@
       <trans-unit id="886cbff9d9df761ec642945e519631a23ed173a2" resname="Priority">
         <source>Priority</source>
         <target>Priority</target>
+      </trans-unit>
+      <trans-unit id="9db108ba6b7f6571356060929e37dae65878cfca" resname="Privacy Policy">
+        <source>Privacy Policy</source>
+        <target>Privacy Policy</target>
       </trans-unit>
       <trans-unit id="d1c3f33e6d81e5377d770db5cabd2b4a8b5263bc" resname="Problems generating PDF. Please contact the administrator.">
         <source>Problems generating PDF. Please contact the administrator.</source>
