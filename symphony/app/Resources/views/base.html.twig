@@ -55,7 +55,7 @@
     <footer class="navbar main-footer">
         <div class='row'>
             <div class='col-sm-12'>
-                <a href="https://github.com/bireme/lilacs-journal-selection/blob/master/LICENSE.txt" target="_blank">{% trans %}Terms of Use{% endtrans %}</a>
+                <a href="http://politicas.bireme.org/terminos/{{ app.request.locale|split('_')[0] }}/index.html" target="_blank">{% trans %}Terms of Use{% endtrans %}</a> | <a href="http://politicas.bireme.org/privacidad/{{ app.request.locale|split('_')[0] }}/index.html" target="_blank">{% trans %}Privacy Policy{% endtrans %}</a>
             </div>
         </div>
         <div class='row'>
