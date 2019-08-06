@@ -164,4 +164,17 @@ class Help extends Base implements Translatable
     {
         return $this->type;
     }
+
+    /**
+     * Get clickable links
+     *
+     * @return string
+     */
+    public function getClickableLinks()
+    {
+        $regex_url = '@(http(s)?)?(://)?(([a-zA-Z])([-\w]+\.)+([^\s\.]+[^\s]*)+[^\s!()\[\]{};:.,<>?])@';
+        $help = preg_replace($regex_url, '<a href="http$2://$4" target="_blank" title="$0">$0</a>', $this->message);
+        
+        return $help;
+    }
 }
