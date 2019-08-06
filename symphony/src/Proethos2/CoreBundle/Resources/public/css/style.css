@@ -302,6 +302,12 @@ legend.advice {
     font-weight: bold;
 }
 
+.modal { overflow-y: auto !important; }
+
+.panel-heading.note-toolbar {
+    position: static;
+}
+
 /*
 DIV.multiple SELECT, INPUT[type="number"] {
     width: 160px;
