@@ -56,7 +56,7 @@
             $('#form-new-mail textarea').summernote({
                 height: 150,
                 dialogsInBody: true,
-                lang: '{% if 'en' == app.request.locale %}{{ app.request.locale }}{% else %}{{ app.request.locale|replace({ '_': '-' }) }}{% endif %}',
+                lang: '{% if 'en' == app.request.locale %}en-US{% else %}{{ app.request.locale|replace({ '_': '-' }) }}{% endif %}',
                 popover: {
                     image: [],
                     link: [],
