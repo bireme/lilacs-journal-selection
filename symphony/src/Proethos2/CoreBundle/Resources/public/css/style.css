@@ -180,13 +180,6 @@ h5 {
 .dropdown-submenu:hover>a:after{border-left-color:#ffffff;}
 .dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
 
-img.logo {
-    max-width: 190px;
-}
-.nav>li>a>img.logo {
-    max-height: 18px;
-}
-
 .alert-info ul {
     margin: 10px 0 0 0;
 }
@@ -280,7 +273,15 @@ legend.advice {
     font-size: 25px;
 	margin-right: 7%;
 }
-	
+
+img.logo {
+    max-width: 190px;
+}
+
+.nav>li>a {
+    cursor: default;
+}
+
 .nav>li>a>img.logo {
     max-height: 45px;
     padding: 0px !important;
@@ -302,7 +303,9 @@ legend.advice {
     font-weight: bold;
 }
 
-.modal { overflow-y: auto !important; }
+.modal {
+    overflow-y: auto !important;
+}
 
 .panel-heading.note-toolbar {
     position: static;
