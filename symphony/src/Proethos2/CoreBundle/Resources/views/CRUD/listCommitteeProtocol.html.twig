@@ -193,7 +193,7 @@
                                                 <td>{{ revision.protocol.updatedIn|date("d/m/Y") }}</td>
                                                 <td>
                                                     <a href='{{ path("protocol_show_protocol", {protocol_id: revision.protocol.id}) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}See journal{% endtrans %}"><i class='glyphicon glyphicon-eye-open'></i></a>                                                    
-                                                    <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: revision.protocol.id, protocol_revision_id: revision.id }) }}?member=committee' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-list-alt'></i></a>
+                                                    <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: revision.protocol.id, protocol_revision_id: revision.id }) }}?member=committee' data-toggle='modal' data-target='#modal-parecer-reviewer' data-tt='tooltip' class='btn btn-default btn-xs' title="{% trans %}See revision{% endtrans %}" {% if not revision.answered %}disabled{% endif %}><i class='glyphicon glyphicon-list-alt'></i></a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -206,7 +206,7 @@
                                                 <td>{{ revision.protocol.updatedIn|date("d/m/Y") }}</td>
                                                 <td>
                                                     <a href='{{ path("protocol_show_protocol", {protocol_id: revision.protocol.id}) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}See journal{% endtrans %}"><i class='glyphicon glyphicon-eye-open'></i></a>
-                                                    <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: revision.protocol.id, protocol_revision_id: revision.id }) }}?member=adhoc' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-list-alt'></i></a>
+                                                    <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: revision.protocol.id, protocol_revision_id: revision.id }) }}?member=adhoc' data-toggle='modal' data-target='#modal-parecer-reviewer' data-tt='tooltip' class='btn btn-default btn-xs' title="{% trans %}See revision{% endtrans %}" {% if not revision.answered %}disabled{% endif %}><i class='glyphicon glyphicon-list-alt'></i></a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -232,6 +232,8 @@
 {% block script %}
     <script>
         $(function(){
+            $("[data-tt=tooltip]").tooltip();
+
             $("#export-to-csv-button").click(function(){
                 $("#input-output").val('csv');
                 $("#form-search").submit();

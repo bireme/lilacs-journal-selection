@@ -38,7 +38,7 @@
                                 {% if revision.isFinalRevision %}<span class='label label-success'>{% trans %}Final Revision{% endtrans %}</span>{% endif %}
                             </td>
                             <td>
-                                <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=adhoc' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-eye-open'></i></a>
+                                <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=adhoc' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs' {% if not revision.answered %}disabled{% endif %}><i class='glyphicon glyphicon-eye-open'></i></a>
                             </td
                         </tr>
                     {% endfor %}
@@ -88,7 +88,7 @@
                                 {% if revision.isFinalRevision %}<span class='label label-success'>{% trans %}Final Revision{% endtrans %}</span>{% endif %}
                             </td>
                             <td>
-                                <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=adhoc' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-eye-open'></i></a>
+                                <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=adhoc' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs' {% if not revision.answered %}disabled{% endif %}><i class='glyphicon glyphicon-eye-open'></i></a>
                             </td
                         </tr>
                     {% endfor %}
