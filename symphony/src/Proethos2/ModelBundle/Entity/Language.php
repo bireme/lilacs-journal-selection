@@ -51,6 +51,11 @@ class Language extends Base
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $status = true;
+
     public function __toString() {
         return $this->getName();
     }
@@ -120,5 +125,29 @@ class Language extends Base
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set status
+     *
+     * @param boolean $status
+     *
+     * @return Language
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return boolean
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

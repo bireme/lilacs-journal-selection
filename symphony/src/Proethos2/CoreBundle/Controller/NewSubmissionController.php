@@ -58,7 +58,7 @@ class NewSubmissionController extends Controller
 
         // getting language list
         $language_repository = $em->getRepository('Proethos2ModelBundle:Language');
-        $language = $language_repository->findAll();
+        $language = $language_repository->findByStatus(true);
         $output['language'] = $language;
 
         // getting thematic area list
@@ -301,7 +301,7 @@ class NewSubmissionController extends Controller
 
         // getting language list
         $language_repository = $em->getRepository('Proethos2ModelBundle:Language');
-        $language = $language_repository->findAll();
+        $language = $language_repository->findByStatus(true);
         $output['language'] = $language;
 
         if (!$submission or !$submission->getCanBeEdited() == false) {

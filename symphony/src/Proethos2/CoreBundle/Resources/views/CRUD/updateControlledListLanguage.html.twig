@@ -50,6 +50,18 @@
             </div>
         </div>
 
+        <div class='row'>
+            <div class='col-md-12'> 
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label for="input-status">
+                            <input type="checkbox" id='input-status' name='status' value="true" {% if item.status %}checked{% endif %}> {% trans %}Active?{% endtrans %}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
