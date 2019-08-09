@@ -1470,27 +1470,24 @@ class NewSubmissionController extends Controller
                         $body = str_replace("\r\n", "<br />", $body);
                         $body .= "<br /><br />";
 
-                        $recipients = array();
+                        $secretaries_emails = array();
                         foreach($user_repository->findAll() as $secretary) {
                             if(in_array("secretary", $secretary->getRolesSlug())) {
-                                $recipients[] = $secretary;
+                                $secretaries_emails[] = $secretary->getEmail();
                             }
                         }
 
-                        foreach($recipients as $recipient) {
-                            $body = str_replace("%username%", $recipient->getName(), $body);
-                            $message = \Swift_Message::newInstance()
-                            ->setSubject("[LILACS] " . $translator->trans("New submission on LILACS Journal Evaluation platform"))
-                            ->setFrom($util->getConfiguration('committee.email'))
-                            ->setTo($recipient->getEmail())
-                            ->setBody(
-                                $body
-                                ,
-                                'text/html'
-                            );
+                        $message = \Swift_Message::newInstance()
+                        ->setSubject("[LILACS] " . $translator->trans("New submission on LILACS Journal Evaluation platform"))
+                        ->setFrom($util->getConfiguration('committee.email'))
+                        ->setTo($secretaries_emails)
+                        ->setBody(
+                            $body
+                            ,
+                            'text/html'
+                        );
 
-                            $send = $this->get('mailer')->send($message);
-                        }
+                        $send = $this->get('mailer')->send($message);
 
                         $session->getFlashBag()->add('success', $translator->trans("Journal submitted with success!"));
                     }
