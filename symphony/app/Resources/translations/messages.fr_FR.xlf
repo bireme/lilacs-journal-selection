@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-08-02T18:36:07Z" source-language="en" target-language="fr_FR" datatype="plaintext" original="not.available">
+  <file date="2019-08-09T14:40:41Z" source-language="en" target-language="fr_FR" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -1589,6 +1589,10 @@
       <trans-unit id="f4a5757a3cee255c8368db475f449f74e306828c" resname="See protocol">
         <source>See protocol</source>
         <target>See protocol</target>
+      </trans-unit>
+      <trans-unit id="07a2bef7a69dab7dc026a5bc2ad50cc4dec1f8b2" resname="See revision">
+        <source>See revision</source>
+        <target>See revision</target>
       </trans-unit>
       <trans-unit id="60b8efb0f9c942c7851b7737fa07e21babe55542" resname="Select Members Ad-Hoc">
         <source>Select Members Ad-Hoc</source>
