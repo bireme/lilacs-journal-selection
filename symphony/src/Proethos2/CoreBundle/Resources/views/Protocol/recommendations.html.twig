@@ -74,14 +74,14 @@
                             </tbody>
                         </table>
 
-                        <a href='#' class='btn btn-default' data-toggle="modal" data-target="#modal-new-issue" {% if protocol.mainSubmission.issue|length == 7 %}disabled{% endif %}>{% trans %}New Issue{% endtrans %}</a>
+                        <a href='#' class='btn btn-default' data-toggle="modal" data-target="#modal-new-issue" {% if total_issues == 4 %}disabled{% endif %}>{% trans %}New Issue{% endtrans %}</a>
                     </div>
                 </div>
             </div>
 
             <div class='row'>
                 <div class='submission-button-controls col-md-12'>
-                    <button type="button" class='btn btn-primary' data-toggle='modal' data-target='#modalConfirm' {% if not deploy_report or protocol.mainSubmission.issue|length < 5 %}disabled{% endif %}>{% trans %}Save and send recommendations{% endtrans %}</button>
+                    <button type="button" class='btn btn-primary' data-toggle='modal' data-target='#modalConfirm' {% if not deploy_report or total_issues < 2 %}disabled{% endif %}>{% trans %}Save and send recommendations{% endtrans %}</button>
                 </div>
             </div>
         </form>

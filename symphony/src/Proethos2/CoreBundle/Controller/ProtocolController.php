@@ -1444,6 +1444,17 @@ class ProtocolController extends Controller
         $deploy_report = $submission_upload_repository->findBy(array('submission' => $submission->getId(), 'upload_type' => $upload_type_id));
         $output['deploy_report'] = ( $deploy_report ) ? true : false;
 
+        // checking required issues
+        $issues = array();
+        foreach ($submission->getIssue() as $issue) {
+            if ( $issue->getCreated() > $protocol->getDecisionIn() ) {
+                $issues[] = $issue;
+            }
+        }
+
+        $total_issues = count($issues);
+        $output['total_issues'] = $total_issues;
+
         if (!$protocol or !in_array($protocol->getStatus(), array("C")) or $user != $protocol->getOwner()) {
             throw $this->createNotFoundException($translator->trans('No journal found'));
         }
@@ -1525,9 +1536,7 @@ class ProtocolController extends Controller
                 return $this->redirectToRoute('protocol_recommendations', array('protocol_id' => $protocol->getId()), 301);
             }
 
-            // checking required issues
-            $total_issues = count($submission->getIssue());
-            if( $total_issues < 5 or $total_issues > 7 ) {
+            if( $total_issues < 2 or $total_issues > 4 ) {
                 $session->getFlashBag()->add('error', $translator->trans("Please submit at least 2 and at most 4 additional issues."));
                 return $output;
             }
