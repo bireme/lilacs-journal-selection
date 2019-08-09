@@ -4,3 +4,7 @@
 
 {% include 'Proethos2CoreBundle:Protocol:protocol_header.html.twig' %}
 {% include 'Proethos2CoreBundle:Protocol:protocol_another_infos.html.twig' %}
+
+{% if 'secretary' in app.user.rolesSlug and protocol.status in ['H','A','N','C','V'] %}
+    {% include 'Proethos2CoreBundle:Protocol:protocol_reviewers.html.twig' %}
+{% endif %}
