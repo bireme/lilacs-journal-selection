@@ -56,7 +56,7 @@ class CRUDController extends Controller
 
         $meetings = $meeting_repository->findBy(array(), array('date' => 'DESC'));
 
-        // serach parameter
+        // search parameter
         $search_query = $request->query->get('q');
         if($search_query) {
             $meetings = $meeting_repository->createQueryBuilder('m')
@@ -422,7 +422,7 @@ class CRUDController extends Controller
 
         $faqs = $faq_repository->findAll();
 
-        // serach parameter
+        // search parameter
         $search_query = $request->query->get('q');
         if($search_query) {
             $faqs = $faq_repository->createQueryBuilder('m')
@@ -635,7 +635,7 @@ class CRUDController extends Controller
 
         $documents = $document_repository->findAll();
 
-        // serach parameter
+        // search parameter
         $search_query = $request->query->get('q');
         if($search_query) {
             $documents = $document_repository->createQueryBuilder('m')
@@ -825,7 +825,7 @@ class CRUDController extends Controller
 
         $documents = $document_repository->findAll();
 
-        // serach parameter
+        // search parameter
         $search_query = $request->query->get('q');
         if($search_query) {
             $documents = $document_repository->createQueryBuilder('m')
@@ -2445,7 +2445,8 @@ class CRUDController extends Controller
         $item_repository = $em->getRepository('Proethos2ModelBundle:Specialty');
         $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
 
-        $items = $item_repository->findAll();
+        // $items = $item_repository->findAll();
+        $items = $item_repository->findBy(array(), array('name' => 'ASC'));
         $output['items'] = $items;
 
         // checking if was a post request
@@ -2576,7 +2577,8 @@ class CRUDController extends Controller
         $item_repository = $em->getRepository('Proethos2ModelBundle:PublicationType');
         $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
 
-        $items = $item_repository->findAll();
+        // $items = $item_repository->findAll();
+        $items = $item_repository->findBy(array(), array('name' => 'ASC'));
         $output['items'] = $items;
 
         // checking if was a post request
@@ -2695,7 +2697,8 @@ class CRUDController extends Controller
         $item_repository = $em->getRepository('Proethos2ModelBundle:Language');
         $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
 
-        $items = $item_repository->findAll();
+        // $items = $item_repository->findAll();
+        $items = $item_repository->findBy(array(), array('name' => 'ASC'));
         $output['items'] = $items;
 
         // checking if was a post request
@@ -2814,7 +2817,8 @@ class CRUDController extends Controller
         $item_repository = $em->getRepository('Proethos2ModelBundle:ThematicArea');
         $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
 
-        $items = $item_repository->findAll();
+        // $items = $item_repository->findAll();
+        $items = $item_repository->findBy(array(), array('name' => 'ASC'));
         $output['items'] = $items;
 
         // checking if was a post request

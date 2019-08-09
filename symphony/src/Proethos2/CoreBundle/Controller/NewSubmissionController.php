@@ -53,22 +53,26 @@ class NewSubmissionController extends Controller
 
         // getting publication type list
         $publication_type_repository = $em->getRepository('Proethos2ModelBundle:PublicationType');
-        $publication_type = $publication_type_repository->findByStatus(true);
+        // $publication_type = $publication_type_repository->findByStatus(true);
+        $publication_type = $publication_type_repository->findBy(array('status' => true), array('name' => 'ASC'));
         $output['publication_type'] = $publication_type;
 
         // getting language list
         $language_repository = $em->getRepository('Proethos2ModelBundle:Language');
-        $language = $language_repository->findByStatus(true);
+        // $language = $language_repository->findByStatus(true);
+        $language = $language_repository->findBy(array('status' => true), array('name' => 'ASC'));
         $output['language'] = $language;
 
         // getting thematic area list
         $thematic_area_repository = $em->getRepository('Proethos2ModelBundle:ThematicArea');
-        $thematic_area = $thematic_area_repository->findByStatus(true);
+        // $thematic_area = $thematic_area_repository->findByStatus(true);
+        $thematic_area = $thematic_area_repository->findBy(array('status' => true), array('name' => 'ASC'));
         $output['thematic_area'] = $thematic_area;
 
         // getting specialty list
         $specialty_repository = $em->getRepository('Proethos2ModelBundle:Specialty');
-        $specialty = $specialty_repository->findByStatus(true);
+        // $specialty = $specialty_repository->findByStatus(true);
+        $specialty = $specialty_repository->findBy(array('status' => true), array('name' => 'ASC'));
         $output['specialty'] = $specialty;
 
         // getting frequency list
@@ -244,16 +248,29 @@ class NewSubmissionController extends Controller
         $translator = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
 
+        // getting publication type list
+        $publication_type_repository = $em->getRepository('Proethos2ModelBundle:PublicationType');
+        // $publication_type = $publication_type_repository->findByStatus(true);
+        $publication_type = $publication_type_repository->findBy(array('status' => true), array('name' => 'ASC'));
+        $output['publication_type'] = $publication_type;
+
+        // getting language list
+        $language_repository = $em->getRepository('Proethos2ModelBundle:Language');
+        // $language = $language_repository->findByStatus(true);
+        $language = $language_repository->findBy(array('status' => true), array('name' => 'ASC'));
+        $output['language'] = $language;
+
         // getting thematic area list
         $thematic_area_repository = $em->getRepository('Proethos2ModelBundle:ThematicArea');
-        $thematic_area = $thematic_area_repository->findByStatus(true);
+        // $thematic_area = $thematic_area_repository->findByStatus(true);
+        $thematic_area = $thematic_area_repository->findBy(array('status' => true), array('name' => 'ASC'));
         $output['thematic_area'] = $thematic_area;
 
         // getting specialty list
         $specialty_repository = $em->getRepository('Proethos2ModelBundle:Specialty');
-        $specialty = $specialty_repository->findByStatus(true);
+        // $specialty = $specialty_repository->findByStatus(true);
+        $specialty = $specialty_repository->findBy(array('status' => true), array('name' => 'ASC'));
         $output['specialty'] = $specialty;
-
         // getting frequency list
         $frequency = array(
             "FC"  => $translator->trans("Fluxo Contínuo"),
@@ -293,16 +310,6 @@ class NewSubmissionController extends Controller
         // getting the current submission
         $submission = $submission_repository->find($submission_id);
         $output['submission'] = $submission;
-
-        // getting publication type list
-        $publication_type_repository = $em->getRepository('Proethos2ModelBundle:PublicationType');
-        $publication_type = $publication_type_repository->findByStatus(true);
-        $output['publication_type'] = $publication_type;
-
-        // getting language list
-        $language_repository = $em->getRepository('Proethos2ModelBundle:Language');
-        $language = $language_repository->findByStatus(true);
-        $output['language'] = $language;
 
         if (!$submission or !$submission->getCanBeEdited() == false) {
             if(!$submission or ($submission->getProtocol()->getIsMigrated() and !in_array('administrator', $user->getRolesSlug()))) {
