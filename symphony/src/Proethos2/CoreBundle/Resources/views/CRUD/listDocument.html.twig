@@ -54,7 +54,7 @@
 
                 {% if 'secretary' in app.user.rolesSlug %}
                 <div class="col-md-6">
-                    <h2 class='sub-header'>{% trans %}Secretary{% endtrans %}</h2>
+                    <h2 class='sub-header'>{% trans %}Coordination{% endtrans %}</h2>
                     <ul>
                         {% for document in documents %}
                             {% if 'secretary' in document.roles %}
@@ -88,7 +88,7 @@
 
                 {% if 'member-ad-hoc' in app.user.rolesSlug %}
                 <div class="col-md-6">
-                    <h2 class='sub-header'>{% trans %}Member ad-hoc{% endtrans %}</h2>
+                    <h2 class='sub-header'>{% trans %}Reviewer ad-hoc{% endtrans %}</h2>
                     <ul>
                         {% for document in documents %}
                             {% if 'member-ad-hoc' in document.roles %}
