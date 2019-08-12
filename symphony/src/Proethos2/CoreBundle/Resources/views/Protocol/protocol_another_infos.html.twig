@@ -144,7 +144,6 @@
     <div class='row'>
         <div class="col-md-12">
             <table class='table table-hover table-condensed'>
-                
                 <thead>
                     <tr>
                         <th width="15%">{% trans %}Date & Time{% endtrans %}</th>
@@ -155,7 +154,7 @@
                  
                 <tbody>
                     {% for comment in protocol.comment %}
-                        {% if not comment.isConfidential or 'investigator' not in app.user.getRolesSlug or not protocol.mainSubmission.isOwner(app.user) %}
+                        {% if 'all' == comment.role or comment.role in app.user.getRolesSlug %}
                             <tr>
                                <th>{{ comment.created|date('d/m/Y H:i:s') }}</th>
                                <td>{{ comment.owner }}</td> 
@@ -188,7 +187,22 @@
                         <textarea class='form-control' rows='4' name='new-comment-message' id='textarea-new-comment-message' required></textarea>
                     </div>
 
-                    {# code that discover if should show the confidential option #}
+                    {% if 'secretary' in app.user.getRolesSlug %}
+                        <div class="form-group">
+                            <label for="select-comment-role">{% trans %}Visible to{% endtrans %}:</label>
+                            <select class='form-control selectpicker' id='select-comment-role' name='new-comment-role' data-size="5" required>
+                                <option value="secretary">{% trans %}Coordination{% endtrans %}</option>
+                                <option value="investigator">{% trans %}Editor{% endtrans %}</option>
+                                <option value="member-of-committee">{% trans %}Member of Committee{% endtrans %}</option>
+                                <option value="member-ad-hoc">{% trans %}Reviewer ad-hoc{% endtrans %}</option>
+                                <option value="all">{% trans %}Everyone{% endtrans %}</option>
+                            </select>
+                        </div>
+                    {% else %}
+                        <input type="hidden" id="input-comment-role" name="new-comment-role" value="secretary">
+                    {% endif %}
+{#
+                    <!-- Code that discover if should show the confidential option -->
                     {% set is_show_confiential_field = false %}
                     {% for role in app.user.getRolesSlug %}
                         {% if role in ['secretary', 'member-of-committee', 'member-ad-hoc'] %}
@@ -206,6 +220,7 @@
                             </div>
                         </div>
                     {% endif %}
+#}
                 </div>
                 
                 <div class="modal-footer">

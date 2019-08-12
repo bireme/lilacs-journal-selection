@@ -56,6 +56,13 @@ class ProtocolComment extends Base
     private $owner;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $role;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $is_confidential = false;
@@ -164,5 +171,29 @@ class ProtocolComment extends Base
     public function getIsConfidential()
     {
         return $this->is_confidential;
+    }
+
+    /**
+     * Set role
+     *
+     * @param string $role
+     *
+     * @return ProtocolComment
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
     }
 }
