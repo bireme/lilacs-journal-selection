@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-08-09T14:40:37Z" source-language="en" target-language="pt_BR" datatype="plaintext" original="not.available">
+  <file date="2019-08-12T13:41:34Z" source-language="en" target-language="pt_BR" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -297,6 +297,10 @@
       <trans-unit id="c63d7dc26fc32ada5170c80598c4c75aefdcc105" resname="Controlled Lists">
         <source>Controlled Lists</source>
         <target>Listas controladas</target>
+      </trans-unit>
+      <trans-unit id="ffb26168922fc47b246abeca2cddca84eb837c50" resname="Coordination">
+        <source>Coordination</source>
+        <target>Coordination</target>
       </trans-unit>
       <trans-unit id="d523ebbd10146cdfd39dee077f04c9d08468d0bc" resname="Country">
         <source>Country</source>
@@ -955,10 +959,6 @@
         <source>Meetings</source>
         <target>Reuniões </target>
       </trans-unit>
-      <trans-unit id="992cb89e0118beaf32b3c24344aa28d838d80eb1" resname="Member ad-hoc">
-        <source>Member ad-hoc</source>
-        <target>Parecerista ad-hoc</target>
-      </trans-unit>
       <trans-unit id="4014afc56173e7dda855348d627c2ccd839bf610" resname="Member has been removed with success!">
         <source>Member has been removed with success!</source>
         <target>Membro foi removido com sucesso </target>
@@ -1475,6 +1475,10 @@
         <source>Review Remind</source>
         <target>Lembrete de solicitação de avaliação</target>
       </trans-unit>
+      <trans-unit id="a0dcc32daedd52a0ca97603430609308adcab92f" resname="Reviewer ad-hoc">
+        <source>Reviewer ad-hoc</source>
+        <target>Reviewer ad-hoc</target>
+      </trans-unit>
       <trans-unit id="c2b90e0cf183a4d16219a17b8e74e556cc4b12c1" resname="Reviewer's evaluation">
         <source>Reviewer's evaluation</source>
         <target>Avaliação do revisor </target>
@@ -1570,10 +1574,6 @@
       <trans-unit id="74453d8d1933ee6bbcb1602df730b0cd1e8b7fb2" resname="Second step saved with success.">
         <source>Second step saved with success.</source>
         <target>Segundo passo salvo com sucesso.</target>
-      </trans-unit>
-      <trans-unit id="a7f07da18c5beac462a8d871cff6ba2a5a948628" resname="Secretary">
-        <source>Secretary</source>
-        <target>Secretaria</target>
       </trans-unit>
       <trans-unit id="098b31c06adad877999ec578550180c51ce3ba99" resname="See Journal">
         <source>See Journal</source>
