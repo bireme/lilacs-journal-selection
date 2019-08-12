@@ -75,7 +75,7 @@
 
                                     <td>
                                         {% for role in user.proethos2Roles %}
-                                            <span class='label label-default' data-toggle='tooltip' data-placement='top' title='{{ role.name }}'>{{ role.name|first|upper }}</span>
+                                            <span class='label label-default' data-toggle='tooltip' data-placement='top' title='{{ role.name|trans }}'>{{ role.name|first|upper }}</span>
                                         {% endfor %}
                                     </td>
                                     <td>
