@@ -39,7 +39,7 @@
                                 </thead>
 
                                 <tbody>
-                                    {% for file in protocol.mainSubmission.attachments if file.uploadType.slug in ['format', 'retrospective', 'endogeny', 'citation'] %}
+                                    {% for file in protocol.mainSubmission.attachments if file.uploadType.slug in ['format', 'retrospective', 'endogeny', 'citation', 'others'] %}
                                         <tr>
                                             <td>{{ file.uploadType }}</td>
                                             <td>{{ file.filename }}</td>
@@ -398,7 +398,7 @@
                             <select class='form-control selectpicker' data-live-search="true" name='new-attachment-type' id='select-new-attachment-type' required>
                                 <option>-</option>
                                 {% for type in upload_types %}
-                                    {% if type.slug in ['format', 'retrospective', 'endogeny', 'citation'] %}
+                                    {% if type.slug in ['format', 'retrospective', 'endogeny', 'citation', 'others'] %}
                                         <option value="{{ type.id }}">{{ type.name }}</option>
                                     {% endif %}
                                 {% endfor %}
@@ -454,7 +454,7 @@
 
             var rowCount = $('#table-files tr').length;
 
-            if (rowCount >= 5) {
+            if (rowCount >= 6) {
                 $("#attachment-button").attr("disabled", true);
 
                 $("#attachment-button").on("click", function(e){
