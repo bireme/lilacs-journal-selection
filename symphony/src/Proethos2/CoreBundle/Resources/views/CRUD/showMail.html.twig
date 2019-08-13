@@ -6,7 +6,7 @@
     {% if not mail.message %}
         <i>{% trans %}There is no mail message set for this field.{% endtrans %}</i>
     {% else %}
-        {{ mail }}
+        {{ mail|raw }}
     {% endif %}
 </div>
 <div class="modal-footer">
