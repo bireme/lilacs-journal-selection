@@ -311,6 +311,12 @@ img.logo {
     position: static;
 }
 
+table.list-mail tbody tr td:first-child {
+    overflow-y: auto;
+    display: block;
+    max-height: 10em;
+}
+
 /*
 DIV.multiple SELECT, INPUT[type="number"] {
     width: 160px;
