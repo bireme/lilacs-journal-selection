@@ -235,7 +235,7 @@
 
                             <tbody>
                                 {% for member in users %}
-                                    {% if role_member_of_committee in member.proethos2Roles and member not in protocol.getAdhocRevisionUsers %}
+                                    {% if role_member_of_committee in member.proethos2Roles and member not in protocol.getAdhocRevisionUsers and member not in protocol.getCommitteeRevisionUsers %}
                                         <tr>
                                             <td><input type='checkbox' name="select-members-of-committee[]" value="{{ member.id }}"></td>
                                             <td>{{ member.name }}</td>
@@ -283,7 +283,7 @@
 
                             <tbody>
                                 {% for member in users %}
-                                    {% if role_member_ad_hoc in member.proethos2Roles and member not in protocol.getCommitteeRevisionUsers %}
+                                    {% if role_member_ad_hoc in member.proethos2Roles and member not in protocol.getCommitteeRevisionUsers and member not in protocol.getAdhocRevisionUsers %}
                                         <tr>
                                             <td><input type='checkbox' name="select-members-ad-hoc[]" value="{{ member.id }}"></td>
                                             <td>{{ member.name }}</td>
