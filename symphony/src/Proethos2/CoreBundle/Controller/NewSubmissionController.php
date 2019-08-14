@@ -1265,6 +1265,48 @@ class NewSubmissionController extends Controller
         $output['revisions'] = $revisions;
         $output['final_status'] = $final_status;
 
+        // getting frequency list
+        $frequency = array(
+            "FC"  => $translator->trans("Fluxo Contínuo"),
+            "S"   => $translator->trans("Semestral"),
+            "QUA" => $translator->trans("Quadrimestral"),
+            "T"   => $translator->trans("Trimestral"),
+            "B"   => $translator->trans("Bimestral"),
+            "M"   => $translator->trans("Mensal"),
+            "QUI" => $translator->trans("Quinzenal")
+        );
+        $output['frequency'] = $frequency;
+
+        // getting support list
+        $support = array(
+            "I"  => $translator->trans("Impresso"),
+            "E"  => $translator->trans("Eletrônico"),
+            "IE" => $translator->trans("Impresso e Eletrônico")
+        );
+        $output['support'] = $support;
+
+        // getting fulltext list
+        $fulltext = array(
+            "T" => $translator->trans("Portal próprio"),
+            "B" => $translator->trans("Repositório institucional"),
+            "M" => $translator->trans("Não provemos acesso ao texto completo. No entanto, vamos ingressar na iniciativa LILACS-Express para disponibilizá-los")
+        );
+        $output['fulltext'] = $fulltext;
+
+        $datetime = new \DateTime();
+        $year = $datetime->format('Y');
+        $output['year'] = $year;
+
+        // $ends = array('th','st','nd','rd','th','th','th','th','th','th');
+        // if (($number %100) >= 11 && ($number%100) <= 13)
+        //    $abbreviation = $number. 'th';
+        // else
+        //    $abbreviation = $number. $ends[$number % 10];
+
+        $season = $year - 1999;
+        $season .= 'ª';
+        $output['season'] = $season;
+
         // checking if was a post request
         if($this->getRequest()->isMethod('POST')) {
 
@@ -1534,7 +1576,6 @@ class NewSubmissionController extends Controller
             "M"   => $translator->trans("Mensal"),
             "QUI" => $translator->trans("Quinzenal")
         );
-
         $output['frequency'] = $frequency;
 
         // getting support list
@@ -1543,7 +1584,6 @@ class NewSubmissionController extends Controller
             "E"  => $translator->trans("Eletrônico"),
             "IE" => $translator->trans("Impresso e Eletrônico")
         );
-
         $output['support'] = $support;
 
         // getting fulltext list
@@ -1552,7 +1592,6 @@ class NewSubmissionController extends Controller
             "B" => $translator->trans("Repositório institucional"),
             "M" => $translator->trans("Não provemos acesso ao texto completo. No entanto, vamos ingressar na iniciativa LILACS-Express para disponibilizá-los")
         );
-        
         $output['fulltext'] = $fulltext;
 
         if (!$submission or ($submission->getCanBeEdited() and !in_array('administrator', $user->getRolesSlug()))) {
