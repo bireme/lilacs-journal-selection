@@ -30,11 +30,14 @@ class GenerateDatabaseInitialDataCommand extends ContainerAwareCommand
         $this
             ->setName('proethos2:generate-database-initial-data')
             ->setDescription('Generate initial data from development environment')
+            ->addArgument('update', InputArgument::OPTIONAL, 'Update only the default tables?')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $update = $input->getArgument('update');
+
         $root_dir = $this->getContainer()->get('kernel')->getRootDir() . "/..";
         $fixtures_dir = $root_dir . "/fixtures";
 
@@ -45,19 +48,24 @@ class GenerateDatabaseInitialDataCommand extends ContainerAwareCommand
         $database_password = $this->getContainer()->getParameter('database_password');
 
         $tables = array(
-            'configuration',
-            'list_clinical_trial_name',
             'list_country',
-            'list_gender',
-            'list_monitoring_action',
-            'list_recruitment_status',
             'list_role',
+            'list_language',
+            'list_publication_type',
+            'list_thematic_area',
+            'list_specialty',
+            'upload_type_extension',
             'upload_type',
+            'upload_type_upload_type_extension',
             'help',
-            'user',
-            'user_role',
             'faq',
         );
+
+        if ( !$update or 'Y' != strtoupper($update) ) {
+            $tables[] = 'configuration';
+            $tables[] = 'user';
+            $tables[] = 'user_role';
+        }
 
         $host = $database_host;
         if($database_port) {

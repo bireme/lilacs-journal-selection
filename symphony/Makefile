@@ -25,7 +25,7 @@ update_initial:
 	$(php) app/console proethos2:load-database-initial-data --update
 
 generate_initial:
-	$(php) app/console proethos2:generate-database-initial-data
+	$(php) app/console proethos2:generate-database-initial-data $(update)
 	$(php) app/console proethos2:generate-database-translations > fixtures/data_ext_translations.sql
 
 generate_translations:

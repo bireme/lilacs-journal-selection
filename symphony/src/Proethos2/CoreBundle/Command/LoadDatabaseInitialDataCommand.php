@@ -46,12 +46,12 @@ class LoadDatabaseInitialDataCommand extends ContainerAwareCommand
         $database_password = $this->getContainer()->getParameter('database_password');
 
         $tables = array(
-            'list_clinical_trial_name',
             'list_country',
-            'list_gender',
-            'list_monitoring_action',
-            'list_recruitment_status',
             'list_role',
+            'list_language',
+            'list_publication_type',
+            'list_thematic_area',
+            'list_specialty',
             'upload_type_extension',
             'upload_type',
             'upload_type_upload_type_extension',
@@ -60,7 +60,7 @@ class LoadDatabaseInitialDataCommand extends ContainerAwareCommand
             'ext_translations',
         );
 
-        if($input->getOption('update') != true) {
+        if ( !$input->getOption('update') ) {
             $tables[] = 'configuration';
             $tables[] = 'user';
             $tables[] = 'user_role';
