@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-08-12T17:48:44Z" source-language="en" target-language="pt_BR" datatype="plaintext" original="not.available">
+  <file date="2019-08-14T13:49:37Z" source-language="en" target-language="pt_BR" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -300,7 +300,7 @@
       </trans-unit>
       <trans-unit id="ffb26168922fc47b246abeca2cddca84eb837c50" resname="Coordination">
         <source>Coordination</source>
-        <target>Coordination</target>
+        <target>Coordenação</target>
       </trans-unit>
       <trans-unit id="d523ebbd10146cdfd39dee077f04c9d08468d0bc" resname="Country">
         <source>Country</source>
@@ -520,7 +520,7 @@
       </trans-unit>
       <trans-unit id="c756f6af1f03c9ce381cb85934ffb274e2f54af3" resname="Everyone">
         <source>Everyone</source>
-        <target>Everyone</target>
+        <target>Todos</target>
       </trans-unit>
       <trans-unit id="67690c75c03cd0e07da2b8ad46be269eb2c39a62" resname="Exclude user">
         <source>Exclude user</source>
@@ -1477,7 +1477,7 @@
       </trans-unit>
       <trans-unit id="a0dcc32daedd52a0ca97603430609308adcab92f" resname="Reviewer ad-hoc">
         <source>Reviewer ad-hoc</source>
-        <target>Reviewer ad-hoc</target>
+        <target>Revisor ad-hoc</target>
       </trans-unit>
       <trans-unit id="c2b90e0cf183a4d16219a17b8e74e556cc4b12c1" resname="Reviewer's evaluation">
         <source>Reviewer's evaluation</source>
@@ -1961,7 +1961,7 @@
       </trans-unit>
       <trans-unit id="7b88fd0ba10d9aebaf15d404148a53bd0d171665" resname="Visible to">
         <source>Visible to</source>
-        <target>Visible to</target>
+        <target>Visível para</target>
       </trans-unit>
       <trans-unit id="3b18e8e332500f3dfedb21b0aed686cfa9832cfe" resname="Volume">
         <source>Volume</source>
