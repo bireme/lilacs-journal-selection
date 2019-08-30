@@ -1330,7 +1330,7 @@ class CRUDController extends Controller
 
             $message = \Swift_Message::newInstance()
             ->setSubject("[LILACS] " . $translator->trans("Message from plataform"))
-            ->setFrom($output['committee_email'])
+            ->setFrom($post_data['email'])
             ->setTo($output['committee_email'])
             ->setBody(
                 $body
