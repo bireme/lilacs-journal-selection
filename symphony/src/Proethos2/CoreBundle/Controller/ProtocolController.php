@@ -246,7 +246,7 @@ class ProtocolController extends Controller
                 }
 
                 foreach($recipients as $recipient) {
-                    $body = str_replace("%username%", $recipient()->getName(), $body);
+                    $body = str_replace("%username%", $recipient->getName(), $body);
                     $message = \Swift_Message::newInstance()
                     ->setSubject("[LILACS] " . $translator->trans("Your journal was rejected"))
                     ->setFrom($util->getConfiguration('committee.email'))
