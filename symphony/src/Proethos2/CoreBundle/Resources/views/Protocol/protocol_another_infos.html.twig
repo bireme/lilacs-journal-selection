@@ -154,7 +154,7 @@
                  
                 <tbody>
                     {% for comment in protocol.comment %}
-                        {% if 'all' == comment.role or comment.role in app.user.getRolesSlug %}
+                        {% if 'all' == comment.role or comment.role in app.user.getRolesSlug or 'secretary' in app.user.getRolesSlug %}
                             <tr>
                                <th>{{ comment.created|date('d/m/Y H:i:s') }}</th>
                                <td>{{ comment.owner }}</td> 
