@@ -1575,31 +1575,28 @@ class ProtocolController extends Controller
                 $body = str_replace("\r\n", "<br />", $body);
                 $body .= "<br /><br />";
 
-                $recipients = array();
+                $secretaries_emails = array();
                 foreach($user_repository->findAll() as $secretary) {
                     if(in_array("secretary", $secretary->getRolesSlug())) {
-                        $recipients[] = $secretary;
+                        $secretaries_emails[] = $secretary->getEmail();
                     }
                 }
 
-                foreach($recipients as $recipient) {
-                    $body = str_replace("%username%", $recipient->getName(), $body);
-                    $message = \Swift_Message::newInstance()
-                    ->setSubject("[LILACS] " . $translator->trans("The recommendations of the journal were sent"))
-                    ->setFrom($util->getConfiguration('committee.email'))
-                    ->setTo($recipient->getEmail())
-                    ->setBody(
-                        $body
-                        ,
-                        'text/html'
-                    );
+                $message = \Swift_Message::newInstance()
+                ->setSubject("[LILACS] " . $translator->trans("The recommendations of the journal were sent"))
+                ->setFrom($util->getConfiguration('committee.email'))
+                ->setTo($secretaries_emails)
+                ->setBody(
+                    $body
+                    ,
+                    'text/html'
+                );
 
-                    // if(!empty($file)) {
-                    //     $message->attach($attachment);
-                    // }
+                // if(!empty($file)) {
+                //     $message->attach($attachment);
+                // }
 
-                    $send = $this->get('mailer')->send($message);
-                }
+                $send = $this->get('mailer')->send($message);
 
                 $session->getFlashBag()->add('success', $translator->trans("The recommendations were sent successfully!"));
                 return $this->redirectToRoute('protocol_show_protocol', array('protocol_id' => $protocol->getId()), 301);

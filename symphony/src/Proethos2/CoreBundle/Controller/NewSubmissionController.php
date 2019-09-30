@@ -1437,38 +1437,36 @@ class NewSubmissionController extends Controller
                         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
                         $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
 
-                        $recipients = array();
+                        $secretaries_emails = array();
                         foreach($user_repository->findAll() as $secretary) {
                             if(in_array("secretary", $secretary->getRolesSlug())) {
-                                $recipients[] = $secretary;
+                                $secretaries_emails[] = $secretary->getEmail();
                             }
                         }
 
-                        foreach($recipients as $recipient) {
-                            $message = \Swift_Message::newInstance()
-                            ->setSubject("[LILACS] " . $translator->trans("A new monitoring action has been submitted."))
-                            ->setFrom($util->getConfiguration('committee.email'))
-                            ->setTo($recipient->getEmail())
-                            ->setBody(
-                                $translator->trans("Dear investigator,") .
-                                "<br />" .
-                                "<br />" . $translator->trans("This is to remind you that protocol <b>%protocol%</b> has a pending
-                                                                   monitoring action.",
-                                                                   array(
-                                                                       '%protocol%' => $protocol->getCode(),
-                                                                   )) .
-                                "<br />" .
-                                "<br />" . $translator->trans("Please access your account in the system to present your monitoring action.") .
-                                "<br />" .
-                                "<br />" . $translator->trans("Regards") . "," .
-                                "<br />" . $translator->trans("Proethos2 Team") .
-                                "<br /><br />"
-                                ,
-                                'text/html'
-                            );
+                        $message = \Swift_Message::newInstance()
+                        ->setSubject("[LILACS] " . $translator->trans("A new monitoring action has been submitted."))
+                        ->setFrom($util->getConfiguration('committee.email'))
+                        ->setTo($secretaries_emails)
+                        ->setBody(
+                            $translator->trans("Dear investigator,") .
+                            "<br />" .
+                            "<br />" . $translator->trans("This is to remind you that protocol <b>%protocol%</b> has a pending
+                                                               monitoring action.",
+                                                               array(
+                                                                   '%protocol%' => $protocol->getCode(),
+                                                               )) .
+                            "<br />" .
+                            "<br />" . $translator->trans("Please access your account in the system to present your monitoring action.") .
+                            "<br />" .
+                            "<br />" . $translator->trans("Regards") . "," .
+                            "<br />" . $translator->trans("Proethos2 Team") .
+                            "<br /><br />"
+                            ,
+                            'text/html'
+                        );
 
-                            $send = $this->get('mailer')->send($message);
-                        }
+                        $send = $this->get('mailer')->send($message);
 
                         $session->getFlashBag()->add('success', $translator->trans("Amendment submitted with success!"));
                     } else {
