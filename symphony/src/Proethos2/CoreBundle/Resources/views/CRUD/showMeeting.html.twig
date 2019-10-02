@@ -32,7 +32,7 @@
                     <thead>
                         <tr>
                             <th width="15%">{% trans %}ID{% endtrans %}</th>
-                            <th width="80%">{% trans %}Protocol{% endtrans %}</th>
+                            <th width="80%">{% trans %}Journal{% endtrans %}</th>
                             <th>{% trans %}Actions{% endtrans %}</th>
                         </tr>
                     </thead>
@@ -40,7 +40,7 @@
                         {% for protocol in protocols %}
                             <tr>
                                 <td>{{ protocol.code }}</td>
-                                <td>{{ protocol.mainSubmission.publicTitle }}</td>
+                                <td>{{ protocol.mainSubmission.title }}</td>
                                 <td>
                                     <a href='{{ path("protocol_show_protocol", {protocol_id: protocol.id}) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}See protocol{% endtrans %}"><i class='glyphicon glyphicon-eye-open'></i></a>
                                 </td>
