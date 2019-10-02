@@ -9,6 +9,16 @@
         <div class='row'>
             <div class='col-md-12'>
                 <div class="form-group required">
+                    <label for="input-email">{% trans %}Email{% endtrans %}:</label> 
+                    <a href="{{ path("crud_admin_help_show", {help_id: 66} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                    <input type='email' class='form-control' id="input-email" name="email" value="{{ user.email }}" required>
+                </div>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class="form-group required">
                     <label for="input-name">{% trans %}Name{% endtrans %}:</label> 
                     <a href="{{ path("crud_admin_help_show", {help_id: 67} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                     <input type='text' class='form-control' id="input-name" name="name" value="{{ user.name }}" required>
