@@ -1,6 +1,6 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title" id="myModalLabel">Parecer do Reviewer</h4>
+    <h4 class="modal-title" id="myModalLabel">{% trans %}Parecer do Reviewer{% endtrans %}</h4>
 </div>
 
 {% if 'committee' in app.request.get('member') %}
@@ -19,11 +19,11 @@
     </div>
 {% else %}
     <div class="modal-body">
-        <h4 class="modal-title">Editorial Team</h4>
+        <h4 class="modal-title">{% trans %}Editorial Team{% endtrans %}</h4>
         <h5>{% trans %}Opine sobre a representatividade do Corpo Editorial da revista, considerando sua abrangência geográfica e diversidade institucional, bem como observando a contribuição e competência de seus membros{% endtrans %}.</h5>
         <p>{{ protocol_revision.editorialTeam }}</p>
 
-        <h4 class="modal-title modal-revision">Content</h4>
+        <h4 class="modal-title modal-revision">{% trans %}Content{% endtrans %}</h4>
         <h5>{% trans %}a) Caráter científico da revista considerando os artigos originais de pesquisa ou reflexão, e sua coerência com a orientação temática da revista{% endtrans %}.</h5>
         <p>{{ protocol_revision.contentA }}</p>
 
@@ -36,7 +36,7 @@
         <h5>{% trans %}d) Qualidade dos elementos gráficos do periódico (imagens, tabelas, gráficos, impressão){% endtrans %}.</h5>
         <p>{{ protocol_revision.contentD }}</p>
 
-        <h4 class="modal-title modal-revision">Peer Arbitration</h4>
+        <h4 class="modal-title modal-revision">{% trans %}Peer Arbitration{% endtrans %}</h4>
         <h5>{% trans %}a) Apresentação dos procedimentos adotados pela revista para análise e aprovação dos artigos{% endtrans %}.</h5>
         <p>{{ protocol_revision.peerArbitrationA }}</p>
 
@@ -46,7 +46,7 @@
         <h5>{% trans %}c) Abrangência geográfica, diversidade institucional, contribuição e competência do grupo de revisores{% endtrans %}.</h5>
         <p>{{ protocol_revision.peerArbitrationC }}</p>
 
-        <h4 class="modal-title modal-revision">Comments</h4>
+        <h4 class="modal-title modal-revision">{% trans %}Comments{% endtrans %}</h4>
         <h5>{% trans %}Atribua um conceito ao periódico, considerando a área em análise{% endtrans %}.</h5>
         <p>{{ journal_concept[protocol_revision.journalConcept] }}</p>
 
