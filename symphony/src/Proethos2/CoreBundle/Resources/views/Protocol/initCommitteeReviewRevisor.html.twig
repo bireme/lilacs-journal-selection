@@ -39,8 +39,8 @@
             
             <div class='row'>
                 <div class='submission-button-controls col-md-12'>
-                    <button type="submit" class='btn btn-primary' id='button-save' {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{% trans %}Save as draft{% endtrans %}</button>
-                    <button type="button" class='btn btn-primary' id='button-save-and-finish' {% if protocol_revision.isFinalRevision %}disabled{% endif %}>
+                    <button type="submit" class='btn btn-primary' id='button-save' {% if not protocol_revision.answered or protocol_revision.isFinalRevision %}disabled{% endif %}>{% trans %}Save as draft{% endtrans %}</button>
+                    <button type="button" class='btn btn-primary' id='button-save-and-finish' {% if not protocol_revision.answered or protocol_revision.isFinalRevision %}disabled{% endif %}>
                         {% trans %}Save and mark as final revision{% endtrans %}
                     </button>
                 </div>
@@ -56,6 +56,16 @@
             $("body").on("click", "#button-save-and-finish", function(e){
                 $("#input-is-final-revision").val('true');
                 $("#form-action").submit();
+            });
+
+            $('#input-accept-conditions').on('ifChanged', function() {
+                if ($(this).is(':checked')) {
+                    $("#button-save").prop('disabled', false);
+                    $("#button-save-and-finish").prop('disabled', false);
+                } else {
+                    $("#button-save").prop('disabled', true);
+                    $("#button-save-and-finish").prop('disabled', true);
+                }
             });
         });
     </script>
