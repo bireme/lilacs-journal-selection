@@ -112,7 +112,7 @@
                                                 <td>{{ revision.statusLabel }}</td>
                                                 <td>
                                                     <a href='{{ path("protocol_show_protocol", {protocol_id: revision.id}) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}See journal{% endtrans %}"><i class='glyphicon glyphicon-eye-open'></i></a>
-                                                    <a href='#' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}Send journal revision{% endtrans %}" disabled><i class='glyphicon glyphicon-list-alt'></i></a>
+                                                    <a href='{{ path("protocol_initial_committee_review_revisor", {protocol_id: revision.id}) }}?member=adhoc' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}Send journal revision{% endtrans %}"><i class='glyphicon glyphicon-list-alt'></i></a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
