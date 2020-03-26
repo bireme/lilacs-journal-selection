@@ -866,16 +866,33 @@ class CRUDController extends Controller
         // $help = $help_repository->findBy(array("id" => {id}, "type" => "mail"));
         // $translations = $trans_repository->findTranslations($help[0]);
 
+        // getting specialty list
+        $specialty_repository = $em->getRepository('Proethos2ModelBundle:Specialty');
+        $specialty = $specialty_repository->findBy(array('status' => true), array('name' => 'ASC'));
+        $output['specialty'] = $specialty;
+
         $users = $user_repository->findAll();
 
-        // search parameter
+        // search parameters
         $search_query = $request->query->get('q');
-        if($search_query) {
-            $users = $user_repository->createQueryBuilder('m')
-               ->where('m.name LIKE :query')
-               ->setParameter('query', "%". $search_query ."%")
-               ->getQuery()
-               ->getResult();
+        $specialty_query = intval($request->query->get('specialty'));
+        $specialty_object = $specialty_repository->find($specialty_query);
+
+        if($search_query or $specialty_object) {
+            if ( $specialty_object ) {
+                $users = $user_repository->createQueryBuilder('m')
+                   ->where('m.name LIKE :query AND m.specialty = :specialty')
+                   ->setParameter('query', "%". $search_query ."%")
+                   ->setParameter('specialty', $specialty_object)
+                   ->getQuery()
+                   ->getResult();
+            } else {
+                $users = $user_repository->createQueryBuilder('m')
+                   ->where('m.name LIKE :query')
+                   ->setParameter('query', "%". $search_query ."%")
+                   ->getQuery()
+                   ->getResult();
+            }
         }
 
         $output['users'] = $users;
@@ -883,7 +900,7 @@ class CRUDController extends Controller
         // output parameter
         $output_parameter = $request->query->get('output');
         if($output_parameter == 'csv') {
-            $csv_headers = array('USERNAME', 'ID', 'EMAIL', 'ROLES', 'ACTIVE?', 'NAME', 'COUNTRY', 'INSTITUTION', 'LATTES');
+            $csv_headers = array('USERNAME', 'ID', 'EMAIL', 'ROLES', 'ACTIVE?', 'NAME', 'COUNTRY', 'INSTITUTION', 'LATTES', 'PRACTICE AREA');
             $csv_output = array();
             foreach($users as $user) {
                 $current_line = array();
@@ -896,6 +913,7 @@ class CRUDController extends Controller
                 $current_line[] = $user->getCountry() ? $user->getCountry()->getName() : '';
                 $current_line[] = $user->getInstitution();
                 $current_line[] = $user->getLattes();
+                $current_line[] = $user->getSpecialty();
                 $csv_output[] = $current_line;
             }
 
@@ -917,7 +935,7 @@ class CRUDController extends Controller
             $post_data = $request->request->all();
 
             // checking required fields
-            foreach(array('name', 'username', 'email', 'country', 'lattes' ) as $field) {
+            foreach( array('name', 'username', 'email', 'country', 'lattes') as $field ) {
                 if(!isset($post_data[$field]) or empty($post_data[$field])) {
                     $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
                     return $output;
@@ -934,6 +952,10 @@ class CRUDController extends Controller
             $user->setInstitution($post_data['institution']);
             $user->setLattes($post_data['lattes']);
             $user->setFirstAccess(false);
+
+            // specialty
+            $selected_specialty = $specialty_repository->find($post_data['specialty']);
+            $user->setSpecialty($selected_specialty);
 
             if(isset($post_data['status'])) {
                 $user->setIsActive(true);
@@ -1010,6 +1032,11 @@ class CRUDController extends Controller
         $countries = $country_repository->findBy(array(), array('name' => 'asc'));
         $output['countries'] = $countries;
 
+        // getting specialty list
+        $specialty_repository = $em->getRepository('Proethos2ModelBundle:Specialty');
+        $specialty = $specialty_repository->findBy(array('status' => true), array('name' => 'ASC'));
+        $output['specialty'] = $specialty;
+
         // checking if was a post request
         if($this->getRequest()->isMethod('POST')) {
 
@@ -1031,6 +1058,10 @@ class CRUDController extends Controller
             $user->setName($post_data['name']);
             $user->setLattes($post_data['lattes']);
             $user->setInstitution($post_data['institution']);
+
+            // specialty
+            $selected_specialty = $specialty_repository->find($post_data['specialty']);
+            $user->setSpecialty($selected_specialty);
 
             $em->persist($user);
             $em->flush();
@@ -1064,6 +1095,11 @@ class CRUDController extends Controller
         $help_repository = $em->getRepository('Proethos2ModelBundle:Help');
         // $help = $help_repository->findBy(array("id" => {id}, "type" => "mail"));
         // $translations = $trans_repository->findTranslations($help[0]);
+
+        // getting specialty list
+        $specialty_repository = $em->getRepository('Proethos2ModelBundle:Specialty');
+        $specialty = $specialty_repository->findBy(array('status' => true), array('name' => 'ASC'));
+        $output['specialty'] = $specialty;
 
         // getting the current user
         $user = $user_repository->find($user_id);
@@ -1102,6 +1138,10 @@ class CRUDController extends Controller
             $user->setName($post_data['name']);
             $user->setInstitution($post_data['institution']);
             $user->setLattes($post_data['lattes']);
+
+            // specialty
+            $selected_specialty = $specialty_repository->find($post_data['specialty']);
+            $user->setSpecialty($selected_specialty);
 
             $user->setIsActive(false);
             if(isset($post_data['status'])) {

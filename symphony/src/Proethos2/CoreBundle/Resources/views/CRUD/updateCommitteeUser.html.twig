@@ -31,10 +31,25 @@
                 <div class="form-group required">
                     <label for="select-country">{% trans %}Country{% endtrans %}:</label> 
                     <a href="{{ path("crud_admin_help_show", {help_id: 68} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                    <select class='form-control select-select2' id="select-country" name="country" required>
-                        <option value="">{% trans %}Select country{% endtrans %}</option>
+                    <select class='form-control' id="select_country" name="country" required>
+                        <option value="">-</option>
                         {% for country in countries %}
                             <option value="{{ country.id }}" {% if country == user.country %}selected{% endif %}>{{ country }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col-md-12'>
+                <div class="form-group">
+                    <label for="select-specialty">{% trans %}Practice Area{% endtrans %}:</label>
+                    <a href="{{ path("crud_admin_help_show", {help_id: 123} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                    <select class='form-control' id='select_specialty' name='specialty' data-size="5" data-live-search="true">
+                        <option value="">-</option>
+                        {% for special in specialty %}
+                            <option value="{{ special.id }}" {% if user.specialty.id == special.id %}selected{% endif %}>{{ special.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -80,3 +95,12 @@
         <button type="submit" class="btn btn-primary">{% trans %}Save{% endtrans %}</button>
     </div>
 </form>
+
+{% block script %}
+    <script>
+        $(function(){
+            $("#select_country").selectpicker();
+            $("#select_specialty").selectpicker();
+        });
+    </script>
+{% endblock %}

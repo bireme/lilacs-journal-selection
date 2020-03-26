@@ -82,6 +82,15 @@ class User extends Base implements UserInterface, \Serializable
     private $country;
 
     /**
+     * @var Specialty
+     *
+     * @ORM\ManyToOne(targetEntity="Specialty")
+     * @ORM\JoinColumn(name="specialty_id", referencedColumnName="id", onDelete="SET NULL")
+     * @Assert\NotBlank
+     */
+    private $specialty;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank()
      */
@@ -450,5 +459,29 @@ class User extends Base implements UserInterface, \Serializable
     public function getLattes()
     {
         return $this->lattes;
+    }
+
+    /**
+     * Set specialty
+     *
+     * @param \Proethos2\ModelBundle\Entity\Specialty $specialty
+     *
+     * @return User
+     */
+    public function setSpecialty(\Proethos2\ModelBundle\Entity\Specialty $specialty = null)
+    {
+        $this->specialty = $specialty;
+
+        return $this;
+    }
+
+    /**
+     * Get specialty
+     *
+     * @return \Proethos2\ModelBundle\Entity\Specialty
+     */
+    public function getSpecialty()
+    {
+        return $this->specialty;
     }
 }

@@ -20,11 +20,24 @@
                 <input type="hidden" name="output" id="input-output" value="html" />
 
                 <div class='row'>
-                    <div class="col-md-10">
+                    <div class="col-md-7">
                         <div class="form-group" id='form-filter'>
                             <label for="input-filter-q">{% trans %}Search for a user{% endtrans %}:</label>
                             <a href="{{ path("crud_admin_help_show", {help_id: 64} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                             <input type='text' class='form-control' id='input-filter-q' name='q' value="{{ app.request.get('q') }}">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="select-specialty">{% trans %}Practice Area{% endtrans %}:</label>
+                            <a href="{{ path("crud_admin_help_show", {help_id: 108} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <select class='form-control selectpicker submit-on-change' id='select-filter-specialty' name='specialty' data-size="5" data-live-search="true">
+                                <option value="">-</option>
+                                {% for special in specialty %}
+                                    <option value="{{ special.id }}" {% if app.request.get('specialty') == special.id %}selected{% endif %}>{{ special.name }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
 
@@ -53,10 +66,8 @@
                                 <th width="30%">{% trans %}Name{% endtrans %}</th>
                                 <th width="">{% trans %}Username{% endtrans %}</th>
                                 <th width="">{% trans %}Email{% endtrans %}</th>
-
                                 <th width="">{% trans %}Country{% endtrans %}</th>
-                                <!-- <th width="">{% trans %}Institution{% endtrans %}</th> -->
-
+                                <th width="">{% trans %}Practice Area{% endtrans %}</th>
                                 <th width="">{% trans %}Roles{% endtrans %}</th>
                                 <th width="">{% trans %}Status{% endtrans %}</th>
                                 <th>{% trans %}Actions{% endtrans %}</th>
@@ -69,10 +80,8 @@
                                     <td>{{ user.name }}</td>
                                     <td>{{ user.username }}</td>
                                     <td>{{ user.email }}</td>
-
                                     <td>{{ user.country }}</td>
-                                    <!-- <td>{{ user.institution }}</td> -->
-
+                                    <td>{{ user.specialty.name }}</td>
                                     <td>
                                         {% for role in user.proethos2Roles %}
                                             <span class='label label-default' data-toggle='tooltip' data-placement='top' title='{{ role.name|trans }}'>{{ role.name|first|upper }}</span>
@@ -156,10 +165,25 @@
                                 <div class="form-group required">
                                     <label for="select-country">{% trans %}Country{% endtrans %}:</label>
                                     <a href="{{ path("crud_admin_help_show", {help_id: 68} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                                    <select class='form-control select-select2' id="select-country" name="country" required>
-                                        <option value="">{% trans %}Select country{% endtrans %}</option>
+                                    <select class='form-control selectpicker' id="select-country" name="country" required>
+                                        <option value="">-</option>
                                         {% for country in countries %}
                                             <option value="{{ country.id }}">{{ country }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class='row'>
+                            <div class='col-md-12'>
+                                <div class="form-group">
+                                    <label for="select-specialty">{% trans %}Practice Area{% endtrans %}:</label>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 123} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <select class='form-control selectpicker' id='select-specialty' name='specialty' data-size="5" data-live-search="true">
+                                        <option value="">-</option>
+                                        {% for special in specialty %}
+                                            <option value="{{ special.id }}">{{ special.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>

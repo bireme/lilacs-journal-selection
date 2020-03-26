@@ -327,6 +327,11 @@ class SecurityController extends Controller
         $help_repository = $em->getRepository('Proethos2ModelBundle:Help');
         // $help = $help_repository->findBy(array("id" => {id}, "type" => "mail"));
         // $translations = $trans_repository->findTranslations($help[0]);
+
+        // getting specialty list
+        $specialty_repository = $em->getRepository('Proethos2ModelBundle:Specialty');
+        $specialty = $specialty_repository->findBy(array('status' => true), array('name' => 'ASC'));
+        $output['specialty'] = $specialty;
         
         // checking if was a post request
         if($this->getRequest()->isMethod('POST')) {
@@ -392,6 +397,10 @@ class SecurityController extends Controller
             $user->setInstitution($post_data['institution']);
             $user->setFirstAccess(false);
             $user->setIsActive(false);
+
+            // specialty
+            $selected_specialty = $specialty_repository->find($post_data['specialty']);
+            $user->setSpecialty($selected_specialty);
 
             $encoderFactory = $this->get('security.encoder_factory');
             $encoder = $encoderFactory->getEncoder($user);
