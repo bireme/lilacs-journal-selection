@@ -29,6 +29,7 @@ use Proethos2\ModelBundle\Entity\ProtocolComment;
 use Proethos2\ModelBundle\Entity\ProtocolHistory;
 use Proethos2\ModelBundle\Entity\ProtocolCommitteeRevision;
 use Proethos2\ModelBundle\Entity\ProtocolAdhocRevision;
+use Proethos2\ModelBundle\Entity\ProtocolAdhocRevisionEvaluation;
 use Proethos2\ModelBundle\Entity\Submission;
 use Proethos2\ModelBundle\Entity\SubmissionUpload;
 use Proethos2\ModelBundle\Entity\Issue;
@@ -975,12 +976,24 @@ class ProtocolController extends Controller
             throw $this->createNotFoundException($translator->trans('No journal found'));
         }
 
-        // getting the protocol_revisiion
+        // getting the protocol_revision
         $protocol_revision = $protocol_revision_repository->findOneBy(array("protocol" => $protocol, "member" => $user));
         $output['protocol_revision'] = $protocol_revision;
 
         if (!$protocol_revision) {
             throw $this->createNotFoundException($translator->trans('You cannot edit this protocol'));
+        }
+
+        $protocol_adhoc_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolAdhocRevisionEvaluation');
+        $protocol_adhoc_revision = $protocol_adhoc_revision_repository->findBy(array("protocol" => $protocol, "reviewer" => $user));
+        if ( $protocol_adhoc_revision) {
+            $output['protocol_adhoc_revision'] = $protocol_adhoc_revision;
+            $action = 'update';
+        } else {
+            $protocol_adhoc_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolAdhocRevision');
+            $protocol_adhoc_revision = $protocol_adhoc_revision_repository->findBy(array("protocol" => $protocol, "answered" => true));
+            $output['protocol_adhoc_revision'] = $protocol_adhoc_revision;
+            $action = 'create';
         }
 
         // checking if was a post request
@@ -995,9 +1008,9 @@ class ProtocolController extends Controller
             if(!$protocol_revision->getIsFinalRevision()) {
 
                 // checking required files
-                foreach($post_data as $field) {
-                    if(!isset($field) or empty($field)) {
-                        $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $field)));
+                foreach($post_data as $key => $value) {
+                    if(!isset($value) or empty($value)) {
+                        $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $key)));
                         return $output;
                     }
                 }
@@ -1013,6 +1026,26 @@ class ProtocolController extends Controller
                     $protocol_revision->setOtherComments($post_data['other-comments']);
                     $protocol_revision->setAcceptJournal($post_data['accept-journal']);
                     $protocol_revision->setAcceptConditions($post_data['accept-conditions']);
+
+                    foreach ($post_data['revision'] as $member_id => $revision) {
+                        $member = $user_repository->find($member_id);
+
+                        if ( 'create' == $action ) {
+                            $adhoc_revision = new ProtocolAdhocRevisionEvaluation();
+                            $adhoc_revision->setMember($member);
+                            $adhoc_revision->setReviewer($user);
+                            $adhoc_revision->setProtocol($protocol);
+                        } else {
+                            $adhoc_revision = $protocol_adhoc_revision_repository->findOneBy(array("protocol" => $protocol, "member" => $member, "reviewer" => $user));
+                        }
+
+                        $adhoc_revision->setRelevance($revision['relevance']);
+                        $adhoc_revision->setPertinence($revision['pertinence']);
+                        $adhoc_revision->setClarity($revision['clarity']);
+
+                        $em->persist($adhoc_revision);
+                        $em->flush();
+                    }
                 } elseif ( "adhoc" == $post_data['member-type'] ) {
                     $protocol_revision->setEditorialTeam($post_data['editorial-team']);
                     $protocol_revision->setContentA($post_data['content-a']);

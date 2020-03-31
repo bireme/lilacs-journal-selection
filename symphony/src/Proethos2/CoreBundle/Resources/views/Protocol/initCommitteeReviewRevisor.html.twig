@@ -18,15 +18,7 @@
         <form method="POST" id='form-action'>
             <input type="hidden" id="input-is-final-revision" name="is-final-revision" value="false">
 
-            <div class='block action'>
-            
-                <a name='action'></a>
-                <div class='row'>
-                    <div class="col-md-12">
-                        <h2 class='sub-header'>{% trans %}Reviewer's evaluation{% endtrans %}:</h2>
-                    </div>
-                </div>
-
+            <div class='block'>
                 {% if 'committee' in app.request.get('member') %}
                     <input type="hidden" id="member-type" name="member-type" value="committee">
                     {% include 'Proethos2CoreBundle:Protocol:committee_revisor_form.html.twig' %}
@@ -34,7 +26,6 @@
                     <input type="hidden" id="member-type" name="member-type" value="adhoc">
                     {% include 'Proethos2CoreBundle:Protocol:adhoc_revisor_form.html.twig' %}
                 {% endif %}
-                
             </div>
             
             <div class='row'>
