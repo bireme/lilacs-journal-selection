@@ -19,7 +19,7 @@
                 <input type="hidden" name="output" id="input-output" value="html" />
 
                 <div class='row'>
-                    <div class="col-md-7">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="input-filter-q">{% trans %}Find journals{% endtrans %}:</label>
                             <a href="{{ path("crud_admin_help_show", {help_id: 52} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
@@ -28,7 +28,7 @@
                     </div>
 
                     {% if 'secretary' in app.user.rolesSlug or 'member-of-committee' in app.user.rolesSlug %}
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="select-filter-status">{% trans %}Status{% endtrans %}:</label>
                                 <a href="{{ path("crud_admin_help_show", {help_id: 53} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
@@ -48,6 +48,17 @@
                             </div>
                         </div>
                     {% endif %}
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="select-filter-order">{% trans %}Order by{% endtrans %}:</label>
+                            <a href="{{ path("crud_admin_help_show", {help_id: 124} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <select class='form-control selectpicker submit-on-change' id="select-filter-order" name="order" data-live-search="true">
+                                <option value="created" {% if app.request.get('order') == "created" %}selected{% endif %}>{% trans %}Creation date{% endtrans %}</option>
+                                <option value="date_informed" {% if app.request.get('order') == "date_informed" %}selected{% endif %}>{% trans %}Submission date{% endtrans %}</option>
+                            </select>
+                        </div>
+                    </div>
 
                     {% if 'investigator' not in app.user.rolesSlug and 'member-ad-hoc' not in app.user.rolesSlug %}
                         <div class="col-md-1 search-button">
@@ -88,7 +99,7 @@
                                     <th>{% if protocol.code %}{{ protocol.code }}{% else %}-{% endif %}</th>
                                     <td>{{ protocol.mainSubmission.title }}</td>
                                     <td><span class='label label-primary'>{% trans %}Journal{% endtrans %}</span></td>
-                                    <td>{{ protocol.updatedIn|date("d/m/Y") }}</td>
+                                    <td>{% if protocol.updatedIn %}{{ protocol.updatedIn|date("d/m/Y") }}{% endif %}</td>
                                     {% if 'secretary' in app.user.rolesSlug or 'member-of-committee' in app.user.rolesSlug %}<td>{{ protocol.statusLabel|trans }}</td>{% endif %}
                                     <td>
                                         <a href='{{ path("protocol_show_protocol", {protocol_id: protocol.id}) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}See journal{% endtrans %}"><i class='glyphicon glyphicon-eye-open'></i></a>

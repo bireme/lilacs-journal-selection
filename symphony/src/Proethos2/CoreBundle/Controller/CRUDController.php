@@ -252,6 +252,14 @@ class CRUDController extends Controller
         $search_query = $request->query->get('q');
         $status_query = $request->query->get('status');
 
+        $p_order_query  = "p.created";
+        $pr_order_query = "pr.created";
+        
+        if ( $request->query->get('order') and 'date_informed' == $request->query->get('order') ) {
+            $p_order_query  = "p.date_informed";
+            $pr_order_query = "pr.date_informed";
+        }
+
         if(!empty($status_query))
             $status_array = array($status_query);
 
@@ -259,19 +267,22 @@ class CRUDController extends Controller
             $query = $protocol_repository->createQueryBuilder('p')
                 ->join('p.main_submission', 's')
                 ->where("s.title LIKE :query AND p.status IN (:status)")
-                ->orderBy("p.created", 'DESC')
+                ->addOrderBy($p_order_query, 'DESC')
+                ->addOrderBy('p.created', 'DESC')
                 ->setParameter('query', "%". $search_query ."%")
                 ->setParameter('status', $status_array);
         } elseif ( in_array('member-of-committee', $user->getRolesSlug()) ) {
             $subquery = $protocol_repository->createQueryBuilder('pr')
                 ->join('pr.committee_revision', 'r')
                 ->where("r.member = :owner AND r.is_final_revision = 1")
-                ->orderBy("p.created", 'DESC')
+                ->addOrderBy($pr_order_query, 'DESC')
+                ->addOrderBy('pr.created', 'DESC')
                 ->setParameter('owner', $user);
             $query = $protocol_repository->createQueryBuilder('p')
                 ->join('p.main_submission', 's')
                 ->where("s.title LIKE :query AND p.status IN (:status) AND p NOT IN ($subquery)")
-                ->orderBy("p.created", 'DESC')
+                ->addOrderBy($p_order_query, 'DESC')
+                ->addOrderBy('p.created', 'DESC')
                 ->setParameter('query', "%". $search_query ."%")
                 ->setParameter('status', $status_array)
                 ->setParameter('owner', $user);
@@ -280,7 +291,8 @@ class CRUDController extends Controller
                 ->join('p.main_submission', 's')
                 ->leftJoin('p.adhoc_revision', 'r')
                 ->where("s.title LIKE :query AND p.status = 'E' AND r.member = :owner AND r.is_final_revision = 0")
-                ->orderBy("p.created", 'DESC')
+                ->addOrderBy($p_order_query, 'DESC')
+                ->addOrderBy('p.created', 'DESC')
                 ->setParameter('query', "%". $search_query ."%")
                 ->setParameter('owner', $user);
         }
