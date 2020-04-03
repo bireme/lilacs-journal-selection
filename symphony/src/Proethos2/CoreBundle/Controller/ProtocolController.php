@@ -49,8 +49,12 @@ class ProtocolController extends Controller
         $translator = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
 
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
         $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
         $user_repository = $em->getRepository('Proethos2ModelBundle:User');
+        $upload_type_repository = $em->getRepository('Proethos2ModelBundle:UploadType');
+        $submission_upload_repository = $em->getRepository('Proethos2ModelBundle:SubmissionUpload');
 
         $util = new Util($this->container, $this->getDoctrine());
 
@@ -58,6 +62,15 @@ class ProtocolController extends Controller
         $protocol = $protocol_repository->find($protocol_id);
         $submission = $protocol->getMainSubmission();
         $output['protocol'] = $protocol;
+
+        // checking required deployment report attachment
+        $upload_type = $upload_type_repository->findOneBy(array("slug" => "attachment"));
+        $upload_type_id = $upload_type->getId();
+        $submission_upload = $submission_upload_repository->findBy(array('submission' => $submission->getId(), 'upload_type' => $upload_type_id));
+        $output['submission_upload'] = $submission_upload;
+
+        $is_owner = ( $user == $protocol->getOwner() ) ? true : false;
+        $output['is_owner'] = $is_owner;
 
         if (!$protocol) {
             throw $this->createNotFoundException($translator->trans('No journal found'));
@@ -68,6 +81,50 @@ class ProtocolController extends Controller
 
             // getting post data
             $post_data = $request->request->all();
+
+            if ( isset($post_data['extra-file']) and $post_data['extra-file'] == "yes" ) {
+                $file = $request->files->get('extra-attachment');
+                if ( empty($file) ) {
+                    $session->getFlashBag()->add('error', $translator->trans("The attachment is required."));
+                    return $output;
+                }
+
+                // remove the old file uploaded
+                if ( $submission_upload ) {
+                    $em->remove($submission_upload[0]);
+                    $em->flush();
+                }
+
+                $submission_upload = new SubmissionUpload();
+                $submission_upload->setSubmission($protocol->getMainSubmission());
+                $submission_upload->setUploadType($upload_type);
+                $submission_upload->setUser($user);
+                $submission_upload->setFile($file);
+                $submission_upload->setSubmissionNumber($protocol->getMainSubmission()->getNumber());
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($submission_upload);
+                $em->flush();
+
+                $protocol->getMainSubmission()->addAttachment($submission_upload);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($protocol->getMainSubmission());
+                $em->flush();
+/*
+                $protocol_history = new ProtocolHistory();
+                $protocol_history->setProtocol($protocol);
+                $protocol_history->setMessage($translator->trans(
+                    'The journal attachment were sent by the publisher.',
+                    array(
+                        '%user%' => $user->getUsername(),
+                    )
+                ));
+                $em->persist($protocol_history);
+                $em->flush();
+*/
+                $session->getFlashBag()->add('success', $translator->trans("Attachment added with success."));
+                return $this->redirectToRoute('protocol_show_protocol', array('protocol_id' => $protocol->getId()), 301);
+            }
 
             // if has new comment
             if(isset($post_data['new-comment-message'])) {
@@ -1474,8 +1531,8 @@ class ProtocolController extends Controller
         // $translations = $trans_repository->findTranslations($help[0]);
 
         // checking required deployment report attachment
-        $upload_type = $upload_type_repository->findBy(array('slug' => 'deployment-report'));
-        $upload_type_id = $upload_type[0]->getId();
+        $upload_type = $upload_type_repository->findOneBy(array("slug" => "deployment-report"));
+        $upload_type_id = $upload_type->getId();
         $deploy_report = $submission_upload_repository->findBy(array('submission' => $submission->getId(), 'upload_type' => $upload_type_id));
         $output['deploy_report'] = ( $deploy_report ) ? true : false;
 
@@ -1542,9 +1599,6 @@ class ProtocolController extends Controller
                     $session->getFlashBag()->add('error', $translator->trans("You have to upload a deployment report."));
                     return $output;
                 }
-
-                // getting the upload type
-                $upload_type = $upload_type_repository->findOneBy(array("slug" => "deployment-report"));
 
                 // adding the file uploaded
                 $submission_upload = new SubmissionUpload();
