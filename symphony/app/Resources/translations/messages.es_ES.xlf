@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-08-14T13:49:39Z" source-language="en" target-language="es_ES" datatype="plaintext" original="not.available">
+  <file date="2020-04-15T14:17:34Z" source-language="en" target-language="es_ES" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -162,6 +162,14 @@
         <source>Attached Files</source>
         <target>Archivos adjuntos</target>
       </trans-unit>
+      <trans-unit id="83a56249e5cff48f561d2d725143f1fc2eb3228c" resname="Attachment">
+        <source>Attachment</source>
+        <target>Attachment</target>
+      </trans-unit>
+      <trans-unit id="b1aa6d1f49a748f59593e3bd87953f2c4408916e" resname="Attachment added with success.">
+        <source>Attachment added with success.</source>
+        <target>Attachment added with success.</target>
+      </trans-unit>
       <trans-unit id="5fda23d62015b99fb2a9f86b38bcdf2bdf7609c8" resname="Author">
         <source>Author</source>
         <target>Autor</target>
@@ -213,6 +221,10 @@
       <trans-unit id="4271627f4f0bef6104a95cca7bb21cda4d74503e" resname="City">
         <source>City</source>
         <target>Ciudad</target>
+      </trans-unit>
+      <trans-unit id="03543111f1a319a4d2d7609daee9fe909dc2e051" resname="Clarity">
+        <source>Clarity</source>
+        <target>Clarity</target>
       </trans-unit>
       <trans-unit id="ed6b163354d00afa17647b94816172f80c7de3fa" resname="Clinical Trial Names">
         <source>Clinical Trial Names</source>
@@ -326,6 +338,10 @@
         <source>Creation Year</source>
         <target>Año de creacion</target>
       </trans-unit>
+      <trans-unit id="c175379b0389b2d6057b0b7db996720f1fb92fc7" resname="Creation date">
+        <source>Creation date</source>
+        <target>Creation date</target>
+      </trans-unit>
       <trans-unit id="e070de224434a2acd352b35cec46f34f9e08e1b2" resname="Currency">
         <source>Currency</source>
         <target>Moneda</target>
@@ -430,6 +446,10 @@
         <source>E-mail</source>
         <target>E-mail</target>
       </trans-unit>
+      <trans-unit id="b3596b12fac14dbe8abc1a2210fcd4fc9a9721d3" resname="Edit attachment">
+        <source>Edit attachment</source>
+        <target>Edit attachment</target>
+      </trans-unit>
       <trans-unit id="4d32f9f7a82dd68da666475cd6c1355d1220879b" resname="Edit roles">
         <source>Edit roles</source>
         <target>Editar papeles</target>
@@ -465,6 +485,10 @@
       <trans-unit id="3ac277d119668e52f4110ed11bc7367cc9a7ecf0" resname="Editor State">
         <source>Editor State</source>
         <target>Província del Editor</target>
+      </trans-unit>
+      <trans-unit id="73f280df8d9fbacc0abfd8783b17a0cb898f5fff" resname="Editorial Team">
+        <source>Editorial Team</source>
+        <target>Editorial Team</target>
       </trans-unit>
       <trans-unit id="e0c9f35acd0322871d2afd65f6c6a327d46c2c5c" resname="Editorial team">
         <source>Editorial team</source>
@@ -685,6 +709,10 @@
       <trans-unit id="e83e9e6f22577d3860c9fb04a5b00c8e0ea5abe9" resname="Get user's link to change password">
         <source>Get user's link to change password</source>
         <target>Obtener enlace de usuario para cambiar contraseña</target>
+      </trans-unit>
+      <trans-unit id="3edaa5038b1e4d4eef4429bbadb9cbb38dd4e285" resname="Give your opinion about the content analysis made by the reviewers">
+        <source>Give your opinion about the content analysis made by the reviewers</source>
+        <target>Give your opinion about the content analysis made by the reviewers</target>
       </trans-unit>
       <trans-unit id="9d8ba69ea37ad3dd3008e8b89eb6046f51780130" resname="Have an error with captcha. Please try again.">
         <source>Have an error with captcha. Please try again.</source>
@@ -909,6 +937,10 @@
       <trans-unit id="daba441828e03d8ff2c587e9c3769e4101dc039e" resname="Last journals that you reviewed">
         <source>Last journals that you reviewed</source>
         <target>Últimas revistas que revisaste</target>
+      </trans-unit>
+      <trans-unit id="a45d571d77d3585b94a6f8f687e6c1f0a4218d6d" resname="Lattes">
+        <source>Lattes</source>
+        <target>Lattes</target>
       </trans-unit>
       <trans-unit id="82aad91e4f49d0daa694506a98952f33cfb862d6" resname="Lattes URL">
         <source>Lattes URL</source>
@@ -1222,6 +1254,10 @@
         <source>Options have been saved with success!</source>
         <target>Las opciones se han guardado exitosamente</target>
       </trans-unit>
+      <trans-unit id="defe0db58901ef5c27bf7dc8d5bfc802f7cd4e7b" resname="Order by">
+        <source>Order by</source>
+        <target>Order by</target>
+      </trans-unit>
       <trans-unit id="ca86dd30b1dc77a2a5f8196f2e8e728cdff6d6ff" resname="Other Indexes">
         <source>Other Indexes</source>
         <target>Otros indices</target>
@@ -1229,6 +1265,10 @@
       <trans-unit id="5ef849c72cc4d216fc7f81d5be20df7369d797a0" resname="Pan American Health Organization, 2013. All rights reserved.">
         <source>Pan American Health Organization, 2013. All rights reserved.</source>
         <target>Organización Panamericana de la Salud, 2013. Todos los derechos reservados. </target>
+      </trans-unit>
+      <trans-unit id="950b41a94ac267bfc71febb77805b16c7f4a4354" resname="Parecer do Reviewer">
+        <source>Parecer do Reviewer</source>
+        <target>Parecer do Reviewer</target>
       </trans-unit>
       <trans-unit id="8be3c943b1609fffbfc51aad666d0a04adf83c9d" resname="Password">
         <source>Password</source>
@@ -1250,6 +1290,10 @@
         <source>Peer Review</source>
         <target>Revisión por pares</target>
       </trans-unit>
+      <trans-unit id="11c710be827c7a79747065633e9ef1eb2d9aec59" resname="Pertinence">
+        <source>Pertinence</source>
+        <target>Pertinence</target>
+      </trans-unit>
       <trans-unit id="77064d5265236e0ac252f3fc4a5ba7b274b6a583" resname="Phone">
         <source>Phone</source>
         <target>Teléfono</target>
@@ -1266,9 +1310,17 @@
         <source>Please highlight the journal negative aspects</source>
         <target>Please highlight the journal negative aspects</target>
       </trans-unit>
+      <trans-unit id="1933880546b8ca0fa87200e256d249e0b3c9cbed" resname="Please highlight the journal negative aspects and point out the most relevant ones (quality of articles, scientific merit, ethical aspects, arbitration criteria and editorial board, diffusion of the journal)">
+        <source>Please highlight the journal negative aspects and point out the most relevant ones (quality of articles, scientific merit, ethical aspects, arbitration criteria and editorial board, diffusion of the journal)</source>
+        <target>Please highlight the journal negative aspects and point out the most relevant ones (quality of articles, scientific merit, ethical aspects, arbitration criteria and editorial board, diffusion of the journal)</target>
+      </trans-unit>
       <trans-unit id="3344b9e2dd22adf7788b4fb038bc7926afe81ef1" resname="Please highlight the journal positive aspects">
         <source>Please highlight the journal positive aspects</source>
         <target>Please highlight the journal positive aspects</target>
+      </trans-unit>
+      <trans-unit id="238c4b076cb500afdc10497e9f27815723d54382" resname="Please highlight the journal positive aspects and point out the most relevant ones (quality of articles, scientific merit, ethical aspects, arbitration criteria and editorial board, diffusion of the journal)">
+        <source>Please highlight the journal positive aspects and point out the most relevant ones (quality of articles, scientific merit, ethical aspects, arbitration criteria and editorial board, diffusion of the journal)</source>
+        <target>Please highlight the journal positive aspects and point out the most relevant ones (quality of articles, scientific merit, ethical aspects, arbitration criteria and editorial board, diffusion of the journal)</target>
       </trans-unit>
       <trans-unit id="d8f655659ca4a548a3c7f45d9cb7fb04d6ecbb14" resname="Please submit 1 peer review and 1 submission data attachments.">
         <source>Please submit 1 peer review and 1 submission data attachments.</source>
@@ -1298,6 +1350,10 @@
         <source>Postgraduate Grade</source>
         <target>Grado de posgrado</target>
       </trans-unit>
+      <trans-unit id="7f84bc8a103b2fd8e5b5ccd918fa999d25bf2738" resname="Practice Area">
+        <source>Practice Area</source>
+        <target>Practice Area</target>
+      </trans-unit>
       <trans-unit id="7745f49357fa406eb8ac64f85af91dcbbf843264" resname="Previous Title">
         <source>Previous Title</source>
         <target>Título anterior</target>
@@ -1321,10 +1377,6 @@
       <trans-unit id="f2f01e6249a5ad459e77f133a7e3b40627bb5617" resname="Project Title">
         <source>Project Title</source>
         <target>Título del proyecto</target>
-      </trans-unit>
-      <trans-unit id="1ed77c3f7ffc41a33eadccef5727dc7c97079235" resname="Protocol">
-        <source>Protocol</source>
-        <target>Protocolo</target>
       </trans-unit>
       <trans-unit id="185a971b99159441d069b7b1aabcec8c0de209c1" resname="Protocol options">
         <source>Protocol options</source>
@@ -1442,6 +1494,10 @@
         <source>Relative importance</source>
         <target>Relative importance</target>
       </trans-unit>
+      <trans-unit id="dcb70f5244f8883ac49c5eceb7d1e1cdeaf82711" resname="Relevance">
+        <source>Relevance</source>
+        <target>Relevance</target>
+      </trans-unit>
       <trans-unit id="e963907dac5cd5c017869b4c96c18021c9bd058b" resname="Remove">
         <source>Remove</source>
         <target>Remover</target>
@@ -1473,6 +1529,10 @@
       <trans-unit id="4c1ff2a74e8bb25035a54848037407368b94b275" resname="Review Remind">
         <source>Review Remind</source>
         <target>Review Remind</target>
+      </trans-unit>
+      <trans-unit id="a74f16c11792da6a36979a58a1ba2b4333632f57" resname="Reviewer">
+        <source>Reviewer</source>
+        <target>Reviewer</target>
       </trans-unit>
       <trans-unit id="a0dcc32daedd52a0ca97603430609308adcab92f" resname="Reviewer ad-hoc">
         <source>Reviewer ad-hoc</source>
@@ -1533,6 +1593,10 @@
       <trans-unit id="77d9d7593ba8b7be7b83d857a1689e9eacf89cd6" resname="Save as draft">
         <source>Save as draft</source>
         <target>Save as draft</target>
+      </trans-unit>
+      <trans-unit id="949f7dfd73bb2fde114555e795f20ca6bd01d37d" resname="Save attachment">
+        <source>Save attachment</source>
+        <target>Save attachment</target>
       </trans-unit>
       <trans-unit id="7dc93dfdfd8466365adcc58b37f66a5a654e8f27" resname="Save decision and finalize process">
         <source>Save decision and finalize process</source>
@@ -1634,6 +1698,10 @@
         <source>Send Message</source>
         <target>Enviar mensaje</target>
       </trans-unit>
+      <trans-unit id="19df455411571fbac99575efea6d5ed0cf1abb66" resname="Send attachment">
+        <source>Send attachment</source>
+        <target>Send attachment</target>
+      </trans-unit>
       <trans-unit id="dacd464caf2b878ecec20c7608e0e18c1aaccc99" resname="Send deployment report">
         <source>Send deployment report</source>
         <target>Send deployment report</target>
@@ -1726,6 +1794,10 @@
         <source>Submission Language</source>
         <target>Idioma del envío</target>
       </trans-unit>
+      <trans-unit id="d731610a7b2bd94cb063f76351df4c560f722d41" resname="Submission date">
+        <source>Submission date</source>
+        <target>Submission date</target>
+      </trans-unit>
       <trans-unit id="ac816bce706e2a0abaec5ee081b74ac5b6a06a1b" resname="Submission of journal.">
         <source>Submission of journal.</source>
         <target>Envío de la revista.</target>
@@ -1765,6 +1837,10 @@
       <trans-unit id="97738411d629b01052974cc98ddb83a2cb4f8182" resname="Terms of Use">
         <source>Terms of Use</source>
         <target>Términos de uso</target>
+      </trans-unit>
+      <trans-unit id="005241f418517acc3f7451eef1d19034533a3b40" resname="The attachment is required.">
+        <source>The attachment is required.</source>
+        <target>The attachment is required.</target>
       </trans-unit>
       <trans-unit id="7ff9079eaa6cbb585ad439df16b609759698866d" resname="The journal review was finalized!">
         <source>The journal review was finalized!</source>
@@ -1806,10 +1882,11 @@
         <source>This is a translated version.</source>
         <target>Esta es una versión traducida. </target>
       </trans-unit>
-      <trans-unit id="a122057fb20524fbc1ad7fbb71aa0863323060ab" resname="This is to remind you that protocol &lt;b&gt;%protocol%&lt;/b&gt; has a pending&#10;                                                                   monitoring action.">
+      <trans-unit id="5d9e65aedc9d9539594c0ee7913be60ec0e66305" resname="This is to remind you that protocol &lt;b&gt;%protocol%&lt;/b&gt; has a pending&#10;                                                               monitoring action.">
         <source><![CDATA[This is to remind you that protocol <b>%protocol%</b> has a pending
-                                                                   monitoring action.]]></source>
-        <target><![CDATA[Esto es para recordarle que el protocolo <b>% protocol% </b> tiene una acción de monitoreo pendiente.]]></target>
+                                                               monitoring action.]]></source>
+        <target><![CDATA[This is to remind you that protocol <b>%protocol%</b> has a pending
+                                                               monitoring action.]]></target>
       </trans-unit>
       <trans-unit id="e4a29a083278cd19122f18e57a547f3cb29cb578" resname="This is to remind you that protocol &lt;b&gt;%protocol%&lt;/b&gt; has a pending&#10;                                                       monitoring action.">
         <source><![CDATA[This is to remind you that protocol <b>%protocol%</b> has a pending

@@ -74,7 +74,7 @@
 <div class='row'>
     <div class="col-md-12">
         <div class="form-group">
-            <label for="textarea-positive-aspects">{% trans %}Please highlight the journal positive aspects{% endtrans %}:</label>
+            <label for="textarea-positive-aspects">{% trans %}Please highlight the journal positive aspects and point out the most relevant ones (quality of articles, scientific merit, ethical aspects, arbitration criteria and editorial board, diffusion of the journal){% endtrans %}:</label>
             <textarea rows="5" class="form-control" id='textarea-positive-aspects' name="positive-aspects" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.positiveAspects }}</textarea>
         </div>
     </div>
@@ -82,7 +82,7 @@
 <div class='row'>
     <div class="col-md-12">
         <div class="form-group">
-            <label for="textarea-negative-aspects">{% trans %}Please highlight the journal negative aspects{% endtrans %}:</label>
+            <label for="textarea-negative-aspects">{% trans %}Please highlight the journal negative aspects and point out the most relevant ones (quality of articles, scientific merit, ethical aspects, arbitration criteria and editorial board, diffusion of the journal){% endtrans %}:</label>
             <textarea rows="5" class="form-control" id='textarea-negative-aspects' name="negative-aspects" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.negativeAspects }}</textarea>
         </div>
     </div>
