@@ -29,32 +29,32 @@
                                 <td><a href="{{ revision.member.lattes }}" target="_blank">CV</a></td>
                                 <td>
                                     <select class='form-control selectpicker' name='revision[{{ revision.member.id }}][relevance]' data-size="6" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>
-                                        <option value="0" {% if revision.relevance is defined and revision.relevance == 0 %}selected{% endif%}>-</option>
-                                        <option value="1" {% if revision.relevance is defined and revision.relevance == 1 %}selected{% endif%}>1</option>
-                                        <option value="2" {% if revision.relevance is defined and revision.relevance == 2 %}selected{% endif%}>2</option>
-                                        <option value="3" {% if revision.relevance is defined and revision.relevance == 3 %}selected{% endif%}>3</option>
-                                        <option value="4" {% if revision.relevance is defined and revision.relevance == 4 %}selected{% endif%}>4</option>
-                                        <option value="5" {% if revision.relevance is defined and revision.relevance == 5 %}selected{% endif%}>5</option>
+                                        <option value="0" {% if revision.relevance is defined and revision.relevance == 0 %}selected{% endif %}>-</option>
+                                        <option value="1" {% if revision.relevance is defined and revision.relevance == 1 %}selected{% endif %}>1</option>
+                                        <option value="2" {% if revision.relevance is defined and revision.relevance == 2 %}selected{% endif %}>2</option>
+                                        <option value="3" {% if revision.relevance is defined and revision.relevance == 3 %}selected{% endif %}>3</option>
+                                        <option value="4" {% if revision.relevance is defined and revision.relevance == 4 %}selected{% endif %}>4</option>
+                                        <option value="5" {% if revision.relevance is defined and revision.relevance == 5 %}selected{% endif %}>5</option>
                                     </select>
                                 </td>
                                 <td>
                                     <select class='form-control selectpicker' name='revision[{{ revision.member.id }}][pertinence]' data-size="6" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>
-                                        <option value="0" {% if revision.pertinence is defined and revision.pertinence == 0 %}selected{% endif%}>-</option>
-                                        <option value="1" {% if revision.pertinence is defined and revision.pertinence == 1 %}selected{% endif%}>1</option>
-                                        <option value="2" {% if revision.pertinence is defined and revision.pertinence == 2 %}selected{% endif%}>2</option>
-                                        <option value="3" {% if revision.pertinence is defined and revision.pertinence == 3 %}selected{% endif%}>3</option>
-                                        <option value="4" {% if revision.pertinence is defined and revision.pertinence == 4 %}selected{% endif%}>4</option>
-                                        <option value="5" {% if revision.pertinence is defined and revision.pertinence == 5 %}selected{% endif%}>5</option>
+                                        <option value="0" {% if revision.pertinence is defined and revision.pertinence == 0 %}selected{% endif %}>-</option>
+                                        <option value="1" {% if revision.pertinence is defined and revision.pertinence == 1 %}selected{% endif %}>1</option>
+                                        <option value="2" {% if revision.pertinence is defined and revision.pertinence == 2 %}selected{% endif %}>2</option>
+                                        <option value="3" {% if revision.pertinence is defined and revision.pertinence == 3 %}selected{% endif %}>3</option>
+                                        <option value="4" {% if revision.pertinence is defined and revision.pertinence == 4 %}selected{% endif %}>4</option>
+                                        <option value="5" {% if revision.pertinence is defined and revision.pertinence == 5 %}selected{% endif %}>5</option>
                                     </select>
                                 </td>
                                 <td>
                                     <select class='form-control selectpicker' name='revision[{{ revision.member.id }}][clarity]' data-size="6" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>
-                                        <option value="0" {% if revision.clarity is defined and revision.clarity == 0 %}selected{% endif%}>-</option>
-                                        <option value="1" {% if revision.clarity is defined and revision.clarity == 1 %}selected{% endif%}>1</option>
-                                        <option value="2" {% if revision.clarity is defined and revision.clarity == 2 %}selected{% endif%}>2</option>
-                                        <option value="3" {% if revision.clarity is defined and revision.clarity == 3 %}selected{% endif%}>3</option>
-                                        <option value="4" {% if revision.clarity is defined and revision.clarity == 4 %}selected{% endif%}>4</option>
-                                        <option value="5" {% if revision.clarity is defined and revision.clarity == 5 %}selected{% endif%}>5</option>
+                                        <option value="0" {% if revision.clarity is defined and revision.clarity == 0 %}selected{% endif %}>-</option>
+                                        <option value="1" {% if revision.clarity is defined and revision.clarity == 1 %}selected{% endif %}>1</option>
+                                        <option value="2" {% if revision.clarity is defined and revision.clarity == 2 %}selected{% endif %}>2</option>
+                                        <option value="3" {% if revision.clarity is defined and revision.clarity == 3 %}selected{% endif %}>3</option>
+                                        <option value="4" {% if revision.clarity is defined and revision.clarity == 4 %}selected{% endif %}>4</option>
+                                        <option value="5" {% if revision.clarity is defined and revision.clarity == 5 %}selected{% endif %}>5</option>
                                     </select>
                                 </td>
                             </tr>
@@ -75,7 +75,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="textarea-positive-aspects">{% trans %}Please highlight the journal positive aspects{% endtrans %}:</label>
-            <textarea rows="5" class="form-control" id='textarea-positive-aspects' name="positive-aspects" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.positiveAspects }}</textarea>
+            <textarea rows="5" class="form-control" id='textarea-positive-aspects' name="positive-aspects" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.positiveAspects }}</textarea>
         </div>
     </div>
 </div>
@@ -83,7 +83,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="textarea-negative-aspects">{% trans %}Please highlight the journal negative aspects{% endtrans %}:</label>
-            <textarea rows="5" class="form-control" id='textarea-negative-aspects' name="negative-aspects" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.negativeAspects }}</textarea>
+            <textarea rows="5" class="form-control" id='textarea-negative-aspects' name="negative-aspects" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.negativeAspects }}</textarea>
         </div>
     </div>
 </div>
@@ -91,7 +91,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="select-accept-journal">{% trans %}Do you approve the inclusion of the journal?{% endtrans %}:</label>
-            <select class='form-control selectpicker' id='select-accept-journal' name='accept-journal' data-size="5" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>
+            <select class='form-control selectpicker' id='select-accept-journal' name='accept-journal' data-size="5" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>
                 <option value="">-</option>
                 {% for code, name in accept_journal %}
                     <option value="{{ code }}" {% if protocol_revision.acceptJournal == code %}selected{% endif %}>{{ name }}</option>
@@ -104,7 +104,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="textarea-other-comments">{% trans %}Comments and justifications{% endtrans %}:</label>
-            <textarea rows="5" class="form-control" id='textarea-other-comments' name="other-comments" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.otherComments }}</textarea>
+            <textarea rows="5" class="form-control" id='textarea-other-comments' name="other-comments" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.otherComments }}</textarea>
         </div>
     </div>
 </div>

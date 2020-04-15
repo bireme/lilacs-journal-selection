@@ -1064,19 +1064,6 @@ class ProtocolController extends Controller
             // only change if is not final revision
             if(!$protocol_revision->getIsFinalRevision()) {
 
-                // checking required files
-                foreach($post_data as $key => $value) {
-                    if(!isset($value) or empty($value)) {
-                        $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $key)));
-                        return $output;
-                    }
-                }
-
-                if ( $post_data['accept-conditions'] == 'off' ) {
-                    $session->getFlashBag()->add('error', $translator->trans("You must accept the conditions for sending submission."));
-                    return $output;
-                }
-
                 if ( "committee" == $post_data['member-type'] ) {
                     $protocol_revision->setPositiveAspects($post_data['positive-aspects']);
                     $protocol_revision->setNegativeAspects($post_data['negative-aspects']);
@@ -1121,6 +1108,19 @@ class ProtocolController extends Controller
                 }
 
                 if($post_data['is-final-revision'] == "true") {
+                    // checking required files
+                    foreach($post_data as $key => $value) {
+                        if(!isset($value) or empty($value)) {
+                            $session->getFlashBag()->add('error', $translator->trans("Field '%field%' is required.", array("%field%" => $key)));
+                            return $output;
+                        }
+                    }
+
+                    if ( $post_data['accept-conditions'] == 'off' ) {
+                        $session->getFlashBag()->add('error', $translator->trans("You must accept the conditions for sending submission."));
+                        return $output;
+                    }
+                    
                     $protocol_revision->setIsFinalRevision(true);
                 }
 
