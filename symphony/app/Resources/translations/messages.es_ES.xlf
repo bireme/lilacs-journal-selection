@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2020-04-15T14:17:34Z" source-language="en" target-language="es_ES" datatype="plaintext" original="not.available">
+  <file date="2020-04-16T13:46:52Z" source-language="en" target-language="es_ES" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -1312,7 +1312,7 @@
       </trans-unit>
       <trans-unit id="1933880546b8ca0fa87200e256d249e0b3c9cbed" resname="Please highlight the journal negative aspects and point out the most relevant ones (quality of articles, scientific merit, ethical aspects, arbitration criteria and editorial board, diffusion of the journal)">
         <source>Please highlight the journal negative aspects and point out the most relevant ones (quality of articles, scientific merit, ethical aspects, arbitration criteria and editorial board, diffusion of the journal)</source>
-        <target>Please highlight the journal negative aspects and point out the most relevant ones (quality of articles, scientific merit, ethical aspects, arbitration criteria and editorial board, diffusion of the journal)</target>
+        <target>Destaque los aspectos desfavorables del periódico (calidad de artículos, mérito científico, aspectos éticos, criterios de arbitraje y cuerpo editorial, difusión del periódico)</target>
       </trans-unit>
       <trans-unit id="3344b9e2dd22adf7788b4fb038bc7926afe81ef1" resname="Please highlight the journal positive aspects">
         <source>Please highlight the journal positive aspects</source>
@@ -1320,7 +1320,7 @@
       </trans-unit>
       <trans-unit id="238c4b076cb500afdc10497e9f27815723d54382" resname="Please highlight the journal positive aspects and point out the most relevant ones (quality of articles, scientific merit, ethical aspects, arbitration criteria and editorial board, diffusion of the journal)">
         <source>Please highlight the journal positive aspects and point out the most relevant ones (quality of articles, scientific merit, ethical aspects, arbitration criteria and editorial board, diffusion of the journal)</source>
-        <target>Please highlight the journal positive aspects and point out the most relevant ones (quality of articles, scientific merit, ethical aspects, arbitration criteria and editorial board, diffusion of the journal)</target>
+        <target>Destaque los aspectos favorables del periódico (calidad de artículos, mérito científico, aspectos éticos, criterios de arbitraje y cuerpo editorial, difusión del periódico)</target>
       </trans-unit>
       <trans-unit id="d8f655659ca4a548a3c7f45d9cb7fb04d6ecbb14" resname="Please submit 1 peer review and 1 submission data attachments.">
         <source>Please submit 1 peer review and 1 submission data attachments.</source>
