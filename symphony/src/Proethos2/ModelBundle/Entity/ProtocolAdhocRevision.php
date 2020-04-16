@@ -95,6 +95,69 @@ class ProtocolAdhocRevision extends Base
     /**
      * @var string
      *
+     * @ORM\Column(name="content_e", type="text", nullable=true)
+     */
+    private $content_e;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content_f", type="text", nullable=true)
+     */
+    private $content_f;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content_g", type="text", nullable=true)
+     */
+    private $content_g;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content_h", type="text", nullable=true)
+     */
+    private $content_h;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content_i", type="text", nullable=true)
+     */
+    private $content_i;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content_j", type="text", nullable=true)
+     */
+    private $content_j;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content_k", type="text", nullable=true)
+     */
+    private $content_k;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content_l", type="text", nullable=true)
+     */
+    private $content_l;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content_m", type="text", nullable=true)
+     */
+    private $content_m;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="peer_arbitration_a", type="text", nullable=true)
      */
     private $peer_arbitration_a;
@@ -123,6 +186,13 @@ class ProtocolAdhocRevision extends Base
     /**
      * @var string
      *
+     * @ORM\Column(name="journal_density", type="text", nullable=true)
+     */
+    private $journal_density;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="journal_relevance", type="text", nullable=true)
      */
     private $journal_relevance;
@@ -133,6 +203,13 @@ class ProtocolAdhocRevision extends Base
      * @ORM\Column(name="other_comments", type="text", nullable=true)
      */
     private $other_comments;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="other_journals", type="text", nullable=true)
+     */
+    private $other_journals;
 
     /**
      * @var boolean
@@ -533,5 +610,269 @@ class ProtocolAdhocRevision extends Base
     public function getAcceptConditions()
     {
         return $this->accept_conditions;
+    }
+
+    /**
+     * Set contentE
+     *
+     * @param string $contentE
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setContentE($contentE)
+    {
+        $this->content_e = $contentE;
+
+        return $this;
+    }
+
+    /**
+     * Get contentE
+     *
+     * @return string
+     */
+    public function getContentE()
+    {
+        return $this->content_e;
+    }
+
+    /**
+     * Set contentF
+     *
+     * @param string $contentF
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setContentF($contentF)
+    {
+        $this->content_f = $contentF;
+
+        return $this;
+    }
+
+    /**
+     * Get contentF
+     *
+     * @return string
+     */
+    public function getContentF()
+    {
+        return $this->content_f;
+    }
+
+    /**
+     * Set contentG
+     *
+     * @param string $contentG
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setContentG($contentG)
+    {
+        $this->content_g = $contentG;
+
+        return $this;
+    }
+
+    /**
+     * Get contentG
+     *
+     * @return string
+     */
+    public function getContentG()
+    {
+        return $this->content_g;
+    }
+
+    /**
+     * Set contentH
+     *
+     * @param string $contentH
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setContentH($contentH)
+    {
+        $this->content_h = $contentH;
+
+        return $this;
+    }
+
+    /**
+     * Get contentH
+     *
+     * @return string
+     */
+    public function getContentH()
+    {
+        return $this->content_h;
+    }
+
+    /**
+     * Set contentI
+     *
+     * @param string $contentI
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setContentI($contentI)
+    {
+        $this->content_i = $contentI;
+
+        return $this;
+    }
+
+    /**
+     * Get contentI
+     *
+     * @return string
+     */
+    public function getContentI()
+    {
+        return $this->content_i;
+    }
+
+    /**
+     * Set contentJ
+     *
+     * @param string $contentJ
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setContentJ($contentJ)
+    {
+        $this->content_j = $contentJ;
+
+        return $this;
+    }
+
+    /**
+     * Get contentJ
+     *
+     * @return string
+     */
+    public function getContentJ()
+    {
+        return $this->content_j;
+    }
+
+    /**
+     * Set contentK
+     *
+     * @param string $contentK
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setContentK($contentK)
+    {
+        $this->content_k = $contentK;
+
+        return $this;
+    }
+
+    /**
+     * Get contentK
+     *
+     * @return string
+     */
+    public function getContentK()
+    {
+        return $this->content_k;
+    }
+
+    /**
+     * Set contentL
+     *
+     * @param string $contentL
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setContentL($contentL)
+    {
+        $this->content_l = $contentL;
+
+        return $this;
+    }
+
+    /**
+     * Get contentL
+     *
+     * @return string
+     */
+    public function getContentL()
+    {
+        return $this->content_l;
+    }
+
+    /**
+     * Set contentM
+     *
+     * @param string $contentM
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setContentM($contentM)
+    {
+        $this->content_m = $contentM;
+
+        return $this;
+    }
+
+    /**
+     * Get contentM
+     *
+     * @return string
+     */
+    public function getContentM()
+    {
+        return $this->content_m;
+    }
+
+    /**
+     * Set journalDensity
+     *
+     * @param string $journalDensity
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setJournalDensity($journalDensity)
+    {
+        $this->journal_density = $journalDensity;
+
+        return $this;
+    }
+
+    /**
+     * Get journalDensity
+     *
+     * @return string
+     */
+    public function getJournalDensity()
+    {
+        return $this->journal_density;
+    }
+
+    /**
+     * Set otherJournals
+     *
+     * @param string $otherJournals
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setOtherJournals($otherJournals)
+    {
+        $this->other_journals = $otherJournals;
+
+        return $this;
+    }
+
+    /**
+     * Get otherJournals
+     *
+     * @return string
+     */
+    public function getOtherJournals()
+    {
+        return $this->other_journals;
     }
 }

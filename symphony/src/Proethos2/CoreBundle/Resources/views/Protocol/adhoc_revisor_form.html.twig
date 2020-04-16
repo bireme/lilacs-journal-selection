@@ -12,8 +12,8 @@
 <div class='row'>
     <div class="col-md-12">
         <div class="form-group">
-            <label for="textarea-editorial-team">{% trans %}Opine sobre a representatividade do Corpo Editorial da revista, considerando sua abrangência geográfica e diversidade institucional, bem como observando a contribuição e competência de seus membros{% endtrans %}</label>
-            <textarea rows="5" class="form-control" id='textarea-editorial-team' name="editorial-team" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.editorialTeam }}</textarea>
+            <label for="textarea-editorial-team">{% trans %}Opine sobre a representatividade do Corpo Editorial da revista, considerando sua contribuição, pertinência e competência de seus membros.{% endtrans %}</label>
+            <textarea rows="5" class="form-control" id='textarea-editorial-team' name="editorial-team" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.editorialTeam }}</textarea>
         </div>
     </div>
 </div>
@@ -22,36 +22,108 @@
         <h3 class='sub-header revision'>{% trans %}Content{% endtrans %}</h3>
     </div>
 </div>
-<p>{% trans %}A partir da análise do conteúdo dos artigos dos 3 (três) últimos fascículos da revista, opine sobre os aspectos relacionados abaixo, justificando por escrito sua opinião{% endtrans %}:</p>
+<p>{% trans %}A partir da análise do conteúdo dos artigos dos 3 (três) últimos fascículos da revista, opine sobre os aspectos relacionados abaixo, justificando por escrito sua opinião:{% endtrans %}</p>
 <div class='row'>
     <div class="col-md-12">
         <div class="form-group">
-            <label for="textarea-content-a">{% trans %}a) Caráter científico da revista considerando os artigos originais de pesquisa ou reflexão, e sua coerência com a orientação temática da revista{% endtrans %}</label>
-            <textarea rows="5" class="form-control" id='textarea-content-a' name="content-a" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentA }}</textarea>
+            <label for="textarea-content-a">{% trans %}a) Os artigos possuem aderência em relação ao escopo e objetivos do periódico? Os temas abordados nos artigos são relevantes para área e para o momento atual da Ciência?{% endtrans %}</label>
+            <textarea rows="5" class="form-control" id='textarea-content-a' name="content-a" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentA }}</textarea>
         </div>
     </div>
 </div>
 <div class='row'>
     <div class="col-md-12">
         <div class="form-group">
-            <label for="textarea-content-b">{% trans %}b) Caráter científico da revista, considerando a propriedade, atualidade e exaustividade nos artigos de revisão e debates, quando houver{% endtrans %}</label>
-            <textarea rows="5" class="form-control" id='textarea-content-b' name="content-b" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentB }}</textarea>
+            <label for="textarea-content-b">{% trans %}b) Comente sobre a qualidade metodológica e estrutura dos artigos. O desenho dos estudos é adequado para responder às questões colocadas? Existe uma clara estruturação metodológica que permite fácil leitura e compreensão? Em geral, estudos de mesma natureza possuem uma padronização metodológica consistente?{% endtrans %}</label>
+            <textarea rows="5" class="form-control" id='textarea-content-b' name="content-b" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentB }}</textarea>
         </div>
     </div>
 </div>
 <div class='row'>
     <div class="col-md-12">
         <div class="form-group">
-            <label for="textarea-content-c">{% trans %}c) Qualidade com relação a metodologia e estrutura dos artigos/ensaios{% endtrans %}</label>
-            <textarea rows="5" class="form-control" id='textarea-content-c' name="content-c" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentC }}</textarea>
+            <label for="textarea-content-c">{% trans %}c) As diretrizes do periódico apontam para a existência de estrutura consistente que permitam com que os autores sigam uma estrutura metodológica clara e bem definida? Existem informações suficientes que permitem a reprodução das pesquisas?{% endtrans %}</label>
+            <textarea rows="5" class="form-control" id='textarea-content-c' name="content-c" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentC }}</textarea>
         </div>
     </div>
 </div>
 <div class='row'>
     <div class="col-md-12">
         <div class="form-group">
-            <label for="textarea-content-d">{% trans %}d) Qualidade dos elementos gráficos do periódico (imagens, tabelas, gráficos, impressão){% endtrans %}</label>
-            <textarea rows="5" class="form-control" id='textarea-content-d' name="content-d" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentD }}</textarea>
+            <label for="textarea-content-d">{% trans %}d) Os resultados são claramente descritos? As discussões se restringem aos dados obtidos e aos resultados alcançados, enfatizam novos e importantes aspectos observados no estudo e discutem as concordâncias e divergências com outras pesquisas já publicadas?{% endtrans %}</label>
+            <textarea rows="5" class="form-control" id='textarea-content-d' name="content-d" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentD }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-content-e">{% trans %}e) Existe uso de diretrizes e guias de qualidade na elaboração dos artigos (ex. Red Equator, PRISMA, etc.)?{% endtrans %}</label>
+            <textarea rows="5" class="form-control" id='textarea-content-e' name="content-e" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentE }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-content-f">{% trans %}f) Qual o nível de aderência da revista às recomendações do "Committee on Publication Ethics"- COPE, ou outros orgãos que explicitaram recomendações sobre o tema (por exemplo, código de boas práticas científicas da FAPESP).{% endtrans %}</label>
+            <textarea rows="5" class="form-control" id='textarea-content-f' name="content-f" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentF }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-content-g">{% trans %}g) Comente se o periódico pratica ou especifica nas suas normas e procedimentos de ciência aberta (pré-prints, revisão por pares aberta, abertura de dados, etc.){% endtrans %}</label>
+            <textarea rows="5" class="form-control" id='textarea-content-g' name="content-g" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentG }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-content-h">{% trans %}h) A linguagem e gramática dos artigos são boas?{% endtrans %}</label>
+            <textarea rows="5" class="form-control" id='textarea-content-h' name="content-h" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentH }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-content-i">{% trans %}i) Os resumos são estruturados, claros, facilmente legíveis e fornecem um correto entendimento do conteúdo dos artigos? As palavras do título, resumo e palavras-chave são bem observados e apresentados nos artigos?{% endtrans %}</label>
+            <textarea rows="5" class="form-control" id='textarea-content-i' name="content-i" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentI }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-content-j">{% trans %}j) Comente sobre a qualidade e clareza dos elementos gráficos do periódico como imagens, tabelas e gráficos (definição de abreviaturas em notas de rodapé, unidades das grandezas, títulos coerentes e claros, fontes devidamente apresentadas, DOI). As imagens dos artigos permitem a compreensão independente da leitura da íntegra do artigo?{% endtrans %}</label>
+            <textarea rows="5" class="form-control" id='textarea-content-j' name="content-j" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentJ }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-content-k">{% trans %}k) Existem indicadores e mecanismos editoriais para eliminação de erros de normalização (por exemplo, seções incorretamente numeradas, tabelas/quadros erroneamente nomeados)?{% endtrans %}</label>
+            <textarea rows="5" class="form-control" id='textarea-content-k' name="content-k" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentK }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-content-l">{% trans %}l) Os canais e estratégias de comunicação com a comunidade, tanto para divulgação dos artigos quanto para chamada de submissões são adequados?{% endtrans %}</label>
+            <textarea rows="5" class="form-control" id='textarea-content-l' name="content-l" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentL }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-content-m">{% trans %}m) Em suma, considera que os artigos publicados no periódico têm suficiente qualidade, densidade e consistência metodológica para justificar seu ingresso na LILACS?{% endtrans %}</label>
+            <textarea rows="5" class="form-control" id='textarea-content-m' name="content-m" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.contentM }}</textarea>
         </div>
     </div>
 </div>
@@ -60,30 +132,35 @@
         <h3 class='sub-header revision'>{% trans %}Peer Arbitration{% endtrans %}</h3>
     </div>
 </div>
-<p>{% trans %}Com base nas informações constantes nas Instruções aos Autores e/ou cuidado editorial percebido na seleção dos artigos, opine sobre o processo de arbitragem por pares utilizado pela revista. <b>Justifique por escrito</b> sua opinião{% endtrans %}:</p>
+<p>{% trans %}Opine sobre o processo de arbitragem por pares utilizado pelo periódico quanto aos aspectos indicados abaixo:{% endtrans %}</p>
 <div class='row'>
     <div class="col-md-12">
         <div class="form-group">
-            <label for="textarea-peer-arbitration-a">{% trans %}a) Apresentação dos procedimentos adotados pela revista para análise e aprovação dos artigos{% endtrans %}</label>
-            <textarea rows="5" class="form-control" id='textarea-peer-arbitration-a' name="peer-arbitration-a" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.peerArbitrationA }}</textarea>
+            <label for="textarea-peer-arbitration-a">{% trans %}a) Apresentação dos procedimentos adotados pelo periódico para análise e aprovação dos artigos.{% endtrans %}</label>
+            <textarea rows="5" class="form-control" id='textarea-peer-arbitration-a' name="peer-arbitration-a" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.peerArbitrationA }}</textarea>
         </div>
     </div>
 </div>
 <div class='row'>
     <div class="col-md-12">
         <div class="form-group">
-            <label for="textarea-peer-arbitration-b">{% trans %}b) Informações do formulário de <i>peer review</i> utilizado pela revista para avaliação de artigos{% endtrans %}</label> 
-            <textarea rows="5" class="form-control" id='textarea-peer-arbitration-b' name="peer-arbitration-b" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.peerArbitrationB }}</textarea>
+            <label for="textarea-peer-arbitration-b">{% trans %}b) Informações do formulário de <i>peer review</i> utilizado pelo periódico para avaliação de artigos.{% endtrans %}</label> 
+            <textarea rows="5" class="form-control" id='textarea-peer-arbitration-b' name="peer-arbitration-b" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.peerArbitrationB }}</textarea>
         </div>
     </div>
-</div><div class='row'>
+</div>
+
+{% if protocol_revision.peerArbitrationC %}
+<div class='row'>
     <div class="col-md-12">
         <div class="form-group">
             <label for="textarea-peer-arbitration-c">{% trans %}c) Abrangência geográfica, diversidade institucional, contribuição e competência do grupo de revisores{% endtrans %}</label> 
-            <textarea rows="5" class="form-control" id='textarea-peer-arbitration-c' name="peer-arbitration-c" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.peerArbitrationC }}</textarea>
+            <textarea rows="5" class="form-control" id='textarea-peer-arbitration-c' name="peer-arbitration-c" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.peerArbitrationC }}</textarea>
         </div>
     </div>
 </div>
+{% endif %}
+
 <div class='row'>
     <div class="col-md-12">
         <h3 class='sub-header revision'>{% trans %}Comments{% endtrans %}</h3>
@@ -92,8 +169,8 @@
 <div class='row'>
     <div class="col-md-12">
         <div class="form-group">
-            <label for="select-journal-concept">{% trans %}Atribua um conceito ao periódico, considerando a área em análise{% endtrans %}</label>
-            <select class='form-control selectpicker' id='select-journal-concept' name='journal-concept' data-size="5" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>
+            <label for="select-journal-concept">{% trans %}Atribua um conceito ao periódico, considerando a área em análise.{% endtrans %}</label>
+            <select class='form-control selectpicker' id='select-journal-concept' name='journal-concept' data-size="5" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>
                 <option value="">-</option>
                 {% for code, name in journal_concept %}
                     <option value="{{ code }}" {% if protocol_revision.journalConcept == code %}selected{% endif %}>{{ name }}</option>
@@ -105,16 +182,32 @@
 <div class='row'>
     <div class="col-md-12">
         <div class="form-group">
-            <label for="textarea-journal-relevance">{% trans %}Opine sobre a importância da revista para o desenvolvimento da área{% endtrans %}</label> 
-            <textarea rows="5" class="form-control" id='textarea-journal-relevance' name="journal-relevance" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.journalRelevance }}</textarea>
+            <label for="textarea-journal-density">{% trans %}A área de orientação profissional tem suficiente densidade que justifique a entrada do periódico na LILACS?{% endtrans %}</label> 
+            <textarea rows="5" class="form-control" id='textarea-journal-density' name="journal-density" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.journalDensity }}</textarea>
         </div>
     </div>
 </div>
 <div class='row'>
     <div class="col-md-12">
         <div class="form-group">
-            <label for="textarea-other-comments">{% trans %}Indique os melhoramentos necessários e comentários específicos a serem comunicados ao editor{% endtrans %}</label> 
-            <textarea rows="5" class="form-control" id='textarea-other-comments' name="other-comments" required {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.otherComments }}</textarea>
+            <label for="textarea-journal-relevance">{% trans %}Opine sobre a importância do periódico para o desenvolvimento da área.{% endtrans %}</label> 
+            <textarea rows="5" class="form-control" id='textarea-journal-relevance' name="journal-relevance" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.journalRelevance }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-other-comments">{% trans %}Indique os melhoramentos necessários e comentários específicos a serem comunicados ao editor.{% endtrans %}</label> 
+            <textarea rows="5" class="form-control" id='textarea-other-comments' name="other-comments" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.otherComments }}</textarea>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="textarea-other-journals">{% trans %}Em sua opinião, existem periódicos mais importantes para esta área do que o periódico em avaliação? Se sim, por gentileza, indique abaixo:{% endtrans %}</label> 
+            <textarea rows="5" class="form-control" id='textarea-other-journals' name="other-journals" {% if protocol_revision.isFinalRevision %}disabled{% endif %}>{{ protocol_revision.otherJournals }}</textarea>
         </div>
     </div>
 </div>

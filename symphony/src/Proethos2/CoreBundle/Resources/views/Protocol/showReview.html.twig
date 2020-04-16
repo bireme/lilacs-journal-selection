@@ -20,41 +20,76 @@
 {% else %}
     <div class="modal-body">
         <h4 class="modal-title">{% trans %}Editorial Team{% endtrans %}</h4>
-        <h5>{% trans %}Opine sobre a representatividade do Corpo Editorial da revista, considerando sua abrangência geográfica e diversidade institucional, bem como observando a contribuição e competência de seus membros{% endtrans %}.</h5>
+        <h5>{% trans %}Opine sobre a representatividade do Corpo Editorial da revista, considerando sua contribuição, pertinência e competência de seus membros.{% endtrans %}</h5>
         <p>{{ protocol_revision.editorialTeam }}</p>
 
         <h4 class="modal-title modal-revision">{% trans %}Content{% endtrans %}</h4>
-        <h5>{% trans %}a) Caráter científico da revista considerando os artigos originais de pesquisa ou reflexão, e sua coerência com a orientação temática da revista{% endtrans %}.</h5>
+        <h5>{% trans %}a) Os artigos possuem aderência em relação ao escopo e objetivos do periódico? Os temas abordados nos artigos são relevantes para área e para o momento atual da Ciência?{% endtrans %}</h5>
         <p>{{ protocol_revision.contentA }}</p>
 
-        <h5>{% trans %}b) Caráter científico da revista, considerando a propriedade, atualidade e exaustividade nos artigos de revisão e debates, quando houver{% endtrans %}.</h5>
+        <h5>{% trans %}b) Comente sobre a qualidade metodológica e estrutura dos artigos. O desenho dos estudos é adequado para responder às questões colocadas? Existe uma clara estruturação metodológica que permite fácil leitura e compreensão? Em geral, estudos de mesma natureza possuem uma padronização metodológica consistente?{% endtrans %}</h5>
         <p>{{ protocol_revision.contentB }}</p>
 
-        <h5>{% trans %}c) Qualidade com relação a metodologia e estrutura dos artigos/ensaios{% endtrans %}.</h5>
+        <h5>{% trans %}c) As diretrizes do periódico apontam para a existência de estrutura consistente que permitam com que os autores sigam uma estrutura metodológica clara e bem definida? Existem informações suficientes que permitem a reprodução das pesquisas?{% endtrans %}</h5>
         <p>{{ protocol_revision.contentC }}</p>
 
-        <h5>{% trans %}d) Qualidade dos elementos gráficos do periódico (imagens, tabelas, gráficos, impressão){% endtrans %}.</h5>
+        <h5>{% trans %}d) Os resultados são claramente descritos? As discussões se restringem aos dados obtidos e aos resultados alcançados, enfatizam novos e importantes aspectos observados no estudo e discutem as concordâncias e divergências com outras pesquisas já publicadas?{% endtrans %}</h5>
         <p>{{ protocol_revision.contentD }}</p>
 
+        <h5>{% trans %}e) Existe uso de diretrizes e guias de qualidade na elaboração dos artigos (ex. Red Equator, PRISMA, etc.)?{% endtrans %}</h5>
+        <p>{{ protocol_revision.contentE }}</p>
+
+        <h5>{% trans %}f) Qual o nível de aderência da revista às recomendações do "Committee on Publication Ethics"- COPE, ou outros orgãos que explicitaram recomendações sobre o tema (por exemplo, código de boas práticas científicas da FAPESP).{% endtrans %}</h5>
+        <p>{{ protocol_revision.contentF }}</p>
+
+        <h5>{% trans %}g) Comente se o periódico pratica ou especifica nas suas normas e procedimentos de ciência aberta (pré-prints, revisão por pares aberta, abertura de dados, etc.){% endtrans %}</h5>
+        <p>{{ protocol_revision.contentG }}</p>
+
+        <h5>{% trans %}h) A linguagem e gramática dos artigos são boas?{% endtrans %}</h5>
+        <p>{{ protocol_revision.contentH }}</p>
+
+        <h5>{% trans %}i) Os resumos são estruturados, claros, facilmente legíveis e fornecem um correto entendimento do conteúdo dos artigos? As palavras do título, resumo e palavras-chave são bem observados e apresentados nos artigos?{% endtrans %}</h5>
+        <p>{{ protocol_revision.contentI }}</p>
+
+        <h5>{% trans %}j) Comente sobre a qualidade e clareza dos elementos gráficos do periódico como imagens, tabelas e gráficos (definição de abreviaturas em notas de rodapé, unidades das grandezas, títulos coerentes e claros, fontes devidamente apresentadas, DOI). As imagens dos artigos permitem a compreensão independente da leitura da íntegra do artigo?{% endtrans %}</h5>
+        <p>{{ protocol_revision.contentJ }}</p>
+
+        <h5>{% trans %}k) Existem indicadores e mecanismos editoriais para eliminação de erros de normalização (por exemplo, seções incorretamente numeradas, tabelas/quadros erroneamente nomeados)?{% endtrans %}</h5>
+        <p>{{ protocol_revision.contentK }}</p>
+
+        <h5>{% trans %}l) Os canais e estratégias de comunicação com a comunidade, tanto para divulgação dos artigos quanto para chamada de submissões são adequados?{% endtrans %}</h5>
+        <p>{{ protocol_revision.contentL }}</p>
+
+        <h5>{% trans %}m) Em suma, considera que os artigos publicados no periódico têm suficiente qualidade, densidade e consistência metodológica para justificar seu ingresso na LILACS?{% endtrans %}</h5>
+        <p>{{ protocol_revision.contentM }}</p>
+
         <h4 class="modal-title modal-revision">{% trans %}Peer Arbitration{% endtrans %}</h4>
-        <h5>{% trans %}a) Apresentação dos procedimentos adotados pela revista para análise e aprovação dos artigos{% endtrans %}.</h5>
+        <h5>{% trans %}a) Apresentação dos procedimentos adotados pelo periódico para análise e aprovação dos artigos.{% endtrans %}</h5>
         <p>{{ protocol_revision.peerArbitrationA }}</p>
 
-        <h5>{% trans %}b) Informações do formulário de peer review utilizado pela revista para avaliação de artigos{% endtrans %}.</h5>
+        <h5>{% trans %}b) Informações do formulário de <i>peer review</i> utilizado pelo periódico para avaliação de artigos.{% endtrans %}</h5>
         <p>{{ protocol_revision.peerArbitrationB }}</p>
 
-        <h5>{% trans %}c) Abrangência geográfica, diversidade institucional, contribuição e competência do grupo de revisores{% endtrans %}.</h5>
+        {% if protocol_revision.peerArbitrationC %}
+        <h5>{% trans %}c) Abrangência geográfica, diversidade institucional, contribuição e competência do grupo de revisores{% endtrans %}</h5>
         <p>{{ protocol_revision.peerArbitrationC }}</p>
+        {% endif %}
 
         <h4 class="modal-title modal-revision">{% trans %}Comments{% endtrans %}</h4>
-        <h5>{% trans %}Atribua um conceito ao periódico, considerando a área em análise{% endtrans %}.</h5>
+        <h5>{% trans %}Atribua um conceito ao periódico, considerando a área em análise.{% endtrans %}</h5>
         <p>{{ journal_concept[protocol_revision.journalConcept] }}</p>
 
-        <h5>{% trans %}Opine sobre a importância da revista para o desenvolvimento da área.{% endtrans %}</h5>
+        <h5>{% trans %}A área de orientação profissional tem suficiente densidade que justifique a entrada do periódico na LILACS?{% endtrans %}</h5>
+        <p>{{ protocol_revision.journalDensity }}</p>
+
+        <h5>{% trans %}Opine sobre a importância do periódico para o desenvolvimento da área.{% endtrans %}</h5>
         <p>{{ protocol_revision.journalRelevance }}</p>
 
-        <h5>{% trans %}Indique os melhoramentos necessários e comentários específicos a serem comunicados ao editor{% endtrans %}.</h5>
+        <h5>{% trans %}Indique os melhoramentos necessários e comentários específicos a serem comunicados ao editor.{% endtrans %}</h5>
         <p>{{ protocol_revision.otherComments }}</p>
+
+        <h5>{% trans %}Em sua opinião, existem periódicos mais importantes para esta área do que o periódico em avaliação? Se sim, por gentileza, indique abaixo:{% endtrans %}</h5>
+        <p>{{ protocol_revision.otherJournals }}</p>
     </div>
 {% endif %}
 
