@@ -1087,7 +1087,27 @@ class ProtocolController extends Controller
                         $adhoc_revision->setPertinence($revision['pertinence']);
                         $adhoc_revision->setClarity($revision['clarity']);
 
+                        $total_rating = $revision['relevance'] + $revision['pertinence'] + $revision['clarity'];
+
+                        if ( $total_rating == 0 ) {
+                            $adhoc_revision->setIsValid(false);
+                        } else {
+                            $adhoc_revision->setIsValid(true);
+                        }
+
                         $em->persist($adhoc_revision);
+                        $em->flush();
+
+                        $avg = $protocol_adhoc_revision_repository->createQueryBuilder('e')
+                            ->select('SUM(e.relevance+e.pertinence+e.clarity)/3/COUNT(e.id) as average')
+                            ->where('e.member = :member and e.is_valid=1')
+                            ->setParameter('member', $member)
+                            ->getQuery()
+                            ->getResult();
+                        
+                        $member->setAverage($avg[0]['average']);
+
+                        $em->persist($member);
                         $em->flush();
                     }
                 } elseif ( "adhoc" == $post_data['member-type'] ) {

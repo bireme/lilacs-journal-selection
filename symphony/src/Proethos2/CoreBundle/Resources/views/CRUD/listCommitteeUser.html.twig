@@ -68,6 +68,7 @@
                                 <th width="">{% trans %}Email{% endtrans %}</th>
                                 <th width="">{% trans %}Country{% endtrans %}</th>
                                 <th width="">{% trans %}Practice Area{% endtrans %}</th>
+                                <th width="">{% trans %}Rating{% endtrans %}</th>
                                 <th width="">{% trans %}Roles{% endtrans %}</th>
                                 <th width="">{% trans %}Status{% endtrans %}</th>
                                 <th>{% trans %}Actions{% endtrans %}</th>
@@ -82,6 +83,7 @@
                                     <td>{{ user.email }}</td>
                                     <td>{{ user.country }}</td>
                                     <td>{{ user.specialty.name }}</td>
+                                    <td>{% if user.average %}{{ user.average|number_format(2) }}{% endif %}</td>
                                     <td>
                                         {% for role in user.proethos2Roles %}
                                             <span class='label label-default' data-toggle='tooltip' data-placement='top' title='{{ role.name|trans }}'>{{ role.name|first|upper }}</span>

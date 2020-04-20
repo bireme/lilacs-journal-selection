@@ -112,6 +112,12 @@ class User extends Base implements UserInterface, \Serializable
      */
     private $first_access = true;
 
+    /**
+     * @ORM\Column(name="average", type="float")
+     * @Assert\NotBlank
+     */
+    private $average;
+
     public function __toString()
     {
         return $this->getName();
@@ -483,5 +489,29 @@ class User extends Base implements UserInterface, \Serializable
     public function getSpecialty()
     {
         return $this->specialty;
+    }
+
+    /**
+     * Set average
+     *
+     * @param float $average
+     *
+     * @return User
+     */
+    public function setAverage($average)
+    {
+        $this->average = $average;
+
+        return $this;
+    }
+
+    /**
+     * Get average
+     *
+     * @return float
+     */
+    public function getAverage()
+    {
+        return $this->average;
     }
 }

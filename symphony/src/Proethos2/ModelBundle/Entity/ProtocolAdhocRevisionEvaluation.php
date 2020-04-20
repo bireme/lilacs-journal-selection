@@ -53,6 +53,11 @@ class ProtocolAdhocRevisionEvaluation extends Base
     private $protocol;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_valid;
+
+    /**
      * @var integer
      *
      * @ORM\Column(type="integer")
@@ -228,5 +233,29 @@ class ProtocolAdhocRevisionEvaluation extends Base
     public function getClarity()
     {
         return $this->clarity;
+    }
+
+    /**
+     * Set isValid
+     *
+     * @param boolean $isValid
+     *
+     * @return ProtocolAdhocRevisionEvaluation
+     */
+    public function setIsValid($isValid)
+    {
+        $this->is_valid = $isValid;
+
+        return $this;
+    }
+
+    /**
+     * Get isValid
+     *
+     * @return boolean
+     */
+    public function getIsValid()
+    {
+        return $this->is_valid;
     }
 }
