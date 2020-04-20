@@ -123,3 +123,4 @@ REPLACE INTO `help` (`id`, `created`, `updated`, `status`, `type`, `message`) VA
 REPLACE INTO `help` (`id`, `created`, `updated`, `status`, `type`, `message`) VALUES (122,'2019-02-21 15:42:08','2019-02-21 15:42:08',1,'mail','mail 15');
 
 REPLACE INTO `help` (`id`, `created`, `updated`, `status`, `type`, `message`) VALUES (123,'2016-09-01 13:21:20','2016-09-01 13:21:20',1,'help','help 108');
+REPLACE INTO `help` (`id`, `created`, `updated`, `status`, `type`, `message`) VALUES (124,'2016-09-01 13:21:20','2016-09-01 13:21:20',1,'help','help 109');
