@@ -28,10 +28,10 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label for="select-specialty">{% trans %}Practice Area{% endtrans %}:</label>
-                            <a href="{{ path("crud_admin_help_show", {help_id: 108} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <a href="{{ path("crud_admin_help_show", {help_id: 123} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                             <select class='form-control selectpicker submit-on-change' id='select-filter-specialty' name='specialty' data-size="5" data-live-search="true">
                                 <option value="">-</option>
                                 {% for special in specialty %}
@@ -43,8 +43,23 @@
 
                     <div class="col-md-1">
                         <div class="form-group">
+                            <label for="select-role">{% trans %}Roles{% endtrans %}:</label>
+                            <a href="{{ path("crud_admin_help_show", {help_id: 124} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <select class='form-control selectpicker submit-on-change' id='select-filter-role' name='role' data-size="6" required>
+                                <option value="">-</option>
+                                <option value="administrator" {% if app.request.get('role') == 'administrator' %}selected{% endif %}>{% trans %}Administrator{% endtrans %}</option>
+                                <option value="secretary" {% if app.request.get('role') == 'secretary' %}selected{% endif %}>{% trans %}Coordination{% endtrans %}</option>
+                                <option value="investigator" {% if app.request.get('role') == 'investigator' %}selected{% endif %}>{% trans %}Editor{% endtrans %}</option>
+                                <option value="member-of-committee" {% if app.request.get('role') == 'member-of-committee' %}selected{% endif %}>{% trans %}Member of Committee{% endtrans %}</option>
+                                <option value="member-ad-hoc" {% if app.request.get('role') == 'member-ad-hoc' %}selected{% endif %}>{% trans %}Reviewer ad-hoc{% endtrans %}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1">
+                        <div class="form-group">
                             <label for="select-rating">{% trans %}Rating{% endtrans %}:</label>
-                            <a href="{{ path("crud_admin_help_show", {help_id: 109} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <a href="{{ path("crud_admin_help_show", {help_id: 125} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                             <select class='form-control selectpicker submit-on-change' id='select-filter-rating' name='rating' data-size="5" data-live-search="true">
                                 <option value="">-</option>
                                 <option value="DESC" {% if app.request.get('rating') == 'DESC' %}selected{% endif %}>Descending</option>

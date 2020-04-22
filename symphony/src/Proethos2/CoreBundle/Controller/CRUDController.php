@@ -886,16 +886,24 @@ class CRUDController extends Controller
         $rating_query = $request->query->get('rating');
         $order_field = 'name';
         $order_sort = 'ASC';
-
         if ( $rating_query ) {
             $order_field = 'average';
             $order_sort = $rating_query;
         }
 
-        $users = $user_repository->findBy(array(), array($order_field => $order_sort));
-
+        $role_query = $request->query->get('role');
+        if ( $role_query ) {
+            $users = $user_repository->createQueryBuilder('u')
+                ->join('u.proethos2_roles', 'r', 'WITH', 'r.slug = :slug')
+                ->addOrderBy('u.'.$order_field, $order_sort)
+                ->setParameter('slug', $role_query)
+                ->getQuery()
+                ->getResult();
+        } else {
+            $users = $user_repository->findBy(array(), array($order_field => $order_sort));
+        }
+        
         // search parameters
-        $rating_query = $request->query->get('rating');
         $search_query = $request->query->get('q');
         $specialty_query = intval($request->query->get('specialty'));
         $specialty_object = $specialty_repository->find($specialty_query);
@@ -910,20 +918,23 @@ class CRUDController extends Controller
                 $where = $where . ' AND u.specialty = :specialty';
             }
 
-            $order_field = 'u.id';
-            $order_sort = 'DESC';
-
-            if ( $rating_query ) {
-                $order_field = 'u.average';
-                $order_sort = $rating_query;
+            if ( $role_query ) {
+                $orm_params['slug'] = $role_query;
+                $users = $user_repository->createQueryBuilder('u')
+                    ->join('u.proethos2_roles', 'r', 'WITH', 'r.slug = :slug')
+                    ->where($where)
+                    ->addOrderBy('u.'.$order_field, $order_sort)
+                    ->setParameters($orm_params)
+                    ->getQuery()
+                    ->getResult();
+            } else {
+                $users = $user_repository->createQueryBuilder('u')
+                    ->where($where)
+                    ->addOrderBy('u.'.$order_field, $order_sort)
+                    ->setParameters($orm_params)
+                    ->getQuery()
+                    ->getResult();
             }
-
-            $users = $user_repository->createQueryBuilder('u')
-                ->where($where)
-                ->addOrderBy($order_field, $order_sort)
-                ->setParameters($orm_params)
-                ->getQuery()
-                ->getResult();
         }
 
         $output['users'] = $users;
