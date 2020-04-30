@@ -125,3 +125,4 @@ REPLACE INTO `help` (`id`, `created`, `updated`, `status`, `type`, `message`) VA
 REPLACE INTO `help` (`id`, `created`, `updated`, `status`, `type`, `message`) VALUES (123,'2016-09-01 13:21:20','2016-09-01 13:21:20',1,'help','help 108');
 REPLACE INTO `help` (`id`, `created`, `updated`, `status`, `type`, `message`) VALUES (124,'2016-09-01 13:21:20','2016-09-01 13:21:20',1,'help','help 109');
 REPLACE INTO `help` (`id`, `created`, `updated`, `status`, `type`, `message`) VALUES (125,'2016-09-01 13:21:20','2016-09-01 13:21:20',1,'help','help 110');
+REPLACE INTO `help` (`id`, `created`, `updated`, `status`, `type`, `message`) VALUES (126,'2016-09-01 13:21:20','2016-09-01 13:21:20',1,'help','help 111');
