@@ -942,7 +942,7 @@ class CRUDController extends Controller
         // output parameter
         $output_parameter = $request->query->get('output');
         if($output_parameter == 'csv') {
-            $csv_headers = array('USERNAME', 'ID', 'EMAIL', 'ROLES', 'ACTIVE?', 'NAME', 'COUNTRY', 'INSTITUTION', 'LATTES', 'PRACTICE AREA');
+            $csv_headers = array('USERNAME', 'ID', 'EMAIL', 'ROLES', 'ACTIVE?', 'NAME', 'COUNTRY', 'INSTITUTION', 'LATTES', 'PRACTICE AREA', 'OTHER PRACTICE AREA');
             $csv_output = array();
             foreach($users as $user) {
                 $current_line = array();
@@ -956,6 +956,7 @@ class CRUDController extends Controller
                 $current_line[] = $user->getInstitution();
                 $current_line[] = $user->getLattes();
                 $current_line[] = $user->getSpecialty();
+                $current_line[] = $user->getOtherSpecialty();
                 $csv_output[] = $current_line;
             }
 
@@ -991,6 +992,7 @@ class CRUDController extends Controller
             $user->setName($post_data['name']);
             $user->setUsername($post_data['username']);
             $user->setEmail($post_data['email']);
+            $user->setOtherSpecialty($post_data['other-specialty']);
             $user->setInstitution($post_data['institution']);
             $user->setLattes($post_data['lattes']);
             $user->setFirstAccess(false);
@@ -1099,6 +1101,7 @@ class CRUDController extends Controller
             $user->setEmail($post_data['email']);
             $user->setName($post_data['name']);
             $user->setLattes($post_data['lattes']);
+            $user->setOtherSpecialty($post_data['other-specialty']);
             $user->setInstitution($post_data['institution']);
 
             // specialty
@@ -1109,7 +1112,8 @@ class CRUDController extends Controller
             $em->flush();
 
             $session->getFlashBag()->add('success', $translator->trans("User updated with success."));
-            return $this->redirectToRoute('home', array(), 301);
+            $referer = $request->headers->get('referer');
+            return $this->redirect($referer, 301);
         }
 
         return $output;
@@ -1178,6 +1182,7 @@ class CRUDController extends Controller
             $user->setCountry($country);
             $user->setEmail($post_data['email']);
             $user->setName($post_data['name']);
+            $user->setOtherSpecialty($post_data['other-specialty']);
             $user->setInstitution($post_data['institution']);
             $user->setLattes($post_data['lattes']);
 

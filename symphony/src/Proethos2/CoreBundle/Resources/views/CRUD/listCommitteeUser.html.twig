@@ -95,6 +95,7 @@
                                 <th width="">{% trans %}Email{% endtrans %}</th>
                                 <th width="">{% trans %}Country{% endtrans %}</th>
                                 <th width="">{% trans %}Practice Area{% endtrans %}</th>
+                                <th width="">{% trans %}Other Practice Area{% endtrans %}</th>
                                 <th width="">{% trans %}Rating{% endtrans %}</th>
                                 <th width="">{% trans %}Roles{% endtrans %}</th>
                                 <th width="">{% trans %}Status{% endtrans %}</th>
@@ -110,6 +111,7 @@
                                     <td>{{ user.email }}</td>
                                     <td>{{ user.country }}</td>
                                     <td>{{ user.specialty.name }}</td>
+                                    <td>{{ user.otherSpecialty }}</td>
                                     <td>{% if user.average %}{{ user.average|number_format(2) }}{% endif %}</td>
                                     <td>
                                         {% for role in user.proethos2Roles %}
@@ -215,6 +217,16 @@
                                             <option value="{{ special.id }}">{{ special.name }}</option>
                                         {% endfor %}
                                     </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class='row'>
+                            <div class='col-md-12'>
+                                <div class="form-group">
+                                    <label for="input-other-specialty">{% trans %}Other Practice Area{% endtrans %}:</label>
+                                    <a href="{{ path("crud_admin_help_show", {help_id: 126} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                                    <input type='text' class='form-control' id="input-other-specialty" name="other-specialty">
                                 </div>
                             </div>
                         </div>

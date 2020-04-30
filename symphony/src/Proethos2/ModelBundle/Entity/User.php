@@ -94,6 +94,12 @@ class User extends Base implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank()
      */
+    private $other_specialty;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
+     */
     private $institution;
 
     /**
@@ -513,5 +519,29 @@ class User extends Base implements UserInterface, \Serializable
     public function getAverage()
     {
         return $this->average;
+    }
+
+    /**
+     * Set otherSpecialty
+     *
+     * @param string $otherSpecialty
+     *
+     * @return User
+     */
+    public function setOtherSpecialty($otherSpecialty)
+    {
+        $this->other_specialty = $otherSpecialty;
+
+        return $this;
+    }
+
+    /**
+     * Get otherSpecialty
+     *
+     * @return string
+     */
+    public function getOtherSpecialty()
+    {
+        return $this->other_specialty;
     }
 }

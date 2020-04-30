@@ -229,6 +229,7 @@
                                     <th width="30%">{% trans %}Name{% endtrans %}</th>
                                     <th>{% trans %}Institution{% endtrans %}</th>
                                     <th>{% trans %}Practice Area{% endtrans %}</th>
+                                    <th>{% trans %}Other Practice Area{% endtrans %}</th>
                                     <th>{% trans %}E-mail{% endtrans %}</th>
                                     <th>{% trans %}Country{% endtrans %}</th>
                                 </tr>
@@ -242,6 +243,7 @@
                                             <td>{{ member.name }}</td>
                                             <td>{{ member.institution }}</td>
                                             <td>{{ member.specialty.name }}</td>
+                                            <td>{{ member.otherSpecialty }}</td>
                                             <td><a href='{{ member.email }}'>{{ member.email }}</a></td>
                                             <td>{{ member.country }}</td>
                                         </tr>
@@ -279,6 +281,7 @@
                                     <th width="30%">{% trans %}Name{% endtrans %}</th>
                                     <th>{% trans %}Institution{% endtrans %}</th>
                                     <th>{% trans %}Practice Area{% endtrans %}</th>
+                                    <th>{% trans %}Other Practice Area{% endtrans %}</th>
                                     <th>{% trans %}E-mail{% endtrans %}</th>
                                     <th>{% trans %}Country{% endtrans %}</th>
                                 </tr>
@@ -292,6 +295,7 @@
                                             <td>{{ member.name }}</td>
                                             <td>{{ member.institution }}</td>
                                             <td>{{ member.specialty.name }}</td>
+                                            <td>{{ member.otherSpecialty }}</td>
                                             <td><a href='{{ member.email }}'>{{ member.email }}</a></td>
                                             <td>{{ member.country }}</td>
                                         </tr>
