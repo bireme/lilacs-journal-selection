@@ -58,6 +58,16 @@ class ProtocolCommitteeRevision extends Base
     private $is_final_revision = false;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $rejected = false;
+
+    /**
+     * @ORM\Column(type="string", length=1)
+     */
+    private $reject_reason;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="positive_aspects", type="text", nullable=true)
@@ -316,5 +326,53 @@ class ProtocolCommitteeRevision extends Base
     public function getAcceptConditions()
     {
         return $this->accept_conditions;
+    }
+
+    /**
+     * Set rejected
+     *
+     * @param boolean $rejected
+     *
+     * @return ProtocolCommitteeRevision
+     */
+    public function setRejected($rejected)
+    {
+        $this->rejected = $rejected;
+
+        return $this;
+    }
+
+    /**
+     * Get rejected
+     *
+     * @return boolean
+     */
+    public function getRejected()
+    {
+        return $this->rejected;
+    }
+
+    /**
+     * Set rejectReason
+     *
+     * @param string $rejectReason
+     *
+     * @return ProtocolCommitteeRevision
+     */
+    public function setRejectReason($rejectReason)
+    {
+        $this->reject_reason = $rejectReason;
+
+        return $this;
+    }
+
+    /**
+     * Get rejectReason
+     *
+     * @return string
+     */
+    public function getRejectReason()
+    {
+        return $this->reject_reason;
     }
 }

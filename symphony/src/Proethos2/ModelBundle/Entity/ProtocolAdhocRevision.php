@@ -58,6 +58,16 @@ class ProtocolAdhocRevision extends Base
     private $is_final_revision = false;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $rejected = false;
+
+    /**
+     * @ORM\Column(type="string", length=1)
+     */
+    private $reject_reason;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="editorial_team", type="text", nullable=true)
@@ -874,5 +884,53 @@ class ProtocolAdhocRevision extends Base
     public function getOtherJournals()
     {
         return $this->other_journals;
+    }
+
+    /**
+     * Set rejected
+     *
+     * @param boolean $rejected
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setRejected($rejected)
+    {
+        $this->rejected = $rejected;
+
+        return $this;
+    }
+
+    /**
+     * Get rejected
+     *
+     * @return boolean
+     */
+    public function getRejected()
+    {
+        return $this->rejected;
+    }
+
+    /**
+     * Set rejectReason
+     *
+     * @param string $rejectReason
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setRejectReason($rejectReason)
+    {
+        $this->reject_reason = $rejectReason;
+
+        return $this;
+    }
+
+    /**
+     * Get rejectReason
+     *
+     * @return string
+     */
+    public function getRejectReason()
+    {
+        return $this->reject_reason;
     }
 }

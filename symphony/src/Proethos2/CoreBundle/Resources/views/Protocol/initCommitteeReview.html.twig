@@ -112,15 +112,23 @@
                                     <td>{{ revision.member.country }}</td>
                                     <td>{{ revision.created|date("d/m/Y") }}</td>
                                     <td>
-                                        {% if revision.answered and not revision.isFinalRevision %}<span class='label label-primary'>{% trans %}Answered{% endtrans %}</span>{% endif %}
-                                        {% if revision.isFinalRevision %}<span class='label label-success'>{% trans %}Final Revision{% endtrans %}</span>{% endif %}
-                                        {% if not revision.answered %}<span class='label label-default'>{% trans %}Assigned{% endtrans %}</span>{% endif %}
+                                        {% if revision.rejected %}
+                                            <span class='label label-danger'>{% trans %}Declined{% endtrans %}</span>
+                                        {% elseif revision.answered and not revision.isFinalRevision %}
+                                            <span class='label label-primary'>{% trans %}Answered{% endtrans %}</span>
+                                        {% elseif revision.isFinalRevision %}
+                                            <span class='label label-success'>{% trans %}Final Revision{% endtrans %}</span>
+                                        {% elseif not revision.answered %}
+                                            <span class='label label-default'>{% trans %}Assigned{% endtrans %}</span>
+                                        {% endif %}
                                     </td>
                                     <td>
-                                        <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=adhoc' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-eye-open'></i></a>
-                                        {% if not revision.answered %}<a href='{{ path("protocol_initial_committee_review_send_alert", {protocol_id: protocol.id, protocol_revision_member_id: revision.member.id }) }}' class='btn btn-default btn-xs send-alert'><i class='glyphicon glyphicon-send'></i></a>{% endif %}
-                                        {% if not revision.isFinalRevision %}<a href='#' class='btn btn-default btn-xs' data-toggle="modal" data-target="#modal-remove-revisor" id='remove-adhoc-revisor-{{ revision.id }}'><i class='glyphicon glyphicon-trash'></i></a>{% endif %}
-                                    </td
+                                        {% if not revision.rejected %}
+                                            <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=adhoc' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-eye-open'></i></a>
+                                            {% if not revision.answered %}<a href='{{ path("protocol_initial_committee_review_send_alert", {protocol_id: protocol.id, protocol_revision_member_id: revision.member.id }) }}' class='btn btn-default btn-xs send-alert'><i class='glyphicon glyphicon-send'></i></a>{% endif %}
+                                            {% if not revision.isFinalRevision %}<a href='#' class='btn btn-default btn-xs' data-toggle="modal" data-target="#modal-remove-revisor" id='remove-adhoc-revisor-{{ revision.id }}'><i class='glyphicon glyphicon-trash'></i></a>{% endif %}
+                                        {% endif %}
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -212,7 +220,7 @@
 
     <!-- Modal Select Reviewer -->
     <div class="modal fade" id="modal-select-members-of-commitee" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-lg" role="document" style="width: 60%;">
             <form class='form' method="POST">
                 <input type="hidden" name="type-of-members" value="members-of-committee">
 
@@ -264,7 +272,7 @@
 
     <!-- Modal Select Reviewer -->
     <div class="modal fade" id="modal-select-members-ad-hoc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-lg" role="document" style="width: 60%;">
             <form class='form' method="POST">
                 <input type="hidden" name="type-of-members" value="members-ad-hoc">
 
@@ -284,17 +292,18 @@
                                     <th>{% trans %}Other Practice Area{% endtrans %}</th>
                                     <th>{% trans %}E-mail{% endtrans %}</th>
                                     <th>{% trans %}Country{% endtrans %}</th>
+                                    <th></th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 {% for member in users %}
                                     {% if role_member_ad_hoc in member.proethos2Roles and member not in protocol.getCommitteeRevisionUsers and member not in protocol.getAdhocRevisionUsers %}
-                                        <tr>
+                                        <tr class="filter">
                                             <td><input type='checkbox' name="select-members-ad-hoc[]" value="{{ member.id }}"></td>
                                             <td>{{ member.name }}</td>
                                             <td>{{ member.institution }}</td>
-                                            <td>{{ member.specialty.name }}</td>
+                                            <td class="filter">{{ member.specialty.name }}</td>
                                             <td>{{ member.otherSpecialty }}</td>
                                             <td><a href='{{ member.email }}'>{{ member.email }}</a></td>
                                             <td>{{ member.country }}</td>

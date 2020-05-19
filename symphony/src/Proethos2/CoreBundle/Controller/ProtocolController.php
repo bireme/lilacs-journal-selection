@@ -974,6 +974,27 @@ class ProtocolController extends Controller
                 $session->getFlashBag()->add('success', $translator->trans("Meeting assigned with success!"));
                 return $this->redirectToRoute('protocol_end_review', array('protocol_id' => $protocol->getId()), 301);
             }
+
+            // if form was to remove a member
+            if ( isset($post_data['reject-review']) and "yes" == $post_data['reject-review'] ) {
+                if ( "committee" == $post_data['member-type'] ) {
+                    $protocol_revision_repository = $protocol_committee_revision_repository;
+                } else {
+                    $protocol_revision_repository = $protocol_adhoc_revision_repository;
+                }
+
+                $revision = $protocol_revision_repository->findOneBy(array('member' => $user, "protocol" => $protocol));
+                if($revision) {
+                    $revision->setRejected(true);
+                    $revision->setRejectReason($post_data['reject-reason']);
+                    $em->persist($revision);
+                    $em->flush();
+
+                    $session->getFlashBag()->add('success', $translator->trans("Review has been rejected with success!"));
+                    return $this->redirectToRoute('crud_committee_protocol_list', array('protocol_id' => $protocol->getId()), 301);
+                }
+
+            }
         }
 
         return $output;
@@ -1070,6 +1091,7 @@ class ProtocolController extends Controller
                     $protocol_revision->setOtherComments($post_data['other-comments']);
                     $protocol_revision->setAcceptJournal($post_data['accept-journal']);
                     $protocol_revision->setAcceptConditions($post_data['accept-conditions']);
+                    $protocol_revision->setUpdated(new \DateTime());
 
                     foreach ($post_data['revision'] as $member_id => $revision) {
                         $member = $user_repository->find($member_id);
@@ -1134,6 +1156,7 @@ class ProtocolController extends Controller
                     $protocol_revision->setOtherComments($post_data['other-comments']);
                     $protocol_revision->setOtherJournals($post_data['other-journals']);
                     $protocol_revision->setAcceptConditions($post_data['accept-conditions']);
+                    $protocol_revision->setUpdated(new \DateTime());
                 } else {
                     throw $this->createNotFoundException($translator->trans('You cannot edit this protocol'));
                 }

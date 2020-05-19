@@ -109,8 +109,18 @@
                                         {% if protocol.status == "H" and 'secretary' in app.user.getRolesSlug %}<a href='{{ path("protocol_end_review", {protocol_id: protocol.id}) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}End journal review{% endtrans %}"><i class='glyphicon glyphicon-pencil'></i></a>{% endif %}
                                         {% if protocol.status == "V" and 'secretary' in app.user.getRolesSlug %}<a href='{{ path("protocol_final_review", {protocol_id: protocol.id}) }}' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}Final journal review{% endtrans %}"><i class='glyphicon glyphicon-pencil'></i></a>{% endif %}
                                         {% if 'administrator' in app.user.getRolesSlug %}<span data-toggle="tooltip" data-placement="top" title="{% trans %}Delete this journal{% endtrans %}"><a href='{{ path("protocol_delete", {protocol_id: protocol.id} ) }}' class='btn btn-danger btn-xs' data-toggle='modal' data-target='#modalBaseAjax'><i class='glyphicon glyphicon-trash'></i></a></span>{% endif %}
-                                        {% if protocol.status in ["E","H"] and app.user in protocol.committeeRevisionUsers %}<a href='{{ path("protocol_initial_committee_review_revisor", {protocol_id: protocol.id}) }}?member=committee' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}Send journal revision{% endtrans %}"><i class='glyphicon glyphicon-list-alt'></i></a>{% endif %}
-                                        {% if protocol.status in ["E","H"] and app.user in protocol.adhocRevisionUsers %}<a href='{{ path("protocol_initial_committee_review_revisor", {protocol_id: protocol.id}) }}?member=adhoc' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}Send journal revision{% endtrans %}"><i class='glyphicon glyphicon-list-alt'></i></a>{% endif %}
+                                        {% if protocol.status in ["E","H"] and app.user in protocol.committeeRevisionUsers %}
+                                            {% if app.user not in protocol.committeeRejectedRevisions %}
+                                                <a href='{{ path("protocol_initial_committee_review_revisor", {protocol_id: protocol.id}) }}?member=committee' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}Send journal revision{% endtrans %}"><i class='glyphicon glyphicon-list-alt'></i></a>
+                                                {% if app.user not in protocol.committeeFinalRevisions %}<span data-toggle="tooltip" data-placement="top" title="{% trans %}Reject journal revision{% endtrans %}"><a href='#' id='reject-journal-review-{{ protocol.id }}' class='btn btn-danger btn-xs' data-member-type="committee" data-toggle='modal' data-target='#modal-reject-journal-review'><i class='glyphicon glyphicon-trash'></i></a></span>{% endif %}
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if protocol.status in ["E","H"] and app.user in protocol.adhocRevisionUsers %}
+                                            {% if app.user not in protocol.adhocRejectedRevisions %}
+                                                <a href='{{ path("protocol_initial_committee_review_revisor", {protocol_id: protocol.id}) }}?member=adhoc' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}Send journal revision{% endtrans %}"><i class='glyphicon glyphicon-list-alt'></i></a>
+                                                {% if app.user not in protocol.adhocFinalRevisions %}<span data-toggle="tooltip" data-placement="top" title="{% trans %}Reject journal revision{% endtrans %}"><a href='#' id='reject-journal-review-{{ protocol.id }}' class='btn btn-danger btn-xs' data-member-type="adhoc" data-toggle='modal' data-target='#modal-reject-journal-review'><i class='glyphicon glyphicon-trash'></i></a></span>{% endif %}
+                                            {% endif %}
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -239,6 +249,35 @@
         </div>
     </div>
 
+    <!-- Modal Reject Journal Review -->
+    <div class="modal fade" id="modal-reject-journal-review" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <form id="form-reject-journal-review" class='form' method="POST" action="">
+                <input type="hidden" name="reject-review" value="yes">
+                <input type="hidden" name="member-type" value="">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{% trans %}Are you sure that you want to reject this review?{% endtrans %}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>{% trans %}Please choose the reason{% endtrans %}</p>
+                        <select class='form-control selectpicker' id="select-reject-reason" name="reject-reason" title="-">
+                        {% for key, value in reject_reason %}
+                            <option value="{{ key }}">{{ value }}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
+                        <button type="submit" class="btn btn-danger">{% trans %}Reject{% endtrans %}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block script %}
@@ -274,6 +313,17 @@
             $(".submit-revisions-on-change").change(function(){
                 $("#input-output-revisions").val('html');
                 $("#form-search-revisions").submit();
+            });
+
+            // binding revision id to remove member form
+            $("a[id^=reject-journal-review-]").on('keypress click', function(e){
+                var val = $(this).attr('id'),
+                    protocol_id = val.replace("reject-journal-review-", ""),
+                    member_type = $(this).data("member-type"),
+                    action = "/journal/"+protocol_id+"/initial-committee-review";
+                
+                $("input[name=member-type]").val(member_type);
+                $('#form-reject-journal-review').attr('action', action);
             });
         });
     </script>

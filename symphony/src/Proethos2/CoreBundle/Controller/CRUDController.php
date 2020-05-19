@@ -247,6 +247,16 @@ class CRUDController extends Controller
         $committee_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolCommitteeRevision');
         $adhoc_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolAdhocRevision');
 
+        // getting the reject reason options
+        $reject_reason = array(
+            'A' => $translator->trans('I was or am part of the editorial team'),
+            'B' => $translator->trans('I know the publishers'),
+            'C' => $translator->trans('I am retired'),
+            'D' => $translator->trans('Many activities at the moment'),
+            'E' => $translator->trans('Other reason')
+        );
+        $output['reject_reason'] = $reject_reason;
+
         // search and status parameter
         $status_array = array('D', 'S', 'R', 'I', 'E', 'H', "F", "A", "N", "C", "X", "V");
         $search_query = $request->query->get('q');
