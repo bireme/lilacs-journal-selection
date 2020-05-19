@@ -245,7 +245,7 @@
 
                             <tbody>
                                 {% for member in users %}
-                                    {% if role_member_of_committee in member.proethos2Roles and member not in protocol.getAdhocRevisionUsers and member not in protocol.getCommitteeRevisionUsers %}
+                                    {% if role_member_of_committee in member.proethos2Roles and member not in protocol.adhocRevisionUsers and member not in protocol.committeeRevisionUsers %}
                                         <tr>
                                             <td><input type='checkbox' name="select-members-of-committee[]" value="{{ member.id }}"></td>
                                             <td>{{ member.name }}</td>
@@ -298,7 +298,7 @@
 
                             <tbody>
                                 {% for member in users %}
-                                    {% if role_member_ad_hoc in member.proethos2Roles and member not in protocol.getCommitteeRevisionUsers and member not in protocol.getAdhocRevisionUsers %}
+                                    {% if role_member_ad_hoc in member.proethos2Roles and member not in protocol.committeeRevisionUsers and member not in protocol.adhocRevisionUsers %}
                                         <tr class="filter">
                                             <td><input type='checkbox' name="select-members-ad-hoc[]" value="{{ member.id }}"></td>
                                             <td>{{ member.name }}</td>
@@ -307,6 +307,44 @@
                                             <td>{{ member.otherSpecialty }}</td>
                                             <td><a href='{{ member.email }}'>{{ member.email }}</a></td>
                                             <td>{{ member.country }}</td>
+                                            <td>
+                                                <a class='btn btn-default btn-xs hide-adhoc-history'><i class='glyphicon glyphicon-chevron-up'></i></a>
+                                                <a class='btn btn-default btn-xs show-adhoc-history'><i class='glyphicon glyphicon-chevron-down'></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr class="adhoc-history">
+                                            <td colspan="8">
+                                                <div>
+                                                    <i class='glyphicon glyphicon-time'></i> <b>{{ member.adhocRevisionsHistory.totalActive }}</b> {% trans %}Revisões ativas atualmente atribuídas{% endtrans %}
+                                                </div>
+                                                <div>
+                                                    <i class='glyphicon glyphicon-ok-circle'></i> <b>{{ member.adhocRevisionsHistory.totalFinal }}</b> {% trans %}Revisões terminadas{% endtrans %}
+                                                </div>
+                                                <div>
+                                                    <i class='glyphicon glyphicon-remove-circle'></i> <b>{{ member.adhocRevisionsHistory.totalReject }}</b> {% trans %}Pedidos de revisão recusados{% endtrans %}
+                                                    <div class="reject-report">
+                                                        <b>{{ member.adhocRevisionsHistory.totalRejectA }}</b> {% trans %}Fiz ou faço parte da equipe editorial{% endtrans %}
+                                                    </div>
+                                                    <div class="reject-report">
+                                                        <b>{{ member.adhocRevisionsHistory.totalRejectB }}</b> {% trans %}Conheço os editores{% endtrans %}
+                                                    </div>
+                                                    <div class="reject-report">
+                                                        <b>{{ member.adhocRevisionsHistory.totalRejectC }}</b> {% trans %}Estou aposentado (a){% endtrans %}
+                                                    </div>
+                                                    <div class="reject-report">
+                                                        <b>{{ member.adhocRevisionsHistory.totalRejectD }}</b> {% trans %}Muitas atividades no momento{% endtrans %}
+                                                    </div>
+                                                    <div class="reject-report">
+                                                        <b>{{ member.adhocRevisionsHistory.totalRejectE }}</b> {% trans %}Outro motivo{% endtrans %}
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <i class='glyphicon glyphicon-hourglass'></i> <b>{{ member.adhocRevisionsHistory.lastRevisionDays }}</b> {% trans %}Dias desde a última revisão atribuída{% endtrans %}
+                                                </div>
+                                                <div>
+                                                    <i class='glyphicon glyphicon-calendar'></i> <b>{{ member.adhocRevisionsHistory.averageRevisionDays }}</b> {% trans %}Número médio de dias para completar a revisão{% endtrans %}
+                                                </div>
+                                            </td>
                                         </tr>
                                     {% endif %}
                                 {% endfor %}
@@ -541,6 +579,18 @@
             $('#button-confirm-send-alert').on('keypress click', function(e){
                 var href = $('#hidden-send-alert').val();
                 window.location = href;
+            });
+
+            $(".show-adhoc-history").on("click", function(e){
+                $(this).hide();
+                $(this).prev().show();
+                $(this).parents("tr").next().show();
+            });
+
+            $(".hide-adhoc-history").on("click", function(e){
+                $(this).hide();
+                $(this).next().show();
+                $(this).parents("tr").next().hide();
             });
 
         });

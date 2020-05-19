@@ -317,6 +317,30 @@ table.list-mail tbody tr td:first-child {
     max-height: 10em;
 }
 
+.hide-adhoc-history {
+    display: none;
+}
+
+tr.adhoc-history {
+    display: none;
+}
+
+tr.adhoc-history div {
+    padding: 6px;
+}
+
+tr.adhoc-history div b,
+tr.adhoc-history div strong {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+div.reject-report {
+    background: url(../img/node.png) no-repeat;
+    padding: 0 0 0 1em !important;
+    margin-left: 23px;
+}
+
 /*
 DIV.multiple SELECT, INPUT[type="number"] {
     width: 160px;

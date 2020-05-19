@@ -249,11 +249,11 @@ class CRUDController extends Controller
 
         // getting the reject reason options
         $reject_reason = array(
-            'A' => $translator->trans('I was or am part of the editorial team'),
-            'B' => $translator->trans('I know the publishers'),
-            'C' => $translator->trans('I am retired'),
-            'D' => $translator->trans('Many activities at the moment'),
-            'E' => $translator->trans('Other reason')
+            'A' => $translator->trans('Fiz ou faço parte da equipe editorial'),
+            'B' => $translator->trans('Conheço os editores'),
+            'C' => $translator->trans('Estou aposentado(a)'),
+            'D' => $translator->trans('Muitas atividades no momento'),
+            'E' => $translator->trans('Outro motivo')
         );
         $output['reject_reason'] = $reject_reason;
 
