@@ -279,7 +279,7 @@
 
     <!-- Modal Select Reviewer -->
     <div class="modal fade" id="modal-select-members-ad-hoc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" role="document" style="width: 60%;">
+        <div class="modal-dialog modal-lg" role="document" style="width: 66%;">
             <form class='form' method="POST">
                 <input type="hidden" name="type-of-members" value="members-ad-hoc">
 
@@ -304,6 +304,7 @@
                                     <th>{% trans %}Institution{% endtrans %}</th>
                                     <th>{% trans %}Practice Area{% endtrans %}</th>
                                     <th>{% trans %}Other Practice Area{% endtrans %}</th>
+                                    <th>{% trans %}Rating{% endtrans %}</th>
                                     <th>{% trans %}E-mail{% endtrans %}</th>
                                     <th>{% trans %}Country{% endtrans %}</th>
                                     <th></th>
@@ -319,6 +320,7 @@
                                             <td>{{ member.institution }}</td>
                                             <td class="filter">{{ member.specialty.name }}</td>
                                             <td>{{ member.otherSpecialty }}</td>
+                                            <td>{% if member.average %}{{ member.average|number_format(2) }}{% endif %}</td>
                                             <td><a href='{{ member.email }}'>{{ member.email }}</a></td>
                                             <td>{{ member.country }}</td>
                                             <td>
