@@ -90,6 +90,7 @@
 
                         <thead>
                             <tr>
+                            	<th></th>
                                 <th width="30%">{% trans %}Name{% endtrans %}</th>
                                 <th width="">{% trans %}Username{% endtrans %}</th>
                                 <th width="">{% trans %}Email{% endtrans %}</th>
@@ -106,6 +107,12 @@
                         <tbody>
                             {% for user in users %}
                                 <tr>
+                                	<td>
+                                		{% if 'member-ad-hoc' in user.rolesSlug %}
+                                        <a class='btn btn-default btn-xs hide-adhoc-history'><i class='glyphicon glyphicon-chevron-up'></i></a>
+                                        <a class='btn btn-default btn-xs show-adhoc-history'><i class='glyphicon glyphicon-chevron-down'></i></a>
+                                        {% endif %}
+                                    </td>
                                     <td>{{ user.name }}</td>
                                     <td>{{ user.username }}</td>
                                     <td>{{ user.email }}</td>
@@ -140,6 +147,42 @@
                                         </span>
                                     </td>
                                 </tr>
+                                {% if 'member-ad-hoc' in user.rolesSlug %}
+                                <tr class="adhoc-history">
+                                    <td colspan="11">
+                                        <div>
+                                            <i class='glyphicon glyphicon-time'></i> <b>{{ user.adhocRevisionsHistory.totalActive }}</b> {% trans %}Revisões ativas atualmente atribuídas{% endtrans %}
+                                        </div>
+                                        <div>
+                                            <i class='glyphicon glyphicon-ok-circle'></i> <b>{{ user.adhocRevisionsHistory.totalFinal }}</b> {% trans %}Revisões terminadas{% endtrans %}
+                                        </div>
+                                        <div>
+                                            <i class='glyphicon glyphicon-remove-circle'></i> <b>{{ user.adhocRevisionsHistory.totalReject }}</b> {% trans %}Pedidos de revisão recusados{% endtrans %}
+                                            <div class="reject-report">
+                                                <b>{{ user.adhocRevisionsHistory.totalRejectA }}</b> {% trans %}Fiz ou faço parte da equipe editorial{% endtrans %}
+                                            </div>
+                                            <div class="reject-report">
+                                                <b>{{ user.adhocRevisionsHistory.totalRejectB }}</b> {% trans %}Conheço os editores{% endtrans %}
+                                            </div>
+                                            <div class="reject-report">
+                                                <b>{{ user.adhocRevisionsHistory.totalRejectC }}</b> {% trans %}Estou aposentado (a){% endtrans %}
+                                            </div>
+                                            <div class="reject-report">
+                                                <b>{{ user.adhocRevisionsHistory.totalRejectD }}</b> {% trans %}Muitas atividades no momento{% endtrans %}
+                                            </div>
+                                            <div class="reject-report">
+                                                <b>{{ user.adhocRevisionsHistory.totalRejectE }}</b> {% trans %}Outro motivo{% endtrans %}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <i class='glyphicon glyphicon-hourglass'></i> <b>{{ user.adhocRevisionsHistory.lastRevisionDays }}</b> {% trans %}Dias desde a última revisão atribuída{% endtrans %}
+                                        </div>
+                                        <div>
+                                            <i class='glyphicon glyphicon-calendar'></i> <b>{{ user.adhocRevisionsHistory.averageRevisionDays }}</b> {% trans %}Número médio de dias para completar a revisão{% endtrans %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endif %}
                             {% endfor %}
                         </tbody>
                     </table>
@@ -294,6 +337,18 @@
             $("#id-search-button").click(function(){
                 $("#input-output").val('html');
                 $("#form-search").submit();
+            });
+
+            $(".show-adhoc-history").on("click", function(e){
+                $(this).hide();
+                $(this).prev().show();
+                $(this).parents("tr").next().show();
+            });
+
+            $(".hide-adhoc-history").on("click", function(e){
+                $(this).hide();
+                $(this).next().show();
+                $(this).parents("tr").next().hide();
             });
 
             $('#input-status').iCheck('destroy');
