@@ -230,7 +230,14 @@
                         <h4 class="modal-title" id="myModalLabel">{% trans %}Select Members of Committee{% endtrans %}</h4>
                     </div>
                     <div class="modal-body">
-                        <table class='table table-hover table-condensed'>
+                        <div class="live-search">
+                            <fieldset>
+                                <label for="filter-practice-area-committee">Filter by practice area:</label>
+                                <input type="text" class="form-control text-input filter-practice-area" id="filter-practice-area-committee" data-member="committee" value="" />
+                            </fieldset>
+                        </div>
+                        <hr>
+                        <table id="list-committee" class='table table-hover table-condensed'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -246,11 +253,11 @@
                             <tbody>
                                 {% for member in users %}
                                     {% if role_member_of_committee in member.proethos2Roles and member not in protocol.adhocRevisionUsers and member not in protocol.committeeRevisionUsers %}
-                                        <tr>
+                                        <tr class="filter">
                                             <td><input type='checkbox' name="select-members-of-committee[]" value="{{ member.id }}"></td>
                                             <td>{{ member.name }}</td>
                                             <td>{{ member.institution }}</td>
-                                            <td>{{ member.specialty.name }}</td>
+                                            <td class="filter">{{ member.specialty.name }}</td>
                                             <td>{{ member.otherSpecialty }}</td>
                                             <td><a href='{{ member.email }}'>{{ member.email }}</a></td>
                                             <td>{{ member.country }}</td>
@@ -282,7 +289,14 @@
                         <h4 class="modal-title" id="myModalLabel">{% trans %}Select Members Ad-Hoc{% endtrans %}</h4>
                     </div>
                     <div class="modal-body">
-                        <table class='table table-hover table-condensed'>
+                        <div class="live-search">
+                            <fieldset>
+                                <label for="filter-practice-area-adhoc">Filter by practice area:</label>
+                                <input type="text" class="form-control text-input filter-practice-area" id="filter-practice-area-adhoc" data-member="adhoc" value="" />
+                            </fieldset>
+                        </div>
+                        <hr>
+                        <table id="list-adhoc" class='table table-hover table-condensed'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -591,6 +605,37 @@
                 $(this).hide();
                 $(this).next().show();
                 $(this).parents("tr").next().hide();
+            });
+
+            $("input.filter-practice-area").keyup(function(){
+                // Retrieve the input field text and reset the count to zero
+                var filter = $(this).val(), member = $(this).data('member'), count = 0;
+         
+                // Loop through the comment list
+                $("table#list-"+member+" tbody tr.filter").each(function(){
+         
+                    // If the list item does not contain the text phrase fade it out
+                    if ($(this).find('td.filter').text().search(new RegExp(filter, "i")) < 0) {
+                        $(this).hide();
+                        if ( 'adhoc' == member ) {
+                            if ( $(this).next().is(":visible") ) {
+                                $(this).next().hide();
+                                $(this).find('.show-adhoc-history').show();
+                                $(this).find('.hide-adhoc-history').hide();
+                            }
+                        }
+
+                    // Show the list item if the phrase matches and increase the count by 1
+                    } else {
+                        $(this).show();
+                        // $(this).next().show();
+                        count++;
+                    }
+                });
+         
+                // Update the count
+                var numberItems = count;
+                // $("#filter-count").text("Total: "+count);
             });
 
         });
