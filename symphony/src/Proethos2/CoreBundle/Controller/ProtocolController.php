@@ -1084,13 +1084,14 @@ class ProtocolController extends Controller
 
             // only change if is not final revision
             if(!$protocol_revision->getIsFinalRevision()) {
+            	$accept_conditions = ( 'on' == $post_data['accept-conditions'] ) ? true : false;
 
                 if ( "committee" == $post_data['member-type'] ) {
                     $protocol_revision->setPositiveAspects($post_data['positive-aspects']);
                     $protocol_revision->setNegativeAspects($post_data['negative-aspects']);
                     $protocol_revision->setOtherComments($post_data['other-comments']);
                     $protocol_revision->setAcceptJournal($post_data['accept-journal']);
-                    $protocol_revision->setAcceptConditions($post_data['accept-conditions']);
+                    $protocol_revision->setAcceptConditions($accept_conditions);
                     $protocol_revision->setUpdated(new \DateTime());
 
                     foreach ($post_data['revision'] as $member_id => $revision) {
@@ -1155,7 +1156,7 @@ class ProtocolController extends Controller
                     $protocol_revision->setJournalRelevance($post_data['journal-relevance']);
                     $protocol_revision->setOtherComments($post_data['other-comments']);
                     $protocol_revision->setOtherJournals($post_data['other-journals']);
-                    $protocol_revision->setAcceptConditions($post_data['accept-conditions']);
+                    $protocol_revision->setAcceptConditions($accept_conditions);
                     $protocol_revision->setUpdated(new \DateTime());
                 } else {
                     throw $this->createNotFoundException($translator->trans('You cannot edit this protocol'));
