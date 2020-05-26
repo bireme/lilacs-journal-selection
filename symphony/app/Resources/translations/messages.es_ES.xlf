@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2020-04-16T13:46:52Z" source-language="en" target-language="es_ES" datatype="plaintext" original="not.available">
+  <file date="2020-04-20T12:48:23Z" source-language="en" target-language="es_ES" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -712,7 +712,7 @@
       </trans-unit>
       <trans-unit id="3edaa5038b1e4d4eef4429bbadb9cbb38dd4e285" resname="Give your opinion about the content analysis made by the reviewers">
         <source>Give your opinion about the content analysis made by the reviewers</source>
-        <target>Give your opinion about the content analysis made by the reviewers</target>
+        <target>Da su opinión sobre el análisis de contenido realizado por los revisores</target>
       </trans-unit>
       <trans-unit id="9d8ba69ea37ad3dd3008e8b89eb6046f51780130" resname="Have an error with captcha. Please try again.">
         <source>Have an error with captcha. Please try again.</source>
