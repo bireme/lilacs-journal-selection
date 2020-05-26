@@ -63,7 +63,7 @@ class ProtocolCommitteeRevision extends Base
     private $rejected = false;
 
     /**
-     * @ORM\Column(type="string", length=1)
+     * @ORM\Column(type="string", length=1, nullable=true)
      */
     private $reject_reason;
 
