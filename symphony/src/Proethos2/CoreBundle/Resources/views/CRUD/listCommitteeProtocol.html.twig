@@ -321,7 +321,6 @@
                 $("#form-search-revisions").submit();
             });
 
-            // binding revision id to remove member form
             $("a[id^=reject-journal-review-]").on('keypress click', function(e){
                 var val = $(this).attr('id'),
                     protocol_id = val.replace("reject-journal-review-", ""),
