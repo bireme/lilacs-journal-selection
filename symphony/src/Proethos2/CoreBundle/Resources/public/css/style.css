@@ -341,6 +341,14 @@ div.reject-report {
     margin-left: 23px;
 }
 
+div.other-reject-reason {
+    display: none;
+}
+
+span.reject-label {
+    color: #ff4136;
+}
+
 /*
 DIV.multiple SELECT, INPUT[type="number"] {
     width: 160px;

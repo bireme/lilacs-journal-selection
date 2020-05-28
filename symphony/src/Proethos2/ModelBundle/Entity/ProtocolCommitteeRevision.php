@@ -68,6 +68,11 @@ class ProtocolCommitteeRevision extends Base
     private $reject_reason;
 
     /**
+     * @ORM\Column(type="string", length=510, nullable=true)
+     */
+    private $other_reject_reason;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="positive_aspects", type="text", nullable=true)
@@ -374,5 +379,29 @@ class ProtocolCommitteeRevision extends Base
     public function getRejectReason()
     {
         return $this->reject_reason;
+    }
+
+    /**
+     * Set otherRejectReason
+     *
+     * @param string $otherRejectReason
+     *
+     * @return ProtocolCommitteeRevision
+     */
+    public function setOtherRejectReason($otherRejectReason)
+    {
+        $this->other_reject_reason = $otherRejectReason;
+
+        return $this;
+    }
+
+    /**
+     * Get otherRejectReason
+     *
+     * @return string
+     */
+    public function getOtherRejectReason()
+    {
+        return $this->other_reject_reason;
     }
 }

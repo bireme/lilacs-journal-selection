@@ -761,6 +761,16 @@ class ProtocolController extends Controller
         // $help = $help_repository->findBy(array("id" => {id}, "type" => "mail"));
         // $translations = $trans_repository->findTranslations($help[0]);
 
+        // getting the reject reason options
+        $reject_reason = array(
+            'A' => $translator->trans('Fiz ou faço parte da equipe editorial'),
+            'B' => $translator->trans('Conheço os editores'),
+            'C' => $translator->trans('Estou aposentado(a)'),
+            'D' => $translator->trans('Muitas atividades no momento'),
+            'E' => $translator->trans('Outro motivo')
+        );
+        $output['reject_reason'] = $reject_reason;
+
         if (!$protocol or !in_array($protocol->getStatus(), array("I", "E", "H"))) {
             throw $this->createNotFoundException($translator->trans('No journal found'));
         }
@@ -987,6 +997,9 @@ class ProtocolController extends Controller
                 if($revision) {
                     $revision->setRejected(true);
                     $revision->setRejectReason($post_data['reject-reason']);
+                    if ( 'E' == $post_data['reject-reason'] and $post_data['other-reject-reason'] ) {
+                        $revision->setOtherRejectReason($post_data['other-reject-reason']);
+                    }
                     $em->persist($revision);
                     $em->flush();
 

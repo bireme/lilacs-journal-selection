@@ -262,12 +262,18 @@
                         <h4 class="modal-title" id="myModalLabel">{% trans %}Are you sure that you want to reject this review?{% endtrans %}</h4>
                     </div>
                     <div class="modal-body">
-                        <p>{% trans %}Please choose the reason{% endtrans %}</p>
-                        <select class='form-control selectpicker' id="select-reject-reason" name="reject-reason" title="-">
-                        {% for key, value in reject_reason %}
-                            <option value="{{ key }}">{{ value }}</option>
-                        {% endfor %}
-                    </select>
+                        <div class="form-group">
+                            <p>{% trans %}Please choose the reason{% endtrans %}</p>
+                            <select class='form-control selectpicker' id="select-reject-reason" name="reject-reason" title="-">
+                                {% for key, value in reject_reason %}
+                                    <option value="{{ key }}">{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group other-reject-reason">
+                            <label for="input-other-reject-reason">{% trans %}Please inform the reason (not required){% endtrans %}:</label>
+                            <input type="text" class="form-control" name='other-reject-reason' id='input-other-reject-reason' value="">
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
@@ -324,6 +330,15 @@
                 
                 $("input[name=member-type]").val(member_type);
                 $('#form-reject-journal-review').attr('action', action);
+            });
+
+            $("#select-reject-reason").change(function(){
+                var val = $(this).val();
+                if ( 'E' == val ) {
+                    $(".other-reject-reason").show();
+                } else {
+                    $(".other-reject-reason").hide();
+                }
             });
         });
     </script>

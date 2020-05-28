@@ -284,7 +284,7 @@ class CRUDController extends Controller
         } elseif ( in_array('member-of-committee', $user->getRolesSlug()) ) {
             $subquery = $protocol_repository->createQueryBuilder('pr')
                 ->join('pr.committee_revision', 'r')
-                ->where("r.member = :owner AND r.is_final_revision = 1")
+                ->where("r.member = :owner AND (r.is_final_revision = 1 OR r.rejected = 1)")
                 ->addOrderBy($pr_order_query, 'DESC')
                 ->addOrderBy('pr.created', 'DESC')
                 ->setParameter('owner', $user);
@@ -300,7 +300,7 @@ class CRUDController extends Controller
             $query = $protocol_repository->createQueryBuilder('p')
                 ->join('p.main_submission', 's')
                 ->leftJoin('p.adhoc_revision', 'r')
-                ->where("s.title LIKE :query AND p.status = 'E' AND r.member = :owner AND r.is_final_revision = 0")
+                ->where("s.title LIKE :query AND p.status = 'E' AND r.member = :owner AND r.is_final_revision = 0 AND r.rejected = 0")
                 ->addOrderBy($p_order_query, 'DESC')
                 ->addOrderBy('p.created', 'DESC')
                 ->setParameter('query', "%". $search_query ."%")

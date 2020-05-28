@@ -127,6 +127,8 @@
                                             <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=adhoc' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-eye-open'></i></a>
                                             {% if not revision.answered %}<a href='{{ path("protocol_initial_committee_review_send_alert", {protocol_id: protocol.id, protocol_revision_member_id: revision.member.id }) }}' class='btn btn-default btn-xs send-alert'><i class='glyphicon glyphicon-send'></i></a>{% endif %}
                                             {% if not revision.isFinalRevision %}<a href='#' class='btn btn-default btn-xs' data-toggle="modal" data-target="#modal-remove-revisor" id='remove-adhoc-revisor-{{ revision.id }}'><i class='glyphicon glyphicon-trash'></i></a>{% endif %}
+                                        {% else %}
+                                            <a href='#' data-toggle='modal' data-target='#modal-reject-reason' class='btn btn-default btn-xs reject-reason' data-reason="{% if 'E' == revision.rejectReason and revision.otherRejectReason %}{{ revision.otherRejectReason }}{% else %}{{ reject_reason[revision.rejectReason] }}{% endif %}"><i class='glyphicon glyphicon-eye-open'></i></a>
                                         {% endif %}
                                     </td>
                                 </tr>
@@ -168,14 +170,24 @@
                                     <td>{{ revision.member.country }}</td>
                                     <td>{{ revision.created|date("d/m/Y") }}</td>
                                     <td>
-                                        {% if revision.answered and not revision.isFinalRevision %}<span class='label label-primary'>{% trans %}Answered{% endtrans %}</span>{% endif %}
-                                        {% if revision.isFinalRevision %}<span class='label label-success'>{% trans %}Final Revision{% endtrans %}</span>{% endif %}
-                                        {% if not revision.answered %}<span class='label label-default'>{% trans %}Assigned{% endtrans %}</span>{% endif %}
+                                        {% if revision.rejected %}
+                                            <span class='label label-danger'>{% trans %}Declined{% endtrans %}</span>
+                                        {% elseif revision.answered and not revision.isFinalRevision %}
+                                            <span class='label label-primary'>{% trans %}Answered{% endtrans %}</span>
+                                        {% elseif revision.isFinalRevision %}
+                                            <span class='label label-success'>{% trans %}Final Revision{% endtrans %}</span>
+                                        {% elseif not revision.answered %}
+                                            <span class='label label-default'>{% trans %}Assigned{% endtrans %}</span>
+                                        {% endif %}
                                     </td>
                                     <td>
-                                        <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=committee' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-eye-open'></i></a>
-                                        {% if not revision.answered %}<a href='{{ path("protocol_initial_committee_review_send_alert", {protocol_id: protocol.id, protocol_revision_member_id: revision.member.id }) }}' class='btn btn-default btn-xs send-alert'><i class='glyphicon glyphicon-send'></i></a>{% endif %}
-                                        {% if not revision.isFinalRevision %}<a href='#' class='btn btn-default btn-xs' data-toggle="modal" data-target="#modal-remove-revisor" id='remove-committee-revisor-{{ revision.id }}'><i class='glyphicon glyphicon-trash'></i></a>{% endif %}
+                                        {% if not revision.rejected %}
+                                            <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=committee' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-eye-open'></i></a>
+                                            {% if not revision.answered %}<a href='{{ path("protocol_initial_committee_review_send_alert", {protocol_id: protocol.id, protocol_revision_member_id: revision.member.id }) }}' class='btn btn-default btn-xs send-alert'><i class='glyphicon glyphicon-send'></i></a>{% endif %}
+                                            {% if not revision.isFinalRevision %}<a href='#' class='btn btn-default btn-xs' data-toggle="modal" data-target="#modal-remove-revisor" id='remove-committee-revisor-{{ revision.id }}'><i class='glyphicon glyphicon-trash'></i></a>{% endif %}
+                                        {% else %}
+                                            <a href='#' data-toggle='modal' data-target='#modal-reject-reason' class='btn btn-default btn-xs reject-reason' data-reason="{% if 'E' == revision.rejectReason and revision.otherRejectReason %}{{ revision.otherRejectReason }}{% else %}{{ reject_reason[revision.rejectReason] }}{% endif %}"><i class='glyphicon glyphicon-eye-open'></i></a>
+                                        {% endif %}
                                     </td
                                 </tr>
                             {% endfor %}
@@ -517,6 +529,24 @@
         </div>
     </div>
 
+    <!-- Modal display reject reason -->
+    <div class="modal fade" id="modal-reject-reason" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-alert="">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{% trans %}Parecer do Reviewer{% endtrans %}: <span class="reject-label">{% trans %}Rejeitado{% endtrans %}</span></h4>
+                </div>
+                <div class="modal-body">
+                    <p><b>{% trans %}Motivo{% endtrans %}</b>: <span id="text-reject-reason"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block script %}
@@ -607,6 +637,11 @@
                 $(this).hide();
                 $(this).next().show();
                 $(this).parents("tr").next().hide();
+            });
+
+            $("a.reject-reason").on("click", function(e){
+                var data = $(this).data('reason');
+                $("#text-reject-reason").text(data);
             });
 
             $("input.filter-practice-area").keyup(function(){
