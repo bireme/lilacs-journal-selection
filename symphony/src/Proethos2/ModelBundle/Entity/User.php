@@ -119,7 +119,7 @@ class User extends Base implements UserInterface, \Serializable
     private $first_access = true;
 
     /**
-     * @ORM\Column(name="average", type="float")
+     * @ORM\Column(name="average", type="float", nullable=true)
      * @Assert\NotBlank
      */
     private $average;
