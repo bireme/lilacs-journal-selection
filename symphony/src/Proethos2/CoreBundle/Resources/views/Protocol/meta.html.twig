@@ -5,6 +5,6 @@
 {% include 'Proethos2CoreBundle:Protocol:protocol_header.html.twig' %}
 {% include 'Proethos2CoreBundle:Protocol:protocol_another_infos.html.twig' %}
 
-{% if ('member-of-committee' in app.user.rolesSlug or 'secretary' in app.user.rolesSlug) and protocol.status in ['E','H','A','N','C','V'] %}
+{% if ('member-of-committee' in app.user.rolesSlug or 'secretary' in app.user.rolesSlug) and protocol.status in ['E','H','A','N','C','V'] and app.request.get('_route') != "protocol_initial_committee_review" %}
     {% include 'Proethos2CoreBundle:Protocol:protocol_reviewers.html.twig' %}
 {% endif %}
