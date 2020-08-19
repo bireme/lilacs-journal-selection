@@ -245,12 +245,12 @@
                         <div class="live-search">
                             <fieldset>
                                 <label for="filter-name-adhoc">{% trans %}Filter by{% endtrans %}:</label>
-                                <select class='selectpicker' id="select-filter" name="select-filter">
+                                <select class='selectpicker' id="select-filter-committee" name="select-filter">
                                     <option value="name">{% trans %}Name{% endtrans %}</option>
                                     <option value="practice-area">{% trans %}Practice Area{% endtrans %}</option>
                                     <option value="email">{% trans %}Email{% endtrans %}</option>
                                 </select>
-                                <input type="text" class="form-control text-input filter-field" id="filter-field" data-member="adhoc" value="" />
+                                <input type="text" class="form-control text-input filter-field" id="filter-field-committee" data-member="adhoc" value="" />
                             </fieldset>
                         </div>
                         <hr>
@@ -309,12 +309,12 @@
                         <div class="live-search">
                             <fieldset>
                                 <label for="filter-name-adhoc">{% trans %}Filter by{% endtrans %}:</label>
-                                <select class='selectpicker' id="select-filter" name="select-filter">
+                                <select class='selectpicker' id="select-filter-adhoc" name="select-filter">
                                     <option value="name">{% trans %}Name{% endtrans %}</option>
                                     <option value="practice-area">{% trans %}Practice Area{% endtrans %}</option>
                                     <option value="email">{% trans %}Email{% endtrans %}</option>
                                 </select>
-                                <input type="text" class="form-control text-input filter-field" id="filter-field" data-member="adhoc" value="" />
+                                <input type="text" class="form-control text-input filter-field" id="filter-field-adhoc" data-member="adhoc" value="" />
                             </fieldset>
                         </div>
                         <hr>
@@ -656,7 +656,7 @@
 
             $("input.filter-field").keyup(function(){
                 // Retrieve the input field text and reset the count to zero
-                var filter = $(this).val(), member = $(this).data('member'), field = $('#select-filter').val(), count = 0;
+                var filter = $(this).val(), member = $(this).data('member'), field = $('.select-filter').val(), count = 0;
          
                 // Loop through the comment list
                 $("table#list-"+member+" tbody tr.filter").each(function(){
