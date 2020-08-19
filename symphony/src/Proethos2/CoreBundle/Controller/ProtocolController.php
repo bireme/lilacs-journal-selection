@@ -739,7 +739,7 @@ class ProtocolController extends Controller
         $output['role_member_ad_hoc'] = $role_member_ad_hoc;
 
         // getting users
-        $users = $user_repository->findBy(array(), array('average' => 'DESC')); // $users = $user_repository->findAll();
+        $users = $user_repository->findBy(array(), array('average' => 'DESC', 'name' => 'ASC')); // $users = $user_repository->findAll();
         $output['users'] = $users;
 
         // gettings meetings

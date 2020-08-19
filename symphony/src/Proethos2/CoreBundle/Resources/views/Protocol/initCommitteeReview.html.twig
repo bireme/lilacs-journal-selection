@@ -303,8 +303,13 @@
                     <div class="modal-body">
                         <div class="live-search">
                             <fieldset>
-                                <label for="filter-practice-area-adhoc">Filter by practice area:</label>
-                                <input type="text" class="form-control text-input filter-practice-area" id="filter-practice-area-adhoc" data-member="adhoc" value="" />
+                                <label for="filter-name-adhoc">{% trans %}Filter by name{% endtrans %}:</label>
+                                <select class='selectpicker' id="select-filter" name="select-filter">
+                                    <option value="name">{% trans %}Name{% endtrans %}</option>
+                                    <option value="practice-area">{% trans %}Practice Area{% endtrans %}</option>
+                                    <option value="email">{% trans %}Email{% endtrans %}</option>
+                                </select>
+                                <input type="text" class="form-control text-input filter-field" id="filter-field" data-member="adhoc" value="" />
                             </fieldset>
                         </div>
                         <hr>
@@ -328,12 +333,12 @@
                                     {% if role_member_ad_hoc in member.proethos2Roles and member not in protocol.committeeRevisionUsers and member not in protocol.adhocRevisionUsers %}
                                         <tr class="filter">
                                             <td><input type='checkbox' name="select-members-ad-hoc[]" value="{{ member.id }}"></td>
-                                            <td>{{ member.name }}</td>
+                                            <td class="filter-name">{{ member.name }}</td>
                                             <td>{{ member.institution }}</td>
-                                            <td class="filter">{{ member.specialty.name }}</td>
+                                            <td class="filter-practice-area">{{ member.specialty.name }}</td>
                                             <td>{{ member.otherSpecialty }}</td>
                                             <td>{% if member.average %}{{ member.average|number_format(2) }}{% endif %}</td>
-                                            <td><a href='{{ member.email }}'>{{ member.email }}</a></td>
+                                            <td class="filter-email"><a href='{{ member.email }}'>{{ member.email }}</a></td>
                                             <td>{{ member.country }}</td>
                                             <td>
                                                 <a class='btn btn-default btn-xs hide-adhoc-history'><i class='glyphicon glyphicon-chevron-up'></i></a>
@@ -644,15 +649,15 @@
                 $("#text-reject-reason").text(data);
             });
 
-            $("input.filter-practice-area").keyup(function(){
+            $("input.filter-field").keyup(function(){
                 // Retrieve the input field text and reset the count to zero
-                var filter = $(this).val(), member = $(this).data('member'), count = 0;
+                var filter = $(this).val(), member = $(this).data('member'), field = $('#select-filter').val(), count = 0;
          
                 // Loop through the comment list
                 $("table#list-"+member+" tbody tr.filter").each(function(){
          
                     // If the list item does not contain the text phrase fade it out
-                    if ($(this).find('td.filter').text().search(new RegExp(filter, "i")) < 0) {
+                    if ($(this).find('td.filter-'+field).text().search(new RegExp(filter, "i")) < 0) {
                         $(this).hide();
                         if ( 'adhoc' == member ) {
                             if ( $(this).next().is(":visible") ) {

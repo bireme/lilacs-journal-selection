@@ -349,6 +349,10 @@ span.reject-label {
     color: #ff4136;
 }
 
+.live-search .filter-field {
+    margin-top: 16px;
+}
+
 /*
 DIV.multiple SELECT, INPUT[type="number"] {
     width: 160px;
