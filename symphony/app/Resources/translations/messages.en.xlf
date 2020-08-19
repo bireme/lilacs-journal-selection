@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2020-07-21T19:21:00Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2020-08-18T16:20:40Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -8,7 +8,7 @@
     <body>
       <trans-unit id="fe1f2c4d494fc40392e39bec35686602dd971e3b" resname="A new monitoring action has been submitted.">
         <source>A new monitoring action has been submitted.</source>
-        <target>A new monitoring action has been submitted.</target>
+        <target>Uma nova ação de monitoramento foi enviada.</target>
       </trans-unit>
       <trans-unit id="89c1f977ef97df0eb107e8f963bee815fe488cd8" resname="A partir da análise do conteúdo dos artigos dos 3 (três) últimos fascículos da revista, opine sobre os aspectos relacionados abaixo, justificando por escrito sua opinião:">
         <source>A partir da análise do conteúdo dos artigos dos 3 (três) últimos fascículos da revista, opine sobre os aspectos relacionados abaixo, justificando por escrito sua opinião:</source>
@@ -1308,7 +1308,7 @@
       </trans-unit>
       <trans-unit id="ac6464f45d59237921590ef9b6346919bf3f0cab" resname="Other Practice Area">
         <source>Other Practice Area</source>
-        <target>Other Practice Area</target>
+        <target>Outra área de atuação</target>
       </trans-unit>
       <trans-unit id="c2d30afd87b47fcb570fbb7cf740407aa9d0b754" resname="Outro motivo">
         <source>Outro motivo</source>
@@ -1416,7 +1416,7 @@
       </trans-unit>
       <trans-unit id="7f84bc8a103b2fd8e5b5ccd918fa999d25bf2738" resname="Practice Area">
         <source>Practice Area</source>
-        <target>Practice Area</target>
+        <target>Área de atuação</target>
       </trans-unit>
       <trans-unit id="7745f49357fa406eb8ac64f85af91dcbbf843264" resname="Previous Title">
         <source>Previous Title</source>
@@ -1432,7 +1432,7 @@
       </trans-unit>
       <trans-unit id="d1c3f33e6d81e5377d770db5cabd2b4a8b5263bc" resname="Problems generating PDF. Please contact the administrator.">
         <source>Problems generating PDF. Please contact the administrator.</source>
-        <target>Problems generating PDF. Please contact the administrator.</target>
+        <target>Problemas na geração do PDF. Entre em contato com o administrador.</target>
       </trans-unit>
       <trans-unit id="cb3583fdc95bee8235906aa799b6387f87b2b14a" resname="Proethos2 Team">
         <source>Proethos2 Team</source>
@@ -1524,7 +1524,7 @@
       </trans-unit>
       <trans-unit id="6437b7bf655854909262d5f53fbe3bc7a6665b48" resname="Rating">
         <source>Rating</source>
-        <target>Rating</target>
+        <target>Classificação</target>
       </trans-unit>
       <trans-unit id="aad5681a626bf7e9fdf0c4901aa1374a89068919" resname="Reason that this journal was rejected">
         <source>Reason that this journal was rejected</source>

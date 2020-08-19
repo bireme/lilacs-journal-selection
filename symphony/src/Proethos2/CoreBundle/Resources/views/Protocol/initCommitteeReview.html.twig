@@ -244,8 +244,13 @@
                     <div class="modal-body">
                         <div class="live-search">
                             <fieldset>
-                                <label for="filter-practice-area-committee">Filter by practice area:</label>
-                                <input type="text" class="form-control text-input filter-practice-area" id="filter-practice-area-committee" data-member="committee" value="" />
+                                <label for="filter-name-adhoc">{% trans %}Filter by name{% endtrans %}:</label>
+                                <select class='selectpicker' id="select-filter" name="select-filter">
+                                    <option value="name">{% trans %}Name{% endtrans %}</option>
+                                    <option value="practice-area">{% trans %}Practice Area{% endtrans %}</option>
+                                    <option value="email">{% trans %}Email{% endtrans %}</option>
+                                </select>
+                                <input type="text" class="form-control text-input filter-field" id="filter-field" data-member="adhoc" value="" />
                             </fieldset>
                         </div>
                         <hr>
@@ -267,11 +272,11 @@
                                     {% if role_member_of_committee in member.proethos2Roles and member not in protocol.adhocRevisionUsers and member not in protocol.committeeRevisionUsers %}
                                         <tr class="filter">
                                             <td><input type='checkbox' name="select-members-of-committee[]" value="{{ member.id }}"></td>
-                                            <td>{{ member.name }}</td>
+                                            <td class="filter-name">{{ member.name }}</td>
                                             <td>{{ member.institution }}</td>
-                                            <td class="filter">{{ member.specialty.name }}</td>
+                                            <td class="filter-practice-area">{{ member.specialty.name }}</td>
                                             <td>{{ member.otherSpecialty }}</td>
-                                            <td><a href='{{ member.email }}'>{{ member.email }}</a></td>
+                                            <td class="filter-email"><a href='{{ member.email }}'>{{ member.email }}</a></td>
                                             <td>{{ member.country }}</td>
                                         </tr>
                                     {% endif %}

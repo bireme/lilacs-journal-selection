@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2020-07-21T19:21:02Z" source-language="en" target-language="pt_BR" datatype="plaintext" original="not.available">
+  <file date="2020-08-18T16:48:24Z" source-language="en" target-language="pt_BR" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -128,7 +128,7 @@
       </trans-unit>
       <trans-unit id="fec21dc979b6d2b84ada2738d7cd5e99d714952b" resname="Are you sure that you want to reject this review?">
         <source>Are you sure that you want to reject this review?</source>
-        <target>Are you sure that you want to reject this review?</target>
+        <target>Tem certeza que deseja rejeitar este comentário?</target>
       </trans-unit>
       <trans-unit id="129d86112d0f124b04a96f1e06036d1b66e8e4b2" resname="Are you sure that you want to remove this member?">
         <source>Are you sure that you want to remove this member?</source>
@@ -172,11 +172,11 @@
       </trans-unit>
       <trans-unit id="83a56249e5cff48f561d2d725143f1fc2eb3228c" resname="Attachment">
         <source>Attachment</source>
-        <target>Attachment</target>
+        <target>Anexo</target>
       </trans-unit>
       <trans-unit id="b1aa6d1f49a748f59593e3bd87953f2c4408916e" resname="Attachment added with success.">
         <source>Attachment added with success.</source>
-        <target>Attachment added with success.</target>
+        <target>Anexo adicionado com sucesso.</target>
       </trans-unit>
       <trans-unit id="5fda23d62015b99fb2a9f86b38bcdf2bdf7609c8" resname="Author">
         <source>Author</source>
@@ -232,7 +232,7 @@
       </trans-unit>
       <trans-unit id="03543111f1a319a4d2d7609daee9fe909dc2e051" resname="Clarity">
         <source>Clarity</source>
-        <target>Clarity</target>
+        <target>Clareza</target>
       </trans-unit>
       <trans-unit id="ed6b163354d00afa17647b94816172f80c7de3fa" resname="Clinical Trial Names">
         <source>Clinical Trial Names</source>
@@ -348,7 +348,7 @@
       </trans-unit>
       <trans-unit id="c175379b0389b2d6057b0b7db996720f1fb92fc7" resname="Creation date">
         <source>Creation date</source>
-        <target>Creation date</target>
+        <target>Data de criação</target>
       </trans-unit>
       <trans-unit id="e070de224434a2acd352b35cec46f34f9e08e1b2" resname="Currency">
         <source>Currency</source>
@@ -376,7 +376,7 @@
       </trans-unit>
       <trans-unit id="ff59b80fe424c310ab693ad14dab8a2d3885f54a" resname="Declined">
         <source>Declined</source>
-        <target>Declined</target>
+        <target>Recusado</target>
       </trans-unit>
       <trans-unit id="f6fdbe48dc54dd86f63097a03bd24094dedd713a" resname="Delete">
         <source>Delete</source>
@@ -464,7 +464,7 @@
       </trans-unit>
       <trans-unit id="b3596b12fac14dbe8abc1a2210fcd4fc9a9721d3" resname="Edit attachment">
         <source>Edit attachment</source>
-        <target>Edit attachment</target>
+        <target>Editar anexo</target>
       </trans-unit>
       <trans-unit id="4d32f9f7a82dd68da666475cd6c1355d1220879b" resname="Edit roles">
         <source>Edit roles</source>
@@ -504,7 +504,7 @@
       </trans-unit>
       <trans-unit id="73f280df8d9fbacc0abfd8783b17a0cb898f5fff" resname="Editorial Team">
         <source>Editorial Team</source>
-        <target>Editorial Team</target>
+        <target>Equipe Editorial</target>
       </trans-unit>
       <trans-unit id="e0c9f35acd0322871d2afd65f6c6a327d46c2c5c" resname="Editorial team">
         <source>Editorial team</source>
@@ -889,7 +889,7 @@
       </trans-unit>
       <trans-unit id="cd60c612e4b927fefaf686f88a47315d75f98ca3" resname="Journal URL">
         <source>Journal URL</source>
-        <target>Journal URL</target>
+        <target>URL do periódico</target>
       </trans-unit>
       <trans-unit id="e211cccf5c3cd847d33826bc0d1fa1687007762f" resname="Journal accepted for review by secretary and members notified.">
         <source>Journal accepted for review by secretary and members notified.</source>
@@ -897,7 +897,7 @@
       </trans-unit>
       <trans-unit id="050f13848f1851e42ca8725af1507c2f3b5ae4b5" resname="Journal code">
         <source>Journal code</source>
-        <target>Journal code</target>
+        <target>Código do periódico</target>
       </trans-unit>
       <trans-unit id="f2a5b2fd94b39f107efe30b1019e941a649b757c" resname="Journal finalized by secretary under option &quot;%option%&quot;.">
         <source>Journal finalized by secretary under option "%option%".</source>
@@ -1301,7 +1301,7 @@
       </trans-unit>
       <trans-unit id="defe0db58901ef5c27bf7dc8d5bfc802f7cd4e7b" resname="Order by">
         <source>Order by</source>
-        <target>Order by</target>
+        <target>Ordenar por</target>
       </trans-unit>
       <trans-unit id="ca86dd30b1dc77a2a5f8196f2e8e728cdff6d6ff" resname="Other Indexes">
         <source>Other Indexes</source>
@@ -1309,7 +1309,7 @@
       </trans-unit>
       <trans-unit id="ac6464f45d59237921590ef9b6346919bf3f0cab" resname="Other Practice Area">
         <source>Other Practice Area</source>
-        <target>Other Practice Area</target>
+        <target>Outra área de prática</target>
       </trans-unit>
       <trans-unit id="c2d30afd87b47fcb570fbb7cf740407aa9d0b754" resname="Outro motivo">
         <source>Outro motivo</source>
@@ -1361,7 +1361,7 @@
       </trans-unit>
       <trans-unit id="7d8c499e6ac277b298a730ad11c9c9b1b5c761d8" resname="Please choose the reason">
         <source>Please choose the reason</source>
-        <target>Please choose the reason</target>
+        <target>Por favor escolha o motivo</target>
       </trans-unit>
       <trans-unit id="9cea3d8c7b012bfa9a167e11c9a758e21c86ad34" resname="Please enter the ISSN or ISSN Online field.">
         <source>Please enter the ISSN or ISSN Online field.</source>
@@ -1385,7 +1385,7 @@
       </trans-unit>
       <trans-unit id="2a2cdbe1d67043089d6b1ba3936b19d2901d8810" resname="Please inform the reason (not required)">
         <source>Please inform the reason (not required)</source>
-        <target>Please inform the reason (not required)</target>
+        <target>Informe o motivo (não obrigatório)</target>
       </trans-unit>
       <trans-unit id="d8f655659ca4a548a3c7f45d9cb7fb04d6ecbb14" resname="Please submit 1 peer review and 1 submission data attachments.">
         <source>Please submit 1 peer review and 1 submission data attachments.</source>
@@ -1401,7 +1401,7 @@
       </trans-unit>
       <trans-unit id="0fdcb44029df74ff2fca9b77e829f5cdcc4d274a" resname="Please submit at least 2 issues.">
         <source>Please submit at least 2 issues.</source>
-        <target>Please submit at least 2 issues.</target>
+        <target>Envie pelo menos 2 questões.</target>
       </trans-unit>
       <trans-unit id="1ecdeace1db1b5808b094d1eb9e243a69367f5ed" resname="Portal próprio">
         <source>Portal próprio</source>
@@ -1417,7 +1417,7 @@
       </trans-unit>
       <trans-unit id="7f84bc8a103b2fd8e5b5ccd918fa999d25bf2738" resname="Practice Area">
         <source>Practice Area</source>
-        <target>Practice Area</target>
+        <target>Área de atuação</target>
       </trans-unit>
       <trans-unit id="7745f49357fa406eb8ac64f85af91dcbbf843264" resname="Previous Title">
         <source>Previous Title</source>
@@ -1429,7 +1429,7 @@
       </trans-unit>
       <trans-unit id="9db108ba6b7f6571356060929e37dae65878cfca" resname="Privacy Policy">
         <source>Privacy Policy</source>
-        <target>Privacy Policy</target>
+        <target>Política de Privacidade</target>
       </trans-unit>
       <trans-unit id="d1c3f33e6d81e5377d770db5cabd2b4a8b5263bc" resname="Problems generating PDF. Please contact the administrator.">
         <source>Problems generating PDF. Please contact the administrator.</source>
@@ -1525,7 +1525,7 @@
       </trans-unit>
       <trans-unit id="6437b7bf655854909262d5f53fbe3bc7a6665b48" resname="Rating">
         <source>Rating</source>
-        <target>Rating</target>
+        <target>Classificação</target>
       </trans-unit>
       <trans-unit id="aad5681a626bf7e9fdf0c4901aa1374a89068919" resname="Reason that this journal was rejected">
         <source>Reason that this journal was rejected</source>
@@ -1549,7 +1549,7 @@
       </trans-unit>
       <trans-unit id="2b03b59293b6fc7101306f5d9ae1e96327bb419a" resname="Reject">
         <source>Reject</source>
-        <target>Reject</target>
+        <target>Recusar</target>
       </trans-unit>
       <trans-unit id="819133f871d8e86af4cc2f170e04112a94a8799d" resname="Reject Submission">
         <source>Reject Submission</source>
@@ -1557,7 +1557,7 @@
       </trans-unit>
       <trans-unit id="43104a88550d8e4be61ab9b1bea989af15228e1b" resname="Reject journal revision">
         <source>Reject journal revision</source>
-        <target>Reject journal revision</target>
+        <target>Rejeitar revisão do periódico</target>
       </trans-unit>
       <trans-unit id="9baed847cf0e77a99ed6e6f2f1cba6ab85af1d37" resname="Reject submission">
         <source>Reject submission</source>
@@ -1577,7 +1577,7 @@
       </trans-unit>
       <trans-unit id="dcb70f5244f8883ac49c5eceb7d1e1cdeaf82711" resname="Relevance">
         <source>Relevance</source>
-        <target>Relevance</target>
+        <target>Relevância</target>
       </trans-unit>
       <trans-unit id="e963907dac5cd5c017869b4c96c18021c9bd058b" resname="Remove">
         <source>Remove</source>
@@ -1613,11 +1613,11 @@
       </trans-unit>
       <trans-unit id="617c1fa801a4feeac17fcc9eea802f0d935f2d06" resname="Review has been rejected with success!">
         <source>Review has been rejected with success!</source>
-        <target>Review has been rejected with success!</target>
+        <target>A revisão foi rejeitada com sucesso!</target>
       </trans-unit>
       <trans-unit id="a74f16c11792da6a36979a58a1ba2b4333632f57" resname="Reviewer">
         <source>Reviewer</source>
-        <target>Reviewer</target>
+        <target>Revisor</target>
       </trans-unit>
       <trans-unit id="a0dcc32daedd52a0ca97603430609308adcab92f" resname="Reviewer ad-hoc">
         <source>Reviewer ad-hoc</source>
@@ -1689,7 +1689,7 @@
       </trans-unit>
       <trans-unit id="949f7dfd73bb2fde114555e795f20ca6bd01d37d" resname="Save attachment">
         <source>Save attachment</source>
-        <target>Save attachment</target>
+        <target>Salvar anexo</target>
       </trans-unit>
       <trans-unit id="7dc93dfdfd8466365adcc58b37f66a5a654e8f27" resname="Save decision and finalize process">
         <source>Save decision and finalize process</source>
@@ -1793,7 +1793,7 @@
       </trans-unit>
       <trans-unit id="19df455411571fbac99575efea6d5ed0cf1abb66" resname="Send attachment">
         <source>Send attachment</source>
-        <target>Send attachment</target>
+        <target>Enviar anexo</target>
       </trans-unit>
       <trans-unit id="dacd464caf2b878ecec20c7608e0e18c1aaccc99" resname="Send deployment report">
         <source>Send deployment report</source>
@@ -1889,7 +1889,7 @@
       </trans-unit>
       <trans-unit id="d731610a7b2bd94cb063f76351df4c560f722d41" resname="Submission date">
         <source>Submission date</source>
-        <target>Submission date</target>
+        <target>Data de submissão</target>
       </trans-unit>
       <trans-unit id="ac816bce706e2a0abaec5ee081b74ac5b6a06a1b" resname="Submission of journal.">
         <source>Submission of journal.</source>
@@ -1933,7 +1933,7 @@
       </trans-unit>
       <trans-unit id="005241f418517acc3f7451eef1d19034533a3b40" resname="The attachment is required.">
         <source>The attachment is required.</source>
-        <target>The attachment is required.</target>
+        <target>O anexo é obrigatório.</target>
       </trans-unit>
       <trans-unit id="7ff9079eaa6cbb585ad439df16b609759698866d" resname="The journal review was finalized!">
         <source>The journal review was finalized!</source>
