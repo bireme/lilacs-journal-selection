@@ -245,7 +245,7 @@
                         <div class="live-search">
                             <fieldset>
                                 <label for="filter-name-adhoc">{% trans %}Filter by{% endtrans %}:</label>
-                                <select class='selectpicker select-filter' id="select-filter-committee" name="select-filter">
+                                <select class='selectpicker select-filter' id="select-filter-committee" name="select-filter" data-member="committee" >
                                     <option value="name">{% trans %}Name{% endtrans %}</option>
                                     <option value="practice-area">{% trans %}Practice Area{% endtrans %}</option>
                                     <option value="email">{% trans %}Email{% endtrans %}</option>
@@ -309,7 +309,7 @@
                         <div class="live-search">
                             <fieldset>
                                 <label for="filter-name-adhoc">{% trans %}Filter by{% endtrans %}:</label>
-                                <select class='selectpicker select-filter' id="select-filter-adhoc" name="select-filter">
+                                <select class='selectpicker select-filter' id="select-filter-adhoc" name="select-filter" data-member="adhoc">
                                     <option value="name">{% trans %}Name{% endtrans %}</option>
                                     <option value="practice-area">{% trans %}Practice Area{% endtrans %}</option>
                                     <option value="email">{% trans %}Email{% endtrans %}</option>
@@ -652,6 +652,11 @@
             $("a.reject-reason").on("click", function(e){
                 var data = $(this).data('reason');
                 $("#text-reject-reason").text(data);
+            });
+
+            $('.select-filter').on("change", function(e){
+                var member = $(this).data('member');
+                $("input#filter-field-"+member).keyup();
             });
 
             $("input.filter-field").keyup(function(){
