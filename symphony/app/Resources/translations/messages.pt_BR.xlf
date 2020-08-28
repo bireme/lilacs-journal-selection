@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2020-08-18T22:11:52Z" source-language="en" target-language="pt_BR" datatype="plaintext" original="not.available">
+  <file date="2020-08-26T18:53:00Z" source-language="en" target-language="pt_BR" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -1313,7 +1313,7 @@
       </trans-unit>
       <trans-unit id="ac6464f45d59237921590ef9b6346919bf3f0cab" resname="Other Practice Area">
         <source>Other Practice Area</source>
-        <target>Outra área de prática</target>
+        <target>Outra área de atuação</target>
       </trans-unit>
       <trans-unit id="c2d30afd87b47fcb570fbb7cf740407aa9d0b754" resname="Outro motivo">
         <source>Outro motivo</source>
@@ -1325,7 +1325,7 @@
       </trans-unit>
       <trans-unit id="950b41a94ac267bfc71febb77805b16c7f4a4354" resname="Parecer do Reviewer">
         <source>Parecer do Reviewer</source>
-        <target>Parecer do Reviewer</target>
+        <target>Parecer do Revisor</target>
       </trans-unit>
       <trans-unit id="8be3c943b1609fffbfc51aad666d0a04adf83c9d" resname="Password">
         <source>Password</source>
