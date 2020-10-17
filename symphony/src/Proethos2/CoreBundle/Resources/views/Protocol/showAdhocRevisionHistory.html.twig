@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title" id="myModalLabel">{% trans %}Histórico do Reviewer{% endtrans %}</h4>
+</div>
+
+<div class="modal-body">
+    <h5>{% trans %}Parecerista{% endtrans %}: {{ user.name }}</h5>
+
+    <table class='table table-condensed'>
+        <tbody>
+            <tr>
+                <td colspan="8" style="border: 0;">
+                    <div>
+                        <i class='glyphicon glyphicon-time'></i> <b>{{ adhoc_history.totalActive }}</b> {% trans %}Revisões ativas atualmente atribuídas{% endtrans %}
+                    </div>
+                    <div>
+                        <i class='glyphicon glyphicon-ok-circle'></i> <b>{{ adhoc_history.totalFinal }}</b> {% trans %}Revisões terminadas{% endtrans %}
+                    </div>
+                    <div>
+                        <i class='glyphicon glyphicon-remove-circle'></i> <b>{{ adhoc_history.totalReject }}</b> {% trans %}Pedidos de revisão recusados{% endtrans %}
+                        <div class="reject-report">
+                            <b>{{ adhoc_history.totalRejectA }}</b> {% trans %}Fiz ou faço parte da equipe editorial{% endtrans %}
+                        </div>
+                        <div class="reject-report">
+                            <b>{{ adhoc_history.totalRejectB }}</b> {% trans %}Conheço os editores{% endtrans %}
+                        </div>
+                        <div class="reject-report">
+                            <b>{{ adhoc_history.totalRejectC }}</b> {% trans %}Estou aposentado (a){% endtrans %}
+                        </div>
+                        <div class="reject-report">
+                            <b>{{ adhoc_history.totalRejectD }}</b> {% trans %}Muitas atividades no momento{% endtrans %}
+                        </div>
+                        <div class="reject-report">
+                            <b>{{ adhoc_history.totalRejectE }}</b> {% trans %}Outro motivo{% endtrans %}
+                        </div>
+                    </div>
+                    <div>
+                        <i class='glyphicon glyphicon-hourglass'></i> <b>{{ adhoc_history.lastRevisionDays }}</b> {% trans %}Dias desde a última revisão atribuída{% endtrans %}
+                    </div>
+                    <div>
+                        <i class='glyphicon glyphicon-calendar'></i> <b>{{ adhoc_history.averageRevisionDays }}</b> {% trans %}Número médio de dias para completar a revisão{% endtrans %}
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+</div>

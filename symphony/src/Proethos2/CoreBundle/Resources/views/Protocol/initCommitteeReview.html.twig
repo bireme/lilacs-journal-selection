@@ -346,42 +346,7 @@
                                             <td class="filter-email"><a href='{{ member.email }}'>{{ member.email }}</a></td>
                                             <td>{{ member.country }}</td>
                                             <td>
-                                                <a class='btn btn-default btn-xs hide-adhoc-history'><i class='glyphicon glyphicon-chevron-up'></i></a>
-                                                <a class='btn btn-default btn-xs show-adhoc-history'><i class='glyphicon glyphicon-chevron-down'></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr class="adhoc-history">
-                                            <td colspan="8">
-                                                <div>
-                                                    <i class='glyphicon glyphicon-time'></i> <b>{{ member.adhocRevisionsHistory.totalActive }}</b> {% trans %}Revisões ativas atualmente atribuídas{% endtrans %}
-                                                </div>
-                                                <div>
-                                                    <i class='glyphicon glyphicon-ok-circle'></i> <b>{{ member.adhocRevisionsHistory.totalFinal }}</b> {% trans %}Revisões terminadas{% endtrans %}
-                                                </div>
-                                                <div>
-                                                    <i class='glyphicon glyphicon-remove-circle'></i> <b>{{ member.adhocRevisionsHistory.totalReject }}</b> {% trans %}Pedidos de revisão recusados{% endtrans %}
-                                                    <div class="reject-report">
-                                                        <b>{{ member.adhocRevisionsHistory.totalRejectA }}</b> {% trans %}Fiz ou faço parte da equipe editorial{% endtrans %}
-                                                    </div>
-                                                    <div class="reject-report">
-                                                        <b>{{ member.adhocRevisionsHistory.totalRejectB }}</b> {% trans %}Conheço os editores{% endtrans %}
-                                                    </div>
-                                                    <div class="reject-report">
-                                                        <b>{{ member.adhocRevisionsHistory.totalRejectC }}</b> {% trans %}Estou aposentado (a){% endtrans %}
-                                                    </div>
-                                                    <div class="reject-report">
-                                                        <b>{{ member.adhocRevisionsHistory.totalRejectD }}</b> {% trans %}Muitas atividades no momento{% endtrans %}
-                                                    </div>
-                                                    <div class="reject-report">
-                                                        <b>{{ member.adhocRevisionsHistory.totalRejectE }}</b> {% trans %}Outro motivo{% endtrans %}
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <i class='glyphicon glyphicon-hourglass'></i> <b>{{ member.adhocRevisionsHistory.lastRevisionDays }}</b> {% trans %}Dias desde a última revisão atribuída{% endtrans %}
-                                                </div>
-                                                <div>
-                                                    <i class='glyphicon glyphicon-calendar'></i> <b>{{ member.adhocRevisionsHistory.averageRevisionDays }}</b> {% trans %}Número médio de dias para completar a revisão{% endtrans %}
-                                                </div>
+                                                <a href='{{ path("adhoc_revision_history", {user_id: member.id}) }}' data-toggle='modal' data-target='#modal-reviewer-history' class='btn btn-default btn-xs'><i class='glyphicon glyphicon-eye-open'></i></a>
                                             </td>
                                         </tr>
                                     {% endif %}
@@ -557,6 +522,13 @@
         </div>
     </div>
 
+    <!-- Modal Visualizar Histórico do Reviewer -->
+    <div class="modal fade" id="modal-reviewer-history" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block script %}
@@ -637,18 +609,6 @@
                 window.location = href;
             });
 
-            $(".show-adhoc-history").on("click", function(e){
-                $(this).hide();
-                $(this).prev().show();
-                $(this).parents("tr").next().show();
-            });
-
-            $(".hide-adhoc-history").on("click", function(e){
-                $(this).hide();
-                $(this).next().show();
-                $(this).parents("tr").next().hide();
-            });
-
             $("a.reject-reason").on("click", function(e){
                 var data = $(this).data('reason');
                 $("#text-reject-reason").text(data);
@@ -669,13 +629,6 @@
                     // If the list item does not contain the text phrase fade it out
                     if ($(this).find('td.filter-'+field).text().search(new RegExp(filter, "i")) < 0) {
                         $(this).hide();
-                        if ( 'adhoc' == member ) {
-                            if ( $(this).next().is(":visible") ) {
-                                $(this).next().hide();
-                                $(this).find('.show-adhoc-history').show();
-                                $(this).find('.hide-adhoc-history').hide();
-                            }
-                        }
 
                     // Show the list item if the phrase matches and increase the count by 1
                     } else {

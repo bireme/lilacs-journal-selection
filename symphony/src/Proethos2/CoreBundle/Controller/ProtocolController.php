@@ -2050,4 +2050,95 @@ class ProtocolController extends Controller
 
         return $this->redirectToRoute($route, array('protocol_id' => $protocol->getId()), 301);
     }
+
+    /**
+     * @Route("/adhoc/revision/history/{user_id}", name="adhoc_revision_history")
+     * @Template()
+     */
+    public function showAdhocRevisionHistory($user_id)
+    {
+        $output = array();
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $translator = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+
+        $protocol_adhoc_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolAdhocRevision');
+
+        $user_repository = $em->getRepository('Proethos2ModelBundle:User');
+        $user = $user_repository->find($user_id);
+        $output['user'] = $user;
+                
+        // totalActive
+        $adhoc_active_revisions = $protocol_adhoc_revision_repository->findBy(array("member" => $user, "is_final_revision" => false));
+        $total_adhoc_active_revisions = count($adhoc_active_revisions);
+
+        // totalFinal
+        $adhoc_final_revisions = $protocol_adhoc_revision_repository->findBy(array("member" => $user, "is_final_revision" => true));
+        $total_adhoc_final_revisions = count($adhoc_final_revisions);
+
+        // totalReject
+        $adhoc_rejected_revisions = $protocol_adhoc_revision_repository->findBy(array("member" => $user, "rejected" => true));
+        $total_adhoc_rejected_revisions = count($adhoc_rejected_revisions);
+
+        // totalRejectA
+        $reject_a = $protocol_adhoc_revision_repository->findBy(array("member" => $user, "rejected" => true, "reject_reason" => 'A'));
+        $total_reject_a = count($reject_a);
+
+        // totalRejectB
+        $reject_b = $protocol_adhoc_revision_repository->findBy(array("member" => $user, "rejected" => true, "reject_reason" => 'B'));
+        $total_reject_b = count($reject_b);
+
+        // totalRejectC
+        $reject_c = $protocol_adhoc_revision_repository->findBy(array("member" => $user, "rejected" => true, "reject_reason" => 'C'));
+        $total_reject_c = count($reject_c);
+
+        // totalRejectD
+        $reject_d = $protocol_adhoc_revision_repository->findBy(array("member" => $user, "rejected" => true, "reject_reason" => 'D'));
+        $total_reject_d = count($reject_d);
+
+        // totalRejectE
+        $reject_e = $protocol_adhoc_revision_repository->findBy(array("member" => $user, "rejected" => true, "reject_reason" => 'E'));
+        $total_reject_e = count($reject_e);
+
+        // lastRevisionDays
+        $now = time();
+        $adhoc_last_revision_days = end($adhoc_active_revisions);
+        $date = ( $adhoc_last_revision_days ) ? $adhoc_last_revision_days->getCreated()->format('U') : $now;
+        $datediff = $now - $date;
+        $last_revision_days = round($datediff / (60 * 60 * 24));
+
+        // averageRevisionDays
+        $average_revision_days = 0;
+        if ( $total_adhoc_final_revisions > 0 ) {
+            $days = array();
+            
+            foreach ($adhoc_final_revisions as $revision) {
+                $created = $revision->getCreated()->format('U');
+                $updated = $revision->getUpdated()->format('U');
+                $datediff = $updated - $created;
+                $day = round($datediff / (60 * 60 * 24));
+                $days[] = $day;
+            }
+
+            if(count($days)) {
+                $average_revision_days = round(array_sum($days)/count($days));
+            }
+        }
+
+        $output['adhoc_history'] = array(
+            'totalActive' => $total_adhoc_active_revisions,
+            'totalFinal' => $total_adhoc_final_revisions,
+            'totalReject' => $total_adhoc_rejected_revisions,
+            'totalRejectA' => $total_reject_a,
+            'totalRejectB' => $total_reject_b,
+            'totalRejectC' => $total_reject_c,
+            'totalRejectD' => $total_reject_d,
+            'totalRejectE' => $total_reject_e,
+            'lastRevisionDays' => $last_revision_days,
+            'averageRevisionDays' => $average_revision_days
+        );
+
+        return $output;
+    }
 }
