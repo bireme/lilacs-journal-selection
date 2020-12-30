@@ -1081,8 +1081,8 @@ class ProtocolController extends Controller
             $output['protocol_adhoc_revision'] = $protocol_adhoc_revision;
             $action = 'update';
         } else {
-            $protocol_adhoc_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolAdhocRevision');
-            $protocol_adhoc_revision = $protocol_adhoc_revision_repository->findBy(array("protocol" => $protocol, "answered" => true));
+            $protocol_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolAdhocRevision');
+            $protocol_adhoc_revision = $protocol_revision_repository->findBy(array("protocol" => $protocol, "answered" => true));
             $output['protocol_adhoc_revision'] = $protocol_adhoc_revision;
             $action = 'create';
         }
