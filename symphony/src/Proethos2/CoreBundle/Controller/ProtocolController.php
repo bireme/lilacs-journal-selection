@@ -1247,9 +1247,16 @@ class ProtocolController extends Controller
             throw $this->createNotFoundException($translator->trans('You cannot edit this protocol'));
         }
 
-        // getting the current submission
         $protocol_revision = $protocol_revision_repository->find($protocol_revision_id);
         $output['protocol_revision'] = $protocol_revision;
+
+        if ( "committee" == $member ) {
+            $user = $protocol_revision->getMember();
+            $protocol = $protocol_revision->getProtocol();
+            $protocol_adhoc_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolAdhocRevisionEvaluation');
+            $protocol_adhoc_revision = $protocol_adhoc_revision_repository->findBy(array("protocol" => $protocol, "reviewer" => $user));
+            $output['protocol_adhoc_revision'] = $protocol_adhoc_revision;
+        }
 
         return $output;
     }
