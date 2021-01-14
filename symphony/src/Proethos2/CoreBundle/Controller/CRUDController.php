@@ -1016,7 +1016,7 @@ class CRUDController extends Controller
             }
 
             // adding user role
-            $user->addProethos2Role($role_repository->findOneBy(array('slug' => 'investigator')));
+            $user->addProethos2Role($role_repository->findOneBy(array('slug' => 'member-ad-hoc')));
 
             $encoderFactory = $this->get('security.encoder_factory');
             $encoder = $encoderFactory->getEncoder($user);
