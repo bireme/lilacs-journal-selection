@@ -927,6 +927,29 @@ class ProtocolController extends Controller
 
             }
 
+            // if form was to remove multiple members
+            if(isset($post_data['bulk-remove-members']) and !empty($post_data['bulk-remove-members'])) {
+
+                if ( "committee" == $post_data['member-type'] ) {
+                    $protocol_revision_repository = $protocol_committee_revision_repository;
+                } else {
+                    $protocol_revision_repository = $protocol_adhoc_revision_repository;
+                }
+
+                $members = explode(',', $post_data['bulk-remove-members']);
+                $revision = $protocol_revision_repository->findById($members);
+                if($revision) {
+                    foreach ($revision as $r) {
+                        $em->remove($r);
+                        $em->flush();
+                    }
+
+                    $session->getFlashBag()->add('success', $translator->trans("Members has been removed with success!"));
+                    return $this->redirectToRoute('protocol_initial_committee_review', array('protocol_id' => $protocol->getId()), 301);
+                }
+
+            }
+
             if(isset($post_data['send-to']) and $post_data['send-to'] == "button-save-and-send-to-meeting") {
 
                 // checking required fields
@@ -1988,10 +2011,10 @@ class ProtocolController extends Controller
     }
 
     /**
-     * @Route("/journal/{protocol_id}/initial-committee-review/send-alert/{protocol_revision_member_id}", name="protocol_initial_committee_review_send_alert")
+     * @Route("/journal/{protocol_id}/initial-committee-review/send-alert/{protocol_revision_id}", name="protocol_initial_committee_review_send_alert")
      * @Template()
      */
-    public function sendAlertAction($protocol_id, $protocol_revision_member_id)
+    public function sendAlertAction($protocol_id, $protocol_revision_id)
     {
 
         $output = array();
@@ -2004,11 +2027,25 @@ class ProtocolController extends Controller
         
         $util = new Util($this->container, $this->getDoctrine());
 
-        $user_repository = $em->getRepository('Proethos2ModelBundle:User');
-        $member = $user_repository->find($protocol_revision_member_id);
-
         $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
         $protocol = $protocol_repository->find($protocol_id);
+
+        $member = $request->query->get('member');
+        if ( "committee" == $member ) {
+            $protocol_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolCommitteeRevision');
+        } elseif ( "adhoc" == $member ) {
+            $protocol_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolAdhocRevision');
+        } else {
+            throw $this->createNotFoundException($translator->trans('You cannot send alerts'));
+        }
+
+        $protocol_revision = $protocol_revision_repository->find($protocol_revision_id);
+        $protocol_revision->setSendAlertDate(new \DateTime());
+        $em->persist($protocol_revision);
+        $em->flush();
+
+        $user_repository = $em->getRepository('Proethos2ModelBundle:User');
+        $member = $user_repository->find($protocol_revision->getMember()->getId());
 
         $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         $help_repository = $em->getRepository('Proethos2ModelBundle:Help');

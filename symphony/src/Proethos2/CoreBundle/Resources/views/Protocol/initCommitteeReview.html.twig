@@ -90,14 +90,16 @@
 
             <div class='row'>
                 <div class="col-md-12">
-                    <table class='table table-hover table-condensed'>
+                    <table id="member-adhoc-list" class='table table-hover table-condensed'>
                         <thead>
                             <tr>
+                                <th></th>
                                 <th width="30%">{% trans %}Name{% endtrans %}</th>
-                                <th>{% trans %}Institution{% endtrans %}</th>
+                                <th>{% trans %}Lattes{% endtrans %}</th>
                                 <th>{% trans %}E-mail{% endtrans %}</th>
                                 <th>{% trans %}Country{% endtrans %}</th>
                                 <th>{% trans %}Recruitment Date{% endtrans %}</th>
+                                <th>{% trans %}Alert dispatch date{% endtrans %}</th>
                                 <th>{% trans %}Status{% endtrans %}</th>
                                 <th>{% trans %}Actions{% endtrans %}</th>
                             </tr>
@@ -106,11 +108,13 @@
                         <tbody>
                             {% for revision in protocol.adhocRevision %}
                                 <tr>
+                                    <td><input type="checkbox" name='revision{{ revision.id }}' value="{{ revision.id }}" {% if revision.rejected or revision.isFinalRevision %}disabled{% endif %} /></td>
                                     <td>{{ revision.member.name }}</td>
-                                    <td>{{ revision.member.institution }}</td>
+                                    <td><a href='{{ revision.member.lattes }}' target="_blank">CV</a></td>
                                     <td><a href='{{ revision.member.email }}'>{{ revision.member.email }}</a></td>
                                     <td>{{ revision.member.country }}</td>
                                     <td>{{ revision.created|date("d/m/Y") }}</td>
+                                    <td>{% if revision.sendAlertDate %}{{ revision.sendAlertDate|date("d/m/Y") }}{% endif %}</td>
                                     <td>
                                         {% if revision.rejected %}
                                             <span class='label label-danger'>{% trans %}Declined{% endtrans %}</span>
@@ -125,7 +129,7 @@
                                     <td>
                                         {% if not revision.rejected %}
                                             <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=adhoc' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-eye-open'></i></a>
-                                            {% if not revision.answered %}<a href='{{ path("protocol_initial_committee_review_send_alert", {protocol_id: protocol.id, protocol_revision_member_id: revision.member.id }) }}' class='btn btn-default btn-xs send-alert'><i class='glyphicon glyphicon-send'></i></a>{% endif %}
+                                            {% if not revision.answered %}<a href='{{ path("protocol_initial_committee_review_send_alert", { protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=adhoc' class='btn btn-default btn-xs send-alert'><i class='glyphicon glyphicon-send'></i></a>{% endif %}
                                             {% if not revision.isFinalRevision %}<a href='#' class='btn btn-default btn-xs' data-toggle="modal" data-target="#modal-remove-revisor" id='remove-adhoc-revisor-{{ revision.id }}'><i class='glyphicon glyphicon-trash'></i></a>{% endif %}
                                         {% else %}
                                             <a href='#' data-toggle='modal' data-target='#modal-reject-reason' class='btn btn-default btn-xs reject-reason' data-reason="{% if 'E' == revision.rejectReason and revision.otherRejectReason %}{{ revision.otherRejectReason }}{% else %}{{ reject_reason[revision.rejectReason] }}{% endif %}"><i class='glyphicon glyphicon-eye-open'></i></a>
@@ -137,6 +141,8 @@
                     </table>
 
                     <a href='#' class='btn btn-default' data-toggle="modal" data-target="#modal-select-members-ad-hoc">{% trans %}Select Members Ad-Hoc{% endtrans %}</a>
+
+                    <a href='#' id="bulk-remove-adhoc-revisor" class='btn btn-default' data-toggle="modal" data-target="#modal-bulk-remove-revisor" data-member="adhoc">{% trans %}Bulk Remove Members Ad-Hoc{% endtrans %}</a>
                 </div>
             </div>
 
@@ -148,14 +154,16 @@
 
             <div class='row'>
                 <div class="col-md-12">
-                    <table class='table table-hover table-condensed'>
+                    <table id="member-committee-list" class='table table-hover table-condensed'>
                         <thead>
                             <tr>
+                                <th></th>
                                 <th width="30%">{% trans %}Name{% endtrans %}</th>
                                 <th>{% trans %}Institution{% endtrans %}</th>
                                 <th>{% trans %}E-mail{% endtrans %}</th>
                                 <th>{% trans %}Country{% endtrans %}</th>
                                 <th>{% trans %}Recruitment Date{% endtrans %}</th>
+                                <th>{% trans %}Alert dispatch date{% endtrans %}</th>
                                 <th>{% trans %}Status{% endtrans %}</th>
                                 <th>{% trans %}Actions{% endtrans %}</th>
                             </tr>
@@ -164,11 +172,13 @@
                         <tbody>
                             {% for revision in protocol.committeeRevision %}
                                 <tr>
+                                    <td><input type="checkbox" name='revision{{ revision.id }}' value="{{ revision.id }}" {% if revision.rejected or revision.isFinalRevision %}disabled{% endif %} /></td>
                                     <td>{{ revision.member.name }}</td>
-                                    <td>{{ revision.member.institution }}</td>
+                                    <td><a href='{{ revision.member.lattes }}' target="_blank">CV</a></td>
                                     <td><a href='{{ revision.member.email }}'>{{ revision.member.email }}</a></td>
                                     <td>{{ revision.member.country }}</td>
                                     <td>{{ revision.created|date("d/m/Y") }}</td>
+                                    <td>{% if revision.sendAlertDate %}{{ revision.sendAlertDate|date("d/m/Y") }}{% endif %}</td>
                                     <td>
                                         {% if revision.rejected %}
                                             <span class='label label-danger'>{% trans %}Declined{% endtrans %}</span>
@@ -182,8 +192,8 @@
                                     </td>
                                     <td>
                                         {% if not revision.rejected %}
-                                            <a href='{{ path("protocol_initial_committee_review_show_review", {protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=committee' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-eye-open'></i></a>
-                                            {% if not revision.answered %}<a href='{{ path("protocol_initial_committee_review_send_alert", {protocol_id: protocol.id, protocol_revision_member_id: revision.member.id }) }}' class='btn btn-default btn-xs send-alert'><i class='glyphicon glyphicon-send'></i></a>{% endif %}
+                                            <a href='{{ path("protocol_initial_committee_review_show_review", { protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=committee' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-eye-open'></i></a>
+                                            {% if not revision.answered %}<a href='{{ path("protocol_initial_committee_review_send_alert", { protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=committee' class='btn btn-default btn-xs send-alert'><i class='glyphicon glyphicon-send'></i></a>{% endif %}
                                             {% if not revision.isFinalRevision %}<a href='#' class='btn btn-default btn-xs' data-toggle="modal" data-target="#modal-remove-revisor" id='remove-committee-revisor-{{ revision.id }}'><i class='glyphicon glyphicon-trash'></i></a>{% endif %}
                                         {% else %}
                                             <a href='#' data-toggle='modal' data-target='#modal-reject-reason' class='btn btn-default btn-xs reject-reason' data-reason="{% if 'E' == revision.rejectReason and revision.otherRejectReason %}{{ revision.otherRejectReason }}{% else %}{{ reject_reason[revision.rejectReason] }}{% endif %}"><i class='glyphicon glyphicon-eye-open'></i></a>
@@ -195,6 +205,8 @@
                     </table>
 
                     <a href='#' class='btn btn-default' data-toggle="modal" data-target="#modal-select-members-of-commitee">{% trans %}Select Members Of Committee{% endtrans %}</a>
+
+                    <a href='#' id="bulk-remove-committee-revisor" class='btn btn-default' data-toggle="modal" data-target="#modal-bulk-remove-revisor" data-member="committee">{% trans %}Bulk Remove Members Of Committee{% endtrans %}</a>
                 </div>
             </div>
 
@@ -396,6 +408,31 @@
         </div>
     </div>
 
+    <!-- Modal Bulk Remove Reviewer -->
+    <div class="modal fade" id="modal-bulk-remove-revisor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <form class='form' method="POST" >
+                <input type="hidden" name="bulk-remove-members" value="">
+                <input type="hidden" name="member-type" value="">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{% trans %}Are you sure that you want to remove these members?{% endtrans %}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>{% trans %}Are you sure you want to remove these reviewers?{% endtrans %}</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                        <button type="submit" class="btn btn-danger">{% trans %}Remove{% endtrans %}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Modal confirm if that not revisions -->
     <div class="modal fade" id="modal-confirm-submit-without-revisions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-lg" role="document">
@@ -571,6 +608,19 @@
                 $("input[name=member-type]").val("committee");
             });
 
+            // bulk remove committee members
+            $("#bulk-remove-committee-revisor").on('keypress click', function(e){
+                var members = [];
+                var member_type = $(this).data('member');
+
+                $("#member-committee-list input:checkbox:checked").each(function(){
+                    members.push($(this).val());
+                });
+
+                $("input[name=bulk-remove-members]").val(members);
+                $("input[name=member-type]").val(member_type);
+            });
+
             // binding revision id to remove member form
             $("a[id^=remove-adhoc-revisor-]").on('keypress click', function(e){
                 var member_id = $(this).attr('id');
@@ -578,6 +628,20 @@
                 $("input[name=remove-member]").val(member_id);
                 $("input[name=member-type]").val("adhoc");
             });
+
+            // bulk remove adhoc members
+            $("#bulk-remove-adhoc-revisor").on('keypress click', function(e){
+                var members = [];
+                var member_type = $(this).data('member');
+
+                $("#member-adhoc-list input:checkbox:checked").each(function(){
+                    members.push($(this).val());
+                });
+
+                $("input[name=bulk-remove-members]").val(members);
+                $("input[name=member-type]").val(member_type);
+            });
+
 
             // binding action to button that goes on
             $('#button-save-and-send-to-meeting').on('keypress click', function(e){

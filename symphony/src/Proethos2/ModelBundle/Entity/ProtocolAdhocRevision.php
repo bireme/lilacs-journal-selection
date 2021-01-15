@@ -234,6 +234,11 @@ class ProtocolAdhocRevision extends Base
     private $accept_conditions;
 
     /**
+     * @ORM\Column(name="send_alert_date", type="datetime", nullable=true)
+     */
+    private $send_alert_date;
+
+    /**
      * Get id
      *
      * @return integer
@@ -961,5 +966,29 @@ class ProtocolAdhocRevision extends Base
     public function getOtherRejectReason()
     {
         return $this->other_reject_reason;
+    }
+
+    /**
+     * Set sendAlertDate
+     *
+     * @param \DateTime $sendAlertDate
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setSendAlertDate($sendAlertDate)
+    {
+        $this->send_alert_date = $sendAlertDate;
+
+        return $this;
+    }
+
+    /**
+     * Get sendAlertDate
+     *
+     * @return \DateTime
+     */
+    public function getSendAlertDate()
+    {
+        return $this->send_alert_date;
     }
 }
