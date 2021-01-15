@@ -108,7 +108,7 @@
                         <tbody>
                             {% for revision in protocol.adhocRevision %}
                                 <tr>
-                                    <td><input type="checkbox" name='revision{{ revision.id }}' value="{{ revision.id }}" {% if revision.rejected or revision.isFinalRevision %}disabled{% endif %} /></td>
+                                    <td><input type="checkbox" name='revision-{{ revision.member.id }}' value="{{ revision.id }}" {% if revision.rejected or revision.isFinalRevision %}disabled{% endif %} /></td>
                                     <td>{{ revision.member.name }}</td>
                                     <td><a href='{{ revision.member.lattes }}' target="_blank">CV</a></td>
                                     <td><a href='{{ revision.member.email }}'>{{ revision.member.email }}</a></td>
@@ -172,7 +172,7 @@
                         <tbody>
                             {% for revision in protocol.committeeRevision %}
                                 <tr>
-                                    <td><input type="checkbox" name='revision{{ revision.id }}' value="{{ revision.id }}" {% if revision.rejected or revision.isFinalRevision %}disabled{% endif %} /></td>
+                                    <td><input type="checkbox" name='revision-{{ revision.member.id }}' value="{{ revision.id }}" {% if revision.rejected or revision.isFinalRevision %}disabled{% endif %} /></td>
                                     <td>{{ revision.member.name }}</td>
                                     <td><a href='{{ revision.member.lattes }}' target="_blank">CV</a></td>
                                     <td><a href='{{ revision.member.email }}'>{{ revision.member.email }}</a></td>
@@ -194,7 +194,7 @@
                                         {% if not revision.rejected %}
                                             <a href='{{ path("protocol_initial_committee_review_show_review", { protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=committee' data-toggle='modal' data-target='#modal-parecer-reviewer' class='btn btn-default btn-xs {% if not revision.answered %}disabled{% endif %}'><i class='glyphicon glyphicon-eye-open'></i></a>
                                             {% if not revision.answered %}<a href='{{ path("protocol_initial_committee_review_send_alert", { protocol_id: protocol.id, protocol_revision_id: revision.id }) }}?member=committee' class='btn btn-default btn-xs send-alert'><i class='glyphicon glyphicon-send'></i></a>{% endif %}
-                                            {% if not revision.isFinalRevision %}<a href='#' class='btn btn-default btn-xs' data-toggle="modal" data-target="#modal-remove-revisor" id='remove-committee-revisor-{{ revision.id }}'><i class='glyphicon glyphicon-trash'></i></a>{% endif %}
+                                            {% if not revision.isFinalRevision %}<a href='#' class='btn btn-default btn-xs' data-toggle="modal" data-target="#modal-remove-revisor" id='remove-committee-revisor-{{ revision.id }}' data-member="{{ revision.member.id }}"><i class='glyphicon glyphicon-trash'></i></a>{% endif %}
                                         {% else %}
                                             <a href='#' data-toggle='modal' data-target='#modal-reject-reason' class='btn btn-default btn-xs reject-reason' data-reason="{% if 'E' == revision.rejectReason and revision.otherRejectReason %}{{ revision.otherRejectReason }}{% else %}{{ reject_reason[revision.rejectReason] }}{% endif %}"><i class='glyphicon glyphicon-eye-open'></i></a>
                                         {% endif %}
@@ -389,6 +389,7 @@
             <form class='form' method="POST" >
                 <input type="hidden" name="remove-member" value="">
                 <input type="hidden" name="member-type" value="">
+                <input type="hidden" name="member-id" value="">
 
                 <div class="modal-content">
                     <div class="modal-header">
@@ -414,6 +415,7 @@
             <form class='form' method="POST" >
                 <input type="hidden" name="bulk-remove-members" value="">
                 <input type="hidden" name="member-type" value="">
+                <input type="hidden" name="member-ids" value="">
 
                 <div class="modal-content">
                     <div class="modal-header">
@@ -602,30 +604,40 @@
 
             // binding revision id to remove member form
             $("a[id^=remove-committee-revisor-]").on('keypress click', function(e){
-                var member_id = $(this).attr('id');
-                member_id = member_id.replace("remove-committee-revisor-", "");
-                $("input[name=remove-member]").val(member_id);
+                var member_id = $(this).data('member');
+                var revision_id = $(this).attr('id');
+                revision_id = revision_id.replace("remove-committee-revisor-", "");
+
+                $("input[name=remove-member]").val(revision_id);
                 $("input[name=member-type]").val("committee");
+                $("input[name=member-id]").val(member_id);
             });
 
             // bulk remove committee members
             $("#bulk-remove-committee-revisor").on('keypress click', function(e){
                 var members = [];
+                var member_ids = [];
+                var member_id;
                 var member_type = $(this).data('member');
 
                 $("#member-committee-list input:checkbox:checked").each(function(){
                     members.push($(this).val());
+                    member_id = $(this).attr('name');
+                    member_id = member_id.replace("revision-", "");
+                    member_ids.push(member_id);
                 });
 
                 $("input[name=bulk-remove-members]").val(members);
                 $("input[name=member-type]").val(member_type);
+                $("input[name=member-ids]").val(member_ids);
             });
 
             // binding revision id to remove member form
             $("a[id^=remove-adhoc-revisor-]").on('keypress click', function(e){
-                var member_id = $(this).attr('id');
-                member_id = member_id.replace("remove-adhoc-revisor-", "");
-                $("input[name=remove-member]").val(member_id);
+                var revision_id = $(this).attr('id');
+                revision_id = revision_id.replace("remove-adhoc-revisor-", "");
+
+                $("input[name=remove-member]").val(revision_id);
                 $("input[name=member-type]").val("adhoc");
             });
 

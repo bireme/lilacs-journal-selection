@@ -781,6 +781,8 @@ class ProtocolController extends Controller
             // getting post data
             $post_data = $request->request->all();
 
+            // echo "<pre>"; print_r($post_data); echo "</pre>"; die();
+
             $file = $request->files->get('new-attachment-file');
             if(!empty($file)) {
 
@@ -920,6 +922,17 @@ class ProtocolController extends Controller
                 if($revision) {
                     $em->remove($revision);
                     $em->flush();
+                    
+                    $reviewer = $user_repository->find($post_data['member-id']);
+                    $protocol_adhoc_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolAdhocRevisionEvaluation');
+                    $protocol_adhoc_revision = $protocol_adhoc_revision_repository->findBy(array("protocol" => $protocol, "reviewer" => $reviewer));
+
+                    if ( $protocol_adhoc_revision ) {
+                        foreach ($protocol_adhoc_revision as $p) {
+                            $em->remove($p);
+                            $em->flush();
+                        }
+                    }
 
                     $session->getFlashBag()->add('success', $translator->trans("Member has been removed with success!"));
                     return $this->redirectToRoute('protocol_initial_committee_review', array('protocol_id' => $protocol->getId()), 301);
@@ -942,6 +955,22 @@ class ProtocolController extends Controller
                     foreach ($revision as $r) {
                         $em->remove($r);
                         $em->flush();
+
+                        $member_ids = explode(',', $post_data['member-ids']);
+                        if ( $member_ids ) {
+                            foreach ($member_ids as $member_id) {
+                                $reviewer = $user_repository->find($member_id);
+                                $protocol_adhoc_revision_repository = $em->getRepository('Proethos2ModelBundle:ProtocolAdhocRevisionEvaluation');
+                                $protocol_adhoc_revision = $protocol_adhoc_revision_repository->findBy(array("protocol" => $protocol, "reviewer" => $reviewer));
+
+                                if ( $protocol_adhoc_revision ) {
+                                    foreach ($protocol_adhoc_revision as $p) {
+                                        $em->remove($p);
+                                        $em->flush();
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     $session->getFlashBag()->add('success', $translator->trans("Members has been removed with success!"));
