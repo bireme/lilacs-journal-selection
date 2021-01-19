@@ -94,11 +94,14 @@
                                 {% trans %}Forgot My Password{% endtrans %}
                             </a>
                         </li>
+
+                        {% if not submission_period_start_date or not submission_period_end_date or (date(submission_period_start_date) < date() and date(submission_period_end_date) > date()) %}
                         <li>
                             <a href='{{ path("security_new_user") }}' title="{% trans %}Create an account{% endtrans %}">
                                 {% trans %}Create an account{% endtrans %}
                             </a>
                         </li>
+                        {% endif %}
                     </ul>
                 </div>
 

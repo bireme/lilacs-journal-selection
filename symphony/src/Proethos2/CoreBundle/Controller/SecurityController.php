@@ -34,6 +34,8 @@ class SecurityController extends Controller
      */
     public function loginAction()
     {
+        $em = $this->getDoctrine()->getManager();
+
         $util = new Util($this->container, $this->getDoctrine());
         
         $authenticationUtils = $this->get('security.authentication_utils');
@@ -48,12 +50,19 @@ class SecurityController extends Controller
         $committee_description = $util->getConfiguration("committee.description");
         $committee_logourl = $util->getConfiguration("committee.logourl");
 
+        $configuration_repository = $em->getRepository('Proethos2ModelBundle:Configuration');
+        $submission_period = $configuration_repository->findOneBy(array('key' => 'submission.period'));
+        $submission_period_start_date = explode('|', $submission_period->getValue())[0];
+        $submission_period_end_date = explode('|', $submission_period->getValue())[1];
+
         return array(
                 'last_username' => $lastUsername,
                 'error' => $error,
                 'committee_name' => $committee_name,
                 'committee_description' => $committee_description,
                 'committee_logourl' => $committee_logourl,
+                'submission_period_start_date' => $submission_period_start_date,
+                'submission_period_end_date' => $submission_period_end_date,
             );
     }
 
@@ -332,6 +341,28 @@ class SecurityController extends Controller
         $specialty_repository = $em->getRepository('Proethos2ModelBundle:Specialty');
         $specialty = $specialty_repository->findBy(array('status' => true), array('name' => 'ASC'));
         $output['specialty'] = $specialty;
+
+        $configuration_repository = $em->getRepository('Proethos2ModelBundle:Configuration');
+        $submission_period = $configuration_repository->findOneBy(array('key' => 'submission.period'));
+        $submission_period_start_date   = explode('|', $submission_period->getValue())[0];
+        $submission_period_end_date  = explode('|', $submission_period->getValue())[1];
+        $output['submission_period_start_date'] = $submission_period_start_date;
+        $output['submission_period_end_date'] = $submission_period_end_date;
+
+        if ( $submission_period_start_date && $submission_period_end_date ) {
+            $now = new \DateTime();
+            $start_date = new \DateTime($submission_period_start_date);
+            $end_date = new \DateTime($submission_period_end_date);
+            $in_submission_period = false;
+
+            if($start_date < $now && $end_date > $now) {
+                $in_submission_period = true;
+            }
+
+            if ( !$in_submission_period ) {
+                throw $this->createNotFoundException($translator->trans('User creation not currently allowed'));
+            }
+        }
         
         // checking if was a post request
         if($this->getRequest()->isMethod('POST')) {

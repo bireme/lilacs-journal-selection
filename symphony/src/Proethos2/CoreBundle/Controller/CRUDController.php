@@ -1760,9 +1760,9 @@ class CRUDController extends Controller
         $configurations = $configuration_repository->findAll();
         $output['configurations'] = $configurations;
 
-        $country_locale = $configuration_repository->findBy(array('key' => 'country.locale'));
-        $country_code   = explode('|', $country_locale[0]->getValue())[0];
-        $currency_code  = explode('|', $country_locale[0]->getValue())[1];
+        $country_locale = $configuration_repository->findOneBy(array('key' => 'country.locale'));
+        $country_code   = explode('|', $country_locale->getValue())[0];
+        $currency_code  = explode('|', $country_locale->getValue())[1];
         $output['country_code']  = $country_code;
         $output['currency_code'] = $currency_code;
 
@@ -1770,6 +1770,12 @@ class CRUDController extends Controller
         $currency_name = $currencies[$currency_code];
         $output['country_name']  = $country[0]->getName();
         $output['currency_name'] = $currency_name;
+
+        $submission_period = $configuration_repository->findOneBy(array('key' => 'submission.period'));
+        $submission_period_start_date   = explode('|', $submission_period->getValue())[0];
+        $submission_period_end_date  = explode('|', $submission_period->getValue())[1];
+        $output['submission_period_start_date'] = $submission_period_start_date;
+        $output['submission_period_end_date'] = $submission_period_end_date;
 
         return $output;
     }

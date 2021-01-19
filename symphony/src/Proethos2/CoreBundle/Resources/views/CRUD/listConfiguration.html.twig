@@ -33,6 +33,12 @@
                                         <td>{% if not configuration.value %}<i>(empty value)</i>{% else %}{{ country_name }} | {{ currency_name }}{% endif %}</td>
                                         <td><a href='#' data-toggle='modal' data-target='#modal-new-currency' class='btn btn-default btn-xs'><i class='glyphicon glyphicon-pencil'></i></a></td>
                                     </tr>
+                                {% elseif configuration.key == 'submission.period' %}
+                                    <tr>
+                                        <td>{{ configuration.description }}</td>
+                                        <td>{% if not configuration.value %}<i>(empty value)</i>{% else %}{{ submission_period_start_date|date("d/m/Y") }} ~ {{ submission_period_end_date|date("d/m/Y") }}{% endif %}</td>
+                                        <td><a href='#' data-toggle='modal' data-target='#modal-submission-period' class='btn btn-default btn-xs'><i class='glyphicon glyphicon-pencil'></i></a></td>
+                                    </tr>
                                 {% else %}
                                     <tr>
                                         <td>{{ configuration.description }}</td>
@@ -79,7 +85,7 @@
                             </select>
                         </div>
 
-                        <input type="hidden" id="input-configuration-value" name="configuration-value" value="">
+                        <input type="hidden" id="input-country-locale-value" name="configuration-value" value="">
 
                         <div class="form-group">
                             <label for="">{% trans %}Currency{% endtrans %}:</label>
@@ -105,6 +111,39 @@
         </div>
     </div>
 
+    <!-- Modal Submission Period -->
+    <div class="modal fade" id="modal-submission-period" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <form class='form' id='form-submission-period' method='POST' action='{{ path("crud_admin_configuration_update", {configuration_id: 11}) }}'>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{% trans %}Submission Period{% endtrans %}</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="">{% trans %}Start Date{% endtrans %}:</label>
+                            <input type="text" class='form-control datepicker' id='input-submission-period-start-date' name='submission-period-start-date' value='{{ submission_period_start_date|date("Y-m-d") }}' required>
+                        </div>
+
+                        <input type="hidden" id="input-submission-period-value" name="configuration-value" value="">
+
+                        <div class="form-group">
+                            <label for="">{% trans %}End Date{% endtrans %}:</label>
+                            <input type="text" class='form-control datepicker' id='input-submission-period-end-date' name='submission-period-end-date' value='{{ submission_period_end_date|date("Y-m-d") }}' required>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                        <button type="submit" id='submit-submission-period-form' class="btn btn-primary">{% trans %}Save{% endtrans %}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block script %}
@@ -121,7 +160,26 @@
                 // e.preventDefault();
                 var country = $("#select-country").val();
                 var currency = $("#select-currency").val();
-                $("#input-configuration-value").val(country+"|"+currency);
+                $("#input-country-locale-value").val(country+"|"+currency);
+            });
+
+            // modal submission period submit action
+            $("#form-submission-period").submit(function(e){
+                // var today = new Date();
+                var start_date = $("#input-submission-period-start-date").val();
+                var end_date = $("#input-submission-period-end-date").val();
+                var submission_period = start_date+"|"+end_date;
+                
+                start_date = new Date(start_date);
+                end_date = new Date(end_date);
+                
+                $("#input-submission-period-value").val(submission_period);
+
+                if(end_date < start_date) {
+                    e.preventDefault();
+                    alert("{% trans %}ERROR: The end date needs to be subsequent to start date.{% endtrans %}");
+                    return false;
+                }                
             });
         });
     </script>

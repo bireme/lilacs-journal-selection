@@ -41,6 +41,9 @@
             font-size: 14pt;
             margin-bottom: 40px;
         }
+        hr {
+            border-top: 1px solid #e5e5e5;
+        }
         
     </style>
 
@@ -162,6 +165,16 @@
                         </div>
                     </div>
                 </div>
+
+                {% if submission_period_start_date and submission_period_end_date %}
+                    <div class='row'>
+                        <div class='col-md-12'>
+                            *Estou ciente de que, no momento, a submissão é possível somente para periódicos brasileiros e estará disponível apenas no período de {{ submission_period_start_date|date("d/m/Y") }} à {{ submission_period_end_date|date("d/m/Y") }}.
+                        </div>
+                    </div>
+
+                    <hr />
+                {% endif %}
                 
                 {% if recaptcha_secret %}
                     <div class='row'>
