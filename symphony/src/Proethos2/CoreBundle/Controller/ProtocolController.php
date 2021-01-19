@@ -1242,6 +1242,7 @@ class ProtocolController extends Controller
                     }
                     
                     $protocol_revision->setIsFinalRevision(true);
+                    $protocol_revision->setRevisedIn(new \DateTime());
                 }
 
                 $protocol_revision->setAnswered(true);

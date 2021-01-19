@@ -113,6 +113,11 @@ class ProtocolCommitteeRevision extends Base
     private $send_alert_date;
 
     /**
+     * @ORM\Column(name="revised_in", type="datetime", nullable=true)
+     */
+    private $revised_in;
+
+    /**
      * Get id
      *
      * @return integer
@@ -432,5 +437,29 @@ class ProtocolCommitteeRevision extends Base
     public function getSendAlertDate()
     {
         return $this->send_alert_date;
+    }
+
+    /**
+     * Set revisedIn
+     *
+     * @param \DateTime $revisedIn
+     *
+     * @return ProtocolCommitteeRevision
+     */
+    public function setRevisedIn($revisedIn)
+    {
+        $this->revised_in = $revisedIn;
+
+        return $this;
+    }
+
+    /**
+     * Get revisedIn
+     *
+     * @return \DateTime
+     */
+    public function getRevisedIn()
+    {
+        return $this->revised_in;
     }
 }
