@@ -111,14 +111,20 @@
                                         {% if 'administrator' in app.user.getRolesSlug %}<span data-toggle="tooltip" data-placement="top" title="{% trans %}Delete this journal{% endtrans %}"><a href='{{ path("protocol_delete", {protocol_id: protocol.id} ) }}' class='btn btn-danger btn-xs' data-toggle='modal' data-target='#modalBaseAjax'><i class='glyphicon glyphicon-trash'></i></a></span>{% endif %}
                                         {% if protocol.status in ["E","H"] and app.user in protocol.committeeRevisionUsers %}
                                             {% if app.user not in protocol.committeeRejectedRevisions %}
-                                                <a href='{{ path("protocol_initial_committee_review_revisor", {protocol_id: protocol.id}) }}?member=committee' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}Send journal revision{% endtrans %}"><i class='glyphicon glyphicon-list-alt'></i></a>
-                                                {% if app.user not in protocol.committeeFinalRevisions %}<span data-toggle="tooltip" data-placement="top" title="{% trans %}Reject journal revision{% endtrans %}"><a href='#' id='reject-journal-review-{{ protocol.id }}' class='btn btn-danger btn-xs' data-member-type="committee" data-toggle='modal' data-target='#modal-reject-journal-review'><i class='glyphicon glyphicon-remove'></i></a></span>{% endif %}
+                                                {% if app.user in protocol.committeeAcceptedRevisions or app.user in protocol.committeeFinalRevisions %}
+                                                    <a href='{{ path("protocol_initial_committee_review_revisor", {protocol_id: protocol.id}) }}?member=committee' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}Send journal revision{% endtrans %}"><i class='glyphicon glyphicon-list-alt'></i></a>
+                                                {% else %}
+                                                    <span data-toggle="tooltip" data-placement="top" title="{% trans %}Journal review invitation{% endtrans %}"><a href='#' id='reject-journal-review-{{ protocol.id }}' class='btn btn-default btn-xs' data-member-type="committee" data-toggle='modal' data-target='#modal-reject-journal-review'><i class='glyphicon glyphicon-send'></i></a></span>
+                                                {% endif %}
                                             {% endif %}
                                         {% endif %}
                                         {% if protocol.status in ["E","H"] and app.user in protocol.adhocRevisionUsers %}
                                             {% if app.user not in protocol.adhocRejectedRevisions %}
-                                                <a href='{{ path("protocol_initial_committee_review_revisor", {protocol_id: protocol.id}) }}?member=adhoc' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}Send journal revision{% endtrans %}"><i class='glyphicon glyphicon-list-alt'></i></a>
-                                                {% if app.user not in protocol.adhocFinalRevisions %}<span data-toggle="tooltip" data-placement="top" title="{% trans %}Reject journal revision{% endtrans %}"><a href='#' id='reject-journal-review-{{ protocol.id }}' class='btn btn-danger btn-xs' data-member-type="adhoc" data-toggle='modal' data-target='#modal-reject-journal-review'><i class='glyphicon glyphicon-remove'></i></a></span>{% endif %}
+                                                {% if app.user in protocol.adhocAcceptedRevisions or app.user in protocol.adhocFinalRevisions %}
+                                                    <a href='{{ path("protocol_initial_committee_review_revisor", {protocol_id: protocol.id}) }}?member=adhoc' class='btn btn-default btn-xs' data-toggle="tooltip" data-placement="top" title="{% trans %}Send journal revision{% endtrans %}"><i class='glyphicon glyphicon-list-alt'></i></a>
+                                                {% else %}
+                                                    <span data-toggle="tooltip" data-placement="top" title="{% trans %}Journal review invitation{% endtrans %}"><a href='#' id='reject-journal-review-{{ protocol.id }}' class='btn btn-default btn-xs' data-member-type="adhoc" data-toggle='modal' data-target='#modal-reject-journal-review'><i class='glyphicon glyphicon-send'></i></a></span>
+                                                {% endif %}
                                             {% endif %}
                                         {% endif %}
                                     </td>
@@ -249,27 +255,35 @@
         </div>
     </div>
 
-    <!-- Modal Reject Journal Review -->
+    <!-- Modal Invitation Journal Review -->
     <div class="modal fade" id="modal-reject-journal-review" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <form id="form-reject-journal-review" class='form' method="POST" action="">
-                <input type="hidden" name="reject-review" value="yes">
                 <input type="hidden" name="member-type" value="">
 
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{% trans %}Are you sure that you want to reject this review?{% endtrans %}</h4>
+                        <h4 class="modal-title" id="myModalLabel">{% trans %}Journal review invitation{% endtrans %}</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <p>{% trans %}Please choose the reason{% endtrans %}</p>
+                        <div class="form-group protocol-review-invitation-radio">
+                            <label for="">{% trans %}Do you agree to review this journal{% endtrans %}?</label>
+                            <div class="radio">
+                                <label><input type="radio" name="protocol-review-invitation" id="protocol-review-invitation-yes" value="yes" required> {% trans %}Yes{% endtrans %}</label>
+                                <label><input type="radio" name="protocol-review-invitation" id="protocol-review-invitation-no" value="no" required> {% trans %}No{% endtrans %}</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group select-reject-reason">
+                            <p>{% trans %}Please choose the reason{% endtrans %}:</p>
                             <select class='form-control selectpicker' id="select-reject-reason" name="reject-reason" title="-">
                                 {% for key, value in reject_reason %}
                                     <option value="{{ key }}">{{ value }}</option>
                                 {% endfor %}
                             </select>
                         </div>
+
                         <div class="form-group other-reject-reason">
                             <label for="input-other-reject-reason">{% trans %}Please inform the reason (not required){% endtrans %}:</label>
                             <input type="text" class="form-control" name='other-reject-reason' id='input-other-reject-reason' value="">
@@ -277,7 +291,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
-                        <button type="submit" class="btn btn-danger">{% trans %}Reject{% endtrans %}</button>
+                        <button type="submit" id="confirm-reject-button" class="btn btn-primary" disabled>{% trans %}Confirm{% endtrans %}</button>
                     </div>
                 </div>
             </form>
@@ -329,13 +343,41 @@
                 
                 $("input[name=member-type]").val(member_type);
                 $('#form-reject-journal-review').attr('action', action);
+                
+                $("input:radio[id^=protocol-review-invitation-]").removeAttr('checked').iCheck('update');
+                $("#input-other-reject-reason").val('');
+                $(".other-reject-reason").hide();
+                $("#select-reject-reason option:selected").prop("selected", false);
+                $("#select-reject-reason").selectpicker('refresh');
+                $(".select-reject-reason").hide();
             });
 
             $("#select-reject-reason").change(function(){
                 var val = $(this).val();
+
                 if ( 'E' == val ) {
                     $(".other-reject-reason").show();
                 } else {
+                    $(".other-reject-reason").hide();
+                }
+            });
+
+            $("input:radio[id^=protocol-review-invitation-]").on('ifClicked', function(){
+                var val = $(this).val(),
+                    _val = $("#select-reject-reason").val();
+
+                $("#confirm-reject-button").prop("disabled", false);
+
+                if ( 'no' == val ) {
+                    $(".select-reject-reason").show();
+
+                    if ( 'E' == _val ) {
+                        $(".other-reject-reason").show();
+                    } else {
+                        $(".other-reject-reason").hide();
+                    }
+                } else {
+                    $(".select-reject-reason").hide();
                     $(".other-reject-reason").hide();
                 }
             });

@@ -762,6 +762,18 @@ class Protocol extends Base
         return $users;
     }
 
+    public function getCommitteeAcceptedRevisions() {
+        $users = array();
+
+        foreach($this->getCommitteeRevision() as $revision) {
+            if ( $revision->getAccepted() ) {
+                $users[] = $revision->getMember();
+            }
+        }
+
+        return $users;
+    }
+
     public function getCommitteeRejectedRevisions() {
         $users = array();
 
@@ -825,6 +837,18 @@ class Protocol extends Base
 
         foreach($this->getAdhocRevision() as $revision) {
             $users[] = $revision->getMember();
+        }
+
+        return $users;
+    }
+
+    public function getAdhocAcceptedRevisions() {
+        $users = array();
+
+        foreach($this->getAdhocRevision() as $revision) {
+            if ( $revision->getAccepted() ) {
+                $users[] = $revision->getMember();
+            }
         }
 
         return $users;

@@ -341,6 +341,7 @@ div.reject-report {
     margin-left: 23px;
 }
 
+div.select-reject-reason,
 div.other-reject-reason {
     display: none;
 }
@@ -351,6 +352,14 @@ span.reject-label {
 
 .live-search .filter-field {
     margin-top: 16px;
+}
+
+.protocol-review-invitation-radio {
+    text-align: center;
+}
+
+.protocol-review-invitation-radio .radio label {
+    padding: 0;
 }
 
 /*

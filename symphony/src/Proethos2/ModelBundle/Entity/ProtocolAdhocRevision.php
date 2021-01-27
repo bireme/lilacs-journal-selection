@@ -60,6 +60,11 @@ class ProtocolAdhocRevision extends Base
     /**
      * @ORM\Column(type="boolean")
      */
+    private $accepted = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
     private $rejected = false;
 
     /**
@@ -1019,5 +1024,29 @@ class ProtocolAdhocRevision extends Base
     public function getRevisedIn()
     {
         return $this->revised_in;
+    }
+
+    /**
+     * Set accepted
+     *
+     * @param boolean $accepted
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setAccepted($accepted)
+    {
+        $this->accepted = $accepted;
+
+        return $this;
+    }
+
+    /**
+     * Get accepted
+     *
+     * @return boolean
+     */
+    public function getAccepted()
+    {
+        return $this->accepted;
     }
 }

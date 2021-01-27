@@ -1038,7 +1038,7 @@ class ProtocolController extends Controller
             }
 
             // if form was to remove a member
-            if ( isset($post_data['reject-review']) and "yes" == $post_data['reject-review'] ) {
+            if ( isset($post_data['protocol-review-invitation']) and !empty($post_data['protocol-review-invitation']) ) {
                 if ( "committee" == $post_data['member-type'] ) {
                     $protocol_revision_repository = $protocol_committee_revision_repository;
                 } else {
@@ -1047,15 +1047,28 @@ class ProtocolController extends Controller
 
                 $revision = $protocol_revision_repository->findOneBy(array('member' => $user, "protocol" => $protocol));
                 if($revision) {
-                    $revision->setRejected(true);
-                    $revision->setRejectReason($post_data['reject-reason']);
-                    if ( 'E' == $post_data['reject-reason'] and $post_data['other-reject-reason'] ) {
-                        $revision->setOtherRejectReason($post_data['other-reject-reason']);
-                    }
-                    $em->persist($revision);
-                    $em->flush();
+                    if ( 'yes' == $post_data['protocol-review-invitation'] ) {
+                        $revision->setAccepted(true);
+                        $em->persist($revision);
+                        $em->flush();
 
-                    $session->getFlashBag()->add('success', $translator->trans("Review has been rejected with success!"));
+                        $session->getFlashBag()->add('success', $translator->trans("Review has been accepted with success!"));
+                    }
+
+                    if ( 'no' == $post_data['protocol-review-invitation'] ) {
+                        $revision->setRejected(true);
+                        $revision->setRejectReason($post_data['reject-reason']);
+                        
+                        if ( 'E' == $post_data['reject-reason'] and $post_data['other-reject-reason'] ) {
+                            $revision->setOtherRejectReason($post_data['other-reject-reason']);
+                        }
+
+                        $em->persist($revision);
+                        $em->flush();
+
+                        $session->getFlashBag()->add('success', $translator->trans("Review has been rejected with success!"));
+                    }
+                    
                     return $this->redirectToRoute('crud_committee_protocol_list', array('protocol_id' => $protocol->getId()), 301);
                 }
 

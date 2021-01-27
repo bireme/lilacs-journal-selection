@@ -124,7 +124,9 @@
                                             <span class='label label-primary'>{% trans %}Answered{% endtrans %}</span>
                                         {% elseif revision.isFinalRevision %}
                                             <span class='label label-success'>{% trans %}Final Revision{% endtrans %}</span>
-                                        {% elseif not revision.answered %}
+                                        {% elseif not revision.answered and revision.accepted %}
+                                            <span class='label label-info'>{% trans %}Accepted{% endtrans %}</span>
+                                        {% else %}
                                             <span class='label label-default'>{% trans %}Assigned{% endtrans %}</span>
                                         {% endif %}
                                     </td>
@@ -188,7 +190,9 @@
                                             <span class='label label-primary'>{% trans %}Answered{% endtrans %}</span>
                                         {% elseif revision.isFinalRevision %}
                                             <span class='label label-success'>{% trans %}Final Revision{% endtrans %}</span>
-                                        {% elseif not revision.answered %}
+                                        {% elseif not revision.answered and revision.accepted %}
+                                            <span class='label label-info'>{% trans %}Accepted{% endtrans %}</span>
+                                        {% else %}
                                             <span class='label label-default'>{% trans %}Assigned{% endtrans %}</span>
                                         {% endif %}
                                     </td>
