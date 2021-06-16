@@ -1412,6 +1412,9 @@ class CRUDController extends Controller
 
             // getting post data
             $post_data = $request->request->all();
+            array_walk($post_data, function(&$item) {
+                $item = trim($item);
+            });
 
             // checking required files
             foreach(array('name', 'email', 'subject', 'message') as $field) {
