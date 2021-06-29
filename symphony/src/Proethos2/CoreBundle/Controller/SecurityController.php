@@ -52,8 +52,13 @@ class SecurityController extends Controller
 
         $configuration_repository = $em->getRepository('Proethos2ModelBundle:Configuration');
         $submission_period = $configuration_repository->findOneBy(array('key' => 'submission.period'));
-        $submission_period_start_date = explode('|', $submission_period->getValue())[0];
-        $submission_period_end_date = explode('|', $submission_period->getValue())[1];
+        $submission_period_start_date = '';
+        $submission_period_end_date = '';
+
+        if ( $submission_period ) {
+            $submission_period_start_date = explode('|', $submission_period->getValue())[0];
+            $submission_period_end_date = explode('|', $submission_period->getValue())[1];
+        }
 
         return array(
                 'last_username' => $lastUsername,
@@ -344,8 +349,14 @@ class SecurityController extends Controller
 
         $configuration_repository = $em->getRepository('Proethos2ModelBundle:Configuration');
         $submission_period = $configuration_repository->findOneBy(array('key' => 'submission.period'));
-        $submission_period_start_date   = explode('|', $submission_period->getValue())[0];
-        $submission_period_end_date  = explode('|', $submission_period->getValue())[1];
+        $submission_period_start_date = '';
+        $submission_period_end_date = '';
+
+        if ( $submission_period ) {
+            $submission_period_start_date = explode('|', $submission_period->getValue())[0];
+            $submission_period_end_date = explode('|', $submission_period->getValue())[1];
+        }
+
         $output['submission_period_start_date'] = $submission_period_start_date;
         $output['submission_period_end_date'] = $submission_period_end_date;
 
