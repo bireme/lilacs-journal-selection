@@ -124,14 +124,14 @@
 
                         <div class="form-group">
                             <label for="">{% trans %}Start Date{% endtrans %}:</label>
-                            <input type="text" class='form-control datepicker' id='input-submission-period-start-date' name='submission-period-start-date' value='{{ submission_period_start_date|date("Y-m-d") }}' required>
+                            <input type="text" class='form-control datepicker' id='input-submission-period-start-date' name='submission-period-start-date' value='{% if submission_period_start_date %}{{ submission_period_start_date|date("Y-m-d") }}{% endif %}' required>
                         </div>
 
                         <input type="hidden" id="input-submission-period-value" name="configuration-value" value="">
 
                         <div class="form-group">
                             <label for="">{% trans %}End Date{% endtrans %}:</label>
-                            <input type="text" class='form-control datepicker' id='input-submission-period-end-date' name='submission-period-end-date' value='{{ submission_period_end_date|date("Y-m-d") }}' required>
+                            <input type="text" class='form-control datepicker' id='input-submission-period-end-date' name='submission-period-end-date' value='{% if submission_period_end_date %}{{ submission_period_end_date|date("Y-m-d") }}{% endif %}' required>
                         </div>
 
                     </div>
