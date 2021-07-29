@@ -1223,14 +1223,14 @@ class ProtocolController extends Controller
                     $protocol_revision->setContentH($post_data['content-h']);
                     $protocol_revision->setContentI($post_data['content-i']);
                     $protocol_revision->setContentJ($post_data['content-j']);
-                    $protocol_revision->setContentK($post_data['content-k']);
+                    // $protocol_revision->setContentK($post_data['content-k']);
                     $protocol_revision->setContentL($post_data['content-l']);
                     $protocol_revision->setContentM($post_data['content-m']);
                     $protocol_revision->setPeerArbitrationA($post_data['peer-arbitration-a']);
                     $protocol_revision->setPeerArbitrationB($post_data['peer-arbitration-b']);
                     $protocol_revision->setPeerArbitrationC($post_data['peer-arbitration-c']);
                     $protocol_revision->setJournalConcept($post_data['journal-concept']);
-                    $protocol_revision->setJournalDensity($post_data['journal-density']);
+                    // $protocol_revision->setJournalDensity($post_data['journal-density']);
                     $protocol_revision->setJournalRelevance($post_data['journal-relevance']);
                     $protocol_revision->setOtherComments($post_data['other-comments']);
                     $protocol_revision->setOtherJournals($post_data['other-journals']);

@@ -77,14 +77,14 @@
 
         <h5>{% trans %}j) Comente sobre a qualidade e clareza dos elementos gráficos do periódico como imagens, tabelas e gráficos (definição de abreviaturas em notas de rodapé, unidades das grandezas, títulos coerentes e claros, fontes devidamente apresentadas, DOI). As imagens dos artigos permitem a compreensão independente da leitura da íntegra do artigo?{% endtrans %}</h5>
         <p>{{ protocol_revision.contentJ }}</p>
-
+<!--
         <h5>{% trans %}k) Existem indicadores e mecanismos editoriais para eliminação de erros de normalização (por exemplo, seções incorretamente numeradas, tabelas/quadros erroneamente nomeados)?{% endtrans %}</h5>
         <p>{{ protocol_revision.contentK }}</p>
-
-        <h5>{% trans %}l) Os canais e estratégias de comunicação com a comunidade, tanto para divulgação dos artigos quanto para chamada de submissões são adequados?{% endtrans %}</h5>
+-->
+        <h5>{% trans %}k) Os canais e estratégias de comunicação com a comunidade, tanto para divulgação dos artigos quanto para chamada de submissões são adequados?{% endtrans %}</h5>
         <p>{{ protocol_revision.contentL }}</p>
 
-        <h5>{% trans %}m) Em suma, considera que os artigos publicados no periódico têm suficiente qualidade, densidade e consistência metodológica para justificar seu ingresso na LILACS?{% endtrans %}</h5>
+        <h5>{% trans %}l) Em suma, considera que os artigos publicados no periódico têm suficiente qualidade, densidade e consistência metodológica para justificar seu ingresso na LILACS?{% endtrans %}</h5>
         <p>{{ protocol_revision.contentM }}</p>
 
         <h4 class="modal-title modal-revision">{% trans %}Peer Arbitration{% endtrans %}</h4>
@@ -102,10 +102,10 @@
         <h4 class="modal-title modal-revision">{% trans %}Comments{% endtrans %}</h4>
         <h5>{% trans %}Atribua um conceito ao periódico, considerando a área em análise.{% endtrans %}</h5>
         <p>{{ journal_concept[protocol_revision.journalConcept] }}</p>
-
+<!--
         <h5>{% trans %}A área de orientação profissional tem suficiente densidade que justifique a entrada do periódico na LILACS?{% endtrans %}</h5>
         <p>{{ protocol_revision.journalDensity }}</p>
-
+-->
         <h5>{% trans %}Opine sobre a importância do periódico para o desenvolvimento da área.{% endtrans %}</h5>
         <p>{{ protocol_revision.journalRelevance }}</p>
 
