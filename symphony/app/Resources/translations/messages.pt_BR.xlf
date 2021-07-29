@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2020-12-30T17:17:44Z" source-language="en" target-language="pt_BR" datatype="plaintext" original="not.available">
+  <file date="2021-07-29T18:56:56Z" source-language="en" target-language="pt_BR" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -12,7 +12,7 @@
       </trans-unit>
       <trans-unit id="89c1f977ef97df0eb107e8f963bee815fe488cd8" resname="A partir da análise do conteúdo dos artigos dos 3 (três) últimos fascículos da revista, opine sobre os aspectos relacionados abaixo, justificando por escrito sua opinião:">
         <source>A partir da análise do conteúdo dos artigos dos 3 (três) últimos fascículos da revista, opine sobre os aspectos relacionados abaixo, justificando por escrito sua opinião:</source>
-        <target>A partir da análise do conteúdo dos artigos dos 3 (três) últimos fascículos da revista, opine sobre os aspectos relacionados abaixo, justificando por escrito sua opinião:</target>
+        <target>A partir da análise do conteúdo dos artigos em avaliação, opine sobre os aspectos relacionados abaixo, justificando por escrito sua opinião:</target>
       </trans-unit>
       <trans-unit id="08651fe9c3155f12066ac7b7dc463e6ec6d03877" resname="A área de orientação profissional tem suficiente densidade que justifique a entrada do periódico na LILACS?">
         <source>A área de orientação profissional tem suficiente densidade que justifique a entrada do periódico na LILACS?</source>
@@ -25,6 +25,10 @@
       <trans-unit id="0182636f85cc5ca30cc8e676ea978384c7029bb8" resname="Accept as Notification">
         <source>Accept as Notification</source>
         <target>Aceitar como notificação</target>
+      </trans-unit>
+      <trans-unit id="61a0572c4893ef34311320d84c82df88bea83e11" resname="Accepted">
+        <source>Accepted</source>
+        <target>Accepted</target>
       </trans-unit>
       <trans-unit id="1b1726908c1c87c027d7f7456dc496ddd7d8fcd3" resname="Accepted in">
         <source>Accepted in</source>
@@ -61,6 +65,10 @@
       <trans-unit id="1eda23758be9e36e5e0d2a6a87de584aaca0193f" resname="Administrator">
         <source>Administrator</source>
         <target>Administrador</target>
+      </trans-unit>
+      <trans-unit id="6209acd472ad4f1e7e24aa680eb698217a9023a5" resname="Alert delivery date">
+        <source>Alert delivery date</source>
+        <target>Alert delivery date</target>
       </trans-unit>
       <trans-unit id="b3fad347196c586b30cbbdf662535c5c914f8da3" resname="Alert message were sent successfully!">
         <source>Alert message were sent successfully!</source>
@@ -126,9 +134,9 @@
         <source>Are you sure that you want to go to the next step without any revisions?</source>
         <target>Tem certeza que quer ir para a próxima etapa sem quaisquer revisões?</target>
       </trans-unit>
-      <trans-unit id="fec21dc979b6d2b84ada2738d7cd5e99d714952b" resname="Are you sure that you want to reject this review?">
-        <source>Are you sure that you want to reject this review?</source>
-        <target>Tem certeza que deseja rejeitar este comentário?</target>
+      <trans-unit id="2eb8f295c8daa2f91b5e1c046f928d8976a76368" resname="Are you sure that you want to remove these members?">
+        <source>Are you sure that you want to remove these members?</source>
+        <target>Are you sure that you want to remove these members?</target>
       </trans-unit>
       <trans-unit id="129d86112d0f124b04a96f1e06036d1b66e8e4b2" resname="Are you sure that you want to remove this member?">
         <source>Are you sure that you want to remove this member?</source>
@@ -150,6 +158,10 @@
         <source>Are you sure you want to continue?</source>
         <target>Tem certeza que deseja continuar?</target>
       </trans-unit>
+      <trans-unit id="87de5a9386fdf7cde27ce94fce2b754c45b2a857" resname="Are you sure you want to remove these reviewers?">
+        <source>Are you sure you want to remove these reviewers?</source>
+        <target>Are you sure you want to remove these reviewers?</target>
+      </trans-unit>
       <trans-unit id="74292c5c3fa7f0a7edf788e12ba867ab3847a6a8" resname="Are you sure you want to remove this reviewer?">
         <source>Are you sure you want to remove this reviewer?</source>
         <target>Tem certeza que deseja remover este revisor?</target>
@@ -164,7 +176,7 @@
       </trans-unit>
       <trans-unit id="3909b1012afd033b0b59316a15da897df414c2ab" resname="Atribua um conceito ao periódico, considerando a área em análise.">
         <source>Atribua um conceito ao periódico, considerando a área em análise.</source>
-        <target>Atribua um conceito ao periódico, considerando a área em análise.</target>
+        <target>Atribua um conceito ao periódico, a partir da avaliação realizada.</target>
       </trans-unit>
       <trans-unit id="875e271607d431fe62a7af9ec0e009f087ae3cdd" resname="Attached Files">
         <source>Attached Files</source>
@@ -190,6 +202,14 @@
         <source>Bimestral</source>
         <target>Bimestral</target>
       </trans-unit>
+      <trans-unit id="e4a3d799532c5ca56ad6777843392f514a60d007" resname="Bulk Remove Members Ad-Hoc">
+        <source>Bulk Remove Members Ad-Hoc</source>
+        <target>Bulk Remove Members Ad-Hoc</target>
+      </trans-unit>
+      <trans-unit id="49a83d7ea25de0f5976b4becc10cfac69a48170d" resname="Bulk Remove Members Of Committee">
+        <source>Bulk Remove Members Of Committee</source>
+        <target>Bulk Remove Members Of Committee</target>
+      </trans-unit>
       <trans-unit id="2cbe9f1f90678880229147fc06762e63ba976982" resname="CEP">
         <source>CEP</source>
         <target>CEP</target>
@@ -197,6 +217,10 @@
       <trans-unit id="5f84d1b3ce0de681b763510335face24a9416820" resname="CEP not found">
         <source>CEP not found</source>
         <target>CEP não localizado</target>
+      </trans-unit>
+      <trans-unit id="de3b994d22deb924dfef0da44d5ab981fccb8f0d" resname="CSRF token not valid">
+        <source>CSRF token not valid</source>
+        <target>CSRF token not valid</target>
       </trans-unit>
       <trans-unit id="77dfd2135f4db726c47299bb55be26f7f4525a46" resname="Cancel">
         <source>Cancel</source>
@@ -252,7 +276,7 @@
       </trans-unit>
       <trans-unit id="fce06e20e5f7f74aacccab40b59b75a56c8f7305" resname="Comments">
         <source>Comments</source>
-        <target>Comentários:</target>
+        <target>PARECER FINAL</target>
       </trans-unit>
       <trans-unit id="3be4ec83700f574e756404a2c8390360e4d2f777" resname="Comments and justifications">
         <source>Comments and justifications</source>
@@ -312,7 +336,7 @@
       </trans-unit>
       <trans-unit id="4f9be057f0ea5d2ba72fd2c810e8d7b9aa98b469" resname="Content">
         <source>Content</source>
-        <target>Conteúdo</target>
+        <target>CONTEÚDO</target>
       </trans-unit>
       <trans-unit id="c63d7dc26fc32ada5170c80598c4c75aefdcc105" resname="Controlled Lists">
         <source>Controlled Lists</source>
@@ -426,6 +450,10 @@
         <source>Dias desde a última revisão atribuída</source>
         <target>Dias desde a última revisão atribuída</target>
       </trans-unit>
+      <trans-unit id="580a91ff7b3ed891bfefca4501e5ef33722a9968" resname="Do you agree to review this journal">
+        <source>Do you agree to review this journal</source>
+        <target>Do you agree to review this journal</target>
+      </trans-unit>
       <trans-unit id="bad008af3092f9dfda6df4b3cf24b6a946111960" resname="Do you approve the inclusion of the journal?">
         <source>Do you approve the inclusion of the journal?</source>
         <target>Aprova a inclusão do periódico?</target>
@@ -461,6 +489,10 @@
       <trans-unit id="0d01e2e86669e98441ab4dce5520696c318b7098" resname="E-mail">
         <source>E-mail</source>
         <target>E-mail</target>
+      </trans-unit>
+      <trans-unit id="e6f48e21e49bfb686efa3fc26ad35aa03dec7d07" resname="ERROR: The end date needs to be subsequent to start date.">
+        <source>ERROR: The end date needs to be subsequent to start date.</source>
+        <target>ERROR: The end date needs to be subsequent to start date.</target>
       </trans-unit>
       <trans-unit id="b3596b12fac14dbe8abc1a2210fcd4fc9a9721d3" resname="Edit attachment">
         <source>Edit attachment</source>
@@ -504,11 +536,11 @@
       </trans-unit>
       <trans-unit id="73f280df8d9fbacc0abfd8783b17a0cb898f5fff" resname="Editorial Team">
         <source>Editorial Team</source>
-        <target>Equipe Editorial</target>
+        <target>EQUIPE EDITORIAL</target>
       </trans-unit>
       <trans-unit id="e0c9f35acd0322871d2afd65f6c6a327d46c2c5c" resname="Editorial team">
         <source>Editorial team</source>
-        <target>Equipe editorial</target>
+        <target>EQUIPE EDITORIAL</target>
       </trans-unit>
       <trans-unit id="74c71ca9166caf59ff2469eeb4ac486afcc264ce" resname="Eletrônico">
         <source>Eletrônico</source>
@@ -525,6 +557,10 @@
       <trans-unit id="74b613213d25264324d85f0a3f84765ad3a37e4c" resname="Email not registered in platform.">
         <source>Email not registered in platform.</source>
         <target>E-mail não registrado nesta plataforma</target>
+      </trans-unit>
+      <trans-unit id="84b1478125890bad1cc4b36d6d3781773b3fde5a" resname="End Date">
+        <source>End Date</source>
+        <target>End Date</target>
       </trans-unit>
       <trans-unit id="e55d313325bffb54c173c2b24b2c71a494954346" resname="End Review">
         <source>End Review</source>
@@ -923,6 +959,10 @@
         <source>Journal rejected with success!</source>
         <target>Periódico rejeitado com sucesso!</target>
       </trans-unit>
+      <trans-unit id="176912522fac2fdc518b0fcfe1c3afc606137273" resname="Journal review invitation">
+        <source>Journal review invitation</source>
+        <target>Journal review invitation</target>
+      </trans-unit>
       <trans-unit id="9d18adc551dea3ea94184aca75b4b51d29934da1" resname="Journal submitted with success!">
         <source>Journal submitted with success!</source>
         <target>Periódico submetido com sucesso!</target>
@@ -1042,6 +1082,10 @@
       <trans-unit id="abc4f304a08a21ce7477f600961a7c5e317824c5" resname="Members added with success!">
         <source>Members added with success!</source>
         <target>Membros adicionados com sucesso</target>
+      </trans-unit>
+      <trans-unit id="2bae48afedf5298a435b6ec4c0412652ef95c12f" resname="Members has been removed with success!">
+        <source>Members has been removed with success!</source>
+        <target>Members has been removed with success!</target>
       </trans-unit>
       <trans-unit id="6cb71f655e29dd3a97f0a8a0e2db4eb955c977d7" resname="Mensal">
         <source>Mensal</source>
@@ -1297,7 +1341,7 @@
       </trans-unit>
       <trans-unit id="0ca8b8c42c23c812addcefbf5b5a5b3fe8555e0d" resname="Opine sobre o processo de arbitragem por pares utilizado pelo periódico quanto aos aspectos indicados abaixo:">
         <source>Opine sobre o processo de arbitragem por pares utilizado pelo periódico quanto aos aspectos indicados abaixo:</source>
-        <target>Opine sobre o processo de arbitragem por pares utilizado pelo periódico quanto aos aspectos indicados abaixo:</target>
+        <target>Opine sobre o processo de arbitragem por pares realizado pelo periódico quanto aos aspectos indicados abaixo:</target>
       </trans-unit>
       <trans-unit id="81a66b042f92ae09dec0fc1a1d5fccf4d2f6d252" resname="Opinions Required">
         <source>Opinions Required</source>
@@ -1353,7 +1397,7 @@
       </trans-unit>
       <trans-unit id="f7ebd211f9cf5580c55b5741fde5197ac87c7dac" resname="Peer Arbitration">
         <source>Peer Arbitration</source>
-        <target>Arbitragem por pares</target>
+        <target>ARBITRAGEM POR PARES</target>
       </trans-unit>
       <trans-unit id="31ac8dd59637d281f4bf2d364b065fa96257ee82" resname="Peer Review">
         <source>Peer Review</source>
@@ -1559,17 +1603,9 @@
         <source>Regards</source>
         <target>Saudações</target>
       </trans-unit>
-      <trans-unit id="2b03b59293b6fc7101306f5d9ae1e96327bb419a" resname="Reject">
-        <source>Reject</source>
-        <target>Recusar</target>
-      </trans-unit>
       <trans-unit id="819133f871d8e86af4cc2f170e04112a94a8799d" resname="Reject Submission">
         <source>Reject Submission</source>
         <target>Rejeitar a submissão</target>
-      </trans-unit>
-      <trans-unit id="43104a88550d8e4be61ab9b1bea989af15228e1b" resname="Reject journal revision">
-        <source>Reject journal revision</source>
-        <target>Rejeitar revisão do periódico</target>
       </trans-unit>
       <trans-unit id="9baed847cf0e77a99ed6e6f2f1cba6ab85af1d37" resname="Reject submission">
         <source>Reject submission</source>
@@ -1623,9 +1659,17 @@
         <source>Review Remind</source>
         <target>Lembrete de solicitação de avaliação</target>
       </trans-unit>
+      <trans-unit id="bae2ff143bce80f63835ec56a3dcfdc819856400" resname="Review has been accepted with success!">
+        <source>Review has been accepted with success!</source>
+        <target>Review has been accepted with success!</target>
+      </trans-unit>
       <trans-unit id="617c1fa801a4feeac17fcc9eea802f0d935f2d06" resname="Review has been rejected with success!">
         <source>Review has been rejected with success!</source>
         <target>A revisão foi rejeitada com sucesso!</target>
+      </trans-unit>
+      <trans-unit id="01877214338f9feb4f71c18dc2ba37e17b8b4f5f" resname="Review submission date">
+        <source>Review submission date</source>
+        <target>Review submission date</target>
       </trans-unit>
       <trans-unit id="a74f16c11792da6a36979a58a1ba2b4333632f57" resname="Reviewer">
         <source>Reviewer</source>
@@ -1879,6 +1923,10 @@
         <source>Standards</source>
         <target>Normas adotadas</target>
       </trans-unit>
+      <trans-unit id="9d7ab1a557965be0eae6205c2d860c45a3eafc11" resname="Start Date">
+        <source>Start Date</source>
+        <target>Start Date</target>
+      </trans-unit>
       <trans-unit id="a72502067518684f9deeec70cf119fd26326cd33" resname="State">
         <source>State</source>
         <target>Estado</target>
@@ -1902,6 +1950,10 @@
       <trans-unit id="8d546420978213d489174be5f512f6925301318f" resname="Submission Language">
         <source>Submission Language</source>
         <target>Idioma de submissão</target>
+      </trans-unit>
+      <trans-unit id="6d6d4b7824c778026b91c9017a8296e2167d5a5e" resname="Submission Period">
+        <source>Submission Period</source>
+        <target>Submission Period</target>
       </trans-unit>
       <trans-unit id="d731610a7b2bd94cb063f76351df4c560f722d41" resname="Submission date">
         <source>Submission date</source>
@@ -2116,6 +2168,10 @@
         <source>User created with success. Wait for approval.</source>
         <target>Usuário criado com sucesso. Aguardar aprovação.</target>
       </trans-unit>
+      <trans-unit id="e27dda46198594f26e64f9124656f9f4748eaace" resname="User creation not currently allowed">
+        <source>User creation not currently allowed</source>
+        <target>User creation not currently allowed</target>
+      </trans-unit>
       <trans-unit id="e0e4ebff5200c40e7359f66bd05c69cba4554014" resname="User deleted with success.">
         <source>User deleted with success.</source>
         <target>Usuário excluído com sucesso </target>
@@ -2196,6 +2252,10 @@
         <source>You cannot edit this protocol</source>
         <target>Você não pode editar este protocolo </target>
       </trans-unit>
+      <trans-unit id="0dc10097d6fdc5e19c3711ba6ef8a7e0cdca3141" resname="You cannot send alerts">
+        <source>You cannot send alerts</source>
+        <target>You cannot send alerts</target>
+      </trans-unit>
       <trans-unit id="696751f041de5e60a1187c72223bdd4aa7d6f40c" resname="You don't have access to do this">
         <source>You don't have access to do this</source>
         <target>Você não tem acesso para fazer isso </target>
@@ -2259,7 +2319,7 @@
       </trans-unit>
       <trans-unit id="5d9459b2dcf2bc582dc22e43f74e521347cd14d4" resname="a) Os artigos possuem aderência em relação ao escopo e objetivos do periódico? Os temas abordados nos artigos são relevantes para área e para o momento atual da Ciência?">
         <source>a) Os artigos possuem aderência em relação ao escopo e objetivos do periódico? Os temas abordados nos artigos são relevantes para área e para o momento atual da Ciência?</source>
-        <target>a) Os artigos possuem aderência em relação ao escopo e objetivos do periódico? Os temas abordados nos artigos são relevantes para área e para o momento atual da Ciência?</target>
+        <target>a) Os artigos estão de acordo com o escopo e objetivos do periódico? Os temas abordados nos artigos são relevantes para a área e para o momento atual da Ciência?</target>
       </trans-unit>
       <trans-unit id="2bb6b986c5d6fb26dd9dd1054b545ce022371b0c" resname="active">
         <source>active</source>
@@ -2271,7 +2331,7 @@
       </trans-unit>
       <trans-unit id="d20dc8c7559be7dbe0e33b87b2a63ce9a49a2a81" resname="b) Comente sobre a qualidade metodológica e estrutura dos artigos. O desenho dos estudos é adequado para responder às questões colocadas? Existe uma clara estruturação metodológica que permite fácil leitura e compreensão? Em geral, estudos de mesma natureza possuem uma padronização metodológica consistente?">
         <source>b) Comente sobre a qualidade metodológica e estrutura dos artigos. O desenho dos estudos é adequado para responder às questões colocadas? Existe uma clara estruturação metodológica que permite fácil leitura e compreensão? Em geral, estudos de mesma natureza possuem uma padronização metodológica consistente?</source>
-        <target>b) Comente sobre a qualidade metodológica e estrutura dos artigos. O desenho dos estudos é adequado para responder às questões colocadas? Existe uma clara estruturação metodológica que permite fácil leitura e compreensão? Em geral, estudos de mesma natureza possuem uma padronização metodológica consistente?</target>
+        <target>b) As diretrizes do periódico explicitam uma estrutura metodológica clara e bem definida? Existem informações suficientes que permitem a reprodutibilidade das pesquisas?</target>
       </trans-unit>
       <trans-unit id="4e626996b8e3fcc7a1ede850100cb785edc31d04" resname="b) Informações do formulário de &lt;i&gt;peer review&lt;/i&gt; utilizado pelo periódico para avaliação de artigos.">
         <source><![CDATA[b) Informações do formulário de <i>peer review</i> utilizado pelo periódico para avaliação de artigos.]]></source>
@@ -2283,7 +2343,7 @@
       </trans-unit>
       <trans-unit id="eb92da045cde7bb7b5f4bf62737c15c08287fc68" resname="c) As diretrizes do periódico apontam para a existência de estrutura consistente que permitam com que os autores sigam uma estrutura metodológica clara e bem definida? Existem informações suficientes que permitem a reprodução das pesquisas?">
         <source>c) As diretrizes do periódico apontam para a existência de estrutura consistente que permitam com que os autores sigam uma estrutura metodológica clara e bem definida? Existem informações suficientes que permitem a reprodução das pesquisas?</source>
-        <target>c) As diretrizes do periódico apontam para a existência de estrutura consistente que permitam com que os autores sigam uma estrutura metodológica clara e bem definida? Existem informações suficientes que permitem a reprodução das pesquisas?</target>
+        <target>c) Comente sobre a qualidade metodológica e estrutura dos artigos. O desenho do estudo é adequado para responder às hipóteses e objetivos da pesquisa? A estruturação metodológica permite fácil leitura e compreensão? Estudos de mesma natureza possuem uma padronização metodológica consistente?</target>
       </trans-unit>
       <trans-unit id="b2ad1ca2e30fb080a5ad3d2c5549d502bc5e2236" resname="contact form">
         <source>contact form</source>
@@ -2295,15 +2355,15 @@
       </trans-unit>
       <trans-unit id="4a5111db2cfbfef6c2f94c6bdd09064e54ed99f5" resname="e) Existe uso de diretrizes e guias de qualidade na elaboração dos artigos (ex. Red Equator, PRISMA, etc.)?">
         <source>e) Existe uso de diretrizes e guias de qualidade na elaboração dos artigos (ex. Red Equator, PRISMA, etc.)?</source>
-        <target>e) Existe uso de diretrizes e guias de qualidade na elaboração dos artigos (ex. Red Equator, PRISMA, etc.)?</target>
+        <target>e) Existe aplicação de diretrizes e guias de qualidade na elaboração dos artigos (ex. Red Equator, PRISMA, etc.)?</target>
       </trans-unit>
       <trans-unit id="a575ef2de25f007ad0cf6f73a98c4106a10ad5fb" resname="f) Qual o nível de aderência da revista às recomendações do &quot;Committee on Publication Ethics&quot;- COPE, ou outros orgãos que explicitaram recomendações sobre o tema (por exemplo, código de boas práticas científicas da FAPESP).">
         <source>f) Qual o nível de aderência da revista às recomendações do "Committee on Publication Ethics"- COPE, ou outros orgãos que explicitaram recomendações sobre o tema (por exemplo, código de boas práticas científicas da FAPESP).</source>
-        <target>f) Qual o nível de aderência da revista às recomendações do "Committee on Publication Ethics"- COPE, ou outros orgãos que explicitaram recomendações sobre o tema (por exemplo, código de boas práticas científicas da FAPESP).</target>
+        <target>f) Quais boas práticas éticas e de integridade na pesquisa se veem refletidas na revista e nos artigos publicados? (Ex. COPE, ICMJE)</target>
       </trans-unit>
       <trans-unit id="ac561bd9a14456571e981016ab48c165a1a198d3" resname="g) Comente se o periódico pratica ou especifica nas suas normas e procedimentos de ciência aberta (pré-prints, revisão por pares aberta, abertura de dados, etc.)">
         <source>g) Comente se o periódico pratica ou especifica nas suas normas e procedimentos de ciência aberta (pré-prints, revisão por pares aberta, abertura de dados, etc.)</source>
-        <target>g) Comente se o periódico pratica ou especifica nas suas normas e procedimentos de ciência aberta (pré-prints, revisão por pares aberta, abertura de dados, etc.)</target>
+        <target>g) Considerando os princípios de Ciência Aberta, analise e comente os aspectos já implantados no periódico:</target>
       </trans-unit>
       <trans-unit id="4c6dd761f24c4ac4fb95bb1bd183d4815802bfc7" resname="go on">
         <source>go on</source>
@@ -2311,11 +2371,11 @@
       </trans-unit>
       <trans-unit id="607891698b8a03f3b050b1089b9393dc51980eeb" resname="h) A linguagem e gramática dos artigos são boas?">
         <source>h) A linguagem e gramática dos artigos são boas?</source>
-        <target>h) A linguagem e gramática dos artigos são boas?</target>
+        <target>h) A redação dos artigos é adequada, refletindo o cuidado editorial?</target>
       </trans-unit>
       <trans-unit id="7f62857a1bf3fc5b57c74c6b3ccc17485ad570e1" resname="i) Os resumos são estruturados, claros, facilmente legíveis e fornecem um correto entendimento do conteúdo dos artigos? As palavras do título, resumo e palavras-chave são bem observados e apresentados nos artigos?">
         <source>i) Os resumos são estruturados, claros, facilmente legíveis e fornecem um correto entendimento do conteúdo dos artigos? As palavras do título, resumo e palavras-chave são bem observados e apresentados nos artigos?</source>
-        <target>i) Os resumos são estruturados, claros, facilmente legíveis e fornecem um correto entendimento do conteúdo dos artigos? As palavras do título, resumo e palavras-chave são bem observados e apresentados nos artigos?</target>
+        <target>i) Os títulos dos artigos são concisos e claros? Os resumos são estruturados, objetivos e fornecem um correto entendimento do conteúdo dos artigos? As palavras-chave representam o conteúdo e adotam descritores DeCS / MeSH, quando possível?</target>
       </trans-unit>
       <trans-unit id="d436a3f40e3ecce896010be99dcf00a577b909aa" resname="inactive">
         <source>inactive</source>
@@ -2323,19 +2383,19 @@
       </trans-unit>
       <trans-unit id="9ed79e4cebc489911f8e948a3a364c45f3b20316" resname="j) Comente sobre a qualidade e clareza dos elementos gráficos do periódico como imagens, tabelas e gráficos (definição de abreviaturas em notas de rodapé, unidades das grandezas, títulos coerentes e claros, fontes devidamente apresentadas, DOI). As imagens dos artigos permitem a compreensão independente da leitura da íntegra do artigo?">
         <source>j) Comente sobre a qualidade e clareza dos elementos gráficos do periódico como imagens, tabelas e gráficos (definição de abreviaturas em notas de rodapé, unidades das grandezas, títulos coerentes e claros, fontes devidamente apresentadas, DOI). As imagens dos artigos permitem a compreensão independente da leitura da íntegra do artigo?</source>
-        <target>j) Comente sobre a qualidade e clareza dos elementos gráficos do periódico como imagens, tabelas e gráficos (definição de abreviaturas em notas de rodapé, unidades das grandezas, títulos coerentes e claros, fontes devidamente apresentadas, DOI). As imagens dos artigos permitem a compreensão independente da leitura da íntegra do artigo?</target>
+        <target>j) Comente sobre a qualidade dos elementos gráficos do periódico como imagens, tabelas e gráficos (definição de abreviaturas em notas de rodapé, unidades das grandezas, títulos coerentes e claros, fontes devidamente apresentadas, DOI, etc.). Eles propiciam a compreensão independente da leitura integral dos artigos?</target>
       </trans-unit>
       <trans-unit id="4f6e9cb4a17b1e5636548bb25c1a557c870859d0" resname="k) Existem indicadores e mecanismos editoriais para eliminação de erros de normalização (por exemplo, seções incorretamente numeradas, tabelas/quadros erroneamente nomeados)?">
         <source>k) Existem indicadores e mecanismos editoriais para eliminação de erros de normalização (por exemplo, seções incorretamente numeradas, tabelas/quadros erroneamente nomeados)?</source>
         <target>k) Existem indicadores e mecanismos editoriais para eliminação de erros de normalização (por exemplo, seções incorretamente numeradas, tabelas/quadros erroneamente nomeados)?</target>
       </trans-unit>
-      <trans-unit id="329b48b4cce5536fd0e31f55f144af8527548d03" resname="l) Os canais e estratégias de comunicação com a comunidade, tanto para divulgação dos artigos quanto para chamada de submissões são adequados?">
-        <source>l) Os canais e estratégias de comunicação com a comunidade, tanto para divulgação dos artigos quanto para chamada de submissões são adequados?</source>
-        <target>l) Os canais e estratégias de comunicação com a comunidade, tanto para divulgação dos artigos quanto para chamada de submissões são adequados?</target>
+      <trans-unit id="37e6809f129769933759bb5a5801e85c2b38d7b1" resname="k) Os canais e estratégias de comunicação com a comunidade, tanto para divulgação dos artigos quanto para chamada de submissões são adequados?">
+        <source>k) Os canais e estratégias de comunicação com a comunidade, tanto para divulgação dos artigos quanto para chamada de submissões são adequados?</source>
+        <target>k) Os canais e estratégias de comunicação com a comunidade, tanto para divulgação dos artigos quanto para chamada de submissões são adequados?</target>
       </trans-unit>
-      <trans-unit id="4fb47e337ab90325ef56d490b5d615911b44b8c4" resname="m) Em suma, considera que os artigos publicados no periódico têm suficiente qualidade, densidade e consistência metodológica para justificar seu ingresso na LILACS?">
-        <source>m) Em suma, considera que os artigos publicados no periódico têm suficiente qualidade, densidade e consistência metodológica para justificar seu ingresso na LILACS?</source>
-        <target>m) Em suma, considera que os artigos publicados no periódico têm suficiente qualidade, densidade e consistência metodológica para justificar seu ingresso na LILACS?</target>
+      <trans-unit id="4914ef3ad75af060c367f9b0f3204a0ffa3583aa" resname="l) Em suma, considera que os artigos publicados no periódico têm suficiente qualidade, densidade e consistência metodológica para justificar seu ingresso na LILACS?">
+        <source>l) Em suma, considera que os artigos publicados no periódico têm suficiente qualidade, densidade e consistência metodológica para justificar seu ingresso na LILACS?</source>
+        <target>l) Em suma, considera que os artigos publicados no periódico têm suficiente qualidade, densidade e consistência metodológica para justificar seu ingresso na LILACS?</target>
       </trans-unit>
       <trans-unit id="fd1286353570c5703799ba76999323b7c7447b06" resname="no">
         <source>no</source>
