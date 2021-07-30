@@ -242,6 +242,101 @@ class ProtocolController extends Controller
     }
 
     /**
+     * @Route("/protocol/{protocol_id}/attachment", name="protocol_new_attachment")
+     * @Template()
+     */
+    public function newAttachmentProtocolAction($protocol_id)
+    {
+        $output = array();
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $translator = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+
+        $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
+        $user_repository = $em->getRepository('Proethos2ModelBundle:User');
+        $submission_repository = $em->getRepository('Proethos2ModelBundle:Submission');
+        $upload_type_repository = $em->getRepository('Proethos2ModelBundle:UploadType');
+        $submission_upload_repository = $em->getRepository('Proethos2ModelBundle:SubmissionUpload');
+
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $upload_types = $upload_type_repository->findByStatus(true);
+        $output['upload_types'] = $upload_types;
+
+        $util = new Util($this->container, $this->getDoctrine());
+
+        // getting the current submission
+        $protocol = $protocol_repository->find($protocol_id);
+        $submission = $protocol->getMainSubmission();
+        $output['protocol'] = $protocol;
+
+        $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
+        $help_repository = $em->getRepository('Proethos2ModelBundle:Help');
+        // $help = $help_repository->findBy(array("id" => {id}, "type" => "mail"));
+        // $translations = $trans_repository->findTranslations($help[0]);
+
+        if (!$protocol) {
+            throw $this->createNotFoundException($translator->trans('No protocol found'));
+        }
+
+        $referer = $request->headers->get('referer');
+
+        // checking if was a post request
+        if($this->getRequest()->isMethod('POST')) {
+
+            // getting post data
+            $post_data = $request->request->all();
+
+            $file = $request->files->get('new-atachment-file');
+            if(!empty($file)) {
+
+                $upload_type = $upload_type_repository->findOneBy(array('slug' => 'others'));
+                if (!$upload_type) {
+                    throw $this->createNotFoundException($translator->trans('No upload type found'));
+                    return $output;
+                }
+
+                $submission_upload = new SubmissionUpload();
+                $submission_upload->setSubmission($submission);
+                $submission_upload->setUploadType($upload_type);
+                $submission_upload->setUser($user);
+                $submission_upload->setFile($file);
+                $submission_upload->setSubmissionNumber($submission->getNumber());
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($submission_upload);
+                $em->flush();
+
+                $submission->addAttachment($submission_upload);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($submission);
+                $em->flush();
+
+                $session->getFlashBag()->add('success', $translator->trans("File uploaded with success."));
+
+            }
+
+            if(isset($post_data['delete-attachment-id']) and !empty($post_data['delete-attachment-id'])) {
+
+                $submission_upload = $submission_upload_repository->find($post_data['delete-attachment-id']);
+                if($submission_upload) {
+
+                    $em->remove($submission_upload);
+                    $em->flush();
+                    $session->getFlashBag()->add('success', $translator->trans("File removed with sucess."));
+                }
+
+            }
+
+            return $this->redirect($referer, 301);
+
+        }
+
+        return $output;
+    }
+
+    /**
      * @Route("/journal/{protocol_id}/analyze", name="protocol_analyze_protocol")
      * @Template()
      */
