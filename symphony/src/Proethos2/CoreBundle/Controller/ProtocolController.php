@@ -355,11 +355,15 @@ class ProtocolController extends Controller
 
         $protocol_repository = $em->getRepository('Proethos2ModelBundle:Protocol');
         $user_repository = $em->getRepository('Proethos2ModelBundle:User');
+        $upload_type_repository = $em->getRepository('Proethos2ModelBundle:UploadType');
 
         // getting the current submission
         $protocol = $protocol_repository->find($protocol_id);
         $submission = $protocol->getMainSubmission();
         $output['protocol'] = $protocol;
+
+        $upload_types = $upload_type_repository->findByStatus(true);
+        $output['upload_types'] = $upload_types;
 
         $trans_repository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         $help_repository = $em->getRepository('Proethos2ModelBundle:Help');
@@ -375,6 +379,51 @@ class ProtocolController extends Controller
 
             // getting post data
             $post_data = $request->request->all();
+
+            $file = $request->files->get('new-attachment-file');
+            if(!empty($file)) {
+
+                if(!isset($post_data['new-attachment-type']) or empty($post_data['new-attachment-type'])) {
+                    $session->getFlashBag()->add('error', $translator->trans("Field 'new-attachment-type' is required."));
+                    return $output;
+                }
+
+                $upload_type = $upload_type_repository->find($post_data['new-attachment-type']);
+                if (!$upload_type) {
+                    throw $this->createNotFoundException($translator->trans('No upload type found'));
+                    return $output;
+                }
+
+                $submission_upload = new SubmissionUpload();
+                $submission_upload->setSubmission($protocol->getMainSubmission());
+                $submission_upload->setUploadType($upload_type);
+                $submission_upload->setUser($user);
+                $submission_upload->setFile($file);
+                $submission_upload->setSubmissionNumber($protocol->getMainSubmission()->getNumber());
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($submission_upload);
+                $em->flush();
+
+                $protocol->getMainSubmission()->addAttachment($submission_upload);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($protocol->getMainSubmission());
+                $em->flush();
+
+                $session->getFlashBag()->add('success', $translator->trans("File uploaded with success."));
+                return $this->redirectToRoute('protocol_analyze_protocol', array('protocol_id' => $protocol->getId()), 301);
+
+            }
+
+            if(isset($post_data['delete-attachment-id']) and !empty($post_data['delete-attachment-id'])) {
+                $submission_upload = $submission_upload_repository->find($post_data['delete-attachment-id']);
+                if($submission_upload) {
+                    $em->remove($submission_upload);
+                    $em->flush();
+                    $session->getFlashBag()->add('success', $translator->trans("File removed with success."));
+                    return $this->redirectToRoute('protocol_analyze_protocol', array('protocol_id' => $protocol->getId()), 301);
+                }
+            }
 
             if(isset($post_data['is-reject']) and $post_data['is-reject'] == "true") {
 
