@@ -288,7 +288,7 @@ class ProtocolController extends Controller
             // getting post data
             $post_data = $request->request->all();
 
-            $file = $request->files->get('new-atachment-file');
+            $file = $request->files->get('new-attachment-file');
             if(!empty($file)) {
 
                 $upload_type = $upload_type_repository->findOneBy(array('slug' => 'others'));

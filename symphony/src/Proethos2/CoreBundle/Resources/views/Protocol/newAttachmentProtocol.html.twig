@@ -1,4 +1,4 @@
-<form method="POST" id='form-new-attachment' enctype="multipart/form-data" action="{{ path("protocol_new_attachment", {'protocol_id': protocol.id }) }}">
+<form method="POST" id='form-new-other-attachment' enctype="multipart/form-data" action="{{ path("protocol_new_attachment", {'protocol_id': protocol.id }) }}">
     <input type="hidden" name="MAX_FILE_SIZE" value="{{ 50*1024*1024 }}" />
 
     <div class="modal-header">
@@ -8,9 +8,9 @@
 
     <div class="modal-body">
         <div class="form-group">
-            <label for="input-new-atachment-file">{% trans %}File{% endtrans %}:</label> 
+            <label for="input-new-other-attachment-file">{% trans %}File{% endtrans %}:</label> 
             <a href="{{ path("crud_admin_help_show", {help_id: 12} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-            <input type='file' class='form-control' name='new-atachment-file' id='input-new-atachment-file' required>
+            <input type='file' class='form-control' name='new-attachment-file' id='input-new-other-attachment-file' required>
         </div>
     </div>
 
