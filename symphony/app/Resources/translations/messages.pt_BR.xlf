@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2021-07-29T18:56:56Z" source-language="en" target-language="pt_BR" datatype="plaintext" original="not.available">
+  <file date="2021-08-04T17:41:51Z" source-language="en" target-language="pt_BR" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -68,7 +68,7 @@
       </trans-unit>
       <trans-unit id="6209acd472ad4f1e7e24aa680eb698217a9023a5" resname="Alert delivery date">
         <source>Alert delivery date</source>
-        <target>Alert delivery date</target>
+        <target>Data de envio de lembrete</target>
       </trans-unit>
       <trans-unit id="b3fad347196c586b30cbbdf662535c5c914f8da3" resname="Alert message were sent successfully!">
         <source>Alert message were sent successfully!</source>
@@ -204,11 +204,11 @@
       </trans-unit>
       <trans-unit id="e4a3d799532c5ca56ad6777843392f514a60d007" resname="Bulk Remove Members Ad-Hoc">
         <source>Bulk Remove Members Ad-Hoc</source>
-        <target>Bulk Remove Members Ad-Hoc</target>
+        <target>Remover todos os pareceristas Ad-hoc</target>
       </trans-unit>
       <trans-unit id="49a83d7ea25de0f5976b4becc10cfac69a48170d" resname="Bulk Remove Members Of Committee">
         <source>Bulk Remove Members Of Committee</source>
-        <target>Bulk Remove Members Of Committee</target>
+        <target>Remover todos os membros do Comitê</target>
       </trans-unit>
       <trans-unit id="2cbe9f1f90678880229147fc06762e63ba976982" resname="CEP">
         <source>CEP</source>
@@ -452,7 +452,7 @@
       </trans-unit>
       <trans-unit id="580a91ff7b3ed891bfefca4501e5ef33722a9968" resname="Do you agree to review this journal">
         <source>Do you agree to review this journal</source>
-        <target>Do you agree to review this journal</target>
+        <target>Aceita realizar a avaliação deste periódico?</target>
       </trans-unit>
       <trans-unit id="bad008af3092f9dfda6df4b3cf24b6a946111960" resname="Do you approve the inclusion of the journal?">
         <source>Do you approve the inclusion of the journal?</source>
@@ -961,7 +961,7 @@
       </trans-unit>
       <trans-unit id="176912522fac2fdc518b0fcfe1c3afc606137273" resname="Journal review invitation">
         <source>Journal review invitation</source>
-        <target>Journal review invitation</target>
+        <target>Aceitar / recusar convite para avaliação</target>
       </trans-unit>
       <trans-unit id="9d18adc551dea3ea94184aca75b4b51d29934da1" resname="Journal submitted with success!">
         <source>Journal submitted with success!</source>
@@ -1021,7 +1021,7 @@
       </trans-unit>
       <trans-unit id="a45d571d77d3585b94a6f8f687e6c1f0a4218d6d" resname="Lattes">
         <source>Lattes</source>
-        <target>Lattes</target>
+        <target>CV Lattes</target>
       </trans-unit>
       <trans-unit id="82aad91e4f49d0daa694506a98952f33cfb862d6" resname="Lattes URL">
         <source>Lattes URL</source>
@@ -1669,7 +1669,7 @@
       </trans-unit>
       <trans-unit id="01877214338f9feb4f71c18dc2ba37e17b8b4f5f" resname="Review submission date">
         <source>Review submission date</source>
-        <target>Review submission date</target>
+        <target>Avaliação enviada em</target>
       </trans-unit>
       <trans-unit id="a74f16c11792da6a36979a58a1ba2b4333632f57" resname="Reviewer">
         <source>Reviewer</source>
