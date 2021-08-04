@@ -96,7 +96,6 @@
                                 <th></th>
                                 <th width="30%">{% trans %}Name{% endtrans %}</th>
                                 <th>{% trans %}Lattes{% endtrans %}</th>
-                                <th>{% trans %}E-mail{% endtrans %}</th>
                                 <th>{% trans %}Country{% endtrans %}</th>
                                 <th>{% trans %}Recruitment Date{% endtrans %}</th>
                                 <th>{% trans %}Review submission date{% endtrans %}</th>
@@ -112,7 +111,6 @@
                                     <td><input type="checkbox" name='revision-{{ revision.member.id }}' value="{{ revision.id }}" {% if revision.rejected or revision.isFinalRevision %}disabled{% endif %} /></td>
                                     <td>{{ revision.member.name }}</td>
                                     <td><a href='{{ revision.member.lattes }}' target="_blank">CV</a></td>
-                                    <td><a href='{{ revision.member.email }}'>{{ revision.member.email }}</a></td>
                                     <td>{{ revision.member.country }}</td>
                                     <td>{{ revision.created|date("d/m/Y") }}</td>
                                     <td>{% if revision.revisedIn %}{{ revision.revisedIn|date("d/m/Y") }}{% endif %}</td>
@@ -163,7 +161,6 @@
                             <tr>
                                 <th></th>
                                 <th width="30%">{% trans %}Name{% endtrans %}</th>
-                                <th>{% trans %}E-mail{% endtrans %}</th>
                                 <th>{% trans %}Country{% endtrans %}</th>
                                 <th>{% trans %}Recruitment Date{% endtrans %}</th>
                                 <th>{% trans %}Review submission date{% endtrans %}</th>
@@ -178,7 +175,6 @@
                                 <tr>
                                     <td><input type="checkbox" name='revision-{{ revision.member.id }}' value="{{ revision.id }}" {% if revision.rejected or revision.isFinalRevision %}disabled{% endif %} /></td>
                                     <td>{{ revision.member.name }}</td>
-                                    <td><a href='{{ revision.member.email }}'>{{ revision.member.email }}</a></td>
                                     <td>{{ revision.member.country }}</td>
                                     <td>{{ revision.created|date("d/m/Y") }}</td>
                                     <td>{% if revision.revisedIn %}{{ revision.revisedIn|date("d/m/Y") }}{% endif %}</td>
