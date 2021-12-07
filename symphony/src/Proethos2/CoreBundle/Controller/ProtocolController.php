@@ -1201,6 +1201,9 @@ class ProtocolController extends Controller
                 $revision = $protocol_revision_repository->findOneBy(array('member' => $user, "protocol" => $protocol));
                 if($revision) {
                     if ( 'yes' == $post_data['protocol-review-invitation'] ) {
+                        $subject = "Review invitation has been accepted";
+                        $help = $help_repository->find(127);
+
                         $revision->setAccepted(true);
                         $em->persist($revision);
                         $em->flush();
@@ -1209,6 +1212,9 @@ class ProtocolController extends Controller
                     }
 
                     if ( 'no' == $post_data['protocol-review-invitation'] ) {
+                        $subject = "Review invitation has been rejected";
+                        $help = $help_repository->find(128);
+
                         $revision->setRejected(true);
                         $revision->setRejectReason($post_data['reject-reason']);
                         
@@ -1222,9 +1228,39 @@ class ProtocolController extends Controller
                         $session->getFlashBag()->add('success', $translator->trans("Review has been rejected with success!"));
                     }
                     
+                    $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+                    $home_url = $baseurl . $this->generateUrl('home');
+                    $url = $baseurl . $this->generateUrl('protocol_show_protocol', array("protocol_id" => $protocol->getId()));
+
+                    $_locale = $request->getSession()->get('_locale');
+                    $translations = $trans_repository->findTranslations($help);
+                    $text = $translations[$_locale];
+                    $body = $text['message'];
+                    $body = str_replace("%home_url%", $home_url, $body);
+                    $body = str_replace("%journal_url%", $url, $body);
+                    $body = str_replace("%journal_code%", $protocol->getCode(), $body);
+                    $body = str_replace("\r\n", "<br />", $body);
+                    $body .= "<br /><br />";
+
+                    $secretaries_emails = array();
+                    foreach($user_repository->findAll() as $secretary) {
+                        if(in_array("secretary", $secretary->getRolesSlug())) {
+                            $secretaries_emails[] = $secretary->getEmail();
+                        }
+                    }
+
+                    $message = \Swift_Message::newInstance()
+                    ->setSubject("[LILACS] " . $translator->trans($subject))
+                    ->setFrom($util->getConfiguration('committee.email'))
+                    ->setTo($secretaries_emails)
+                    ->setBody(
+                        $body
+                        ,
+                        'text/html'
+                    );
+                    
                     return $this->redirectToRoute('crud_committee_protocol_list', array('protocol_id' => $protocol->getId()), 301);
                 }
-
             }
         }
 
