@@ -1157,7 +1157,7 @@ class ProtocolController extends Controller
                     $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
                     return $output;
                 }
-
+/*
                 // checking required citation attachment
                 $upload_type = $upload_type_repository->findBy(array('slug' => 'citation'));
                 $upload_type_id = $upload_type[0]->getId();
@@ -1166,7 +1166,7 @@ class ProtocolController extends Controller
                     $session->getFlashBag()->add('error', $translator->trans("Please submit all required files."));
                     return $output;
                 }
-/*
+
                 // checking required retrospective attachment
                 $upload_type = $upload_type_repository->findBy(array('slug' => 'retrospective'));
                 $upload_type_id = $upload_type[0]->getId();
