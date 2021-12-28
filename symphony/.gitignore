@@ -10,8 +10,12 @@
 /vendor/
 /bin/
 /composer.phar
+/composer.lock
 *~
 
 /src/Proethos2/CoreBundle/Resources/public/uploads/*
+!uploads/
 uploads/*
+!uploads/.htaccess
 web/phpmyadmin/
+.env
