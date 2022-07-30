@@ -103,7 +103,7 @@ class User extends Base implements UserInterface, \Serializable
     private $institution;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank()
      */
     private $lattes;
