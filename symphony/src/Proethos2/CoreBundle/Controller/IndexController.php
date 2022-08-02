@@ -47,6 +47,26 @@ class IndexController extends Controller
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
+        if ( in_array('secretary', $user->getRolesSlug()) ) {
+            return $this->redirectToRoute('crud_committee_protocol_list', array(), 301);
+        }
+
+        if ( in_array('investigator', $user->getRolesSlug()) ) {
+            return $this->redirectToRoute('crud_investigator_protocol_list', array(), 301);
+        }
+
+        if ( in_array('member-ad-hoc', $user->getRolesSlug()) ) {
+            return $this->redirectToRoute('crud_committee_protocol_list', array(), 301);
+        }
+
+        if ( in_array('member-of-committee', $user->getRolesSlug()) ) {
+            return $this->redirectToRoute('crud_committee_protocol_list', array(), 301);
+        }
+
+        if ( in_array('administrator', $user->getRolesSlug()) ) {
+            return $this->redirectToRoute('crud_admin_configuration_list', array(), 301);
+        }
+
         $committee_revisions = array();
         foreach($committee_revision_repository->findBy(array("member" => $user)) as $revision) {
             if($revision->getProtocol()->getStatus() == 'E') {
