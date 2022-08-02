@@ -209,14 +209,14 @@ class Submission extends Base
     /**
      * @var string
      *
-     * @ORM\Column(name="social_networks_info", type="string")
+     * @ORM\Column(name="social_networks_info", type="text", nullable=true)
      */
     private $socialNetworksInfo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mission", type="string")
+     * @ORM\Column(name="mission", type="text", nullable=true)
      * @Assert\NotBlank
      */
     private $mission;
