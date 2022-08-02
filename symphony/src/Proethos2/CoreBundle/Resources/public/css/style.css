@@ -283,7 +283,7 @@ img.logo {
 }
 
 .nav>li>a.nav-logo:hover {
-    background: #00008b;
+    /*background: #00008b;*/
 }
 
 .nav>li>a>img.logo {
