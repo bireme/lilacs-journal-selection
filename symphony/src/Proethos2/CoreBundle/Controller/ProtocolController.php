@@ -1351,9 +1351,9 @@ class ProtocolController extends Controller
 
             // only change if is not final revision
             if(!$protocol_revision->getIsFinalRevision()) {
-            	$accept_conditions = ( 'on' == $post_data['accept-conditions'] ) ? true : false;
-
                 if ( "committee" == $post_data['member-type'] ) {
+                    $accept_conditions   = ( 'on' == $post_data['accept-conditions'] ) ? true : false;
+                    
                     $protocol_revision->setPositiveAspects($post_data['positive-aspects']);
                     $protocol_revision->setNegativeAspects($post_data['negative-aspects']);
                     $protocol_revision->setOtherComments($post_data['other-comments']);
@@ -1401,6 +1401,11 @@ class ProtocolController extends Controller
                         $em->flush();
                     }
                 } elseif ( "adhoc" == $post_data['member-type'] ) {
+                    $accept_conditions   = ( 'on' == $post_data['accept-conditions'] ) ? true : false;
+                    $accept_conditions_a = ( 'on' == $post_data['accept-conditions-a'] ) ? true : false;
+                    $accept_conditions_b = ( 'on' == $post_data['accept-conditions-b'] ) ? true : false;
+                    $accept_conditions_c = ( 'on' == $post_data['accept-conditions-c'] ) ? true : false;
+
                     $protocol_revision->setEditorialTeam($post_data['editorial-team']);
                     $protocol_revision->setContentA($post_data['content-a']);
                     $protocol_revision->setContentB($post_data['content-b']);
@@ -1424,6 +1429,9 @@ class ProtocolController extends Controller
                     $protocol_revision->setOtherComments($post_data['other-comments']);
                     $protocol_revision->setOtherJournals($post_data['other-journals']);
                     $protocol_revision->setAcceptConditions($accept_conditions);
+                    $protocol_revision->setAcceptConditionsA($accept_conditions_a);
+                    $protocol_revision->setAcceptConditionsB($accept_conditions_b);
+                    $protocol_revision->setAcceptConditionsC($accept_conditions_c);
                     $protocol_revision->setUpdated(new \DateTime());
                 } else {
                     throw $this->createNotFoundException($translator->trans('You cannot edit this protocol'));

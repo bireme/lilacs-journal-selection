@@ -218,9 +218,45 @@
     <div class="col-md-12">
         <div class="form-group">
             <div class="checkbox">
-                <label for='input-accept-terms'>
+                <label for='input-accept-conditions'>
                     <input type='checkbox' name='accept-conditions' id='input-accept-conditions' {% if protocol_revision.acceptConditions %}checked{% endif %} {% if protocol_revision.isFinalRevision %}disabled{% endif %}>
                     {% trans %}I declare that I have no ties or self-interest in the evaluation of this journal{% endtrans %}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="checkbox">
+                <label for='input-accept-conditions-a'>
+                    <input type='checkbox' name='accept-conditions-a' id='input-accept-conditions-a' {% if protocol_revision.acceptConditionsA %}checked{% endif %} {% if protocol_revision.isFinalRevision %}disabled{% endif %}>
+                    {% trans %}Estou de acordo em ter minha identidade divulgada ao editor do periódico avaliado{% endtrans %}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="checkbox">
+                <label for='input-accept-conditions-b'>
+                    <input type='checkbox' name='accept-conditions-b' id='input-accept-conditions-b' {% if protocol_revision.acceptConditionsB %}checked{% endif %} {% if protocol_revision.isFinalRevision %}disabled{% endif %}>
+                    {% trans %}Estou de acordo em ter minha avaliação divulgada publicamente, mas sem a identificação{% endtrans %}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class='row'>
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="checkbox">
+                <label for='input-accept-conditions-c'>
+                    <input type='checkbox' name='accept-conditions-c' id='input-accept-conditions-c' {% if protocol_revision.acceptConditionsC %}checked{% endif %} {% if protocol_revision.isFinalRevision %}disabled{% endif %}>
+                    {% trans %}Estou de acordo em ter minha avaliação divulgada e identificada publicamente{% endtrans %}
                 </label>
             </div>
         </div>

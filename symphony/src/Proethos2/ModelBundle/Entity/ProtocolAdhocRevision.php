@@ -239,6 +239,27 @@ class ProtocolAdhocRevision extends Base
     private $accept_conditions;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="accept_conditions_a", type="boolean", nullable=true)
+     */
+    private $accept_conditions_a;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="accept_conditions_b", type="boolean", nullable=true)
+     */
+    private $accept_conditions_b;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="accept_conditions_c", type="boolean", nullable=true)
+     */
+    private $accept_conditions_c;
+
+    /**
      * @ORM\Column(name="send_alert_date", type="datetime", nullable=true)
      */
     private $send_alert_date;
@@ -1048,5 +1069,77 @@ class ProtocolAdhocRevision extends Base
     public function getAccepted()
     {
         return $this->accepted;
+    }
+
+    /**
+     * Set acceptConditionsA
+     *
+     * @param boolean $acceptConditionsA
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setAcceptConditionsA($acceptConditionsA)
+    {
+        $this->accept_conditions_a = $acceptConditionsA;
+
+        return $this;
+    }
+
+    /**
+     * Get acceptConditionsA
+     *
+     * @return boolean
+     */
+    public function getAcceptConditionsA()
+    {
+        return $this->accept_conditions_a;
+    }
+
+    /**
+     * Set acceptConditionsB
+     *
+     * @param boolean $acceptConditionsB
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setAcceptConditionsB($acceptConditionsB)
+    {
+        $this->accept_conditions_b = $acceptConditionsB;
+
+        return $this;
+    }
+
+    /**
+     * Get acceptConditionsB
+     *
+     * @return boolean
+     */
+    public function getAcceptConditionsB()
+    {
+        return $this->accept_conditions_b;
+    }
+
+    /**
+     * Set acceptConditionsC
+     *
+     * @param boolean $acceptConditionsC
+     *
+     * @return ProtocolAdhocRevision
+     */
+    public function setAcceptConditionsC($acceptConditionsC)
+    {
+        $this->accept_conditions_c = $acceptConditionsC;
+
+        return $this;
+    }
+
+    /**
+     * Get acceptConditionsC
+     *
+     * @return boolean
+     */
+    public function getAcceptConditionsC()
+    {
+        return $this->accept_conditions_c;
     }
 }
