@@ -40,6 +40,11 @@
 
         <h5>{% trans %}Comments and justifications{% endtrans %}</h5>
         <p>{{ protocol_revision.otherComments }}</p>
+
+        <hr />
+
+        <h5>{{ 'Conditions'|trans|upper }}</h5>
+        <p><i class='glyphicon glyphicon-{% if protocol_revision.acceptConditions %}ok{% else %}remove{% endif %}'></i> Declaro não possuir nenhum vínculo ou interesse próprio na avaliação deste periódico</p>
     </div>
 {% else %}
     <div class="modal-body">
@@ -114,6 +119,14 @@
 
         <h5>{% trans %}Em sua opinião, existem periódicos mais importantes para esta área do que o periódico em avaliação? Se sim, por gentileza, indique abaixo:{% endtrans %}</h5>
         <p>{{ protocol_revision.otherJournals }}</p>
+
+        <hr />
+
+        <h5>{{ 'Conditions'|trans|upper }}</h5>
+        <p><i class='glyphicon glyphicon-{% if protocol_revision.acceptConditions %}ok{% else %}remove{% endif %}'></i> Declaro não possuir nenhum vínculo ou interesse próprio na avaliação deste periódico</p>
+        <p><i class='glyphicon glyphicon-{% if protocol_revision.acceptConditionsA %}ok{% else %}remove{% endif %}'></i> Estou de acordo em ter minha identidade divulgada ao editor do periódico avaliado</p>
+        <p><i class='glyphicon glyphicon-{% if protocol_revision.acceptConditionsB %}ok{% else %}remove{% endif %}'></i> Estou de acordo em ter minha avaliação divulgada publicamente, mas sem a identificação</p>
+        <p><i class='glyphicon glyphicon-{% if protocol_revision.acceptConditionsC %}ok{% else %}remove{% endif %}'></i> Estou de acordo em ter minha avaliação divulgada e identificada publicamente</p>
     </div>
 {% endif %}
 
