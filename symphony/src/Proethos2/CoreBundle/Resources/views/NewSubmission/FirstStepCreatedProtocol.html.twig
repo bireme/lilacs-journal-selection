@@ -51,16 +51,16 @@
                                 <input type="text" class="form-control" name='additional_title' id='input_additional_title' value="{{ submission.additionalTitle }}">
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group required">
                                 <label for="input_issn">{% trans %}ISSN{% endtrans %}:</label>
                                 <a href="{{ path("crud_admin_help_show", {help_id: 6} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                                <input type="text" class="form-control" name='issn' id='input_issn' value="{{ submission.issn }}">
+                                <input type="text" class="form-control" name='issn' id='input_issn' value="{{ submission.issn }}" required>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group required">
                                 <label for="input_issn_online">{% trans %}ISSN Online{% endtrans %}:</label>
                                 <a href="{{ path("crud_admin_help_show", {help_id: 7} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
-                                <input type="text" class="form-control" name='issn_online' id='input_issn_online' value="{{ submission.issnOnline }}">
+                                <input type="text" class="form-control" name='issn_online' id='input_issn_online' value="{{ submission.issnOnline }}" required>
                             </div>
 
                             <div class="form-group required">

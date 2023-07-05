@@ -130,7 +130,9 @@ class NewSubmissionController extends Controller
                 'language',
                 'thematic_area',
                 'specialty',
-                'funders'
+                'funders',
+                'issn',
+                'issn_online'
             );
 
             // checking required fields
@@ -361,7 +363,9 @@ class NewSubmissionController extends Controller
                 'language',
                 'thematic_area',
                 'specialty',
-                'funders'
+                'funders',
+                'issn',
+                'issn_online'
             );
 
             // checking required fields
