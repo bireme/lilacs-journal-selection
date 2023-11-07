@@ -903,12 +903,21 @@ class CRUDController extends Controller
 
         $role_query = $request->query->get('role');
         if ( $role_query ) {
-            $users = $user_repository->createQueryBuilder('u')
-                ->join('u.proethos2_roles', 'r', 'WITH', 'r.slug = :slug')
-                ->addOrderBy('u.'.$order_field, $order_sort)
-                ->setParameter('slug', $role_query)
-                ->getQuery()
-                ->getResult();
+            if ( 'none' == $role_query ) {
+                $users = $user_repository->createQueryBuilder('u')
+                    ->leftJoin('u.proethos2_roles', 'r')
+                    ->where('r.slug IS NULL')
+                    ->addOrderBy('u.'.$order_field, $order_sort)
+                    ->getQuery()
+                    ->getResult();
+            } else {
+                $users = $user_repository->createQueryBuilder('u')
+                    ->join('u.proethos2_roles', 'r', 'WITH', 'r.slug = :slug')
+                    ->addOrderBy('u.'.$order_field, $order_sort)
+                    ->setParameter('slug', $role_query)
+                    ->getQuery()
+                    ->getResult();
+            }
         } else {
             $users = $user_repository->findBy(array(), array($order_field => $order_sort));
         }
@@ -917,7 +926,6 @@ class CRUDController extends Controller
         $search_query = $request->query->get('q');
         $specialty_query = intval($request->query->get('specialty'));
         $specialty_object = $specialty_repository->find($specialty_query);
-        
 
         if($search_query or $specialty_object) {
             $where = 'u.name LIKE :query';
@@ -929,14 +937,25 @@ class CRUDController extends Controller
             }
 
             if ( $role_query ) {
-                $orm_params['slug'] = $role_query;
-                $users = $user_repository->createQueryBuilder('u')
-                    ->join('u.proethos2_roles', 'r', 'WITH', 'r.slug = :slug')
-                    ->where($where)
-                    ->addOrderBy('u.'.$order_field, $order_sort)
-                    ->setParameters($orm_params)
-                    ->getQuery()
-                    ->getResult();
+                if ( 'none' == $role_query ) {
+                    $where = $where . ' AND r.slug IS NULL';
+                    $users = $user_repository->createQueryBuilder('u')
+                        ->leftJoin('u.proethos2_roles', 'r')
+                        ->where($where)
+                        ->addOrderBy('u.'.$order_field, $order_sort)
+                        ->setParameters($orm_params)
+                        ->getQuery()
+                        ->getResult();
+                } else {
+                    $orm_params['slug'] = $role_query;
+                    $users = $user_repository->createQueryBuilder('u')
+                        ->join('u.proethos2_roles', 'r', 'WITH', 'r.slug = :slug')
+                        ->where($where)
+                        ->addOrderBy('u.'.$order_field, $order_sort)
+                        ->setParameters($orm_params)
+                        ->getQuery()
+                        ->getResult();
+                }
             } else {
                 $users = $user_repository->createQueryBuilder('u')
                     ->where($where)

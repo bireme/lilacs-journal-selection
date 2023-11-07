@@ -47,6 +47,7 @@
                             <a href="{{ path("crud_admin_help_show", {help_id: 124} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                             <select class='form-control selectpicker submit-on-change' id='select-filter-role' name='role' data-size="6" required>
                                 <option value="">-</option>
+                                <option value="none" {% if app.request.get('role') == 'none' %}selected{% endif %}>{% trans %}None{% endtrans %}</option>
                                 <option value="administrator" {% if app.request.get('role') == 'administrator' %}selected{% endif %}>{% trans %}Administrator{% endtrans %}</option>
                                 <option value="secretary" {% if app.request.get('role') == 'secretary' %}selected{% endif %}>{% trans %}Coordination{% endtrans %}</option>
                                 <option value="investigator" {% if app.request.get('role') == 'investigator' %}selected{% endif %}>{% trans %}Editor{% endtrans %}</option>
