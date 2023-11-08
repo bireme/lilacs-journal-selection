@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2021-08-04T17:41:55Z" source-language="en" target-language="fr_FR" datatype="plaintext" original="not.available">
+  <file date="2023-11-08T11:31:54Z" source-language="en" target-language="fr_FR" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -398,6 +398,10 @@
         <source>Decision in</source>
         <target>Decision in</target>
       </trans-unit>
+      <trans-unit id="d02a8cddded3cdb0d855d3696f5fc6d2c11bb551" resname="Declaro não possuir nenhum vínculo ou interesse próprio na avaliação deste periódico">
+        <source>Declaro não possuir nenhum vínculo ou interesse próprio na avaliação deste periódico</source>
+        <target>Declaro não possuir nenhum vínculo ou interesse próprio na avaliação deste periódico</target>
+      </trans-unit>
       <trans-unit id="ff59b80fe424c310ab693ad14dab8a2d3885f54a" resname="Declined">
         <source>Declined</source>
         <target>Declined</target>
@@ -593,6 +597,18 @@
       <trans-unit id="d8c18689efdfb9595d168de85f61d7be86c5b8c4" resname="Estou de acordo com a disponibilização e carga dos links/arquivos para o texto completo dos artigos, caso o periódico seja aprovado">
         <source>Estou de acordo com a disponibilização e carga dos links/arquivos para o texto completo dos artigos, caso o periódico seja aprovado</source>
         <target>Estou de acordo com a disponibilização e carga dos links/arquivos para o texto completo dos artigos, caso o periódico seja aprovado</target>
+      </trans-unit>
+      <trans-unit id="47655a935bf3e931ebfcb39a5ea6c5c3eebdb7cd" resname="Estou de acordo em ter minha avaliação divulgada e identificada publicamente">
+        <source>Estou de acordo em ter minha avaliação divulgada e identificada publicamente</source>
+        <target>Estou de acordo em ter minha avaliação divulgada e identificada publicamente</target>
+      </trans-unit>
+      <trans-unit id="17ec2e13c3f975d8aa705d96693fc3f6282a6864" resname="Estou de acordo em ter minha avaliação divulgada publicamente, mas sem a identificação">
+        <source>Estou de acordo em ter minha avaliação divulgada publicamente, mas sem a identificação</source>
+        <target>Estou de acordo em ter minha avaliação divulgada publicamente, mas sem a identificação</target>
+      </trans-unit>
+      <trans-unit id="ca68918fcd1ae2f6d025b1e711d0bff906515be0" resname="Estou de acordo em ter minha identidade divulgada ao editor do periódico avaliado">
+        <source>Estou de acordo em ter minha identidade divulgada ao editor do periódico avaliado</source>
+        <target>Estou de acordo em ter minha identidade divulgada ao editor do periódico avaliado</target>
       </trans-unit>
       <trans-unit id="fa113e376a9fc94dae8257496b4ddedf58322e90" resname="Evaluated Journals">
         <source>Evaluated Journals</source>
@@ -1309,6 +1325,10 @@
       <trans-unit id="cdcb1e9c6561d7d1fbf68583e79140317e93e5d2" resname="No user found">
         <source>No user found</source>
         <target>No user found</target>
+      </trans-unit>
+      <trans-unit id="6eef6648406c333a4035cd5e60d0bf2ecf2606d7" resname="None">
+        <source>None</source>
+        <target>None</target>
       </trans-unit>
       <trans-unit id="1759be7d1ee5f0675567c09987cd4419ba474561" resname="Not approved">
         <source>Not approved</source>
@@ -2191,6 +2211,10 @@
       <trans-unit id="84c29015de33e5d22422382a372caba5c58f8c01" resname="Username">
         <source>Username</source>
         <target>Username</target>
+      </trans-unit>
+      <trans-unit id="2c7ab350b329cfbb1942cfa52094f9852c4442a3" resname="Username or email">
+        <source>Username or email</source>
+        <target>Username or email</target>
       </trans-unit>
       <trans-unit id="57f2b181d0a5e79a147ea1cdf41457f58dbbb3c9" resname="Users">
         <source>Users</source>
