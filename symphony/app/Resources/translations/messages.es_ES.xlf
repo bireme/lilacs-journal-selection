@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2023-11-08T11:31:52Z" source-language="en" target-language="es_ES" datatype="plaintext" original="not.available">
+  <file date="2023-11-08T16:55:30Z" source-language="en" target-language="es_ES" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -169,6 +169,10 @@
       <trans-unit id="410bf23a3f080def9c7a976a16305bcde7943ed1" resname="Are you sure?">
         <source>Are you sure?</source>
         <target>¿Está seguro?</target>
+      </trans-unit>
+      <trans-unit id="2b226c7948b48ad8f6ece8d91270c6915aba6b73" resname="Ascending">
+        <source>Ascending</source>
+        <target>Ascending</target>
       </trans-unit>
       <trans-unit id="e24e824b68118fff14de0778b82b4c9dbfb94b46" resname="Assigned">
         <source>Assigned</source>
@@ -445,6 +449,10 @@
       <trans-unit id="637d03369b754a9668f3b81decf05ee807ba648f" resname="Deployment report added with success.">
         <source>Deployment report added with success.</source>
         <target>Deployment report added with success.</target>
+      </trans-unit>
+      <trans-unit id="36377adf43984d298439110cf96f95529471c501" resname="Descending">
+        <source>Descending</source>
+        <target>Descending</target>
       </trans-unit>
       <trans-unit id="55f8ebc805e65b5b71ddafdae390e3be2bcd69af" resname="Description">
         <source>Description</source>
