@@ -971,15 +971,27 @@ class CRUDController extends Controller
         // output parameter
         $output_parameter = $request->query->get('output');
         if($output_parameter == 'csv') {
-            $csv_headers = array('USERNAME', 'ID', 'EMAIL', 'ROLES', 'ACTIVE?', 'NAME', 'COUNTRY', 'INSTITUTION', 'LATTES', 'PRACTICE AREA', 'OTHER PRACTICE AREA');
+            $csv_headers = array('ID', 'USERNAME', 'EMAIL', 'ROLES', 'ACTIVE?', 'NAME', 'COUNTRY', 'INSTITUTION', 'LATTES', 'PRACTICE AREA', 'OTHER PRACTICE AREA');
             $csv_output = array();
             foreach($users as $user) {
+                $roles = array(
+                    'investigator'        => $translator->trans("Editor"),
+                    'secretary'           => $translator->trans("Coordination"),
+                    'member-of-committee' => $translator->trans("Member of Committee"),
+                    'member-ad-hoc'       => $translator->trans("Reviewer ad-hoc"),
+                    'administrator'       => $translator->trans("Administrator")
+                );
+                $csv_roles = array();
+                foreach( $user->getProethos2Roles() as $role ) {
+                    $csv_roles[] = $roles[$role->getSlug()];
+                }
+
                 $current_line = array();
                 $current_line[] = $user->getId();
                 $current_line[] = $user->getUsername();
                 $current_line[] = $user->getEmail();
-                $current_line[] = implode(",", $user->getRolesSlug());
-                $current_line[] = $user->getIsActive() == 1 ? "YES" : "NO";
+                $current_line[] = implode(", ", $csv_roles);
+                $current_line[] = $user->getIsActive() == 1 ? $translator->trans("Yes") : $translator->trans("No");
                 $current_line[] = $user->getName();
                 $current_line[] = $user->getCountry() ? $user->getCountry()->getName() : '';
                 $current_line[] = $user->getInstitution();

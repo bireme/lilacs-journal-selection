@@ -20,7 +20,7 @@
                 <input type="hidden" name="output" id="input-output" value="html" />
 
                 <div class='row'>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group" id='form-filter'>
                             <label for="input-filter-q">{% trans %}Search for a user{% endtrans %}:</label>
                             <a href="{{ path("crud_admin_help_show", {help_id: 64} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
@@ -41,7 +41,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-1">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label for="select-role">{% trans %}Roles{% endtrans %}:</label>
                             <a href="{{ path("crud_admin_help_show", {help_id: 124} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-1">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label for="select-rating">{% trans %}Rating{% endtrans %}:</label>
                             <a href="{{ path("crud_admin_help_show", {help_id: 125} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
@@ -69,13 +69,10 @@
                         </div>
                     </div>
 
-                    <div class="col-md-1 search-button">
+                    <div class="form-inline col-md-2 search-button">
                         <div class="form-group">
                             <a href="#" class='btn btn-warning' id="export-to-csv-button">{% trans %}Export to CSV{% endtrans %}</a>
                         </div>
-                    </div>
-
-                    <div class="col-md-1 search-button">
                         <div class="form-group">
                             <button type="submit" class='btn btn-primary' id="id-search-button">{% trans %}Search{% endtrans %}</button>
                         </div>

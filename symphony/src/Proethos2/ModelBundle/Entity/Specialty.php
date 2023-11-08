@@ -81,6 +81,10 @@ class Specialty extends Base
         return $this->locale;
     }
 
+    public function __toString() {
+        return $this->getName();
+    }
+
     /**
      * Get id
      *
