@@ -63,8 +63,8 @@
                             <a href="{{ path("crud_admin_help_show", {help_id: 125} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                             <select class='form-control selectpicker submit-on-change' id='select-filter-rating' name='rating' data-size="5" data-live-search="true">
                                 <option value="">-</option>
-                                <option value="DESC" {% if app.request.get('rating') == 'DESC' %}selected{% endif %}>Descending</option>
-                                <option value="ASC" {% if app.request.get('rating') == 'ASC' %}selected{% endif %}>Ascending</option>
+                                <option value="DESC" {% if app.request.get('rating') == 'DESC' %}selected{% endif %}>{% trans %}Descending{% endtrans %}</option>
+                                <option value="ASC" {% if app.request.get('rating') == 'ASC' %}selected{% endif %}>{% trans %}Ascending{% endtrans %}</option>
                             </select>
                         </div>
                     </div>
