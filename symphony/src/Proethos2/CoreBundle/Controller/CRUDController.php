@@ -924,13 +924,19 @@ class CRUDController extends Controller
         
         // search parameters
         $search_query = $request->query->get('q');
+        $status_query = $request->query->get('status');
         $specialty_query = intval($request->query->get('specialty'));
         $specialty_object = $specialty_repository->find($specialty_query);
 
-        if($search_query or $specialty_object) {
+        if($search_query or $specialty_object or $status_query) {
             $where = 'u.name LIKE :query';
             $orm_params = array('query' => "%". $search_query ."%");
             
+            if ( $status_query and in_array($status_query, array('active', 'inactive')) ) {
+                $orm_params['is_active'] = ( 'active' == $status_query ) ? 1 : 0;
+                $where = $where . ' AND u.isActive = :is_active';
+            }
+
             if ( $specialty_object ) {
                 $orm_params['specialty'] = $specialty_object;
                 $where = $where . ' AND u.specialty = :specialty';

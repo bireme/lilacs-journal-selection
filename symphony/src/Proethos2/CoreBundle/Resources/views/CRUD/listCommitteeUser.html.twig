@@ -19,8 +19,8 @@
             <form class='form' id='form-search'>
                 <input type="hidden" name="output" id="input-output" value="html" />
 
-                <div class='row'>
-                    <div class="col-md-4">
+                <div class='row mb-0'>
+                    <div class="col-md-10">
                         <div class="form-group" id='form-filter'>
                             <label for="input-filter-q">{% trans %}Search for a user{% endtrans %}:</label>
                             <a href="{{ path("crud_admin_help_show", {help_id: 64} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
@@ -28,7 +28,18 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="form-inline col-md-2 search-button">
+                        <div class="form-group">
+                            <a href="#" class='btn btn-warning' id="export-to-csv-button">{% trans %}Export to CSV{% endtrans %}</a>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class='btn btn-primary' id="id-search-button">{% trans %}Search{% endtrans %}</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="select-specialty">{% trans %}Practice Area{% endtrans %}:</label>
                             <a href="{{ path("crud_admin_help_show", {help_id: 123} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
@@ -41,7 +52,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="select-role">{% trans %}Roles{% endtrans %}:</label>
                             <a href="{{ path("crud_admin_help_show", {help_id: 124} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
@@ -57,24 +68,27 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="select-rating">{% trans %}Status{% endtrans %}:</label>
+                            <a href="{{ path("crud_admin_help_show", {help_id: 125} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <select class='form-control selectpicker submit-on-change' id='select-filter-status' name='status' data-size="5" data-live-search="true">
+                                <option value="">-</option>
+                                <option value="active" {% if app.request.get('status') == 'active' %}selected{% endif %}>{% trans %}Active{% endtrans %}</option>
+                                <option value="inactive" {% if app.request.get('status') == 'inactive' %}selected{% endif %}>{% trans %}Inactive{% endtrans %}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="select-rating">{% trans %}Rating{% endtrans %}:</label>
-                            <a href="{{ path("crud_admin_help_show", {help_id: 125} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
+                            <a href="{{ path("crud_admin_help_show", {help_id: 126} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                             <select class='form-control selectpicker submit-on-change' id='select-filter-rating' name='rating' data-size="5" data-live-search="true">
                                 <option value="">-</option>
                                 <option value="DESC" {% if app.request.get('rating') == 'DESC' %}selected{% endif %}>{% trans %}Descending{% endtrans %}</option>
                                 <option value="ASC" {% if app.request.get('rating') == 'ASC' %}selected{% endif %}>{% trans %}Ascending{% endtrans %}</option>
                             </select>
-                        </div>
-                    </div>
-
-                    <div class="form-inline col-md-2 search-button">
-                        <div class="form-group">
-                            <a href="#" class='btn btn-warning' id="export-to-csv-button">{% trans %}Export to CSV{% endtrans %}</a>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class='btn btn-primary' id="id-search-button">{% trans %}Search{% endtrans %}</button>
                         </div>
                     </div>
                 </div>
