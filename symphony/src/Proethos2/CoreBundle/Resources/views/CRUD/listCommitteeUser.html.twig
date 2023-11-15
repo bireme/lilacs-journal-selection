@@ -74,8 +74,8 @@
                             <a href="{{ path("crud_admin_help_show", {help_id: 125} ) }}" data-toggle="modal" data-target="#modal-help"><i class='glyphicon glyphicon-question-sign'></i></a>
                             <select class='form-control selectpicker submit-on-change' id='select-filter-status' name='status' data-size="5" data-live-search="true">
                                 <option value="">-</option>
-                                <option value="active" {% if app.request.get('status') == 'active' %}selected{% endif %}>{% trans %}Active{% endtrans %}</option>
-                                <option value="inactive" {% if app.request.get('status') == 'inactive' %}selected{% endif %}>{% trans %}Inactive{% endtrans %}</option>
+                                <option value="active" {% if app.request.get('status') == 'active' %}selected{% endif %}>{% trans %}active{% endtrans %}</option>
+                                <option value="inactive" {% if app.request.get('status') == 'inactive' %}selected{% endif %}>{% trans %}inactive{% endtrans %}</option>
                             </select>
                         </div>
                     </div>
